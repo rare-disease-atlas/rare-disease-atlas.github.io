@@ -1,0 +1,294 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "rare-disease-venture-atlas",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "version": "1.2.0",
+  "description": "Structured orphan disease translational & venture blueprints (Flagships: Clonal JAK2 V617F+ Myelofibrosis and Autoimmune Myelofibrosis + Iron/Hepcidin Axis), non-dilutive grant routing, open GEO/PDB accessions, and ethical patient-community validation.",
+  "license": "https://opensource.org/licenses/MIT",
+  "url": "https://rare-disease-atlas.github.io/",
+  "creator": {
+    "@type": "sc:Organization",
+    "name": "Rare Disease Venture Atlas",
+    "url": "https://github.com/rare-disease-atlas"
+  },
+  "keywords": [
+    "rare-disease",
+    "orphan-drug",
+    "myelofibrosis",
+    "jak2-v617f",
+    "autoimmune-myelofibrosis",
+    "hepcidin",
+    "computational-biology",
+    "public-health",
+    "biotech-venture"
+  ],
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "opportunities-jsonl",
+      "name": "opportunities.jsonl",
+      "contentUrl": "https://rare-disease-atlas.github.io/data/opportunities.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "6b553ae24ecaeeea8b314bb92f425cbdad209093b49894619f2e6eece2004667"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "case_studies-jsonl",
+      "name": "case_studies.jsonl",
+      "contentUrl": "https://rare-disease-atlas.github.io/data/case_studies.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "b496ce7208fd21bd46ddd7c0fd72846bfa2c552f43500b08dcad8a33701cac1b"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "non_dilutive_grants-jsonl",
+      "name": "non_dilutive_grants.jsonl",
+      "contentUrl": "https://rare-disease-atlas.github.io/data/non_dilutive_grants.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "5f49e7db987a35f4068c8ebd11aad55513d5cb27791ff320290db2e15de523c4"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "validation_communities-jsonl",
+      "name": "validation_communities.jsonl",
+      "contentUrl": "https://rare-disease-atlas.github.io/data/validation_communities.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "bad7c7959f466b1d3cba069fabfe401726ec18b7049d088ddfbdd4268f72b46d"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "opportunities-master-json",
+      "name": "opportunities.json",
+      "contentUrl": "https://rare-disease-atlas.github.io/opportunities.json",
+      "encodingFormat": "application/json",
+      "sha256": "22611fe0dc30417b3992c0261c005870afb2bef79577ba00cbc8b0fbdf5a6214"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "opportunities",
+      "name": "opportunities",
+      "description": "8 founder-ready translational & venture blueprints across AI/CompBio, Public Health/Diagnostics, and Biotech Venture.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "opportunities/id",
+          "name": "id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "opportunities-jsonl"
+            },
+            "extract": {
+              "column": "id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "opportunities/disease_id",
+          "name": "disease_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "opportunities-jsonl"
+            },
+            "extract": {
+              "column": "disease_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "opportunities/title",
+          "name": "title",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "opportunities-jsonl"
+            },
+            "extract": {
+              "column": "title"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "opportunities/problem_wedge",
+          "name": "problem_wedge",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "opportunities-jsonl"
+            },
+            "extract": {
+              "column": "problem_wedge"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "opportunities/solution_blueprint",
+          "name": "solution_blueprint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "opportunities-jsonl"
+            },
+            "extract": {
+              "column": "solution_blueprint"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "case_studies",
+      "name": "case_studies",
+      "description": "Disease case studies (jak2-myelofibrosis and autoimmune-myelofibrosis) with verified trials, GEO/PDB datasets, and orphan drug economics.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "case_studies/id",
+          "name": "id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "case_studies-jsonl"
+            },
+            "extract": {
+              "column": "id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "case_studies/name",
+          "name": "name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "case_studies-jsonl"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "non_dilutive_grants",
+      "name": "non_dilutive_grants",
+      "description": "7 non-dilutive grant, SBIR/STTR, ARPA-H, and venture philanthropy mechanisms.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "non_dilutive_grants/id",
+          "name": "id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "non_dilutive_grants-jsonl"
+            },
+            "extract": {
+              "column": "id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "non_dilutive_grants/name",
+          "name": "name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "non_dilutive_grants-jsonl"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "validation_communities",
+      "name": "validation_communities",
+      "description": "8 patient registries, advocacy networks, and clinical consortiums with ethical outreach rules.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "validation_communities/id",
+          "name": "id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "validation_communities-jsonl"
+            },
+            "extract": {
+              "column": "id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "validation_communities/name",
+          "name": "name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "validation_communities-jsonl"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
