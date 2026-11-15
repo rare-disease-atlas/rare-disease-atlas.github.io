@@ -21,10 +21,12 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
+import re
 import sys
 import time
 from typing import Any
 import urllib.error
+import urllib.parse
 import urllib.request
 
 from . import __version__
@@ -297,6 +299,52 @@ TOOLS_MANIFEST: list[dict[str, Any]] = [
             "additionalProperties": False,
         },
     },
+    {
+        "name": "submit_atlas_feedback",
+        "description": (
+            "Opt-in feedback & gap-reporting channel for AI agents and builders. Report missing "
+            "founder wedges, requested orphan indications, new datasets, or ClinicalTrials.gov "
+            "citation errata. Strictly exclude all personal identifiers (PII), patient health "
+            "records, and confidential user IP."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "signal_type": {
+                    "type": "string",
+                    "description": (
+                        "Category of feedback: 'missing-wedge', 'citation-errata', "
+                        "'new-dataset', 'disease-expansion', or 'usage-feedback'."
+                    ),
+                    "default": "missing-wedge",
+                },
+                "summary": {
+                    "type": "string",
+                    "description": (
+                        "Concise non-PII description of the missing founder opportunity, "
+                        "updated trial readout, or dataset suggestion (max 1000 chars)."
+                    ),
+                },
+                "founder_background": {
+                    "type": "string",
+                    "description": "Optional founder track context (e.g., 'computational-ai-bio', 'public-health', 'venture-novel-financing').",
+                    "default": "unspecified",
+                },
+                "disease_id": {
+                    "type": "string",
+                    "description": "Target disease slug (e.g., 'jak2-myelofibrosis', 'autoimmune-myelofibrosis', or a proposed orphan indication).",
+                    "default": "jak2-myelofibrosis",
+                },
+                "agent_client": {
+                    "type": "string",
+                    "description": "Optional identifier of the calling agent/IDE (e.g., 'claude-code', 'cursor', 'claude-desktop').",
+                    "default": "mcp-agent",
+                },
+            },
+            "required": ["summary"],
+            "additionalProperties": False,
+        },
+    },
 ]
 
 RESOURCES_MANIFEST: list[dict[str, Any]] = [
@@ -461,6 +509,14 @@ class OrphanDiseaseMCPServer:
             payload = self.tool_get_validation_communities(
                 disease_id=args.get("disease_id", "jak2-myelofibrosis")
             )
+        elif name == "submit_atlas_feedback":
+            payload = self.tool_submit_atlas_feedback(
+                summary=str(args.get("summary", "")),
+                signal_type=str(args.get("signal_type", "missing-wedge")),
+                founder_background=str(args.get("founder_background", "unspecified")),
+                disease_id=str(args.get("disease_id", "jak2-myelofibrosis")),
+                agent_client=str(args.get("agent_client", "mcp-agent")),
+            )
         else:
             raise ValueError(f"Unknown tool: {name}")
 
@@ -607,6 +663,115 @@ class OrphanDiseaseMCPServer:
         return {
             "data_source": data_source,
             **entry,
+        }
+
+    @staticmethod
+    def _scrub_pii(text: str) -> str:
+        """Strip accidental email addresses or phone numbers before outbound transmission."""
+        cleaned = re.sub(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", "[redacted-email]", text)
+        cleaned = re.sub(r"\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b", "[redacted-phone]", cleaned)
+        return cleaned.strip()[:1000]
+
+    def tool_submit_atlas_feedback(
+        self,
+        summary: str,
+        signal_type: str = "missing-wedge",
+        founder_background: str = "unspecified",
+        disease_id: str = "jak2-myelofibrosis",
+        agent_client: str = "mcp-agent",
+    ) -> dict[str, Any]:
+        clean_summary = self._scrub_pii(summary)
+        if not clean_summary:
+            return {"error": "Feedback summary must not be empty."}
+
+        allowed_types = {
+            "missing-wedge",
+            "citation-errata",
+            "new-dataset",
+            "disease-expansion",
+            "usage-feedback",
+        }
+        norm_signal = signal_type.strip().lower()
+        if norm_signal not in allowed_types:
+            norm_signal = "usage-feedback"
+
+        atlas, _ = self.repo.get_atlas()
+        webhook_url = (
+            os.environ.get("ATLAS_FEEDBACK_URL", "").strip()
+            or str(atlas.get("feedback_webhook_url", "")).strip()
+        )
+        offline_mode = os.environ.get("ATLAS_OFFLINE", "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+        )
+
+        record = {
+            "schema": "atlas-agent-signal/v1",
+            "signal_type": norm_signal,
+            "founder_background": self._scrub_pii(founder_background)[:80] or "unspecified",
+            "disease_id": self._scrub_pii(disease_id)[:80] or "jak2-myelofibrosis",
+            "agent_client": self._scrub_pii(agent_client)[:80] or "mcp-agent",
+            "summary": clean_summary,
+            "mcp_version": __version__,
+        }
+
+        webhook_delivered = False
+        webhook_receipt = None
+        if webhook_url and not offline_mode:
+            try:
+                req = urllib.request.Request(
+                    webhook_url,
+                    data=json.dumps(record).encode("utf-8"),
+                    headers={
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "User-Agent": f"{SERVER_NAME}/{__version__}",
+                    },
+                    method="POST",
+                )
+                with urllib.request.urlopen(req, timeout=2.5) as resp:
+                    if 200 <= resp.status < 300:
+                        webhook_delivered = True
+                        try:
+                            webhook_receipt = json.loads(resp.read().decode("utf-8"))
+                        except ValueError:
+                            webhook_receipt = {"status": resp.status}
+            except (urllib.error.URLError, TimeoutError, OSError):
+                webhook_delivered = False
+
+        issue_title = f"[Agent Signal: {norm_signal}] {record['disease_id']} ({record['founder_background']})"
+        issue_body = (
+            f"### Structured Agent / Builder Signal\n"
+            f"- **Signal Type:** `{norm_signal}`\n"
+            f"- **Disease Scope:** `{record['disease_id']}`\n"
+            f"- **Founder Background:** `{record['founder_background']}`\n"
+            f"- **Agent / Client:** `{record['agent_client']}` (`mcp v{__version__}`)\n\n"
+            f"### Summary (Zero PII / Zero Confidential IP)\n"
+            f"{clean_summary}\n"
+        )
+        query = urllib.parse.urlencode(
+            {
+                "labels": "agent-signal",
+                "title": issue_title,
+                "body": issue_body,
+            }
+        )
+        prefilled_issue_url = (
+            f"https://github.com/rare-disease-atlas/rare-disease-atlas.github.io/issues/new?{query}"
+        )
+
+        return {
+            "status": "delivered_via_webhook" if webhook_delivered else "ready_for_github_issue_submission",
+            "webhook_delivered": webhook_delivered,
+            "webhook_receipt": webhook_receipt,
+            "sanitized_signal": record,
+            "prefilled_github_issue_url": prefilled_issue_url,
+            "gh_cli_command": (
+                "gh issue create --repo rare-disease-atlas/rare-disease-atlas.github.io "
+                f"--label agent-signal --title {json.dumps(issue_title)} --body {json.dumps(issue_body)}"
+            ),
+            "privacy_note": "Emails and phone numbers are automatically redacted. Never submit patient PHI or confidential IP.",
         }
 
     # ------------------------------------------------------------------

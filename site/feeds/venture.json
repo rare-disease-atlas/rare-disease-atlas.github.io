@@ -1,0 +1,40 @@
+{
+  "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
+  "schema_version": "1.2.0",
+  "slice": "venture",
+  "matched_count": 1,
+  "opportunities": [
+    {
+      "id": "opp-orphan-mpn-venture-studio-spv",
+      "disease_id": "jak2-myelofibrosis",
+      "title": "[VENTURE-01] Evergreen MPN Venture-Philanthropy Syndicate & 'Valley-of-Death' Asset Rescue Studio",
+      "backgrounds": [
+        "venture-novel-financing"
+      ],
+      "capital_tier": "series-a-platform",
+      "capital_range_usd": "$1.5M - $12M",
+      "wet_lab_required": true,
+      "wet_lab_execution_model": "Virtual SPV asset-centric biotech model: zero fixed wet-lab real estate; 100% capital deployed into killer-experiment validation, GLP tox, and 15-25 patient translational Phase 1b trials via tier-1 CROs.",
+      "problem_wedge": "Promising MPN mechanisms (JH2 degraders, S100A8/A9 or TGF-b1/3 antifibrotics, PIM1/MDM2/XPO1 combinations, shelved pharma clinical assets) stall between $250K academic grants and $30M VC rounds, while off-patent generic combos lack traditional VC backing despite saving payors $250K-$600K/yr per prevented progression.",
+      "solution_blueprint": "Build a hybrid Evergreen Venture Philanthropy + For-Profit Co-Investment Syndicate (modeled on the Cystic Fibrosis Foundation's $3.3B Vertex model and Blood Cancer United's TAP). Pool tax-deductible Donor-Advised Funds (DAFs) with biotech angels into $1.5M-$4M milestone-gated SPVs (or payor outcomes contracts) targeting rapid 24-week VAF + digital marrow fibrosis proof-of-concept.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$150,000 - $400,000 search & CRO killer-reproducibility diligence prior to full SPV takedown",
+        "orphan_market_benchmark": "Three single-asset MF acquisitions clustered at $1.7B-$2.9B (CTI -> Sobi $1.7B; Sierra -> GSK $1.9B; MorphoSys -> Novartis $2.9B) as incumbents face late-2020s Jakafi patent cliffs.",
+        "exit_or_revenue_comps": "3x-8x equity efficiency by stacking 1:1 Blood Cancer United TAP / MPNRF / NCI SBIR Fast-Track capital + FY2026 $4.68M PDUFA fee waiver + 25% ODTC tax credit."
+      },
+      "regulatory_pathway": "FDA Orphan Drug Designation + Fast Track + Accelerated Approval / RDEA composite clonal-fibrosis surrogate packages.",
+      "first_90_days_milestones": [
+        "Audit NIH RePORTER R01s, ASH/EHA 2024-2026 abstracts, and shelved pharma clinical assets across JH2 degraders, stromal antifibrotics, and non-myelosuppressive combo partners.",
+        "Establish formal co-diligence alignment with Blood Cancer United TAP and MPN Research Foundation scientific leadership.",
+        "Structure legal DAF-compatible venture-philanthropy SPV template and option top asset gated on independent CRO primary MF CD34+ VAF depletion."
+      ],
+      "open_datasets": [
+        "NIH-RePORTER",
+        "ChEMBL:CHEMBL2971",
+        "ClinicalTrials.gov:API-v2",
+        "Orphanet:ORPHA824"
+      ]
+    }
+  ],
+  "feedback_issue_template": "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io/issues/new?template=agent_feedback.yml"
+}

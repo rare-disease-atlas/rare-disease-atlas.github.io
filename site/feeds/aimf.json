@@ -1,0 +1,70 @@
+{
+  "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
+  "schema_version": "1.2.0",
+  "slice": "aimf",
+  "matched_count": 2,
+  "opportunities": [
+    {
+      "id": "opp-reversible-aimf-fibrosis-control",
+      "disease_id": "autoimmune-myelofibrosis",
+      "title": "[AI-BIO-04] Subtractive Spatial Multi-Omics: Steroid-Reversible Autoimmune Myelofibrosis as 'Nature's Positive Control' for Fibrosis Reversal",
+      "backgrounds": [
+        "computational-ai-bio"
+      ],
+      "capital_tier": "seed",
+      "capital_range_usd": "$250K - $1.5M",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "Academic pathology biobank FFPE core collaboration (10x Visium HD / Xenium spatial transcriptomics on paired pre/post-rituximab or steroid AIMF biopsies vs non-reversing JAK2+ PMF) + in-silico perturbation target ranking.",
+      "problem_wedge": "Clinical dogma treats established human bone marrow fibrosis as an irreversible scar because all 4 approved JAK inhibitors fail to clear Grade 2/3 fibrosis in JAK2+ PMF. Yet in Autoimmune Myelofibrosis (AIMF\u2014JAK2/CALR/MPL-negative, lupus/autoantibody-driven), reticulin fibrosis completely resolves in 74-80% of patients within 3-12 months of immunosuppression (Gangat et al., Mayo Clinic, Br J Haematol 2024).",
+      "solution_blueprint": "Contrast spatial and single-cell stromal states of resolving human AIMF marrow against persistent JAK2+ PMF (GSE156644, GSE144568) to isolate the exact myofibroblast de-differentiation and matrix metalloproteinase (MMP-1/8/13 vs TIMP-1 / GLI1 / S100A8/A9) switches\u2014unlocking orthogonal stromal antifibrotics applicable across PMF, IPF, and systemic sclerosis.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$90,000 - $220,000 (archived FFPE core spatial profiling of 15-20 AIMF vs PMF pairs via academic hematopathology DUA + computational target discovery)",
+        "orphan_market_benchmark": "Direct stromal fibrosis-reversing therapy addresses 100% of Myelofibrosis genotypes ($2B+ market) with platform expansion into Idiopathic Pulmonary Fibrosis ($4B+).",
+        "exit_or_revenue_comps": "High-value biopharma target-discovery & 505(b)(2)/NCE option deals ($50M-$250M+ upfront/milestones for validated human-in-vivo fibrosis reversal targets)."
+      },
+      "regulatory_pathway": "FDA Orphan Drug Designation as an antifibrotic combination backbone in Myelofibrosis + FDA RDEA quantitative pathomics endpoint.",
+      "first_90_days_milestones": [
+        "Execute IRB-exempt archival FFPE tissue collaboration with 1-2 academic hematopathology & rheumatology centers (Mayo / French AIMF consensus criteria).",
+        "Generate spatial transcriptomic maps around resolving polyclonal T/B lymphoid aggregates in AIMF vs neoplastic megakaryocyte clusters in JAK2+ PMF.",
+        "Rank druggable extracellular/stromal switches separating reversible reticulin remodeling from cross-linked collagen persistence.",
+        "File target/repurposing IP and submit MPN Research Foundation Challenge + NIH SBIR Phase I applications."
+      ],
+      "open_datasets": [
+        "GEO:GSE156644",
+        "GEO:GSE144568",
+        "HuggingFace:everycure"
+      ]
+    },
+    {
+      "id": "opp-aimf-vs-tnpmf-pathology-triage",
+      "disease_id": "autoimmune-myelofibrosis",
+      "title": "[PUBLIC-HEALTH-03] Multi-Modal Biopsy, Iron-Hepcidin & Autoimmune Triage Engine Preventing Catastrophic AIMF vs. Triple-Negative PMF Misdiagnosis",
+      "backgrounds": [
+        "public-health",
+        "computational-ai-bio"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $250K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "100% software / EHR + digital pathology clinical decision support bridging rheumatology (SLE/UCTD) and community hematology.",
+      "problem_wedge": "Patients presenting with 'dry tap' marrow fibrosis, severe cytopenias, and massive iron buildup (from RBC transfusions + IL-6/hepcidin macrophage iron trapping) who test negative for JAK2/CALR/MPL face 30-40% diagnostic discordance. Misdiagnosing curable Autoimmune Myelofibrosis (AIMF) as Triple-Negative PMF subjects patients to ineffective $20K/mo cytopenic JAK inhibitors or 20-35% mortality stem cell transplants instead of curative steroids/rituximab.",
+      "solution_blueprint": "Build a 21st Century Cures CDS & WSI morphometry triage engine integrating megakaryocyte clustering/atypia vs polyclonal CD3/CD20 lymphoid aggregates, extended myeloid NGS clonality (ASXL1/SRSF2 absence), lupus/ANA/Coombs serology, and ferritin/TSAT/hepcidin kinetics to flag AIMF and transfusional/inflammatory iron overload early.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$45,000 - $130,000 (retrospective WSI + EHR lab validation across 150 triple-negative vs autoimmune fibrotic marrows)",
+        "orphan_market_benchmark": "Saves payors $200K-$600K per prevented futile JAKi regimen or inappropriate allo-HSCT; simultaneously enriches true clonal Triple-Negative PMF & ACVR1/hepcidin anemia trials for biopharma sponsors.",
+        "exit_or_revenue_comps": "Dual revenue from value-based payor/reference-lab hematopathology licensing (Labcorp / Quest / NeoGenomics channel) + biopharma trial-screening contracts."
+      },
+      "regulatory_pathway": "Transparent clinician-facing CDS under 21st Century Cures Act -> CLIA reference-lab algorithm -> FDA 510(k)/De Novo SaMD.",
+      "first_90_days_milestones": [
+        "Encode Pullarkat / Vergara-Lluri / Mayo 2024 AIMF consensus criteria alongside MIPSS70+ v2.0 and dual iron-overload (TSAT vs ferritin/hepcidin) rules into an open FHIR calculator.",
+        "Fine-tune WSI pathology classifier distinguishing scattered normoblastic megakaryocytes + lymphoid islands (AIMF) from cloud-like clustered megakaryocytes (TN-PMF).",
+        "Partner with Lupus & MPN advocacy groups to map diagnostic delay between rheumatology and hematology clinics."
+      ],
+      "open_datasets": [
+        "GEO:GSE144568",
+        "ClinicalTrials.gov:API-v2"
+      ]
+    }
+  ],
+  "feedback_issue_template": "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io/issues/new?template=agent_feedback.yml"
+}

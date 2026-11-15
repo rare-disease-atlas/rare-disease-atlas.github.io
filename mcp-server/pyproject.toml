@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "orphan-disease-opportunity-mcp"
-version = "1.0.0"
+version = "1.3.0"
 description = "Model Context Protocol (MCP) server for high-tractability orphan disease startup, AI-bio, public-health, and non-dilutive grant opportunities (Flagship #1: JAK2 V617F Myelofibrosis)."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -15,6 +15,7 @@ authors = [
 keywords = [
   "mcp",
   "mcp-server",
+  "model-context-protocol",
   "rare-disease",
   "orphan-drug",
   "drug-repurposing",
@@ -43,12 +44,18 @@ dependencies = []
 
 [project.urls]
 Homepage = "https://rare-disease-atlas.github.io"
+Repository = "https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp"
+Issues = "https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp/issues"
 Dataset = "https://rare-disease-atlas.github.io/opportunities.json"
 Documentation = "https://rare-disease-atlas.github.io/llms.txt"
 
 [project.scripts]
+orphan-disease-opportunity-mcp = "orphan_disease_mcp.server:main"
 orphan-disease-mcp = "orphan_disease_mcp.server:main"
 
 [tool.setuptools]
 packages = ["orphan_disease_mcp"]
 include-package-data = true
+
+[tool.setuptools.package-data]
+orphan_disease_mcp = ["data/*.json"]

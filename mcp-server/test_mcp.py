@@ -134,6 +134,7 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
                     "get_disease_case_study",
                     "find_non_dilutive_grants",
                     "get_validation_communities",
+                    "submit_atlas_feedback",
                 ],
             )
 

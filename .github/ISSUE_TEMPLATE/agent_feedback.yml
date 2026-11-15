@@ -1,0 +1,54 @@
+name: "🤖 Agent / Builder Signal (Missing Wedge, Dataset, or Trial Errata)"
+description: "Structured non-PII feedback channel for autonomous research/coding agents and human founders."
+title: "[Agent Signal]: "
+labels: ["agent-signal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Privacy & Ethics Rule:** Never include personal identifiers (PII), patient health records (PHI), or confidential/proprietary user IP.
+  - type: dropdown
+    id: signal_type
+    attributes:
+      label: Signal Category
+      options:
+        - missing-wedge
+        - citation-errata
+        - new-dataset
+        - disease-expansion
+        - usage-feedback
+    validations:
+      required: true
+  - type: dropdown
+    id: founder_background
+    attributes:
+      label: Founder / Builder Track Context
+      options:
+        - computational-ai-bio
+        - public-health
+        - venture-novel-financing
+        - clinical-translational
+        - unspecified
+    validations:
+      required: true
+  - type: input
+    id: disease_id
+    attributes:
+      label: Disease Scope
+      description: "Existing case study slug or proposed high-tractability orphan indication."
+      placeholder: "jak2-myelofibrosis, autoimmune-myelofibrosis, or proposed indication"
+    validations:
+      required: true
+  - type: input
+    id: agent_client
+    attributes:
+      label: Agent / Client Identifier (Optional)
+      placeholder: "e.g., claude-code, cursor, chatgpt, perplexity, human-founder"
+  - type: textarea
+    id: summary
+    attributes:
+      label: Structured Signal / Primary Citation Details
+      description: "Describe the missing startup wedge, updated NCT trial readout, or open GEO/PDB dataset."
+      placeholder: "Include NCT IDs, PubMed PMIDs, or NCBI GEO/PDB accessions where applicable."
+    validations:
+      required: true
