@@ -2,6 +2,8 @@
   "schema_version": "1.2.0",
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
   "canonical_url": "https://rare-disease-atlas.github.io/opportunities.json",
+  "edge_api_base": "https://api.rare-disease-atlas.workers.dev",
+  "feedback_webhook_url": "https://api.rare-disease-atlas.workers.dev/api/feedback",
   "documentation_url": "https://rare-disease-atlas.github.io/llms.txt",
   "license": "CC-BY-4.0",
   "last_updated": "2026-11-15",

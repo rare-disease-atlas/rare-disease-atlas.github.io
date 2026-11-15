@@ -18,7 +18,9 @@ info:
 
 servers:
   - url: https://rare-disease-atlas.github.io
-    description: Production static S3 + CloudFront distribution
+    description: Production static GitHub Pages distribution
+  - url: https://api.rare-disease-atlas.workers.dev
+    description: Cloudflare Edge persona router & opt-in non-PII agent feedback API
 
 paths:
   /opportunities.json:
