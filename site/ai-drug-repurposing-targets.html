@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orphan Drug AI Repurposing &amp; Structural ML Targets — JAK2 V617F JH2 &amp; Single-Cell Benchmarks</title>
+  <meta name="description" content="Why JAK2 V617F+ myelofibrosis is a benchmark problem for AI drug discovery and computational biology: JH2 pseudokinase mutant-selective allostery plus open human single-cell bone marrow datasets (GSE144568, GSE122198).">
+  <meta name="robots" content="index, follow, max-snippet:-1">
+  <link rel="canonical" href="https://rare-disease-atlas.github.io/ai-drug-repurposing-targets.html">
+  <link rel="describedby" href="./llms.txt" type="text/markdown" title="LLM Summary Index">
+  <link rel="alternate" href="./llms-full.txt" type="text/markdown" title="Full Markdown Knowledge Base">
+  <link rel="stylesheet" href="./styles.css">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Orphan Drug AI Repurposing &amp; Structural ML Targets — JAK2 V617F Dossier">
+  <meta property="og:description" content="Open human single-cell marrow datasets (GSE144568, GSE122198) + the JH2 pseudokinase V617F allosteric selectivity puzzle for AI-bio builders.">
+  <meta property="og:url" content="https://rare-disease-atlas.github.io/ai-drug-repurposing-targets.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "Orphan Drug AI Repurposing & Structural ML Targets: Solving JAK2 V617F Clonal Persistence",
+        "datePublished": "2026-11-15",
+        "dateModified": "2026-11-15",
+        "url": "https://rare-disease-atlas.github.io/ai-drug-repurposing-targets.html"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why is JAK2 V617F an ideal structural ML target compared to conventional kinase mutations?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Unlike catalytic-domain mutations, V617F sits in the regulatory JH2 pseudokinase domain of JAK2, disrupting autoinhibition of the JH1 kinase domain. First-generation drugs bind the conserved JH1 ATP pocket and inhibit wild-type JAK2, causing severe anemia and thrombocytopenia. Designing molecules or degraders selective for the JH2 V617F conformational state while sparing wild-type JAK2 is a high-value frontier problem for ensemble structure prediction and allosteric pocket generation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which NCBI GEO single-cell datasets allow in-silico drug repurposing for myelofibrosis?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "GSE144568 provides 10x Genomics scRNA-seq of CD34+ hematopoietic stem and progenitor cells from myelofibrosis patients versus healthy controls, capturing aberrant megakaryocyte-fibrosis trajectories. GSE122198 provides TARGET-seq single-cell genotyping paired with full-length transcriptomics, directly contrasting JAK2 V617F mutant stem cells against co-resident wild-type stem cells from the same patient marrow."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="protocol-bar">
+    <div class="protocol-bar__inner">
+      <div class="protocol-status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>SPOKE 03 // COMPUTATIONAL BIOLOGY, MULTI-OMICS &amp; STRUCTURAL ML</span>
+      </div>
+      <div class="protocol-links">
+        <a href="./">Briefing Hub</a>
+        <a href="./llms.txt">/llms.txt</a>
+        <a href="./llms-full.txt">/llms-full.txt</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand-mark" href="./">
+        <span class="brand-mark__domain">rare-disease-atlas.github.io</span>
+        <span class="brand-mark__sub">Open Translational Opportunity Dossier [v2026.11]</span>
+      </a>
+      <nav class="funnel-nav" aria-label="Opportunity Funnel Navigation">
+        <a href="./">00 // Briefing Hub</a>
+        <a href="./rare-disease-business-models.html">01 // Orphan Business Models</a>
+        <a href="./public-health-biotech-wedges.html">02 // Public Health &amp; RWE</a>
+        <a href="./ai-drug-repurposing-targets.html" aria-current="page">03 // AI &amp; CompBio Targets</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <header class="dossier-hero" id="executive-answer">
+      <p class="dossier-kicker">Spoke 03 // AI Drug Discovery, Perturbation Omics &amp; Structural Design</p>
+      <h1 class="dossier-title">Which Orphan Indications Give AI-Bio Teams Both a Clean Structural Selectivity Target and Open Human Single-Cell Data?</h1>
+
+      <div class="quick-answer" role="region" aria-label="Executive Summary">
+        <span class="quick-answer__label">64-Word Executive Answer</span>
+        <p>
+          <strong>JAK2 V617F+ myelofibrosis</strong> offers AI-bio teams two rare computational advantages with <strong>$0 upfront wet-lab capex</strong>: (1) a well-posed structural allostery problem—sparing essential wild-type JAK2 by targeting the <strong>JH2 pseudokinase V617F</strong> switch rather than the conserved JH1 catalytic pocket—and (2) open human bone marrow single-cell datasets (<a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144568"><code>GSE144568</code></a>, <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122198"><code>GSE122198</code></a>) resolving mutant vs. wild-type stem cells within the same patient.
+        </p>
+      </div>
+    </header>
+
+    <!-- Section 1: Cross-Target AI Suitability Rubric -->
+    <section class="dossier-section" id="ai-target-rubric" data-dossier-section="compbio-comparison">
+      <span class="section-tag">Section 01 // Target Selection Rubric for Computational Teams</span>
+      <h2>Why Do Most "AI Drug Repurposing" Projects Stall—and Why Does JAK2+ MF Avoid Those Traps?</h2>
+      <p>
+        In-silico drug repurposing and generative design projects typically fail translation when human primary tissue is inaccessible, bulk RNA-seq confounds cell-type proportions, or ex-vivo validation requires multi-year animal models. Evaluate <code>JAK2 V617F+</code> myelofibrosis across computational readiness criteria:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Translational Requirement</th>
+              <th>Typical Rare Solid/Neuro Disease</th>
+              <th>JAK2 V617F+ Myelofibrosis Reality</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Single-Cell Mutant vs. WT Ground Truth</strong></td>
+              <td>Rare; bulk biopsies mix stroma, immune infiltrate, and heterogeneous subclones.</td>
+              <td><span class="badge badge--high">Solved Openly</span> <code>GSE122198</code> (TARGET-seq) pairs single-cell <code>JAK2 V617F</code> genotyping with full transcriptomes inside individual marrows.</td>
+            </tr>
+            <tr>
+              <td><strong>Structural Selectivity Hypothesis</strong></td>
+              <td>Disordered proteins or unclear loss-of-function rescue.</td>
+              <td><span class="badge badge--high">Atomic Resolution</span> Gain-of-function <code>V617F</code> aromatic stacking in JH2 pseudokinase disrupts JH1 autoinhibition &amp; drives cytokine-independent dimerization.</td>
+            </tr>
+            <tr>
+              <td><strong>Fast CRO Wet-Lab Validation Loop</strong></td>
+              <td>Slow organoids or unfaithful murine models.</td>
+              <td><span class="badge badge--high">2–3 Week Readout</span> Ba/F3-EPOR-JAK2(V617F vs. WT) isogenic IC<sub>50</sub> selectivity screens + primary human MF CD34+ colony-forming assays via standard hematology CROs.</td>
+            </tr>
+            <tr>
+              <td><strong>Clinical Combination Backbone</strong></td>
+              <td>Unclear standard of care.</td>
+              <td><span class="badge badge--high">Clear Add-On Path</span> Repurposed non-myelosuppressive hits can layer directly onto genericizing ruxolitinib or ACVR1-sparing momelotinib.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Three Concrete Computational Research Tracks -->
+    <section class="dossier-section" id="computational-tracks" data-dossier-section="ai-tracks">
+      <span class="section-tag">Section 02 // Three Open Computational Challenges</span>
+      <h2>What Can an ML Engineer or Computational Biologist Build Starting Tonight?</h2>
+
+      <h3>Challenge A: Wild-Type-Sparing JH2 Allosteric Binders &amp; Mutant-Selective Degraders</h3>
+      <p>
+        Every approved MF JAK inhibitor (ruxolitinib, fedratinib, pacritinib, momelotinib) is an orthosteric Type I inhibitor competing with ATP in the catalytic <strong>JH1 domain</strong>, which is sequence-identical between mutant and wild-type JAK2. Consequently, systemic exposure sufficient to wipe out mutant stem cells causes severe anemia (blocking EPO-JAK2) and thrombocytopenia (blocking TPO-JAK2). Furthermore, Type I inhibition causes paradoxical <code>JAK2</code> activation-loop phosphorylation accumulation ("persistence").
+      </p>
+      <ul>
+        <li><strong>Computational Objective:</strong> Model full-length homodimeric receptor-JAK2 complexes (EpoR/TpoR + FERM-SH2-JH2-JH1) across wild-type vs. <code>V617F</code> conformational ensembles. Design small molecules stabilizing the autoinhibitory JH2–JH1 interface exclusively in the presence of Phe617, or design VHL/CRBN molecular glues/PROTACs exploiting JH2 V617F ternary cooperativity.</li>
+      </ul>
+
+      <h3>Challenge B: Single-Cell Perturbation Reversal of Megakaryocyte-Driven Bone Marrow Fibrosis</h3>
+      <p>
+        In <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE144568" target="_blank" rel="noopener noreferrer"><code>GSE144568</code></a> (Psaila et al., <em>Molecular Cell</em> 2020; companion code at <code>SingCellaR-myelofibrosis</code>), single-cell profiling of lineage-negative CD34+ HSPCs demonstrated that mutant stem cells bias early toward aberrant megakaryocyte progenitors secreting profibrotic mediators (<em>TGFB1</em>, <em>PF4</em>, <em>PDGFA</em>, <em>LTBP1</em>) that remodel bone marrow mesenchymal stromal cells into collagen-depositing myofibroblasts.
+      </p>
+      <ul>
+        <li><strong>Computational Objective:</strong> Use single-cell foundation models and LINCS/Tahoe-scale chemical perturbation signatures to identify FDA-approved, non-myelosuppressive oral compounds that selectively collapse the aberrant megakaryocyte-fibrosis transcriptional program without suppressing normal erythroid progenitor differentiation.</li>
+      </ul>
+
+      <h3>Challenge C: Synthetic Lethality Against High-Molecular-Risk (HMR) Subclonal Escape</h3>
+      <p>
+        Ruxolitinib discontinuation and leukemic transformation to secondary AML are heavily accelerated by co-mutations in chromatin and splicing regulators—specifically <strong><em>ASXL1</em>, <em>EZH2</em>, <em>SRSF2</em>, <em>U2AF1</em>, and <em>IDH1/2</em></strong>. Using single-cell multi-mutational transcriptomes (<a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE122198" target="_blank" rel="noopener noreferrer"><code>GSE122198</code></a>), computational teams can map differential isoform usage (from <em>SRSF2/U2AF1</em> neomorphic splicing) to discover neoantigens for bispecific T-cell engagers or synthetic-lethal metabolic bottlenecks unique to double-mutant (<code>JAK2 V617F</code> + <em>ASXL1/SRSF2</em>) clones.
+      </p>
+
+      <p style="margin-top: 1.75rem;">
+        <a class="btn-subtle" href="./#test-with-your-agent">&larr; Test These Datasets With Your AI Agent on the Main Hub</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div>
+        <h4>Protocol Node</h4>
+        <p style="margin: 0;"><strong>rare-disease-atlas.github.io</strong> — Open static research dossier for AI agents and translational builders.</p>
+      </div>
+      <div>
+        <h4>Related Dossiers</h4>
+        <ul>
+          <li><a href="./">00 // Main Briefing Hub</a></li>
+          <li><a href="./rare-disease-business-models.html">01 // Orphan Business Models</a></li>
+          <li><a href="./public-health-biotech-wedges.html">02 // Public Health &amp; RWE Wedges</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Machine Feeds</h4>
+        <ul>
+          <li><a href="./llms.txt"><code>/llms.txt</code></a> &middot; <a href="./llms-full.txt"><code>/llms-full.txt</code></a></li>
+          <li><a href="./sitemap.xml"><code>/sitemap.xml</code></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer-bar">
+      Open computational biology hypothesis &amp; dataset index. All preclinical hypotheses require experimental validation. Not medical advice.
+    </div>
+  </footer>
+</body>
+</html>

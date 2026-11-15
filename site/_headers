@@ -1,0 +1,19 @@
+/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+  Link: </llms.txt>; rel="describedby"; type="text/markdown"
+
+/llms.txt
+  Content-Type: text/markdown; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/markdown; charset=utf-8
+
+/opportunities.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/*
+  Content-Type: application/json; charset=utf-8
+
+/openapi.yaml
+  Content-Type: application/yaml; charset=utf-8

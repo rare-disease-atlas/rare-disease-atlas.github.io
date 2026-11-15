@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files (WARNING: .pyc embeds absolute local paths!)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Packaging & virtual environments
+.venv/
+venv/
+ENV/
+dist/
+build/
+*.egg-info/
+
+# OS & editor metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local secrets / environment overrides
+.env
+.env.*

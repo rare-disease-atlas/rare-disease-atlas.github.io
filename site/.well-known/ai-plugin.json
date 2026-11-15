@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Orphan Disease Venture Atlas",
+  "name_for_model": "orphan_disease_venture_atlas",
+  "description_for_human": "Citation-verified rare disease startup blueprints, JAK2+ myelofibrosis biology, grants, and open datasets.",
+  "description_for_model": "Query structured startup/research opportunities across computational AI-bio, public health/RWE, and biotech venture financing, including FDA Orphan Drug economics, non-dilutive grants (SBIR, MPNRF, Blood Cancer United TAP), open GEO/PDB datasets, and ethical patient validation communities.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://rare-disease-atlas.github.io/openapi.yaml"
+  },
+  "contact_email": "research@rare-disease-atlas.github.io",
+  "legal_info_url": "https://rare-disease-atlas.github.io/"
+}

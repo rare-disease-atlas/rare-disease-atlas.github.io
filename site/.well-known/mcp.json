@@ -1,0 +1,27 @@
+{
+  "mcpVersion": "2025-06-18",
+  "name": "io.github.rare-disease-atlas/orphan-disease-opportunity-mcp",
+  "packageName": "orphan-disease-opportunity-mcp",
+  "version": "1.1.0",
+  "title": "Orphan Disease Venture & Translational Opportunity Atlas MCP",
+  "description": "Zero-dependency MCP server exposing rare-disease startup blueprints, biological tractability, FDA Orphan Drug unit economics, non-dilutive SBIR/venture-philanthropy grants, and ethical clinical validation communities (Flagship #1: JAK2 V617F+ Myelofibrosis).",
+  "homepage": "https://rare-disease-atlas.github.io",
+  "canonicalDataUrl": "https://rare-disease-atlas.github.io/opportunities.json",
+  "license": "MIT",
+  "install": {
+    "uvx": "uvx orphan-disease-opportunity-mcp",
+    "pip": "pip install orphan-disease-opportunity-mcp && python3 -m orphan_disease_mcp"
+  },
+  "tools": [
+    "match_founder_opportunities",
+    "get_disease_case_study",
+    "find_non_dilutive_grants",
+    "get_validation_communities"
+  ],
+  "resources": [
+    "briefing://rare-disease-playbook/jak2-myelofibrosis"
+  ],
+  "prompts": [
+    "evaluate-rare-disease-venture"
+  ]
+}

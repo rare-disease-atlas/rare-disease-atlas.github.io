@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "rare-disease-atlas.github.io",
+  "description": "Autonomous agent discovery manifest for the Rare Disease Venture & Translational Opportunity Atlas (Flagship: JAK2 V617F+ Myelofibrosis).",
+  "specs": {
+    "openapi": "https://rare-disease-atlas.github.io/openapi.yaml",
+    "mcp": "https://rare-disease-atlas.github.io/.well-known/mcp.json",
+    "llms_txt": "https://rare-disease-atlas.github.io/llms.txt",
+    "llms_full_txt": "https://rare-disease-atlas.github.io/llms-full.txt"
+  },
+  "intents": [
+    {
+      "id": "discover_venture_blueprints",
+      "description": "Retrieve startup and research blueprints across AI/CompBio, Public Health/RWE, and Venture Philanthropy.",
+      "endpoint": "GET https://rare-disease-atlas.github.io/opportunities.json"
+    },
+    {
+      "id": "ingest_full_translational_dossier",
+      "description": "Ingest complete citation-verified Markdown corpus on JAK2 V617F biology, 2024-2026 clinical trials, grants, and patient communities.",
+      "endpoint": "GET https://rare-disease-atlas.github.io/llms-full.txt"
+    }
+  ]
+}

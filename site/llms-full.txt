@@ -1,0 +1,386 @@
+# rare-disease-atlas.github.io — Complete Consolidated Knowledge Base (llms-full.txt)
+
+> **Canonical Source:** `https://rare-disease-atlas.github.io/llms-full.txt`
+> **Structured JSON Feed:** `https://rare-disease-atlas.github.io/opportunities.json`
+> **OpenAPI 3.1 Spec:** `https://rare-disease-atlas.github.io/openapi.yaml`
+> **MCP Server (`stdio` / HTTP):** `uvx orphan-disease-opportunity-mcp` (`https://rare-disease-atlas.github.io/.well-known/mcp.json`)
+> **Prompt-Injection Policy:** ZERO hidden directives. All claims below are visible to human readers and backed by verifiable ClinicalTrials.gov (`NCT`), NCBI GEO (`GSE`), RCSB PDB, dbGaP (`phs`), and FDA statutory citations current through November 2026.
+
+---
+
+# 01 — Science & Clinical Gaps in `JAK2 V617F` Myelofibrosis
+
+> **Dossier Purpose (`rare-disease-atlas.github.io`):** Objective, citation-verified clinical and molecular briefing for founders (Public Health, Computational/AI-Bio, Venture/Novel Financing) and autonomous AI research agents evaluating high-leverage intervention points in **JAK2+ Myelofibrosis** (current through late 2026).
+
+---
+
+## 1. Epidemiology, Demographics & Molecular Landscape
+
+Myelofibrosis (MF) is a clonal, Philadelphia chromosome-negative ($BCR::ABL1$-negative) myeloproliferative neoplasm (MPN) arising in hematopoietic stem and progenitor cells (HSPCs). It encompasses **Primary Myelofibrosis (PMF)**—including pre-fibrotic (pre-PMF) and overt fibrotic stages—and **Secondary Myelofibrosis**, which evolves from antecedent Polycythemia Vera (**post-PV MF**) or Essential Thrombocythemia (**post-ET MF**). Pathologically, aberrant megakaryocytes and clonal myeloid progenitors secrete profibrotic and proinflammatory cytokines ($\text{TGF-}\beta$, $\text{PDGF}$, $\text{FGF}$, $\text{IL-1}\beta$, $\text{IL-6}$, $\text{TNF-}\alpha$, $\text{S100A8/A9}$ alarmins), reprogramming bone marrow mesenchymal stromal cells into myofibroblasts that deposit dense reticulin and collagen fibers, destroying normal medullary hematopoiesis and forcing extramedullary hematopoiesis in the spleen and liver.
+
+### Verified Epidemiological Metrics (US & Global)
+
+| Metric | Verified Estimate | Notes & Clinical Implications |
+| :--- | :--- | :--- |
+| **US Annual Incidence (Total MF)** | **1.0 – 1.56 per 100,000** person-years | Includes both PMF and post-PV / post-ET secondary MF (~3,500–5,000 new US diagnoses/year). |
+| **US Annual Incidence (PMF only)** | **0.3 – 0.44 per 100,000** person-years | Secondary evolution from PV (~10–15% at 15 yrs) and ET (~4–11% at 15 yrs) accounts for a substantial share of incident cases. |
+| **Global / European Incidence** | **0.3 – 1.9 per 100,000** person-years | Comparable across North America, EU, UK, and Australia; underdiagnosed in low/middle-income settings. |
+| **US Diagnosed Prevalence** | **~4 – 6 per 100,000** (**~15,000 – 25,000+** living patients) | Well below the FDA Orphan Drug Designation statutory ceiling of **200,000 US patients**. |
+| **Median Age at Diagnosis** | **65 – 70 years** | Crucial clinical bottleneck: advanced age and age-associated comorbidities lock the vast majority out of myeloablative transplant. |
+| **Sex Distribution** | **~55% – 63% male** (~1.5:1 M:F in PMF) | Male sex independently correlates with higher cytopenic/molecular risk profiles in several cohorts. |
+
+### Canonical Driver Mutation Architecture (~90% Mutually Exclusive Drivers)
+
+Roughly **90%** of MF patients carry one of three somatic phenotypic driver mutations that constitutively activate **JAK2-STAT3/STAT5**, MAPK/ERK, and PI3K/AKT signaling:
+
+1. **`JAK2 V617F` (~50% – 60% of PMF and post-ET MF; >95% of post-PV MF):**
+   - Point substitution ($\text{G1849T} \rightarrow \text{Val617Phe}$) in exon 14 encoding the **JH2 pseudokinase domain** of Janus kinase 2.
+   - Under normal physiology, JH2 allosterically autoinhibits the catalytic **JH1 kinase domain**. `V617F` stabilizes an aberrant $\pi$-stacking/hydrophobic conformation in JH2 (involving Phe595/Phe617 and the JH2–JH1 linker), driving ligand-independent constitutive homodimeric signaling via homodimeric cytokine receptors (**EPOR**, **MPL/TPOR**, **GCSFR**).
+   - Mitotic recombination at chromosome `9p` frequently converts heterozygous clones into `9p` uniparental disomy (**UPD / homozygosity**), elevating variant allele frequency (**VAF >50%**) and accelerating fibrotic and thrombotic progression.
+2. **`CALR` Exon 9 Indels (~20% – 35% of PMF and post-ET MF):**
+   - $+1\text{ bp}$ frameshift insertions/deletions (most commonly **Type 1** 52-bp deletion `L367fs*46` or **Type 2** 5-bp insertion `K385fs*47`) that create a novel positively charged C-terminal neo-epitope lacking the ER-retention KDEL motif. Mutant CALR complexes with **MPL** in the secretory pathway and traffics to the **cell surface**—making `mutCALR` druggable by extracellular monoclonal antibodies and T-cell engagers, *unlike* strictly intracellular `JAK2 V617F`.
+3. **`MPL` Exon 10 Mutations (~5% – 8% of PMF and post-ET MF):**
+   - Gain-of-function substitutions at the juxtamembrane tryptophan codon (`MPL W515L/K/A`) or transmembrane `S505N`, constitutively dimerizing the thrombopoietin receptor.
+4. **Triple-Negative MF (~10% of PMF):**
+   - Lacks canonical `JAK2`, `CALR`, and `MPL` drivers; associated with significantly worse overall survival and higher rates of leukemic transformation.
+
+### Co-Occurring High-Molecular-Risk (HMR) & Subclonal Drivers
+Up to **40%–50%+** of MF patients carry somatic co-mutations in epigenetic regulators, spliceosome machinery, or signaling genes tracked in modern prognostic scores (**MIPSS70+ v2.0**):
+- **Epigenetic:** `ASXL1` (most frequent HMR lesion, ~25–35%), `EZH2`, `IDH1`, `IDH2`, `TET2`, `DNMT3A`
+- **RNA Splicing:** `SRSF2`, `U2AF1` (notably `Q157`), `SF3B1`
+- **Genomic Instability / Blast Transformation:** `TP53` (especially multi-hit `TP53` driven by chronic inflammatory selection), `RUNX1`, `NRAS`/`KRAS`, `CBL`
+
+---
+
+## 2. Current Standard of Care: The 4 FDA-Approved JAK Inhibitors & Exact Failure Modes
+
+All four currently FDA-approved targeted therapies for myelofibrosis are **Type I ATP-competitive small molecules** binding the active conformation of the **JH1 catalytic kinase domain** of JAK2 (plus varying off-/co-targets).
+
+### Comparison of Approved JAK Inhibitors (Through Late 2026)
+
+| Drug (Brand, Sponsor) | FDA Approval Date & Pivotal Trial(s) | Primary Kinase Targets | Specific Label Niche & Clinical Strengths | Major Toxicities & Specific Limitations |
+| :--- | :--- | :--- | :--- | :--- |
+| **Ruxolitinib** (*Jakafi* / *Jakafi XR*, Incyte) | **Nov 16, 2011** (*Jakafi XR* once-daily approved **May 1, 2026**)<br>COMFORT-I (`NCT00952289`), COMFORT-II (`NCT00934544`) | JAK1, JAK2 | Intermediate- or high-risk MF. Gold-standard frontline backbone; rapid spleen volume reduction (**SVR35** ~42% at Wk 24 in COMFORT-I) & symptom relief (**TSS50** ~46%); modest pooled OS extension via cachexia/inflammation reversal. | Dose-dependent **anemia** (Hb drop peaks Wks 8–12) and **thrombocytopenia**; herpes zoster/opportunistic infections, non-melanoma skin cancers, weight gain/hyperlipidemia; acute cytokine **withdrawal syndrome** on abrupt stop. |
+| **Fedratinib** (*Inrebic*, BMS) | **Aug 16, 2019**<br>JAKARTA (`NCT01437787`), JAKARTA-2 (`NCT01523171`) | JAK2, FLT3, BRD4 (weak) | Intermediate-2 or high-risk MF (JAKi-naïve or post-ruxolitinib). Active salvage spleen/symptom option after ruxolitinib resistance/intolerance. | **FDA Boxed Warning** for serious/fatal **encephalopathy (Wernicke's)** requiring mandatory thiamine ($B_1$) monitoring/repletion; high GI toxicity (diarrhea, nausea/vomiting via FLT3); myelosuppression. |
+| **Pacritinib** (*Vonjo*, Sobi / CTI BioPharma) | **Feb 28, 2022** *(Accelerated Approval)*<br>PERSIST-1 (`NCT01773187`), PERSIST-2 (`NCT02055781`) | JAK2, IRAK1, ACVR1 *(spares JAK1)* | Intermediate- or high-risk MF with **severe thrombocytopenia (platelets $<50 \times 10^9/\text{L}$)**. Delivers full-dose NF-$\kappa$B/IRAK1 + JAK2 suppression in cytopenic MF where ruxolitinib cannot be safely dosed. | GI adverse events (diarrhea, nausea), bleeding/hemorrhage risk, QTc prolongation precautions; confirmatory trial obligations ongoing. |
+| **Momelotinib** (*Ojjaara*, GSK) | **Sept 15, 2023**<br>MOMENTUM (`NCT04173494`), SIMPLIFY-1/2 | JAK1, JAK2, **ACVR1 (ALK2)** | Intermediate- or high-risk MF in adults **with anemia** (frontline or JAKi-experienced). ACVR1 inhibition suppresses hepatic **hepcidin**, mobilizing sequestered iron to restore erythropoiesis and **RBC transfusion independence**. | Thrombocytopenia, diarrhea, bacterial infections, hepatotoxicity, peripheral neuropathy; does not eradicate mutant HSC clones. |
+
+---
+
+### Why Approved JAK Inhibitors Are Palliative—Not Curative
+
+1. **Zero Wild-Type vs. Mutant Selectivity (The On-Target Cytopenia Trap):**
+   - Catalytic JH1 domains of wild-type (`WT`) JAK2 and `JAK2 V617F` are **100% identical in primary sequence** around the ATP-binding cleft.
+   - Normal human red blood cell production (**EPOR**) and platelet production (**TPOR/MPL**) strictly require `WT JAK2` homodimer signaling. Consequently, every Type I JH1 inhibitor hits a hard therapeutic ceiling: pushing exposure high enough to fully extinguish `JAK2 V617F` signaling causes severe, dose-limiting **iatrogenic anemia and thrombocytopenia**.
+2. **JAK2 Heterodimer "Persistence" Resistance:**
+   - Chronic exposure to Type I JAK inhibitors stabilizes JAK2 in an active-like conformation with hyperphosphorylation of the activation loop (`Tyr1007/1008`), promoting trans-activation of `JAK2` via heterodimerization with **JAK1** or **TYK2**. Malignant clones survive and proliferate right through continuous ruxolitinib blockade without needing secondary `JAK2` gatekeeper mutations.
+3. **Failure to Eradicate Malignant Stem Cells or Reverse Fibrosis:**
+   - Long-term ruxolitinib therapy produces minimal, slow, or absent reductions in `JAK2 V617F` **variant allele frequency (VAF)** in most patients and only rare/modest improvements in bone marrow reticulin/collagen fibrosis grade. Clonal architecture continues to evolve underneath symptom control, acquiring `ASXL1`, `RAS`, or `TP53` subclonal hits.
+4. **The "Ruxolitinib Discontinuation Cliff":**
+   - Roughly **50% of patients discontinue ruxolitinib within 3 years** (and ~70–75% by 5 years) due to loss of spleen/symptom response, progressive cytopenias, or leukemic transformation.
+   - Across multi-center real-world and trial registries, **median overall survival (OS) after ruxolitinib discontinuation is dismal: 11 to 23 months** (~22–27 months if discontinued in chronic phase, plunging to **3 to 4 months** upon transformation to **blast-phase MPN / secondary AML**, defined by $\ge 20\%$ blasts).
+5. **The Allogeneic Stem Cell Transplant (Allo-HSCT) Bottleneck:**
+   - Allo-HSCT remains the **sole curative intervention** capable of clearing the mutant HSPC clone and resolving marrow fibrosis (5-year OS **~50% – 60%** at experienced centers).
+   - Yet **fewer than 10% – 15% of eligible MF patients ever undergo transplant**. Why?
+     - **Age & Comorbidity Mismatch:** Median diagnosis age is 65–70 years; even with Reduced-Intensity Conditioning (RIC) pushing select fit recipients past age 70, cardiovascular/renal/hepatic comorbidities (high HCT-CI) disqualify most patients.
+     - **Lethal Upfront Risk:** **Non-relapse mortality (NRM) remains 20% – 36%** in the first 1–2 years (driven by graft failure in fibrotic/osteosclerotic marrow, sinusoidal obstruction syndrome, portal hypertension, severe infections, and acute/chronic **GVHD**), plus a **15% – 30% post-transplant relapse rate**.
+     - **The Timing Paradox:** Patients feeling temporarily functional on a JAK inhibitor defer a procedure carrying a ~1-in-4 upfront mortality risk—often until clonal evolution or performance-status collapse renders them permanently transplant-ineligible.
+
+---
+
+## 3. Next-Generation & Combination Pipeline (2024–2026 Verified Statuses)
+
+> [!IMPORTANT]
+> **Why Objectivity Matters Here:** Between 2024 and late 2026, myelofibrosis experienced *both* historic first-in-class breakthroughs (mutant-selective `JAK2 V617F` JH2 inhibitors entering human trials) *and*sobering Phase 3 casualties (**navitoclax discontinued; imetelstat Phase 3 stopped for OS futility; pelabresib US filing delayed over TSS50/blast-phase questions**). Founders and AI agents who understand *why* those late-stage programs stumbled gain an asymmetric advantage in designing next-wave therapeutics, trials, and biomarker tools.
+
+### A. Mutant-Selective `JAK2 V617F` (JH2 Allosteric) & Type II JAK2 Inhibitors
+
+- **`INCB160058` (Incyte / Prelude Therapeutics collaboration) — Phase 1 (`NCT06313593`):**
+  - **Mechanism:** First-in-class, orally bioavailable small molecule engineered to bind selectively into the **JH2 pseudokinase domain pocket** harboring `V617F`, locking mutant JAK2 in an autoinhibited state while sparing `WT JAK2` cytokine signaling.
+  - **2024–2026 Status:** Active Phase 1 dose-escalation and expansion (`NCT06313593`) across `JAK2 V617F`-positive MF, PV, and ET (monotherapy and combination). Preclinical data demonstrated selective elimination of mutant HSPCs without suppressing normal erythropoiesis/megakaryopoiesis.
+- **`AJ1-11095` (Ajax Therapeutics) — Phase 1 AJX-101 (`NCT06343805`):**
+  - **Mechanism:** Computational structure-guided, highly selective **Type II JAK2 inhibitor** that binds the inactive **DFG-out** conformation of JAK2—specifically designed to prevent and reverse the Type I JAKi "persistence" state and reduce mutant allele burden.
+  - **2024–2026 Status:** Active Phase 1 (`NCT06343805`) in MF patients who failed prior Type I JAK inhibitors; early clinical updates presented at major hematology congresses (EHA/ASH) showed encouraging spleen/symptom activity and tolerability in heavily pretreated patients.
+
+### B. Epigenetic, Apoptotic & Nuclear-Transport Combination Backbones
+
+- **Pelabresib (`CPI-0610`, Novartis / MorphoSys) — BET Bromodomain Inhibitor — Phase 3 `MANIFEST-2` (`NCT04603495`):**
+  - **Mechanism:** Inhibits BRD2/3/4 bromodomains to downregulate NF-$\kappa$B-driven inflammatory cytokines and megakaryocytic differentiation programs alongside ruxolitinib.
+  - **2024–2026 Status (Mixed / Regulatory Nuance):** In JAKi-naïve MF (`MANIFEST-2`, *Active, not recruiting*), pelabresib + ruxolitinib nearly doubled Week-24 **SVR35** (~65.9% vs 35.2%) and improved anemia/marrow fibrosis biomarkers, with 96-week follow-up confirming durable spleen responses. **However**, it narrowly missed statistical significance on the key secondary **TSS50** endpoint at Week 24 and drew regulatory scrutiny over a small numerical imbalance in leukemic/blast-phase events—leading Novartis to advance EU filings while engaging FDA on longer-term follow-up data rather than an immediate US accelerated approval.
+- **Navitoclax (AbbVie) — BCL-xL / BCL-2 Inhibitor — Phase 3 `TRANSFORM-1` (`NCT04472598`) — [DISCONTINUED]:**
+  - **Mechanism:** Pro-apoptotic BH3 mimetic targeting BCL-xL/BCL-2 survival dependency in `JAK2 V617F` clones.
+  - **2024–2026 Status (Discontinued):** `TRANSFORM-1` doubled Week-24 **SVR35** (63.2% vs 31.5% with ruxolitinib alone), **but failed to improve TSS50 or overall survival**, while on-target BCL-xL inhibition of circulating platelets caused frequent reversible **thrombocytopenia**. AbbVie **formally discontinued** the navitoclax MF development program in late 2024/early 2025 (with full `TRANSFORM-1` primary data published in *Blood* in 2026).
+- **Selinexor (Karyopharm) — XPO1 Nuclear Export Inhibitor — Phase 3 `SENTRY` / `XPORT-MF-034` (`NCT04562389`):**
+  - **Mechanism:** Blocks Exportin-1 (XPO1), retaining tumor suppressors (p53, I$\kappa$B, FOXO) in the nucleus and attenuating non-canonical STAT/AKT survival pathways.
+  - **2026 Status:** In **March 2026**, topline results from frontline `SENTRY` ($n=353$, selinexor 60 mg + ruxolitinib vs placebo + ruxolitinib) **met the first co-primary endpoint of SVR35** (~50% vs 28%), **missed the second co-primary endpoint of Absolute TSS divergence**, and at **EHA June 2026** revealed a striking early **OS signal (>50% hazard reduction)** plus deeper VAF reductions, prompting planned FDA sNDA discussions.
+- **Navtemadlin (`KRT-232`, Kartos Therapeutics) — MDM2 Inhibitor — Phase 3 `BOREAS` (`NCT03662126`) & `POIESIS` (`NCT06479135`):**
+  - **Mechanism:** Disrupts MDM2–p53 interaction in **`TP53` wild-type** MF CD34+ cells to trigger p53-mediated apoptosis of malignant progenitors.
+  - **2024–2026 Status:** In JAKi-relapsed/refractory `TP53`-WT MF (`BOREAS`), navtemadlin monotherapy nearly tripled SVR35 and doubled TSS50 vs Best Available Therapy alongside VAF and marrow fibrosis reductions. Simultaneously advancing in Phase 3 **`POIESIS` (`NCT06479135`)** as an add-on for JAKi-naïve patients having a suboptimal response to ruxolitinib. *(Caveat: strictly requires `TP53`-WT status; theoretical risk of selecting pre-existing `TP53`-mutant subclones requires longitudinal sequencing vigilance).*
+- **Bomedemstat (`MK-3543` / `IMG-7289`, Merck) — LSD1 Demethylase Inhibitor (`NCT06351631` extension):**
+  - **Mechanism:** Epigenetically silences GFI1b/LSD1 complexes essential for pathological megakaryocyte maturation and platelet/cytokine overproduction.
+  - **2024–2026 Status:** Demonstrated symptom improvement, spleen stabilization, and stable/improved marrow fibrosis in Phase 2 MF cohorts; Merck expanded Phase 3 registration trials in Essential Thrombocythemia (Shorespan-007) alongside ongoing long-term MPN extension protocols (`NCT06351631`).
+
+### C. Telomerase, PIM Kinase, Stromal/Antifibrotic & Immunotherapy Modalities
+
+- **Imetelstat (*Rytelo*, Geron) — Telomerase Inhibitor — Phase 3 `IMpactMF` (`NCT04576156`) — [STOPPED FOR FUTILITY]:**
+  - **Mechanism:** Oligonucleotide competitively inhibiting hTERT telomerase enzymatic activity in hyperproliferative malignant clones.
+  - **October 2026 Status (Major Setback):** `IMpactMF` was the landmark first Phase 3 MF trial using **Overall Survival (OS)** as its primary endpoint in JAKi-relapsed/refractory MF. In **October 2026**, Geron **discontinued `IMpactMF`** following an Independent Data Monitoring Committee (IDMC) recommendation that the trial was unlikely to achieve its primary OS endpoint (its separate FDA approval in lower-risk MDS remains intact).
+- **Nuvisertib (`TP-3654`, Sumitomo Pharma) — Selective PIM1 Kinase Inhibitor — Phase 1/2 (`NCT04176198`):**
+  - **Mechanism:** Inhibits PIM1 kinase downstream of JAK/STAT and FLT3, suppressing cap-dependent translation, apoptosis resistance, and $\text{TGF-}\beta$-linked fibrotic cytokine loops **without suppressing normal hematopoiesis**.
+  - **2025–2026 Status:** Holds **FDA Fast Track Designation**. Phase 1/2 updates across monotherapy and combinations (with ruxolitinib or momelotinib) showed **no dose-limiting myelosuppression** (sparing platelets and hemoglobin) alongside encouraging SVR, TSS50, and cytokine reductions.
+- **TGF-$\beta$ Superfamily Ligand Traps & Direct Antifibrotics — Luspatercept (`INDEPENDENCE`, `NCT04717414` / Phase 2 `NCT03194542`), Elritercept, AVID200:**
+  - **Status:** BMS's Phase 3 **`INDEPENDENCE` (`NCT04717414`)** evaluating **luspatercept** (*Reblozyl*) for transfusion-dependent anemia on concomitant JAKi therapy **narrowly missed statistical significance** on its primary 12-week RBC transfusion independence endpoint in 2025 (despite meaningful reductions in transfusion burden). Selective $\text{TGF-}\beta 1/3$ traps (e.g., `AVID200`), LOXL2 inhibitors, and alarmin (`S100A8/A9` / `Tasquinimod` / `GLI1`) stromal disruptors have shown biological proof-of-concept, **leaving true stromal fibrosis-reversing therapy completely unapproved and wide open**.
+- **The Immunotherapy Contrast — `INCA033989` (Incyte, `NCT06034002`) vs. `JAK2 V617F`:**
+  - In `CALR`-mutant ET/MF, Incyte's Fc-silent anti-`mutCALR` monoclonal antibody **`INCA033989` (`NCT06034002`)** delivered rapid spleen/anemia responses and dramatic VAF reductions in 2025–2026, validating that **selective clonal depletion reverses MPN pathology**.
+  - **Why `JAK2 V617F` Needs Different Engineering:** Because `JAK2 V617F` is strictly **intracellular** (and its 9-mer/10-mer neoantigen presentation across common HLA alleles is weak/inconsistent), conventional surface mAbs cannot see it. Eradicating `JAK2 V617F` clones therefore demands **allosteric JH2 small molecules, mutant-selectiveJH2-directed PROTACs/molecular glues, synthetic-lethal combinations, or ultra-high-affinity HLA-restricted TCR-mimetic biologics**.
+
+---
+
+## 4. Summary Matrix of High-Value White Space for Builders
+
+| Unmet Clinical / Biological Gap | Why Incumbents Failed Here | Concrete Target Opportunity |
+| :--- | :--- | :--- |
+| **Selective `JAK2 V617F` Clonal Eradication** | Type I JH1 inhibitors block `WT JAK2`, causing dose-limiting anemia/thrombocytopenia before clearing mutant HSCs. | Next-gen **JH2 allosteric inhibitors**, **JH2-targeted heterobifunctional degraders (PROTACs)**, and **Type II DFG-out binders** sparing `WT JAK2`. |
+| **True Bone Marrow Fibrosis Reversal** | Anti-JAKs quiet systemic cytokines (`IL-6`/`TNF`) but poorly reprogram activated `GLI1+`/`Lepr+` myofibroblasts or cross-linked collagen. | Multi-omics target discovery in **megakaryocyte–stromal crosstalk** (`S100A8/A9`, `TGF-β1/3`, `PIM1`, `LOXL`, mechanotransduction) paired with AI digital pathology quantification of reticulin remodeling. |
+| **Preventing `TP53` / HMR Leukemic Progression** | Chronic inflammation + certain cytotoxic/MDM2 pressures select for multi-hit `TP53` or `RAS` blast-phase clones (OS 3–4 mos). | Early longitudinal single-cell / liquid-biopsy risk stratification + inflammation-resolving combos that suppress clonal fitness advantage. |
+| **Endpoint Discordance (`SVR35` vs. `TSS50` vs. `OS`)** | `TRANSFORM-1`, `MANIFEST-2`, and `SENTRY` all hit `SVR35` while missing strict `TSS50` thresholds; `IMpactMF` failed on `OS`. | Wearables + continuous high-frequency ePROs + validated composite surrogate biomarkers (VAF + digital marrow morphology + cytokine panels) for regulatory/trial optimization. |
+
+
+---
+
+# 02 — Rare-Disease Economics, Non-Dilutive Funding, Open Datasets & Startup Blueprints
+
+> **Dossier Purpose (`rare-disease-atlas.github.io`):** Verified regulatory economics, grant/venture-philanthropy capital sources, machine-actionable public multi-omics datasets, and concrete company/research blueprints across **Track A (Public/Digital Health)**, **Track B (Computational/AI-Bio)**, and **Track C (Venture Philanthropy/Novel Financing)** for `JAK2 V617F` Myelofibrosis.
+
+---
+
+## 1. Concrete Rare-Disease Economics & FDA Regulatory Incentives
+
+With a diagnosed US prevalence of **~15,000 to 25,000+ patients**—far below the statutory **200,000-patient** rare-disease threshold under Section 526 of the Federal Food, Drug, and Cosmetic (FD&C) Act—every therapeutic targeting Myelofibrosis (or the `JAK2 V617F` MF subpopulation of ~8,000–15,000 US patients) qualifies for **FDA Orphan Drug Designation (ODD)** administered by the Office of Orphan Products Development (OOPD).
+
+### Quantified Financial & Commercial Incentives
+
+1. **Full Waiver of FDA PDUFA Application Filing Fees (~$4.68M Direct Cash Savings):**
+   - Standard New Drug Application (NDA) / Biologics License Application (BLA) fees requiring clinical data rose from **$4,310,002 in FY2025** to **$4,682,003 in FY2026** (effective Oct 1, 2025 – Sept 30, 2026).
+   - **Orphan Drug Exemption:** Designated orphan applications are **100% exempt from the ~$4.68M PDUFA application filing fee** (note: annual Prescription Drug Program Fees—$442,213 in FY2026—may still apply post-approval unless waived under narrow statutory small-business/orphan financial criteria).
+2. **7 Years of Statutory Market Exclusivity:**
+   - Upon approval, the FDA cannot approve another application for the *same active moiety* for the *same rare indication* for **7 years**, independent of patent life—critical for repurposed molecules, novel formulations, or older off-patent chemical matter unless a competitor proves clinical superiority.
+3. **25% Federal Orphan Drug Tax Credit (ODTC):**
+   - Covers **25% of Qualified Clinical Testing Expenses (QCTEs)** incurred *after* ODD grant date and *prior* to FDA marketing approval (substantially more generous than standard incremental R&D tax credits for human clinical trials).
+4. **Orphan Pricing & Commercial Precedent in MF:**
+   - Despite a modest US patient pool, myelofibrosis supports blockbuster and multi-hundred-million-dollar commercial franchises due to chronic oral dosing and specialty oncology reimbursement: Incyte's *Jakafi* (across MF, PV, and GVHD) became a multi-billion-dollar/year franchise, and GSK acquired Sierra Oncology (momelotinib) for **$1.9B**, Sobi acquired CTI BioPharma (pacritinib) for **$1.7B**, and Novartis acquired MorphoSys (pelabresib) for **€2.7B (~$2.9B)**.
+
+### The Regulatory Endpoint Debate in MF (2024–2026 Shift)
+
+Historically, MF Phase 3 approvals relied on two Week-24 clinical endpoints:
+- **`SVR35`:** $\ge 35\%$ reduction in spleen volume from baseline by MRI or CT at Week 24.
+- **`TSS50`:** $\ge 50\%$ reduction in Total Symptom Score from baseline at Week 24 using the validated **MF-SAF v4.0** (Myelofibrosis Symptom Assessment Form).
+- **Transfusion Independence (TI):** Rolling 12-week RBC transfusion independence ($\text{Hb} \ge 8\text{ g/dL}$) for anemia-focused labels (pivotal in momelotinib's `MOMENTUM` approval and BMS's `INDEPENDENCE` luspatercept readouts).
+
+> [!WARNING]
+> **The 2024–2026 Combination Endpoint Crisis:** Three consecutive frontline Phase 3 add-on trials—`TRANSFORM-1` (navitoclax), `MANIFEST-2` (pelabresib), and `SENTRY` (selinexor)—significantly beat ruxolitinib monotherapy on **`SVR35`**, yet **failed to achieve statistically significant separation on `TSS50`** because active-control ruxolitinib *already* drives strong baseline symptom relief while add-on agents introduce mild GI/fatigue side effects that confound daily diary scores! Conversely, powering a relapsed/refractory trial strictly on **Overall Survival (`OS`)** proved perilous when Geron's `IMpactMF` (`NCT04576156`) had to be halted for futility in October 2026.
+>
+> **Regulatory Opportunity:** Through PDUFA VII / FDORA initiatives like the **FDA Rare Disease Endpoint Advancement (RDEA) Pilot Program** and joint FDA/ash/MPN workshops, regulators and sponsors are actively seeking **validated composite disease-modification surrogates**—combining `JAK2 V617F` VAF clearance, AI-quantified bone marrow fibrosis/megakaryocyte topology reversal, progression-free survival (PFS), and objective wearable/electronic PRO metrics.
+
+---
+
+## 2. Verified Non-Dilutive Grants & Venture Philanthropy Sources
+
+| Organization & Program | Funding Type & Typical Award Size | Strategic Fit for MF Founders & Researchers | URL / Portal |
+| :--- | :--- | :--- | :--- |
+| **MPN Research Foundation — *MPN Challenge™*** | Non-dilutive translational grants (**~$250,000 over 2 years** per project) | High-risk, high-reward research focused specifically on **MPN disease progression** (ET/PV $\rightarrow$ MF $\rightarrow$ blast-phase AML), clonal eradication, and stromal biology. Aligned with Canadian MPNRF via March 2026 global alliance. | `https://www.mpnresearchfoundation.org` |
+| **Blood Cancer United *(formerly Leukemia & Lymphoma Society / LLS — rebranded Aug 2025)* — *Therapy Acceleration Program (TAP)*** | Strategic **Venture Philanthropy** (equity / milestone-convertible investments, typically **$1M – $5M+**) | Invests directly into early-stage biotech companies and academic spin-outs to fund IND-enabling and Phase 1/2 clinical trials across myeloid/MPN malignancies, providing clinical/regulatory diligence appreciated by institutional VCs. | `https://www.bloodcancerunited.org` |
+| **NIH / National Cancer Institute (NCI) — *SBIR / STTR Omnibus & Bridge Awards*** | Non-dilutive federal small-business seed/scale capital (**Phase I: ~$300K–$400K+; Phase II: ~$2M+; Phase IIB Bridge: up to $4M–$4.5M** with matching investor funds) | Investigator-initiated oncology/hematology therapeutics, companion diagnostics, AI digital pathology, and clinical trial software (Parent Omnibus solicitations e.g. `PA-27-100` SBIR / `PA-27-102` STTR; standard deadlines **Jan 5, Apr 5, Sept 5**). | `https://sbir.cancer.gov` |
+| **FDA OOPD — *Orphan Products Grants Program*** | Non-dilutive clinical trial grants (**~$250K–$650K+/year for up to 4 years**) & Natural History Grants | Directly funds Phase 1–3 rare-disease clinical trials and prospective natural-history/biomarker registries aimed at establishing regulatory endpoints. | `https://www.fda.gov/industry/medical-products-rare-diseases-and-conditions` |
+| **ARPA-H *(Advanced Research Projects Agency for Health)*** | Milestone-driven cooperative agreements / OTAs & ARPA-H SBIR (**SBIR Phase 1 up to ~$600K; Phase 2 $3.5M+; BAA/Program awards $5M–$30M+**) | Targets platform breakthroughs directly relevant to MF: **`ADAPT`** (adaptive therapy & longitudinal resistance tracking in mutating cancers) and **`SURPASS` / Open Office ISO** (AI-augmented adaptive clinical trials, in vivo HSC delivery, computational repurposing). | `https://arpa-h.gov` |
+
+---
+
+## 3. Verified Open & Controlled-Access Datasets for Computational & Public Health Builders
+
+Every accession ID below has been cross-verified against NCBI GEO, dbGaP, cBioPortal, RCSB PDB, and ClinicalTrials.gov:
+
+### A. Single-Cell Multi-Omics & Bone Marrow Transcriptomics (Open Access — NCBI GEO)
+
+| GEO Accession | Landmark Study & Modality | Biological Content & Immediate AI/Comp-Bio Use Case |
+| :--- | :--- | :--- |
+| **`GSE144568`** | **Psaila, Mead et al. (*Molecular Cell*, 2020)**<br>10x Genomics scRNA-seq + surface proteomics | **CD34+ lin- HSPCs** from human myelofibrosis patients vs. healthy bone marrow donors. Maps aberrant megakaryocyte-biased hematopoiesis and identifies surface/intracellular targets enriched on mutant MF clones (e.g., G6B). |
+| **`GSE156644`** | **Leimkühler, Schneider et al. (*Cell Stem Cell*, 2020/2021)**<br>scRNA-seq of bone marrow mesenchymal stroma | **Non-hematopoietic bone marrow stromal progenitors** driving myelofibrosis. Reveals how `Lepr+` / `MSC` populations transition into collagen-producing myofibroblasts via the druggable **`S100A8/S100A9` alarmin & `GLI1` axis**. Ideal for antifibrotic drug-repurposing perturbation models. |
+| **`GSE226340`** | **Rodriguez-Meira, Mead et al. (*Nature Genetics*, 2023)**<br>`TARGET-seq` (simultaneous single-cell genotyping + scRNA-seq) | Allelic-resolution single-cell multi-omics of MPN/MF HSPCs evolving to **multi-hit `TP53` secondary AML (blast phase)**, proving chronic inflammation suppresses `WT TP53` HSCs while selecting mutant clones. |
+| **`GSE117826`** | **Nam, Landau et al. (*Nature*, 2019)**<br>`Genotyping of Transcriptomes (GoT)` | Simultaneous single-cell genotype + transcriptome linking somatic MPN driver status directly to unfolded protein response (UPR), NF-$\kappa$B, and progenitor differentiation states in primary human CD34+ bone marrow cells. |
+
+### B. Structural Biology Coordinates for `JAK2 V617F` JH2 Pocket Design (Open Access — RCSB PDB)
+
+- **`4FVR`:** High-resolution X-ray crystal structure of the human **JAK2 JH2 pseudokinase domain carrying the `V617F` mutation** (Mg-ATP bound), revealing the aromatic $\pi$-stacking stabilization across the $\alpha\text{C}$ helix.
+- **`6G3C`, `8BAK`, `8B8U`, `8EX2`:** Co-crystal structures of **JAK2 JH2-`V617F`** bound to small-molecule ligands and allosteric pseudokinase pocket binders (including Reversine and HTS-A3 analogs)—ready-to-use structural templates for generative molecular docking, FEP+ selectivity scoring (`V617F` JH2 vs. `WT` JH2 vs. `JH1`), and PROTAC linker exit-vector modeling.
+
+### C. Clinical-Genomic Cohorts & Controlled-Access Biobanks
+
+- **cBioPortal (`https://www.cbioportal.org`):**
+  - *Myeloproliferative Neoplasms (CIMR, NEJM 2013)* — Exome sequencing cohort (Nangalia et al.) profiling `JAK2`, `CALR`, `MPL`, and epigenetic co-mutations.
+  - *MSK-IMPACT Heme Cohorts* — Clinical sequencing + survival metadata spanning PMF, post-PV/ET MF, and secondary myeloid neoplasms.
+- **NCBI dbGaP Controlled-Access Cohorts (`https://dbgap.ncbi.nlm.nih.gov`):**
+  - **`phs002228`:** *Innate Immune Anti-Viral Deaminase Deregulation Fuels Pre-Leukemia Stem Cell Evolution* (whole-transcriptome sequencing of FACS-purified stem/progenitor subsets across PV, ET, MF, and sAML).
+  - **`phs002121`:** *Integrated Clinical and Transcriptomic Profiling to Characterize Disease Phenotype* in MPNs.
+  - **`phs001657`:** *Beat AML* (*ex vivo* small-molecule drug sensitivity + WES + RNA-seq across myeloid/sAML blasts).
+- **Population Biobanks (Pre-Diagnostic Clonal Hematopoiesis $\rightarrow$ MPN Trajectory):**
+  - **UK Biobank (`https://www.ukbiobank.ac.uk`, ~500,000 participants with WES/WGS + Olink proteomics + longitudinal EHR)** and **NIH *All of Us* Research Workbench (`https://allofus.nih.gov`)**: Enable building pre-symptom predictors of why `JAK2 V617F` Clonal Hematopoiesis of Indeterminate Potential (**`JAK2`-CHIP**) stays dormant in some carriers for decades while progressing to overt PV/MF in others.
+- **MPN Research Foundation — *MPN PROGRESSion Registry®* (`NCT07362225`):**
+  - Direct-to-patient prospective/retrospective real-world registry targeting **~5,000 MPN participants**, integrating longitudinal **EHR records + ePROs + insurance claims** to discover progression biomarkers.
+- **Programmatic Trial Surveillance (ClinicalTrials.gov REST API v2, No Auth Key Required):**
+  ```bash
+  curl -s "https://clinicaltrials.gov/api/v2/studies?query.cond=Myelofibrosis&filter.overallStatus=RECRUITING,ACTIVE_NOT_RECRUITING&pageSize=50"
+  ```
+
+---
+
+## 4. Concrete Startup & Research Blueprints Across All 3 Target Tracks
+
+### Track A: Public Health, Digital Health & Real-World Evidence Infrastructure
+
+#### Blueprint A1 — Regulatory-Grade RWE & External Control Arm Engine for Combination Trials
+- **The Problem:** Frontline combo trials (`MANIFEST-2`, `TRANSFORM-1`, `SENTRY`) struggled with noisy paper/infrequent `TSS50` symptom diaries, while relapsed/refractory Phase 2 sponsors spend $30K–$60K+ per patient recruiting Best-Available-Therapy control arms.
+- **What to Build:** A FHIR-native, patient-consented longitudinal MF companion platform pulling automated EHR lab feeds (Hb, platelets, RBC transfusion units, peripheral blasts, NGS `JAK2 V617F` VAF) paired with passive wearable actigraphy/HRV/night-sweat skin-temperature sensors and micro-sampled daily MF-SAF v4.0 ePROs.
+- **Business Model:** Free clinical/symptom/anemia tracker for patients & community hematologists (partnering with `MPN PROGRESSion Registry` / advocacy orgs rather than competing on community); B2B SaaS & data-licensing contracts ($500K–$3M/study) selling **FDA-auditable External Control Arms (ECAs)**, synthetic baseline symptom stabilization protocols, and rapid decentralized Phase 2/3 site/patient matching to biopharma sponsors.
+
+#### Blueprint A2 — AI Transplant Timing & Shared-Decision Navigation Platform ("The 10% $\rightarrow$ 35% Bridge")
+- **The Problem:** `<10–15%` of eligible MF patients ever receive curative allo-HSCT because community oncologists lack molecularly calibrated timing tools (MIPSS70+ v2.0 vs. iMTSS transplant risk) and patients lack caregiver/donor/center navigation.
+- **What to Build:** An agentic clinical decision-support and transplant concierge workflow that ingests routine NGS + CBC trends, flags the precise inflection window *before* ruxolitinib failure or blast transformation, runs automated HLA/NMDP center referral routing, and supports pre-hab fitness optimization.
+- **Business Model:** Value-based contracting with Centers of Excellence (BMT programs, where each incremental allo-HSCT represents high-acuity bundled reimbursement) + pharma sponsorship for pre-transplant JAKi bridging protocols.
+
+---
+
+### Track B: Computational Biology & AI-Bio Therapeutics
+
+#### Blueprint B1 — Mutant-Selective `JAK2 V617F` JH2 Degraders (PROTACs / Molecular Glues) Sparing `WT JAK2`
+- **The Problem:** Even reversible allosteric JH2 inhibitors (`INCB160058`) may face incomplete target occupancy or compensatory scaffolding by JAK2 pseudokinase/FERM domains, whereas pan-JAK degraders would be lethally myelosuppressive.
+- **What to Build:** Use generative structure-based design on `JAK2 JH2 V617F` crystal structures (`PDB: 4FVR`, `8BAK`, `8EX2`) + molecular dynamics ensembles to engineer **mutant-selective heterobifunctional degraders (PROTACs)** or ternary molecular glues recruiting hematopoietic-expressed E3 ligases (CRBN/VHL/DCAF) selectively to the `V617F`-rearranged JH2 conformation—catalytically eliminating mutant JAK2 protein while leaving `WT JAK2` intact for normal EPOR/TPOR blood production.
+- **Validation Stack:** Differentiated iPSC-derived isogenic `JAK2 WT/V617F` vs. `JAK2 WT/WT` erythroid/megakaryocyte organoids + primary MF CD34+ colony-forming assays; monetizable via **$50M–$150M+ preclinical/Phase 1 option deals** (modeled on Prelude–Incyte) + ODD incentives.
+
+#### Blueprint B2 — Single-Cell Foundation Model Perturbation Screen for Bone Marrow Fibrosis Reversal
+- **The Problem:** Zero FDA-approved drugs directly reverse established Grade 2/3 bone marrow reticulin/collagen fibrosis in MF.
+- **What to Build:** Train/fine-tune single-cell perturbation models across paired MF megakaryocyte (`GSE144568`) and mesenchymal stromal (`GSE156644`) atlases to map the exact ligand–receptor circuits (`S100A8/A9`–`TLR4`, `TGF-β1/3`, `PDGFRA/B`, `GLI1`, `PIM1`, mechanosensitive `YAP/TAZ`) locking stromal progenitors in the myofibroblast state. Screen small-molecule & biologics libraries in human 3D vascularized bone-marrow-on-chip models quantified via AI reticulin pathomics.
+- **Validation & Business Model:** Combine a **non-myelosuppressive stromal antifibrotic** (orphan NCE or reformulated shelf-ready clinical asset) as an orthogonal add-on to *any* approved JAKi (ruxolitinib, momelotinib, pacritinib), capturing broad cross-genotype (`JAK2+`, `CALR+`, `MPL+`, triple-negative) market share.
+
+---
+
+### Track C: Venture Philanthropy, Biotech Studios & Novel Trial Financing
+
+#### Blueprint C1 — Focused MPN Venture-Philanthropy Syndicate & "Valley-of-Death" Asset Rescue Vehicle
+- **The Problem:** High-potential mechanisms in rare myeloid diseases are routinely shelved by large pharma for portfolio/M&A reasons unrelated to biological validity, or stall in academia between $250K grants (*MPN Challenge™*) and $30M Series A checks.
+- **What to Build:** A hybrid **Evergreen Venture Philanthropy + For-Profit Co-Investment Syndicate** modeled on the **Cystic Fibrosis Foundation** (which turned philanthropic drug-development contracts into a $3.3B Vertex royalty monetization) and **Blood Cancer United's TAP**. Pool tax-deductible donor-advised funds (DAFs) from affected families with specialist biotech angels to fund **$1.5M–$4M milestone-gated SPVs** (IND tox + 15-patient translational Phase 1b proof-of-concept measuring VAF & digital marrow fibrosis).
+- **Return Flywheel:** Capped royalty/equity kickers recycle exits back into the foundation while syndicated SPV equity delivers asymmetric orphan-biotech M&A multiples to LP co-investors.
+
+#### Blueprint C2 — Payor/Outcomes-Backed Repurposed Generic Combination Trial Engine
+- **The Problem:** Off-patent anti-inflammatory, metabolic, and antifibrotic generics (e.g., interferons, statins/mevalonate pathway modulators, specific senolytics/antifibrotics) show preclinical synergy with JAK inhibitors in suppressing `JAK2 V617F` clones, but lack patent life to justify traditional VC capital.
+- **What to Build:** Partner with integrated US value-based payors / Medicare Advantage plans and European national health systems where preventing a single progression to **transfusion-dependent MF or blast-phase AML** saves **$250,000–$600,000+/year** in specialty drug, RBC transfusion, and hospitalization spend. Finance pragmatic, decentralized EHR-embedded randomized trials via **Social Impact / Healthcare Outcomes Bonds** or seek **7-year FDA Orphan Drug Exclusivity** on fixed-dose/novel-delivery combination regimens.
+
+
+---
+
+# 03 — Existing MPN & Myelofibrosis Patient Communities Map
+
+> **Dossier Purpose (`rare-disease-atlas.github.io`):** Strategic directory and ethical engagement playbook for founders, public health researchers, and AI agents.
+>
+> **Core Principle — Do Not Reinvent the Gathering Place:** Myelofibrosis is a rare disease (~15,000–25,000 US patients), and patients are *already* congregated in high-trust, deeply moderated digital communities and registries. Building yet another standalone "patient social network" fragments support and wastes founder capital. Instead, **listen respectfully, validate real pain points, and partner formally with existing foundations and moderators**.
+
+---
+
+## 1. Verified Directory of Active MPN & Myelofibrosis Communities (2026 Status)
+
+### A. Peer-to-Peer Forums & High-Signal Discussion Communities
+
+#### 1. HealthUnlocked — MPN Voice Community
+- **URL:** `https://healthunlocked.com/mpnvoice` (Charity portal: `https://www.mpnvoice.org.uk`)
+- **Status & Approximate Scale:** **Active** — The largest dedicated English-language MPN peer forum globally (**~15,000+ registered community members** across ET, PV, and MF, with dozens of daily posts and comments from UK, US, EU, and Commonwealth patients).
+- **Primary Topics & Pain Points Discussed:**
+  - Managing crushing MF-related **fatigue**, night sweats, bone pain, pruritus (aquagenic itching), and splenic discomfort/early satiety.
+  - Real-world tolerability trade-offs when switching from **ruxolitinib (*Jakafi*)** to **momelotinib (*Ojjaara*)** for anemia/transfusion burden, or **pegylated interferon (*Besremi* / *Pegasys*)** debates in earlier-stage `JAK2 V617F` disease.
+  - Anxiety around **ET/PV $\rightarrow$ Myelofibrosis progression** ("bone marrow biopsy reticulin grade anxiety") and **allo-HSCT timing decisions** in patients aged 60–72.
+  - Frustration with generalist hematologists dismissing debilitating constitutional symptoms when blood counts look "acceptable."
+
+#### 2. Reddit — `r/mpn`
+- **URL:** `https://www.reddit.com/r/mpn/`
+- **Status & Approximate Scale:** **Active** — Prominent, well-moderated subreddit (**several thousand subscribers**, active daily/weekly threads, curated wiki/FAQ pointing to NCCN guidelines and MPN specialists).
+- **Primary Topics & Pain Points Discussed:**
+  - Newly diagnosed patients (including younger/middle-aged `JAK2 V617F` patients) trying to interpret NGS panels (`VAF %`, `ASXL1`, `TET2`), bone marrow biopsy pathology reports, and DIPSS/MIPSS70 risk scores.
+  - Navigating **US specialty pharmacy prior authorizations, copay accumulators, and Medicare Part D out-of-pocket costs** for $15,000–$25,000+/month oral JAK inhibitors.
+  - Seeking referrals to true **MPN Specialists** vs. general community oncologists.
+  - Caregiver threads supporting older parents facing transfusion dependency or stem cell transplant recovery.
+
+#### 3. Smart Patients — MPN Community
+- **URL:** `https://www.smartpatients.com` (search/join Myeloproliferative Neoplasms / Blood Cancer communities)
+- **Status & Approximate Scale:** **Active (Registration-Gated Peer Forum)** — Structured, high-literacy patient and caregiver discussion threads with integrated clinical trial search tools.
+- **Primary Topics & Pain Points Discussed:**
+  - Deep-dive patient comparisons of **Phase 1–3 clinical trial protocols** (inclusion criteria, platelet cutoffs, washout anxieties when tapering ruxolitinib to enter a trial, travel burden to academic trial sites).
+  - Detailed longitudinal tracking of hemoglobin, platelet counts, spleen palpation measurements, and side-effect mitigation strategies.
+
+#### 4. MPN Cancer Connection & Private Facebook Support Groups
+- **URL:** `https://mpncancerconnection.org` (plus large private Facebook groups such as *Myelofibrosis Private Support Group*, *MPN Support Group*, and *Bone Marrow & Stem Cell Transplant Support*)
+- **Status & Approximate Scale:** **Active** — Combined private Facebook ecosystems encompass **thousands of MF-specific patients and caregivers** globally, with high daily emotional and practical support activity.
+- **Primary Topics & Pain Points Discussed:**
+  - Day-to-day caregiving realities, blood transfusion clinic logistics, infection precautions, splenic pain/diet adaptations, GVHD management post-transplant, and grief/palliative transitions after JAK inhibitor failure.
+
+---
+
+### B. Research Foundations, Registries & Structured Patient Hubs
+
+#### 5. MPN Research Foundation (MPNRF) & *MPN PROGRESSion Registry®* *(plus `myMPN` Legacy Note)*
+- **URL:** `https://www.mpnresearchfoundation.org` | Registry ClinicalTrials.gov ID: **`NCT07362225`**
+- **Status & Registry Evolution (Verified 2026):**
+  - **Active Flagship Foundation.**
+  - **Crucial Registry Update (`myMPN` $\rightarrow$ `MPN PROGRESSion Registry®`):** MPNRF originally pioneered the **`myMPN` Patient Registry** in September 2017 on genetic/survey infrastructure to collect self-reported outcomes. Building on those lessons, as of **late 2025/2026**, MPNRF's primary active data engine is the modernized **`MPN PROGRESSion Registry®` (`NCT07362225`)**—a direct-to-patient prospective/retrospective study targeting **~5,000 MPN participants** over 5–10 years by linking **automated Electronic Health Records (EHRs), longitudinal PROs, and insurance claims**.
+- **How Builders Can Partner:** MPNRF runs structured **Patient Advisory Panels**, co-designs patient-centric clinical trial protocols with biopharma sponsors, partnered with Blood Cancer United (July 2025) on clinical trial navigation, and licenses/collaborates on de-identified registry insights for progression biomarker research.
+
+#### 6. Blood Cancer United *(formerly The Leukemia & Lymphoma Society / LLS — Rebranded August 2025)*
+- **URL:** `https://www.bloodcancerunited.org`
+- **Status & Approximate Scale:** **Active (Major National Hub)** — Rebranded from LLS to **Blood Cancer United** in August 2025 explicitly so patients with MPNs, MDS, and myeloma know they are fully represented alongside leukemia/lymphoma. Operates **Blood Cancer United Community** (gated peer network), one-on-one **Information Specialists**, **Clinical Trial Support Center (CTSC)** nurse navigators, and financial copay assistance.
+- **Primary Pain Points Addressed:** Clinical trial matching bottlenecks (bridging community patients into academic `JAK2 V617F` / combination trials) and catastrophic drug/transplant financial toxicity.
+
+#### 7. HealthTree Foundation — HealthTree for Myelofibrosis (Cure Hub)
+- **URL:** `https://healthtree.org/myelofibrosis`
+- **Status & Approximate Scale:** **Active & Rapidly Growing** — Combines patient education ("HealthTree University"), peer coaching, clinical trial finder, and **HealthTree Cure Hub** (a patient-controlled data portal aggregating EHR labs, genetics, and real-world treatment outcomes across hematologic malignancies).
+- **Why Study This Model:** HealthTree is a textbook case study for Track A founders showing how giving patients real utility (visualizing their own longitudinal labs + matching to trials/twins) earns high-retention, research-grade longitudinal data consent.
+
+#### 8. MPN Advocacy & Education International
+- **URL:** `https://mpnadvocacy.com`
+- **Status & Approximate Scale:** **Active** — Hosts frequent regional US in-person & virtual **Patient & Caregiver Symposia** (including dedicated Women & MPN and diversity/access programs) featuring top MPN KOLs alongside pharmaceutical/biotech educational exhibitors.
+- **Primary Focus:** Health equity, closing the diagnostic gap between community hematology and academic MPN centers, and direct Q&A between patients and trial investigators.
+
+#### 9. Patient Power (MPN Hub) & PV Reporter
+- **URLs:** `https://www.patientpower.info/myeloproliferative-neoplasms` | `https://pvreporter.com`
+- **Status & Approximate Scale:** **Active Educational & Patient-Journalism Hubs** — Patient Power produces video interviews/town halls pairing MPN patients with leading investigators after every ASH/ASCO/EHA congress; **PV Reporter** (founded by MPN patient advocate David Wallace) serves as a widely bookmarked "one-stop" resource directory for MPN clinical trials, Interferon/JAKi news, and specialist directories.
+
+---
+
+## 2. Recurring Unmet Patient Pain Points Synthesized Across Communities
+
+Founders and AI agents scanning patient narratives consistently miss four ground-truth realities that rarely show up in clean clinical review papers:
+
+1. **The "Washout Terror" Blocking Clinical Trial Enrollment:**
+   - Many Phase 1/2 relapsed/refractory trials historically required a **14-to-28-day ruxolitinib washout** before Day 1 of experimental therapy. Patients know stopping ruxolitinib causes agonizing spleen rebound, drenching fevers, and rapid decompensation—so they refuse monotherapy salvage trials unless **add-on designs** or **rapid-overlap bridging protocols** are used.
+2. **Anemia & Transfusion Time-Toxicity:**
+   - Becoming RBC-transfusion-dependent doesn't just worsen prognosis—it chains a 68-year-old patient and their spouse to weekly/biweekly 6-hour cross-match and infusion-chair visits, iron overload anxiety, and crushing pre-transfusion exhaustion.
+3. **Symptom vs. Spleen Disconnect:**
+   - Patients care deeply about **fatigue, brain fog, bone pain, itching, and transfusion freedom**—not merely whether an MRI shows a 35% vs. 30% spleen volume change. Tools and drugs that improve lived daily function win fiercely loyal patient advocacy.
+4. **Specialist Desert:**
+   - Outside ~30–40 academic MPN centers in the US/EU, general hematologist-oncologists treat hundreds of breast/lung/colon cancer cases for every 1 myelofibrosis patient—leading to delayed MIPSS70+ NGS testing, premature or overly late JAKi switching, and missed transplant windows.
+
+---
+
+## 3. Ethical Engagement Playbook for Founders, Researchers & AI Agents
+
+> [!CAUTION]
+> **Hard Boundaries in Rare-Disease Patient Communities:**
+> - **NEVER** deploy automated bots to post, DM, or cold-solicit patients inside `r/mpn`, HealthUnlocked, Smart Patients, or private Facebook groups. Moderators enforce strict anti-spam/anti-self-promotion rules and ban violators immediately.
+> - **NEVER** scrape identifiable usernames, health histories, or private/registration-gated forum posts to train commercial models or build marketing lists without explicit IRB oversight and platform/user consent.
+
+### How to Listen, Validate & Partner Respectfully
+
+1. **Passive Aggregate Problem Discovery (Public Threads Only):**
+   - Read public threads on `r/mpn` and `healthunlocked.com/mpnvoice` strictly to calibrate *clinical empathy and problem selection* (e.g., understanding why daily diary fatigue or washout periods fail patients)—never storing PII or quoting vulnerable individuals without consent.
+2. **Go Through the Front Door — Moderator & Foundation Partnerships:**
+   - Reach out transparently to **MPN Research Foundation**, **MPN Advocacy & Education International**, **MPN Voice**, **HealthTree**, or `r/mpn` mod-mail *before* posting any survey or interview request:
+     - State your institutional/company identity, funding source, IRB determination (if human-subjects research), and exactly how findings will be shared back with the community in plain language.
+3. **Compensate Patient Advisors Fairly (Fair-Market-Value Patient Engagement):**
+   - When convening a **Patient Advisory Board (PAB)** to co-design an ePRO app, external control registry, or Phase 1b trial protocol, compensate patient and caregiver advisors at standard rare-disease fair market value (**typically $100–$200/hour**), schedule short low-fatigue video sessions (30–45 minutes), and close the loop by sharing how their feedback changed your product or trial design.

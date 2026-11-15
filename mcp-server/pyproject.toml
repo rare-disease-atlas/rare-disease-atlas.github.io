@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orphan-disease-opportunity-mcp"
+version = "1.0.0"
+description = "Model Context Protocol (MCP) server for high-tractability orphan disease startup, AI-bio, public-health, and non-dilutive grant opportunities (Flagship #1: JAK2 V617F Myelofibrosis)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Rare Disease Venture Atlas", email = "open-science@rare-disease-atlas.github.io" }
+]
+keywords = [
+  "mcp",
+  "mcp-server",
+  "rare-disease",
+  "orphan-drug",
+  "drug-repurposing",
+  "computational-biology",
+  "public-health",
+  "biotech",
+  "myelofibrosis",
+  "jak2"
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Topic :: Scientific/Engineering :: Medical Science Apps."
+]
+# Zero third-party runtime dependencies required — runs out of the box anywhere Python >=3.10 is installed.
+dependencies = []
+
+[project.urls]
+Homepage = "https://rare-disease-atlas.github.io"
+Dataset = "https://rare-disease-atlas.github.io/opportunities.json"
+Documentation = "https://rare-disease-atlas.github.io/llms.txt"
+
+[project.scripts]
+orphan-disease-mcp = "orphan_disease_mcp.server:main"
+
+[tool.setuptools]
+packages = ["orphan_disease_mcp"]
+include-package-data = true

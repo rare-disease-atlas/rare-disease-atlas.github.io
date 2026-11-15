@@ -1,0 +1,33 @@
+{
+  "name": "Orphan Disease Opportunity Briefing Node",
+  "description": "Open-access translational intelligence node mapping biological gaps, orphan unit economics, non-dilutive funding, and community validation pathways (Flagship #1: JAK2 V617F+ Myelofibrosis).",
+  "url": "https://rare-disease-atlas.github.io",
+  "version": "1.1.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["text/markdown", "application/json"],
+  "skills": [
+    {
+      "id": "rare-disease-venture-scoping",
+      "name": "Rare Disease Startup & Business Model Scoping",
+      "description": "Matches founder skills (AI-bio, public health/RWE, venture/financing) to concrete rare-disease wedges with <$250K validation budgets and $1.7B-$2.9B exit benchmarks.",
+      "tags": ["rare-disease", "orphan-drug", "biotech", "public-health", "myelofibrosis", "jak2"]
+    },
+    {
+      "id": "jak2-myelofibrosis-target-tractability",
+      "name": "JAK2 V617F Myelofibrosis Target & Dataset Discovery",
+      "description": "Provides verified NCT clinical trial outcomes, PDB JH2 crystal structures, and NCBI GEO single-cell multi-omics datasets.",
+      "tags": ["computational-biology", "drug-repurposing", "scrna-seq", "protac", "jh2"]
+    }
+  ],
+  "links": {
+    "llmsTxt": "https://rare-disease-atlas.github.io/llms.txt",
+    "llmsFullTxt": "https://rare-disease-atlas.github.io/llms-full.txt",
+    "opportunitiesJson": "https://rare-disease-atlas.github.io/opportunities.json",
+    "openApiSpec": "https://rare-disease-atlas.github.io/openapi.yaml",
+    "mcpManifest": "https://rare-disease-atlas.github.io/.well-known/mcp.json"
+  }
+}

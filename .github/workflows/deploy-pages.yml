@@ -1,0 +1,55 @@
+name: Validate MCP & Deploy Static Dossier to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  verify-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run MCP Server & Schema Unit Tests
+        run: |
+          python3 -W default mcp-server/test_mcp.py
+
+      - name: Sync canonical opportunities.json & openapi.yaml into site/
+        run: |
+          cp mcp-server/data/opportunities.json site/opportunities.json
+          cp mcp-server/openapi.yaml site/openapi.yaml
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static site artifact (includes .well-known & .nojekyll)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./site"
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: verify-and-build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

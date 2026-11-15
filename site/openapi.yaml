@@ -1,0 +1,257 @@
+openapi: 3.1.0
+info:
+  title: Orphan Disease Venture & Translational Opportunity API (Static S3 Feed)
+  version: 1.0.0
+  summary: Zero-auth static JSON & Markdown endpoints for AI agents, Custom GPT Actions, and OpenAPI tool callers.
+  description: >
+    Machine-readable startup blueprints, biological tractability, FDA Orphan Drug Act unit economics,
+    non-dilutive SBIR/venture-philanthropy grants, and ethical clinical validation pathways.
+    Flagship Deep-Dive #1 covers JAK2 V617F-positive Myelofibrosis (`jak2-myelofibrosis`).
+    Hosted statically on S3/CloudFront with zero authentication required so Custom GPTs and OpenAPI
+    agents can query live structured data directly.
+  contact:
+    name: Rare Disease Venture Atlas
+    url: https://rare-disease-atlas.github.io
+  license:
+    name: CC-BY-4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+
+servers:
+  - url: https://rare-disease-atlas.github.io
+    description: Production static S3 + CloudFront distribution
+
+paths:
+  /opportunities.json:
+    get:
+      operationId: getOrphanDiseaseOpportunityAtlas
+      summary: Fetch full structured dataset of founder opportunities, JAK2+ Myelofibrosis case study, non-dilutive grants, and ethical validation communities.
+      description: >
+        Returns the complete JSON atlas powering `rare-disease-atlas.github.io` and `orphan-disease-opportunity-mcp`.
+        Agents should inspect `opportunities` (filtering by `backgrounds`, `capital_tier`, and `wet_lab_required`),
+        `case_studies.jak2-myelofibrosis`, `non_dilutive_grants`, and `validation_communities`.
+      responses:
+        "200":
+          description: Full structured opportunity, biology, grant, and validation atlas.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpportunityAtlas"
+
+  /llms.txt:
+    get:
+      operationId: getLlmsSiteMap
+      summary: Retrieve concise LLM-optimized markdown index of rare-disease-atlas.github.io.
+      description: Lightweight `llmstxt.org` compliant overview mapping founder tracks, key biological hypotheses, and structured resource links.
+      responses:
+        "200":
+          description: Markdown executive summary for LLMs and RAG agents.
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /llms-full.txt:
+    get:
+      operationId: getLlmsFullBriefing
+      summary: Retrieve full single-file Markdown translational & venture briefing.
+      description: Complete concatenated narrative briefing covering JAK2 V617F JH2 structural biology, ruxolitinib failure modes, startup blueprints, and grants.
+      responses:
+        "200":
+          description: Complete Markdown playbook.
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /.well-known/mcp.json:
+    get:
+      operationId: getMcpDiscoveryManifest
+      summary: Discover Model Context Protocol (MCP) server package, tools, resources, and prompts for this domain.
+      responses:
+        "200":
+          description: MCP server capability manifest.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/McpDiscoveryManifest"
+
+components:
+  schemas:
+    OpportunityAtlas:
+      type: object
+      required:
+        - schema_version
+        - atlas_name
+        - flagship_disease_id
+        - opportunities
+      properties:
+        schema_version:
+          type: string
+          example: "1.0.0"
+        atlas_name:
+          type: string
+          example: "Rare Disease Venture & Translational Opportunity Atlas"
+        canonical_url:
+          type: string
+          format: uri
+        license:
+          type: string
+          example: "CC-BY-4.0"
+        flagship_disease_id:
+          type: string
+          example: "jak2-myelofibrosis"
+        opportunities:
+          type: array
+          items:
+            $ref: "#/components/schemas/FounderOpportunity"
+        case_studies:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/DiseaseCaseStudy"
+        non_dilutive_grants:
+          type: array
+          items:
+            $ref: "#/components/schemas/GrantProgram"
+        validation_communities:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ValidationCommunityGroup"
+
+    FounderOpportunity:
+      type: object
+      required:
+        - id
+        - disease_id
+        - title
+        - backgrounds
+        - capital_tier
+        - wet_lab_required
+        - problem_wedge
+        - solution_blueprint
+      properties:
+        id:
+          type: string
+        disease_id:
+          type: string
+        title:
+          type: string
+        backgrounds:
+          type: array
+          items:
+            type: string
+            enum:
+              - computational-ai-bio
+              - public-health
+              - venture-novel-financing
+        capital_tier:
+          type: string
+          enum:
+            - bootstrapped-grant
+            - seed
+            - series-a-platform
+        capital_range_usd:
+          type: string
+        wet_lab_required:
+          type: boolean
+        problem_wedge:
+          type: string
+        solution_blueprint:
+          type: string
+        unit_economics:
+          type: object
+          additionalProperties:
+            type: string
+        regulatory_pathway:
+          type: string
+        first_90_days_milestones:
+          type: array
+          items:
+            type: string
+        open_datasets:
+          type: array
+          items:
+            type: string
+
+    DiseaseCaseStudy:
+      type: object
+      properties:
+        disease_id:
+          type: string
+        name:
+          type: string
+        identifiers:
+          type: object
+        epidemiology:
+          type: object
+        biological_tractability:
+          type: object
+        standard_of_care_failure_modes:
+          type: object
+        regulatory_and_commercial_incentives:
+          type: object
+        open_datasets_and_tools:
+          type: array
+          items:
+            type: object
+
+    GrantProgram:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        track:
+          type: string
+          enum:
+            - sbir-sttr
+            - foundation
+            - venture-philanthropy
+            - regulatory-orphan
+            - federal-translational
+        typical_award_usd:
+          type: string
+        equity_dilution:
+          type: string
+        focus_areas:
+          type: string
+        url:
+          type: string
+          format: uri
+
+    ValidationCommunityGroup:
+      type: object
+      properties:
+        disease_id:
+          type: string
+        institutional_and_patient_communities:
+          type: array
+          items:
+            type: object
+        ethical_discovery_guidelines:
+          type: array
+          items:
+            type: string
+
+    McpDiscoveryManifest:
+      type: object
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+        homepage:
+          type: string
+          format: uri
+        tools:
+          type: array
+          items:
+            type: string
+        resources:
+          type: array
+          items:
+            type: string
+        prompts:
+          type: array
+          items:
+            type: string
