@@ -22,9 +22,15 @@
 - [03 // AI & Computational Biology Drug Discovery Targets](https://rare-disease-atlas.github.io/ai-drug-repurposing-targets.html): JH2 V617F vs. WT JH2 selectivity, PROTAC exit vectors, and single-cell megakaryocyte–stromal fibrosis circuits (`GSE144568`, `GSE156644`, `GSE122198`, `GSE226340`).
 - [04 // Autoimmune Myelofibrosis (AIMF), Diagnostic Triage & Iron/Hepcidin Axis](https://rare-disease-atlas.github.io/autoimmune-myelofibrosis-iron-wedge.html): Lupus-associated non-`JAK2` myelofibrosis, dual transfusional + IL-6/hepcidin iron trapping, preventing Triple-Negative PMF misdiagnosis, and *Nature's Positive Control* for reversing marrow fibrosis.
 
-## Machine-Callable Endpoints, Open-Source Repos & 1-Command MCP Server
-- **Run MCP Server Instantly (Zero PyPI Token Needed):**
-  `uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-opportunity-mcp`
+## Machine-Callable Endpoints, Zero-Install Remote MCP, A2A Peer Agent & Open-Source Repos
+- **Zero-Install Remote MCP (`streamable-http`, Zero Auth — Claude Web / OpenAI `mcp` / Cursor / Cloud Agents):**
+  `https://api.rare-disease-atlas.workers.dev/mcp`
+- **Run Local STDIO MCP Instantly (`uvx`, Zero API Keys):**
+  `uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-mcp`
+- **Agent2Agent (`A2A`) Peer Specialist Endpoint (`message/send`, `tasks/send`):**
+  [A2A Agent Card (`/.well-known/agent.json`)](https://rare-disease-atlas.github.io/.well-known/agent.json) · `POST https://api.rare-disease-atlas.workers.dev/a2a`
+- **Hugging Face Interactive `mcp-server` Space & Dataset Hub:**
+  [HF Gradio MCP Space (`rare-disease-atlas/orphan-disease-venture-scout`)](https://huggingface.co/spaces/rare-disease-atlas/orphan-disease-venture-scout) · [HF Dataset (`rare-disease-atlas/rare-disease-venture-atlas`)](https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas)
 - [Standalone MCP Server Repo](https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp) · [Web Dossier Monorepo](https://github.com/rare-disease-atlas/rare-disease-atlas.github.io)
 - [Full Consolidated Markdown Corpus (`/llms-full.txt`)](https://rare-disease-atlas.github.io/llms-full.txt): Complete single-fetch knowledge base including `JAK2+` PMF and Autoimmune Myelofibrosis + Iron/Hepcidin dossiers.
 - [Structured Opportunity Atlas JSON (`/opportunities.json`, v1.2.0)](https://rare-disease-atlas.github.io/opportunities.json): 8 startup blueprints, 2 paired case studies (`jak2-myelofibrosis`, `autoimmune-myelofibrosis`), 7 grants, and 8 communities (`CC-BY-4.0`).

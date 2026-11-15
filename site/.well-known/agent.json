@@ -1,33 +1,91 @@
 {
-  "name": "Orphan Disease Opportunity Briefing Node",
-  "description": "Open-access translational intelligence node mapping biological gaps, orphan unit economics, non-dilutive funding, and community validation pathways (Flagship #1: JAK2 V617F+ Myelofibrosis).",
-  "url": "https://rare-disease-atlas.github.io",
-  "version": "1.1.0",
+  "name": "Rare Disease Venture Atlas Agent",
+  "description": "Open translational & venture diligence specialist agent covering orphan disease startup blueprints, non-dilutive grant stacks (SBIR, ARPA-H, LLS TAP, MPNRF), clonal JAK2 V617F+ Primary Myelofibrosis (JH2 allosteric inhibitors, mutant CALR), and reversible JAK2-negative Autoimmune Myelofibrosis (AIMF) + IL-6/hepcidin/ferroportin iron overload.",
+  "url": "https://api.rare-disease-atlas.workers.dev/a2a",
+  "documentationUrl": "https://rare-disease-atlas.github.io/llms-full.txt",
+  "provider": {
+    "organization": "Rare Disease Venture Atlas",
+    "url": "https://rare-disease-atlas.github.io"
+  },
+  "version": "1.4.0",
+  "protocolVersion": "0.3.0",
+  "preferredTransport": "JSONRPC",
   "capabilities": {
     "streaming": false,
-    "pushNotifications": false
+    "pushNotifications": false,
+    "stateTransitionHistory": false
   },
-  "defaultInputModes": ["text/plain", "application/json"],
-  "defaultOutputModes": ["text/markdown", "application/json"],
+  "defaultInputModes": [
+    "text/plain",
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "text/plain",
+    "application/json"
+  ],
   "skills": [
     {
-      "id": "rare-disease-venture-scoping",
-      "name": "Rare Disease Startup & Business Model Scoping",
-      "description": "Matches founder skills (AI-bio, public health/RWE, venture/financing) to concrete rare-disease wedges with <$250K validation budgets and $1.7B-$2.9B exit benchmarks.",
-      "tags": ["rare-disease", "orphan-drug", "biotech", "public-health", "myelofibrosis", "jak2"]
+      "id": "match-orphan-venture-wedges",
+      "name": "Match Orphan Disease Startup Blueprints",
+      "description": "Matches founder technical backgrounds (AI/ML drug repurposing, public health/EHR diagnostics, biotech/venture spinouts) and capital constraints against concrete rare-disease startup wedges.",
+      "tags": [
+        "rare-disease",
+        "venture",
+        "biotech",
+        "ai-bio",
+        "public-health"
+      ],
+      "examples": [
+        "Match zero-wet-lab computational AI/ML startup wedges under $250K seed budget.",
+        "What public-health diagnostic wedges exist for misdiagnosed myelofibrosis?"
+      ]
     },
     {
-      "id": "jak2-myelofibrosis-target-tractability",
-      "name": "JAK2 V617F Myelofibrosis Target & Dataset Discovery",
-      "description": "Provides verified NCT clinical trial outcomes, PDB JH2 crystal structures, and NCBI GEO single-cell multi-omics datasets.",
-      "tags": ["computational-biology", "drug-repurposing", "scrna-seq", "protac", "jh2"]
+      "id": "jak2-clonal-myelofibrosis-diligence",
+      "name": "Clonal JAK2 V617F+ Myelofibrosis Translational Diligence",
+      "description": "Analyzes Type I JH1 JAK inhibitor failure modes, mutant-selective JH2 pseudokinase inhibitors (INCB160058), Type II persistence breakers (AJ1-11095), mutant CALR biologics, and Phase 3 clinical catalysts.",
+      "tags": [
+        "myelofibrosis",
+        "JAK2-V617F",
+        "JH2",
+        "CALR",
+        "clinical-trials"
+      ],
+      "examples": [
+        "Explain JH2 vs JH1 selectivity in JAK2 V617F myelofibrosis and active NCT trials."
+      ]
+    },
+    {
+      "id": "autoimmune-myelofibrosis-iron-triage",
+      "name": "Autoimmune Myelofibrosis (AIMF) & Iron Overload Positive-Control Triage",
+      "description": "Contrasts clonal PMF against reversible JAK2-negative lupus/autoimmune myelofibrosis (74-80% remission on corticosteroids/rituximab) and dual transfusional + IL-6/hepcidin/ferroportin iron overload.",
+      "tags": [
+        "autoimmune-myelofibrosis",
+        "AIMF",
+        "lupus",
+        "SLE",
+        "hepcidin",
+        "iron-overload",
+        "fibrosis-reversal"
+      ],
+      "examples": [
+        "How does JAK2-negative autoimmune myelofibrosis with lupus suspicion and iron overload differ from triple-negative PMF?"
+      ]
+    },
+    {
+      "id": "non-dilutive-grant-stacking",
+      "name": "Orphan Disease Non-Dilutive Capital Stacking",
+      "description": "Identifies stackable NIH SBIR/STTR, ARPA-H, MPN Research Foundation, LLS Therapy Acceleration Program (TAP), and FDA Orphan Drug incentives.",
+      "tags": [
+        "grants",
+        "SBIR",
+        "ARPA-H",
+        "non-dilutive",
+        "orphan-drug"
+      ],
+      "examples": [
+        "Build a non-dilutive grant stack for a seed-stage myelofibrosis AI drug repurposing team."
+      ]
     }
-  ],
-  "links": {
-    "llmsTxt": "https://rare-disease-atlas.github.io/llms.txt",
-    "llmsFullTxt": "https://rare-disease-atlas.github.io/llms-full.txt",
-    "opportunitiesJson": "https://rare-disease-atlas.github.io/opportunities.json",
-    "openApiSpec": "https://rare-disease-atlas.github.io/openapi.yaml",
-    "mcpManifest": "https://rare-disease-atlas.github.io/.well-known/mcp.json"
-  }
+  ]
 }
