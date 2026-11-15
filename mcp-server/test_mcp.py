@@ -28,7 +28,10 @@ import threading
 import unittest
 import urllib.request
 
-import yaml
+try:
+    import yaml  # type: ignore
+except ImportError:
+    yaml = None
 
 MCP_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(MCP_DIR))
@@ -376,14 +379,20 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
 
     def test_04_openapi_and_registry_manifests_valid(self) -> None:
         openapi_path = MCP_DIR / "openapi.yaml"
-        with openapi_path.open("r", encoding="utf-8") as fh:
-            spec = yaml.safe_load(fh)
-        self.assertEqual(spec["openapi"], "3.1.0")
-        self.assertEqual(
-            spec["servers"][0]["url"], "https://rare-disease-atlas.github.io"
-        )
-        self.assertIn("/opportunities.json", spec["paths"])
-        self.assertIn("/.well-known/mcp.json", spec["paths"])
+        raw_yaml = openapi_path.read_text(encoding="utf-8")
+        if yaml is not None:
+            spec = yaml.safe_load(raw_yaml)
+            self.assertEqual(spec["openapi"], "3.1.0")
+            self.assertEqual(
+                spec["servers"][0]["url"], "https://rare-disease-atlas.github.io"
+            )
+            self.assertIn("/opportunities.json", spec["paths"])
+            self.assertIn("/.well-known/mcp.json", spec["paths"])
+        else:
+            self.assertIn("openapi: 3.1.0", raw_yaml)
+            self.assertIn("url: https://rare-disease-atlas.github.io", raw_yaml)
+            self.assertIn("/opportunities.json:", raw_yaml)
+            self.assertIn("/.well-known/mcp.json:", raw_yaml)
 
         server_json_path = MCP_DIR / "server.json"
         with server_json_path.open("r", encoding="utf-8") as fh:
