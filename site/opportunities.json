@@ -1,18 +1,20 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
   "canonical_url": "https://rare-disease-atlas.github.io/opportunities.json",
   "documentation_url": "https://rare-disease-atlas.github.io/llms.txt",
   "license": "CC-BY-4.0",
   "last_updated": "2026-11-15",
   "flagship_disease_id": "jak2-myelofibrosis",
-  "umbrella_note": "Open venture and translational opportunity dataset for high-tractability orphan diseases. V1 features a comprehensive, citation-verified Flagship Deep-Dive on JAK2 V617F Myelofibrosis (jak2-myelofibrosis) across Computational/AI-Bio, Public Health, and Venture/Novel Financing founder tracks.",
+  "umbrella_note": "Open venture and translational opportunity dataset for high-tractability orphan diseases. V1.2 features paired Flagship Deep-Dives on Clonal JAK2 V617F+ Myelofibrosis (jak2-myelofibrosis) and Non-Clonal Autoimmune Myelofibrosis & The Lupus-Iron-Hepcidin Axis (autoimmune-myelofibrosis)\u2014pairing a $2B+ orphan oncology target with Nature's in-vivo positive control for reversible human marrow fibrosis.",
   "opportunities": [
     {
       "id": "opp-jak2-jh2-allosteric-design",
       "disease_id": "jak2-myelofibrosis",
-      "title": "Structure-Guided Allosteric JAK2 V617F JH2 Mutant-Selective Inhibitor / PROTAC Degrader Design",
-      "backgrounds": ["computational-ai-bio"],
+      "title": "[AI-BIO-01] Structure-Guided Allosteric JAK2 V617F JH2 Mutant-Selective Inhibitor / PROTAC Degrader Design",
+      "backgrounds": [
+        "computational-ai-bio"
+      ],
       "capital_tier": "seed",
       "capital_range_usd": "$350K - $2.5M",
       "wet_lab_required": false,
@@ -31,19 +33,30 @@
         "Order 30-50 custom/Make-on-Demand analogs or linker-warhead pairs ($25K-$45K) and screen in outsourced JH2-WT vs JH2-V617F TR-FRET competition and HiBiT degradation assays.",
         "Submit NCI SBIR Phase I ($400K) and MPN Research Foundation MPN Challenge ($250K) LOI with initial selectivity curves."
       ],
-      "open_datasets": ["PDB:4FVR", "PDB:6E2Q", "PDB:8BAK", "PDB:8EX2", "PDB:4FVP", "ChEMBL:CHEMBL2971", "UniProt:O60674"]
+      "open_datasets": [
+        "PDB:4FVR",
+        "PDB:6E2Q",
+        "PDB:8BAK",
+        "PDB:8EX2",
+        "PDB:4FVP",
+        "ChEMBL:CHEMBL2971",
+        "UniProt:O60674"
+      ]
     },
     {
       "id": "opp-marrow-fibrosis-ai-biomarker",
       "disease_id": "jak2-myelofibrosis",
-      "title": "Composite Surrogate Endpoint & AI Digital Pathology Platform Solving the Phase 3 SVR35/TSS50 Crisis",
-      "backgrounds": ["computational-ai-bio", "public-health"],
+      "title": "[AI-BIO-02] Composite Surrogate Endpoint & AI Digital Pathology Platform Solving the Phase 3 SVR35/TSS50 Crisis",
+      "backgrounds": [
+        "computational-ai-bio",
+        "public-health"
+      ],
       "capital_tier": "bootstrapped-grant",
       "capital_range_usd": "$50K - $250K",
       "wet_lab_required": false,
       "wet_lab_execution_model": "100% software / computational pathology & digital biomarker platform using digitized bone marrow H&E/reticulin WSIs, NGS VAF kinetics, and high-frequency wearable/ePRO feeds.",
-      "problem_wedge": "Between 2024 and 2026, three major frontline Phase 3 combination trials—TRANSFORM-1 (navitoclax, NCT04472598), MANIFEST-2 (pelabresib, NCT04603495), and SENTRY (selinexor, NCT04562389)—hit Spleen Volume Reduction (SVR35) yet missed strict Total Symptom Score (TSS50) statistical cutoffs due to noisy diary scores, while IMpactMF (imetelstat, NCT04576156) failed on Overall Survival in Oct 2026. Meanwhile, manual WHO marrow fibrosis grading (MF-0 to MF-3) has 30-40% inter-pathologist discordance.",
-      "solution_blueprint": "Build a regulatory-grade composite disease-modification biomarker platform combining foundation-model reticulin/megakaryocyte WSI morphometry, longitudinal JAK2 V617F / HMR VAF clearance, and passive wearable + micro-sampled MF-SAF v4.0 ePROs—aligned with the FDA Rare Disease Endpoint Advancement (RDEA) program.",
+      "problem_wedge": "Between 2024 and 2026, three major frontline Phase 3 combination trials\u2014TRANSFORM-1 (navitoclax, NCT04472598), MANIFEST-2 (pelabresib, NCT04603495), and SENTRY (selinexor, NCT04562389)\u2014hit Spleen Volume Reduction (SVR35) yet missed strict Total Symptom Score (TSS50) statistical cutoffs due to noisy diary scores, while IMpactMF (imetelstat, NCT04576156) failed on Overall Survival in Oct 2026. Meanwhile, manual WHO marrow fibrosis grading (MF-0 to MF-3) has 30-40% inter-pathologist discordance.",
+      "solution_blueprint": "Build a regulatory-grade composite disease-modification biomarker platform combining foundation-model reticulin/megakaryocyte WSI morphometry, longitudinal JAK2 V617F / HMR VAF clearance, and passive wearable + micro-sampled MF-SAF v4.0 ePROs\u2014aligned with the FDA Rare Disease Endpoint Advancement (RDEA) program.",
       "unit_economics": {
         "initial_validation_budget_usd": "$40,000 - $150,000 (academic biobank DUA + pathology vision encoder fine-tuning + hematopathologist adjudication)",
         "orphan_market_benchmark": "30+ active Phase 1-3 Myelofibrosis clinical trials globally spending $30M-$120M per trial; B2B SaaS biopharma endpoint & central pathology contracts average $300K-$1.5M per trial.",
@@ -56,13 +69,20 @@
         "Demonstrate superior prediction of progression-free survival and ruxolitinib failure vs coarse manual MF-0/3 grading.",
         "Pitch translational biomarker teams at clinical-stage MPN sponsors (Incyte, Kartos, Karyopharm, Sumitomo, Ajax) as a Phase 2/3 endpoint enrichment engine."
       ],
-      "open_datasets": ["GEO:GSE144568", "GEO:GSE156644", "GEO:GSE226340", "ClinicalTrials.gov:API-v2"]
+      "open_datasets": [
+        "GEO:GSE144568",
+        "GEO:GSE156644",
+        "GEO:GSE226340",
+        "ClinicalTrials.gov:API-v2"
+      ]
     },
     {
       "id": "opp-antifibrotic-repurposing-engine",
       "disease_id": "jak2-myelofibrosis",
-      "title": "Single-Cell Megakaryocyte-Stroma Drug Repurposing Screen for Direct Bone Marrow Fibrosis Reversal",
-      "backgrounds": ["computational-ai-bio"],
+      "title": "[AI-BIO-03] Single-Cell Megakaryocyte-Stroma Drug Repurposing Screen for Direct Bone Marrow Fibrosis Reversal",
+      "backgrounds": [
+        "computational-ai-bio"
+      ],
       "capital_tier": "bootstrapped-grant",
       "capital_range_usd": "$75K - $250K",
       "wet_lab_required": false,
@@ -81,19 +101,28 @@
         "Execute a $45K-$75K Sponsored Research Agreement with an academic MPN lab to test top 8 combinations in human MF stromal co-cultures.",
         "File provisional method-of-use and synergistic combination patents prior to publication."
       ],
-      "open_datasets": ["GEO:GSE144568", "GEO:GSE156644", "GEO:GSE117826", "HuggingFace:everycure", "ChEMBL:CHEMBL2971"]
+      "open_datasets": [
+        "GEO:GSE144568",
+        "GEO:GSE156644",
+        "GEO:GSE117826",
+        "HuggingFace:everycure",
+        "ChEMBL:CHEMBL2971"
+      ]
     },
     {
       "id": "opp-post-rux-rwe-trial-network",
       "disease_id": "jak2-myelofibrosis",
-      "title": "Regulatory-Grade RWE External Control Arm & No-Washout Clinical Trial Matching Engine",
-      "backgrounds": ["public-health", "computational-ai-bio"],
+      "title": "[PUBLIC-HEALTH-01] Regulatory-Grade RWE External Control Arm & No-Washout Clinical Trial Matching Engine",
+      "backgrounds": [
+        "public-health",
+        "computational-ai-bio"
+      ],
       "capital_tier": "bootstrapped-grant",
       "capital_range_usd": "$50K - $250K",
       "wet_lab_required": false,
       "wet_lab_execution_model": "Zero wet lab; FHIR/EHR patient-authorized data sync complementary to existing registries (MPN PROGRESSion Registry NCT07362225, HealthTree) + automated community oncology trial routing.",
       "problem_wedge": "Median OS after ruxolitinib discontinuation is 11-23 months, yet >70% of US MF patients are treated in generalist community clinics. Worse, patients refuse salvage trials that require a 14-28 day ruxolitinib washout ('washout terror' from cytokine rebound), while sponsors pay $30K-$60K/patient recruiting Best-Available-Therapy control arms.",
-      "solution_blueprint": "Build a FHIR-native longitudinal companion and automated trial-matching engine that tracks CBC/transfusion velocity, MIPSS70+ v2.0 NGS risk, and RR6 ruxolitinib-failure criteria—specifically filtering for add-on / overlap-bridging trials (e.g., POIESIS NCT06479135) while licensing FDA-auditable External Control Arms (ECAs) to Phase 2/3 sponsors.",
+      "solution_blueprint": "Build a FHIR-native longitudinal companion and automated trial-matching engine that tracks CBC/transfusion velocity, MIPSS70+ v2.0 NGS risk, and RR6 ruxolitinib-failure criteria\u2014specifically filtering for add-on / overlap-bridging trials (e.g., POIESIS NCT06479135) while licensing FDA-auditable External Control Arms (ECAs) to Phase 2/3 sponsors.",
       "unit_economics": {
         "initial_validation_budget_usd": "$35,000 - $120,000 (FHIR EHR connector + ClinicalTrials.gov v2 eligibility parser + compensated patient advisory co-design)",
         "orphan_market_benchmark": "Rare hematology trial recruitment commands $8,000-$25,000 per enrolled/screened patient, plus $500K-$2M+ per biopharma External Control Arm licensing contract.",
@@ -106,19 +135,25 @@
         "Ship free FHIR lab/transfusion/VAF trend visualizer + 1-page 'Oncologist Trial Brief' highlighting zero-washout add-on trials.",
         "Close pilot recruitment or RWE feasibility contract with 1-2 Phase 2 MPN biotech sponsors."
       ],
-      "open_datasets": ["ClinicalTrials.gov:API-v2", "ClinicalTrials.gov:NCT07362225", "Orphanet:ORPHA824"]
+      "open_datasets": [
+        "ClinicalTrials.gov:API-v2",
+        "ClinicalTrials.gov:NCT07362225",
+        "Orphanet:ORPHA824"
+      ]
     },
     {
       "id": "opp-transplant-timing-care-navigation",
       "disease_id": "jak2-myelofibrosis",
-      "title": "AI Allo-HSCT Timing, Cytopenia Switch & Shared-Decision Concierge ('The 10% to 35% Bridge')",
-      "backgrounds": ["public-health"],
+      "title": "[PUBLIC-HEALTH-02] AI Allo-HSCT Timing, Cytopenia Switch & Shared-Decision Concierge ('The 10% to 35% Bridge')",
+      "backgrounds": [
+        "public-health"
+      ],
       "capital_tier": "seed",
       "capital_range_usd": "$250K - $1.5M",
       "wet_lab_required": false,
       "wet_lab_execution_model": "Pure care-delivery, clinical decision support (CDS), and reimbursed Remote Therapeutic Monitoring (RTM/CCM) infrastructure.",
       "problem_wedge": "Allogeneic stem cell transplant (allo-HSCT) is the ONLY curative therapy for MF (5-yr OS ~50-60%), yet <10-15% of eligible patients ever receive it. Community oncologists lack molecularly calibrated timing tools (balancing MIPSS70+ v2.0 progression risk against 20-36% transplant NRM) and struggle to titrate switches across ruxolitinib, momelotinib (anemia), and pacritinib (platelets <50k).",
-      "solution_blueprint": "Deploy a reimbursed RTM/CCM symptom & transfusion monitoring service paired with transparent NCCN/MIPSS70+/MTSS clinical decision support and BMT Center-of-Excellence referral navigation—catching high-molecular-risk (ASXL1, SRSF2, U2AF1, TP53) patients in the optimal pre-blast transplant window.",
+      "solution_blueprint": "Deploy a reimbursed RTM/CCM symptom & transfusion monitoring service paired with transparent NCCN/MIPSS70+/MTSS clinical decision support and BMT Center-of-Excellence referral navigation\u2014catching high-molecular-risk (ASXL1, SRSF2, U2AF1, TP53) patients in the optimal pre-blast transplant window.",
       "unit_economics": {
         "initial_validation_budget_usd": "$150,000 - $400,000 (MPN-SAF ePRO + MIPSS70+/MTSS CDS workflow + pilot with 2 academic BMT centers and regional oncology clinics)",
         "orphan_market_benchmark": "Prevents $100K-$250K/yr avoidable transfusion/splenomegaly admissions and blast-phase crises; monetizes via Medicare RTM/PCM CPT codes + BMT Center-of-Excellence value contracts.",
@@ -130,13 +165,18 @@
         "Co-design shared-decision transplant & JAKi-switch guides with academic BMT directors and MPN Advocacy & Education International.",
         "Apply for NCI Care Delivery SBIR Phase I ($400K) and pilot referral bridge with 1 regional community oncology network."
       ],
-      "open_datasets": ["ClinicalTrials.gov:API-v2", "cBioPortal:MPN-Cohorts"]
+      "open_datasets": [
+        "ClinicalTrials.gov:API-v2",
+        "cBioPortal:MPN-Cohorts"
+      ]
     },
     {
       "id": "opp-orphan-mpn-venture-studio-spv",
       "disease_id": "jak2-myelofibrosis",
-      "title": "Evergreen MPN Venture-Philanthropy Syndicate & 'Valley-of-Death' Asset Rescue Studio",
-      "backgrounds": ["venture-novel-financing"],
+      "title": "[VENTURE-01] Evergreen MPN Venture-Philanthropy Syndicate & 'Valley-of-Death' Asset Rescue Studio",
+      "backgrounds": [
+        "venture-novel-financing"
+      ],
       "capital_tier": "series-a-platform",
       "capital_range_usd": "$1.5M - $12M",
       "wet_lab_required": true,
@@ -154,7 +194,73 @@
         "Establish formal co-diligence alignment with Blood Cancer United TAP and MPN Research Foundation scientific leadership.",
         "Structure legal DAF-compatible venture-philanthropy SPV template and option top asset gated on independent CRO primary MF CD34+ VAF depletion."
       ],
-      "open_datasets": ["NIH-RePORTER", "ChEMBL:CHEMBL2971", "ClinicalTrials.gov:API-v2", "Orphanet:ORPHA824"]
+      "open_datasets": [
+        "NIH-RePORTER",
+        "ChEMBL:CHEMBL2971",
+        "ClinicalTrials.gov:API-v2",
+        "Orphanet:ORPHA824"
+      ]
+    },
+    {
+      "id": "opp-reversible-aimf-fibrosis-control",
+      "disease_id": "autoimmune-myelofibrosis",
+      "title": "[AI-BIO-04] Subtractive Spatial Multi-Omics: Steroid-Reversible Autoimmune Myelofibrosis as 'Nature's Positive Control' for Fibrosis Reversal",
+      "backgrounds": [
+        "computational-ai-bio"
+      ],
+      "capital_tier": "seed",
+      "capital_range_usd": "$250K - $1.5M",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "Academic pathology biobank FFPE core collaboration (10x Visium HD / Xenium spatial transcriptomics on paired pre/post-rituximab or steroid AIMF biopsies vs non-reversing JAK2+ PMF) + in-silico perturbation target ranking.",
+      "problem_wedge": "Clinical dogma treats established human bone marrow fibrosis as an irreversible scar because all 4 approved JAK inhibitors fail to clear Grade 2/3 fibrosis in JAK2+ PMF. Yet in Autoimmune Myelofibrosis (AIMF\u2014JAK2/CALR/MPL-negative, lupus/autoantibody-driven), reticulin fibrosis completely resolves in 74-80% of patients within 3-12 months of immunosuppression (Gangat et al., Mayo Clinic, Br J Haematol 2024).",
+      "solution_blueprint": "Contrast spatial and single-cell stromal states of resolving human AIMF marrow against persistent JAK2+ PMF (GSE156644, GSE144568) to isolate the exact myofibroblast de-differentiation and matrix metalloproteinase (MMP-1/8/13 vs TIMP-1 / GLI1 / S100A8/A9) switches\u2014unlocking orthogonal stromal antifibrotics applicable across PMF, IPF, and systemic sclerosis.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$90,000 - $220,000 (archived FFPE core spatial profiling of 15-20 AIMF vs PMF pairs via academic hematopathology DUA + computational target discovery)",
+        "orphan_market_benchmark": "Direct stromal fibrosis-reversing therapy addresses 100% of Myelofibrosis genotypes ($2B+ market) with platform expansion into Idiopathic Pulmonary Fibrosis ($4B+).",
+        "exit_or_revenue_comps": "High-value biopharma target-discovery & 505(b)(2)/NCE option deals ($50M-$250M+ upfront/milestones for validated human-in-vivo fibrosis reversal targets)."
+      },
+      "regulatory_pathway": "FDA Orphan Drug Designation as an antifibrotic combination backbone in Myelofibrosis + FDA RDEA quantitative pathomics endpoint.",
+      "first_90_days_milestones": [
+        "Execute IRB-exempt archival FFPE tissue collaboration with 1-2 academic hematopathology & rheumatology centers (Mayo / French AIMF consensus criteria).",
+        "Generate spatial transcriptomic maps around resolving polyclonal T/B lymphoid aggregates in AIMF vs neoplastic megakaryocyte clusters in JAK2+ PMF.",
+        "Rank druggable extracellular/stromal switches separating reversible reticulin remodeling from cross-linked collagen persistence.",
+        "File target/repurposing IP and submit MPN Research Foundation Challenge + NIH SBIR Phase I applications."
+      ],
+      "open_datasets": [
+        "GEO:GSE156644",
+        "GEO:GSE144568",
+        "HuggingFace:everycure"
+      ]
+    },
+    {
+      "id": "opp-aimf-vs-tnpmf-pathology-triage",
+      "disease_id": "autoimmune-myelofibrosis",
+      "title": "[PUBLIC-HEALTH-03] Multi-Modal Biopsy, Iron-Hepcidin & Autoimmune Triage Engine Preventing Catastrophic AIMF vs. Triple-Negative PMF Misdiagnosis",
+      "backgrounds": [
+        "public-health",
+        "computational-ai-bio"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $250K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "100% software / EHR + digital pathology clinical decision support bridging rheumatology (SLE/UCTD) and community hematology.",
+      "problem_wedge": "Patients presenting with 'dry tap' marrow fibrosis, severe cytopenias, and massive iron buildup (from RBC transfusions + IL-6/hepcidin macrophage iron trapping) who test negative for JAK2/CALR/MPL face 30-40% diagnostic discordance. Misdiagnosing curable Autoimmune Myelofibrosis (AIMF) as Triple-Negative PMF subjects patients to ineffective $20K/mo cytopenic JAK inhibitors or 20-35% mortality stem cell transplants instead of curative steroids/rituximab.",
+      "solution_blueprint": "Build a 21st Century Cures CDS & WSI morphometry triage engine integrating megakaryocyte clustering/atypia vs polyclonal CD3/CD20 lymphoid aggregates, extended myeloid NGS clonality (ASXL1/SRSF2 absence), lupus/ANA/Coombs serology, and ferritin/TSAT/hepcidin kinetics to flag AIMF and transfusional/inflammatory iron overload early.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$45,000 - $130,000 (retrospective WSI + EHR lab validation across 150 triple-negative vs autoimmune fibrotic marrows)",
+        "orphan_market_benchmark": "Saves payors $200K-$600K per prevented futile JAKi regimen or inappropriate allo-HSCT; simultaneously enriches true clonal Triple-Negative PMF & ACVR1/hepcidin anemia trials for biopharma sponsors.",
+        "exit_or_revenue_comps": "Dual revenue from value-based payor/reference-lab hematopathology licensing (Labcorp / Quest / NeoGenomics channel) + biopharma trial-screening contracts."
+      },
+      "regulatory_pathway": "Transparent clinician-facing CDS under 21st Century Cures Act -> CLIA reference-lab algorithm -> FDA 510(k)/De Novo SaMD.",
+      "first_90_days_milestones": [
+        "Encode Pullarkat / Vergara-Lluri / Mayo 2024 AIMF consensus criteria alongside MIPSS70+ v2.0 and dual iron-overload (TSAT vs ferritin/hepcidin) rules into an open FHIR calculator.",
+        "Fine-tune WSI pathology classifier distinguishing scattered normoblastic megakaryocytes + lymphoid islands (AIMF) from cloud-like clustered megakaryocytes (TN-PMF).",
+        "Partner with Lupus & MPN advocacy groups to map diagnostic delay between rheumatology and hematology clinics."
+      ],
+      "open_datasets": [
+        "GEO:GSE144568",
+        "ClinicalTrials.gov:API-v2"
+      ]
     }
   ],
   "case_studies": {
@@ -162,7 +268,10 @@
       "disease_id": "jak2-myelofibrosis",
       "name": "JAK2 V617F-Positive Myelofibrosis (Primary & Post-PV/ET Myelofibrosis)",
       "identifiers": {
-        "icd10": ["D47.4", "C94.4"],
+        "icd10": [
+          "D47.4",
+          "C94.4"
+        ],
         "orphanet": "ORPHA:824",
         "omim": "254450",
         "mondo": "MONDO:0019565",
@@ -180,7 +289,7 @@
         "causal_mechanism": "A somatic point mutation (G1849T -> Val617Phe) in exon 14 encoding the JH2 pseudokinase domain of JAK2 disrupts autoinhibition of the JH1 catalytic kinase domain, driving constitutive cytokine-independent STAT3/STAT5, MAPK, and PI3K/AKT signaling via EPOR, MPL, and GCSFR.",
         "why_highly_tractable_now": [
           "Validated JH2 Allosteric Pocket: High-resolution crystal structures of V617F JH2 (PDB: 4FVR, 6E2Q, 8BAK, 8EX2) vs WT JH2 (PDB: 4FVP) enable selective small molecules/PROTACs sparing WT JAK2, with first-in-class clinical entrants INCB160058 (NCT06313593) and Type II binder AJ1-11095 (NCT06343805) de-risking the biology.",
-          "Intracellular Engineering Imperative: Unlike mutant CALR (which traffics to the cell surface and responds to mAb INCA033989, NCT06034002), JAK2 V617F is strictly intracellular—demanding JH2 small molecules, PROTAC degraders, or TCR-mimetics.",
+          "Intracellular Engineering Imperative: Unlike mutant CALR (which traffics to the cell surface and responds to mAb INCA033989, NCT06034002), JAK2 V617F is strictly intracellular\u2014demanding JH2 small molecules, PROTAC degraders, or TCR-mimetics.",
           "Quantitative Blood Clonal Biomarker: Peripheral blood ddPCR/NGS directly measures JAK2 V617F Variant Allele Frequency (VAF), enabling rapid Phase 1b pharmacodynamic readouts of true stem-cell clearance.",
           "2024-2026 Late-Stage Pipeline Reset: Discontinuations of navitoclax (TRANSFORM-1, NCT04472598) and imetelstat (IMpactMF, NCT04576156, Oct 2026 OS futility) plus SVR35/TSS50 discordance in MANIFEST-2 (pelabresib) and SENTRY (selinexor, which showed a June 2026 >50% OS hazard reduction signal alongside BOREAS/POIESIS navtemadlin and Fast-Track PIM1 inhibitor nuvisertib TP-3654) prove the urgent market need for non-myelosuppressive clonal & antifibrotic therapies and modernized digital endpoints."
         ],
@@ -248,26 +357,68 @@
           "url": "https://huggingface.co/everycure"
         }
       ]
+    },
+    "autoimmune-myelofibrosis": {
+      "disease_id": "autoimmune-myelofibrosis",
+      "name": "Autoimmune Myelofibrosis (AIMF \u2014 Primary & Lupus/SLE-Associated) & The Dual Iron-Hepcidin Axis",
+      "identifiers": {
+        "icd10": [
+          "D75.89",
+          "M32.19"
+        ],
+        "differential_comparator": "ORPHA:824 (Triple-Negative Primary Myelofibrosis)",
+        "key_literature": [
+          "Pullarkat et al., Am J Hematol 2003 (Primary AIMF criteria)",
+          "Vergara-Lluri et al., Hum Pathol 2014 (Morphometric separation from PMF)",
+          "Mertz et al., Haematologica 2021 (French multicenter cohort, n=30)",
+          "Gangat, Reichard, Orazi & Tefferi, Br J Haematol 2024 (Mayo Clinic cohort, n=22)"
+        ]
+      },
+      "epidemiology": {
+        "demographics": "Median age 37-45 years (vs 65-70 in clonal PMF); strong ~75-80% female predominance.",
+        "autoimmune_associations": "Secondary AIMF (~80%+): Systemic Lupus Erythematosus (SLE, ~50-60%), Sjogren's (~10-15%), Evans syndrome / Coombs+ AIHA, UCTD. Primary AIMF: ANA+/DAT+/autoantibody+ without meeting full ACR SLE criteria.",
+        "driver_mutation_status": "100% negative for JAK2 V617F, CALR, and MPL, AND negative for clonal myeloid HMR mutations (ASXL1, SRSF2, U2AF1, EZH2, TET2, TP53) with normal diploid karyotype."
+      },
+      "biological_tractability": {
+        "causal_mechanism": "Immune-mediated polyclonal T/B-cell infiltration and autoimmune cytokine release (IL-6, IL-1b, IFN-g, TGF-b) irritate normal bone marrow stroma into depositing MF-1 to MF-3 reticulin fibers without neoplastic stem-cell transformation.",
+        "dual_iron_overload_mechanism": [
+          "1. Transfusional Hemosiderosis: 59% of AIMF patients require chronic PRBC transfusions (Mayo 2024); 10-20 units add 2.5-5.0g of non-excretable iron, saturating transferrin (TSAT >50-80%) and generating labile plasma iron (LPI) oxidative marrow toxicity (responsive to deferasirox chelation).",
+          "2. Inflammatory IL-6 -> Hepcidin Blockade: Autoimmune IL-6 hyper-activates hepatic STAT3 -> hepcidin, degrading ferroportin (SLC40A1) and locking recycled iron inside marrow macrophages (3-4+ Prussian blue hemosiderin, ferritin >1,000-10,000 ng/mL) while starving erythropoiesis."
+        ],
+        "why_invaluable_for_builders": "74% overall Complete Response (CR) rate on immunosuppression and 80% CR on rituximab salvage (Gangat et al. 2024), with objective histological regression of marrow fibrosis in 3-12 months\u2014serving as 'Nature's Positive Control' proving human marrow fibrosis is biologically reversible."
+      },
+      "standard_of_care_failure_modes": {
+        "core_failure_mechanisms": [
+          "Catastrophic Misdiagnosis as Triple-Negative PMF: 30-40% community pathology discordance leads to AIMF patients receiving cytopenic $20K/mo JAK inhibitors (worsening anemia!) or 20-35% mortality stem cell transplants instead of curative steroids/rituximab/mycophenolate.",
+          "Rheumatology-Hematology Silo: Lupus/UCTD clinics rarely biopsy marrow, while hematology clinics under-order autoimmune panels and misread dual transfusional + hepcidin-trapped hyperferritinemia."
+        ]
+      }
     }
   },
   "non_dilutive_grants": [
     {
       "id": "grant-mpnrf-challenge",
-      "name": "MPN Research Foundation — MPN Challenge™ & Translational Grants",
+      "name": "MPN Research Foundation \u2014 MPN Challenge\u2122 & Translational Grants",
       "track": "foundation",
       "typical_award_usd": "~$250,000 over 2 years ($100K - $300K range)",
       "equity_dilution": "0% (Non-dilutive translational grant; aligned with Canadian MPNRF global alliance)",
-      "best_for_backgrounds": ["computational-ai-bio", "public-health"],
+      "best_for_backgrounds": [
+        "computational-ai-bio",
+        "public-health"
+      ],
       "focus_areas": "MPN disease progression (ET/PV -> MF -> blast phase), selective clonal eradication, stromal fibrosis biology, and progression biomarkers.",
       "url": "https://www.mpnresearchfoundation.org/"
     },
     {
       "id": "grant-bcu-lls-tap",
-      "name": "Blood Cancer United (formerly Leukemia & Lymphoma Society, rebranded Aug 2025) — Therapy Acceleration Program (TAP)",
+      "name": "Blood Cancer United (formerly Leukemia & Lymphoma Society, rebranded Aug 2025) \u2014 Therapy Acceleration Program (TAP)",
       "track": "venture-philanthropy",
       "typical_award_usd": "$1,000,000 - $5,000,000+",
       "equity_dilution": "Strategic venture philanthropy (equity co-investment or return-capped milestone funding directly into early-stage biotech startups)",
-      "best_for_backgrounds": ["computational-ai-bio", "venture-novel-financing"],
+      "best_for_backgrounds": [
+        "computational-ai-bio",
+        "venture-novel-financing"
+      ],
       "focus_areas": "IND-enabling and Phase 1/2 blood cancer & MPN therapeutics with strong clinical differentiation, including mutant-selective JAK2/CALR and post-JAKi MF.",
       "url": "https://www.bloodcancerunited.org/"
     },
@@ -277,7 +428,11 @@
       "track": "sbir-sttr",
       "typical_award_usd": "Phase I: ~$300K-$400K+ | Phase II: ~$2.0M+ | Phase IIB Bridge: up to $4.0M-$4.5M",
       "equity_dilution": "0% (100% non-dilutive federal award for US small businesses; standard deadlines Jan 5, Apr 5, Sept 5)",
-      "best_for_backgrounds": ["computational-ai-bio", "public-health", "venture-novel-financing"],
+      "best_for_backgrounds": [
+        "computational-ai-bio",
+        "public-health",
+        "venture-novel-financing"
+      ],
       "focus_areas": "Small-molecule/degrader discovery, AI digital pathology biomarkers, oncology care-delivery / trial matching software, and 505(b)(2) repurposing.",
       "url": "https://sbir.cancer.gov/"
     },
@@ -287,27 +442,37 @@
       "track": "sbir-sttr",
       "typical_award_usd": "$300,000 - $2,000,000+ (plus preclinical regulatory/IND support via NHLBI Catalyze)",
       "equity_dilution": "0% (Non-dilutive)",
-      "best_for_backgrounds": ["computational-ai-bio", "public-health"],
+      "best_for_backgrounds": [
+        "computational-ai-bio",
+        "public-health"
+      ],
       "focus_areas": "Bone marrow failure, severe anemia/thrombocytopenia supportive care, JAK2-CHIP clonal hematopoiesis progression, and hematology diagnostics.",
       "url": "https://www.nhlbi.nih.gov/grants-and-training/funding-opportunities-and-contacts/small-business-program"
     },
     {
       "id": "grant-fda-oopd",
-      "name": "FDA OOPD — Orphan Products Clinical Trials & Natural History Grants",
+      "name": "FDA OOPD \u2014 Orphan Products Clinical Trials & Natural History Grants",
       "track": "regulatory-orphan",
       "typical_award_usd": "$250,000 - $750,000+/yr for up to 4 years ($1M - $3M total)",
       "equity_dilution": "0% (Non-dilutive grant open to for-profit biotechs and academic centers)",
-      "best_for_backgrounds": ["computational-ai-bio", "venture-novel-financing", "public-health"],
+      "best_for_backgrounds": [
+        "computational-ai-bio",
+        "venture-novel-financing",
+        "public-health"
+      ],
       "focus_areas": "Phase 1-3 rare-disease clinical trials and prospective natural-history/RWE registries establishing composite regulatory endpoints in Myelofibrosis.",
       "url": "https://www.fda.gov/industry/medical-products-rare-diseases-and-conditions"
     },
     {
       "id": "grant-harrington-rare",
-      "name": "Harrington Discovery Institute — Rare Disease Scholar & Translational Support",
+      "name": "Harrington Discovery Institute \u2014 Rare Disease Scholar & Translational Support",
       "track": "foundation",
       "typical_award_usd": "$100,000 - $700,000 + pharma drug-development advisory team",
       "equity_dilution": "Non-dilutive grant phase with optional mission-aligned impact investment follow-on",
-      "best_for_backgrounds": ["computational-ai-bio", "venture-novel-financing"],
+      "best_for_backgrounds": [
+        "computational-ai-bio",
+        "venture-novel-financing"
+      ],
       "focus_areas": "Translating academic rare-disease discoveries through hit-to-lead and IND readiness.",
       "url": "https://www.uhhospitals.org/harrington-discovery-institute"
     },
@@ -317,7 +482,10 @@
       "track": "federal-translational",
       "typical_award_usd": "SBIR: $600K - $3.5M+ | Cooperative Agreements / OTAs: $5,000,000 - $30,000,000+",
       "equity_dilution": "0% (Non-dilutive milestone-driven contracts open to startups without prior NIH grant history)",
-      "best_for_backgrounds": ["computational-ai-bio", "public-health"],
+      "best_for_backgrounds": [
+        "computational-ai-bio",
+        "public-health"
+      ],
       "focus_areas": "Adaptive cancer resistance tracking (ADAPT), AI-augmented decentralized trials, in-vivo HSC delivery, and computational drug repurposing.",
       "url": "https://arpa-h.gov/"
     }
@@ -327,28 +495,28 @@
       "disease_id": "jak2-myelofibrosis",
       "institutional_and_patient_communities": [
         {
-          "name": "MPN Research Foundation (MPNRF) & MPN PROGRESSion Registry® (NCT07362225)",
+          "name": "MPN Research Foundation (MPNRF) & MPN PROGRESSion Registry\u00ae (NCT07362225)",
           "type": "Flagship Foundation & 5,000-Patient Linked EHR/PRO/Claims Registry",
-          "scale_and_signal": "Active flagship research foundation; modernized from legacy 2017 myMPN survey into MPN PROGRESSion Registry® targeting ~5,000 participants.",
+          "scale_and_signal": "Active flagship research foundation; modernized from legacy 2017 myMPN survey into MPN PROGRESSion Registry\u00ae targeting ~5,000 participants.",
           "engagement_channel": "Formal scientific/registry partnership outreach, structured Patient Advisory Panels, and patient-centric trial protocol co-design.",
           "url": "https://www.mpnresearchfoundation.org/"
         },
         {
-          "name": "HealthUnlocked — MPN Voice Community",
+          "name": "HealthUnlocked \u2014 MPN Voice Community",
           "type": "Global Peer-to-Peer MPN Forum & Charity",
           "scale_and_signal": "~15,000+ registered members with dozens of daily posts on fatigue, ruxolitinib-to-momelotinib anemia switches, interferon, and transplant timing.",
           "engagement_channel": "Read public threads strictly for aggregate clinical empathy; route any formal survey/study requests through MPN Voice charity leadership (never cold-post).",
           "url": "https://healthunlocked.com/mpnvoice"
         },
         {
-          "name": "Reddit — r/mpn",
+          "name": "Reddit \u2014 r/mpn",
           "type": "Moderated Patient & Caregiver Subreddit",
           "scale_and_signal": "Several thousand active subscribers; rich discussions on NGS VAF% interpretation, specialty pharmacy Part D copay barriers, specialist deserts, and caregiver support.",
           "engagement_channel": "Strictly respect anti-spam/anti-self-promotion rules; contact moderators via mod-mail with IRB/company transparency before any community engagement.",
           "url": "https://www.reddit.com/r/mpn/"
         },
         {
-          "name": "Blood Cancer United (formerly LLS — Rebranded Aug 2025) & Clinical Trial Support Center",
+          "name": "Blood Cancer United (formerly LLS \u2014 Rebranded Aug 2025) & Clinical Trial Support Center",
           "type": "National Patient Hub, Nurse Trial Navigators & TAP Partnering",
           "scale_and_signal": "Major national blood cancer hub explicitly encompassing MPNs; operates 1-on-1 nurse trial navigation (partnered with MPNRF) and gated peer community.",
           "engagement_channel": "Partner via Therapy Acceleration Program (TAP) team or Clinical Trial Support Center (CTSC) nurse navigator trial listings.",
@@ -362,7 +530,7 @@
           "url": "https://healthtree.org/myelofibrosis"
         },
         {
-          "name": "Smart Patients — MPN Community",
+          "name": "Smart Patients \u2014 MPN Community",
           "type": "High-Literacy Registration-Gated Trial & Treatment Forum",
           "scale_and_signal": "Active peer community deeply analyzing Phase 1-3 inclusion cutoffs, ruxolitinib washout anxieties ('washout terror'), and CBC trends.",
           "engagement_channel": "Formal institutional partnerships via Smart Patients leadership; never scrape registration-gated threads.",

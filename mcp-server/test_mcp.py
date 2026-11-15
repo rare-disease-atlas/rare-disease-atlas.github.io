@@ -324,7 +324,9 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
                 fb_srv = OrphanDiseaseMCPServer(repository=fallback_repo)
                 fb_res = fb_srv.tool_match_founder_opportunities(background="all")
                 self.assertEqual(fb_res["data_source"], "bundled_fallback")
-                self.assertEqual(fb_res["matched_count"], 6)
+                self.assertEqual(fb_res["matched_count"], 8)
+                aimf_cs = fb_srv.tool_get_disease_case_study("autoimmune-myelofibrosis")
+                self.assertIn("case_study", aimf_cs)
             finally:
                 if prev_offline is not None:
                     os.environ["ATLAS_OFFLINE"] = prev_offline
