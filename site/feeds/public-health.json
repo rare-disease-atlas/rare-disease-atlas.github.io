@@ -1,6 +1,6 @@
 {
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
-  "schema_version": "1.5.0",
+  "schema_version": "1.5.1",
   "slice": "/feeds/public-health.json",
   "matched_count": 8,
   "opportunities": [
@@ -35,7 +35,8 @@
         "GEO:GSE156644",
         "GEO:GSE226340",
         "ClinicalTrials.gov:API-v2"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-post-rux-rwe-trial-network",
@@ -67,7 +68,8 @@
         "ClinicalTrials.gov:API-v2",
         "ClinicalTrials.gov:NCT07362225",
         "Orphanet:ORPHA824"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-transplant-timing-care-navigation",
@@ -96,7 +98,8 @@
       "open_datasets": [
         "ClinicalTrials.gov:API-v2",
         "cBioPortal:MPN-Cohorts"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-aimf-vs-tnpmf-pathology-triage",
@@ -126,7 +129,8 @@
       "open_datasets": [
         "GEO:GSE144568",
         "ClinicalTrials.gov:API-v2"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-vexas-macrocytic-ehr-triage",
@@ -158,7 +162,8 @@
         "Orphanet:ORPHA597743",
         "ClinicalTrials.gov:NCT06538181",
         "ClinicalTrials.gov:NCT05027945"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-castleman-tafro-pathology-triage",
@@ -190,7 +195,8 @@
         "Orphanet:ORPHA93685",
         "ClinicalTrials.gov:NCT03933904",
         "ClinicalTrials.gov:NCT07793006"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-mastocytosis-tryptase-ddpcr-funnel",
@@ -222,7 +228,8 @@
         "Orphanet:ORPHA2467",
         "ClinicalTrials.gov:NCT04910685",
         "ClinicalTrials.gov:NCT05186753"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-tbd-pretransplant-genomic-safety-gate",
@@ -254,7 +261,8 @@
         "Orphanet:ORPHA1775",
         "ClinicalTrials.gov:NCT01659606",
         "ClinicalTrials.gov:NCT01441037"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.5.0",
+  "schema_version": "1.5.1",
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
   "canonical_url": "https://rare-disease-atlas.github.io/opportunities.json",
   "edge_api_base": "https://api.rare-disease-atlas.workers.dev",
@@ -8,7 +8,7 @@
   "license": "CC-BY-4.0",
   "last_updated": "2026-11-16",
   "flagship_disease_id": "jak2-myelofibrosis",
-  "umbrella_note": "Open venture and translational opportunity dataset covering 6 curated hematology/immunology orphan deep-dives (Clonal JAK2 V617F+ Myelofibrosis, Reversible Autoimmune Myelofibrosis + Iron/Hepcidin Axis, VEXAS Syndrome [UBA1], Idiopathic Multicentric Castleman Disease [iMCD], Systemic Mastocytosis [KIT D816V], and Telomere Biology Disorders [TERT/TERC/PAPD5]) plus a live 7,000-disease ClinicalTrials.gov + OpenTargets + PubMed diligence engine at https://api.rare-disease-atlas.workers.dev/mcp.",
+  "umbrella_note": "Open venture and translational opportunity dataset anchored on two Paired Flagship Myelofibrosis Deep-Dives—Clonal JAK2 V617F+ Primary Myelofibrosis (jak2-myelofibrosis) and Reversible JAK2-Negative Autoimmune Myelofibrosis & The Lupus-Iron-Hepcidin Axis (autoimmune-myelofibrosis, Nature's Positive Control for 74-80% marrow fibrosis reversal)—supported by 4 comparative hematology/immunology intake cohorts (VEXAS, Castleman, Systemic Mastocytosis, Telomere Disorders) and a live 7,000-disease MCP diligence funnel.",
   "opportunities": [
     {
       "id": "opp-jak2-jh2-allosteric-design",
@@ -43,7 +43,8 @@
         "PDB:4FVP",
         "ChEMBL:CHEMBL2971",
         "UniProt:O60674"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-marrow-fibrosis-ai-biomarker",
@@ -76,7 +77,8 @@
         "GEO:GSE156644",
         "GEO:GSE226340",
         "ClinicalTrials.gov:API-v2"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-antifibrotic-repurposing-engine",
@@ -109,7 +111,8 @@
         "GEO:GSE117826",
         "HuggingFace:everycure",
         "ChEMBL:CHEMBL2971"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-post-rux-rwe-trial-network",
@@ -141,7 +144,8 @@
         "ClinicalTrials.gov:API-v2",
         "ClinicalTrials.gov:NCT07362225",
         "Orphanet:ORPHA824"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-transplant-timing-care-navigation",
@@ -170,7 +174,8 @@
       "open_datasets": [
         "ClinicalTrials.gov:API-v2",
         "cBioPortal:MPN-Cohorts"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-orphan-mpn-venture-studio-spv",
@@ -201,7 +206,8 @@
         "ChEMBL:CHEMBL2971",
         "ClinicalTrials.gov:API-v2",
         "Orphanet:ORPHA824"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-reversible-aimf-fibrosis-control",
@@ -232,7 +238,8 @@
         "GEO:GSE156644",
         "GEO:GSE144568",
         "HuggingFace:everycure"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-aimf-vs-tnpmf-pathology-triage",
@@ -262,7 +269,8 @@
       "open_datasets": [
         "GEO:GSE144568",
         "ClinicalTrials.gov:API-v2"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-vexas-uba1b-translational-rescue",
@@ -296,7 +304,8 @@
         "Orphanet:ORPHA597743",
         "ClinicalTrials.gov:NCT06538181",
         "ClinicalTrials.gov:NCT05027945"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-vexas-macrocytic-ehr-triage",
@@ -328,7 +337,8 @@
         "Orphanet:ORPHA597743",
         "ClinicalTrials.gov:NCT06538181",
         "ClinicalTrials.gov:NCT05027945"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-castleman-siltuximab-refractory-repurposing",
@@ -360,7 +370,8 @@
         "HuggingFace:everycure",
         "Orphanet:ORPHA93685",
         "ClinicalTrials.gov:NCT03933904"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-castleman-tafro-pathology-triage",
@@ -392,7 +403,8 @@
         "Orphanet:ORPHA93685",
         "ClinicalTrials.gov:NCT03933904",
         "ClinicalTrials.gov:NCT07793006"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-mastocytosis-cns-sparing-kit-d816v",
@@ -427,7 +439,8 @@
         "ClinicalTrials.gov:NCT05186753",
         "ClinicalTrials.gov:NCT04910685",
         "ClinicalTrials.gov:NCT03731260"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-mastocytosis-tryptase-ddpcr-funnel",
@@ -459,7 +472,8 @@
         "Orphanet:ORPHA2467",
         "ClinicalTrials.gov:NCT04910685",
         "ClinicalTrials.gov:NCT05186753"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-tbd-papd5-terc-stabilizer",
@@ -493,7 +507,8 @@
         "ClinicalTrials.gov:NCT01441037",
         "ClinicalTrials.gov:NCT03312400",
         "ClinicalTrials.gov:NCT01659606"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-tbd-pretransplant-genomic-safety-gate",
@@ -525,7 +540,8 @@
         "Orphanet:ORPHA1775",
         "ClinicalTrials.gov:NCT01659606",
         "ClinicalTrials.gov:NCT01441037"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     }
   ],
   "case_studies": {
@@ -622,7 +638,8 @@
           "description": "Hugging Face hosted integrative biomedical graph scoring drug-disease repurposing plausibility across orphan indications.",
           "url": "https://huggingface.co/everycure"
         }
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     "autoimmune-myelofibrosis": {
       "disease_id": "autoimmune-myelofibrosis",
@@ -671,7 +688,8 @@
           "description": "Gangat et al. 2024 (Br J Haematol, n=22) & Mertz et al. 2021 (Haematologica, n=30) defining morphometric & genomic separation from PMF.",
           "url": "https://pubmed.ncbi.nlm.nih.gov/?term=autoimmune+myelofibrosis"
         }
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     "vexas-syndrome": {
       "disease_id": "vexas-syndrome",
@@ -726,7 +744,8 @@
           "description": "Randomized PAXIS pacritinib trial (NCT06538181) and NIH Phase 2 allogeneic HSCT study (NCT05027945).",
           "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=VEXAS"
         }
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     "castleman-disease": {
       "disease_id": "castleman-disease",
@@ -772,7 +791,8 @@
           "description": "Phase 2 sirolimus trial in siltuximab-refractory iMCD (NCT03933904) and diagnostic/therapeutic studies.",
           "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Multicentric+Castleman+Disease"
         }
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     "systemic-mastocytosis": {
       "disease_id": "systemic-mastocytosis",
@@ -819,7 +839,8 @@
           "description": "SUMMIT (bezuclastinib), HARBOR (elenestinib), and PIONEER (avapritinib) Phase 2/3 trials.",
           "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Systemic+Mastocytosis"
         }
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     "telomere-biology-disorders": {
       "disease_id": "telomere-biology-disorders",
@@ -868,7 +889,8 @@
           "description": "NIH danazol study (NCT01441037) and radiation/alkylator-free BMT protocol (NCT01659606).",
           "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Dyskeratosis+Congenita"
         }
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     }
   },
   "non_dilutive_grants": [
@@ -1165,5 +1187,9 @@
         "4. IRB/HIPAA & Clinical Safety Guardrails: Never provide individual medical advice; secure IRB oversight and explicit patient authorization before ingesting EHR/FHIR or genomic data."
       ]
     }
-  }
+  },
+  "flagship_disease_ids": [
+    "jak2-myelofibrosis",
+    "autoimmune-myelofibrosis"
+  ]
 }

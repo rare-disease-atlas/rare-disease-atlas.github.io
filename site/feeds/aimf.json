@@ -1,6 +1,6 @@
 {
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
-  "schema_version": "1.5.0",
+  "schema_version": "1.5.1",
   "slice": "/feeds/aimf.json",
   "matched_count": 2,
   "opportunities": [
@@ -33,7 +33,8 @@
         "GEO:GSE156644",
         "GEO:GSE144568",
         "HuggingFace:everycure"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-aimf-vs-tnpmf-pathology-triage",
@@ -63,7 +64,8 @@
       "open_datasets": [
         "GEO:GSE144568",
         "ClinicalTrials.gov:API-v2"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     }
   ]
 }

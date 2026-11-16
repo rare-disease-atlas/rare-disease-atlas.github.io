@@ -1,6 +1,6 @@
 {
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
-  "schema_version": "1.5.0",
+  "schema_version": "1.5.1",
   "slice": "/feeds/ai-bio.json",
   "matched_count": 13,
   "opportunities": [
@@ -37,7 +37,8 @@
         "PDB:4FVP",
         "ChEMBL:CHEMBL2971",
         "UniProt:O60674"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-marrow-fibrosis-ai-biomarker",
@@ -70,7 +71,8 @@
         "GEO:GSE156644",
         "GEO:GSE226340",
         "ClinicalTrials.gov:API-v2"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-antifibrotic-repurposing-engine",
@@ -103,7 +105,8 @@
         "GEO:GSE117826",
         "HuggingFace:everycure",
         "ChEMBL:CHEMBL2971"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-post-rux-rwe-trial-network",
@@ -135,7 +138,8 @@
         "ClinicalTrials.gov:API-v2",
         "ClinicalTrials.gov:NCT07362225",
         "Orphanet:ORPHA824"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-reversible-aimf-fibrosis-control",
@@ -166,7 +170,8 @@
         "GEO:GSE156644",
         "GEO:GSE144568",
         "HuggingFace:everycure"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-aimf-vs-tnpmf-pathology-triage",
@@ -196,7 +201,8 @@
       "open_datasets": [
         "GEO:GSE144568",
         "ClinicalTrials.gov:API-v2"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-vexas-uba1b-translational-rescue",
@@ -230,7 +236,8 @@
         "Orphanet:ORPHA597743",
         "ClinicalTrials.gov:NCT06538181",
         "ClinicalTrials.gov:NCT05027945"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-vexas-macrocytic-ehr-triage",
@@ -262,7 +269,8 @@
         "Orphanet:ORPHA597743",
         "ClinicalTrials.gov:NCT06538181",
         "ClinicalTrials.gov:NCT05027945"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-castleman-siltuximab-refractory-repurposing",
@@ -294,7 +302,8 @@
         "HuggingFace:everycure",
         "Orphanet:ORPHA93685",
         "ClinicalTrials.gov:NCT03933904"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-castleman-tafro-pathology-triage",
@@ -326,7 +335,8 @@
         "Orphanet:ORPHA93685",
         "ClinicalTrials.gov:NCT03933904",
         "ClinicalTrials.gov:NCT07793006"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-mastocytosis-cns-sparing-kit-d816v",
@@ -361,7 +371,8 @@
         "ClinicalTrials.gov:NCT05186753",
         "ClinicalTrials.gov:NCT04910685",
         "ClinicalTrials.gov:NCT03731260"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-tbd-papd5-terc-stabilizer",
@@ -395,7 +406,8 @@
         "ClinicalTrials.gov:NCT01441037",
         "ClinicalTrials.gov:NCT03312400",
         "ClinicalTrials.gov:NCT01659606"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-tbd-pretransplant-genomic-safety-gate",
@@ -427,7 +439,8 @@
         "Orphanet:ORPHA1775",
         "ClinicalTrials.gov:NCT01659606",
         "ClinicalTrials.gov:NCT01441037"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     }
   ]
 }

@@ -223,35 +223,11 @@ class AtlasRepository:
 
 TOOLS_MANIFEST: list[dict[str, Any]] = [
     {
-        "name": "analyze_any_orphan_indication",
-        "description": (
-            "Run live diligence on any of 7,000+ rare diseases via OpenTargets, "
-            "ClinicalTrials.gov v2, PubMed, and FY2026 FDA Orphan Drug unit economics."
-        ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "disease_query": {
-                    "type": "string",
-                    "description": "Any rare disease name (e.g., 'VEXAS syndrome', 'Duchenne muscular dystrophy').",
-                },
-                "founder_background": {
-                    "type": "string",
-                    "description": "Optional track: 'computational-ai-bio', 'public-health', 'venture-novel-financing', or 'all'.",
-                    "default": "all",
-                },
-            },
-            "required": ["disease_query"],
-            "additionalProperties": False,
-        },
-    },
-    {
         "name": "match_founder_opportunities",
         "description": (
             "Match high-tractability orphan disease startup & translational research "
-            "blueprints by founder background, capital tier, and wet-lab requirement. "
-            "Fetches live from rare-disease-atlas.github.io with bundled local fallback "
-            "(Flagship Deep-Dive #1: JAK2 V617F Myelofibrosis)."
+            "blueprints anchored on Paired Flagships Clonal JAK2 V617F+ Myelofibrosis "
+            "and Autoimmune Myelofibrosis (plus 4 comparative cohorts)."
         ),
         "inputSchema": {
             "type": "object",
@@ -287,19 +263,42 @@ TOOLS_MANIFEST: list[dict[str, Any]] = [
     {
         "name": "get_disease_case_study",
         "description": (
-            "Retrieve biological tractability, standard-of-care failure modes (e.g. Type I JH1 "
-            "JAK inhibitor cytopenias vs JH2 V617F mutant selectivity), FDA Orphan Drug Act "
-            "unit economics, and open structural/transcriptomic datasets for an orphan indication."
+            "Retrieve biological tractability, standard-of-care failure modes (Flagships: "
+            "'jak2-myelofibrosis' and 'autoimmune-myelofibrosis'), FDA Orphan Drug Act "
+            "unit economics, and open structural/transcriptomic datasets."
         ),
         "inputSchema": {
             "type": "object",
             "properties": {
                 "disease_id": {
                     "type": "string",
-                    "description": "Disease identifier (default Flagship #1: 'jak2-myelofibrosis').",
+                    "description": "Disease identifier (Flagships: 'jak2-myelofibrosis' or 'autoimmune-myelofibrosis').",
                     "default": "jak2-myelofibrosis",
                 }
             },
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "analyze_any_orphan_indication",
+        "description": (
+            "Run live diligence on any of 7,000+ rare diseases via OpenTargets, "
+            "ClinicalTrials.gov v2, and PubMed, benchmarked against our Myelofibrosis flagships."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "disease_query": {
+                    "type": "string",
+                    "description": "Any rare disease name (e.g., 'JAK2 V617F myelofibrosis', 'autoimmune myelofibrosis', 'Duchenne muscular dystrophy').",
+                },
+                "founder_background": {
+                    "type": "string",
+                    "description": "Optional track: 'computational-ai-bio', 'public-health', 'venture-novel-financing', or 'all'.",
+                    "default": "all",
+                },
+            },
+            "required": ["disease_query"],
             "additionalProperties": False,
         },
     },

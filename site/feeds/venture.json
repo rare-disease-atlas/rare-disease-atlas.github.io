@@ -1,6 +1,6 @@
 {
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
-  "schema_version": "1.5.0",
+  "schema_version": "1.5.1",
   "slice": "/feeds/venture.json",
   "matched_count": 6,
   "opportunities": [
@@ -33,7 +33,8 @@
         "ChEMBL:CHEMBL2971",
         "ClinicalTrials.gov:API-v2",
         "Orphanet:ORPHA824"
-      ]
+      ],
+      "atlas_tier": "flagship-myelofibrosis"
     },
     {
       "id": "opp-vexas-uba1b-translational-rescue",
@@ -67,7 +68,8 @@
         "Orphanet:ORPHA597743",
         "ClinicalTrials.gov:NCT06538181",
         "ClinicalTrials.gov:NCT05027945"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-castleman-siltuximab-refractory-repurposing",
@@ -99,7 +101,8 @@
         "HuggingFace:everycure",
         "Orphanet:ORPHA93685",
         "ClinicalTrials.gov:NCT03933904"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-mastocytosis-cns-sparing-kit-d816v",
@@ -134,7 +137,8 @@
         "ClinicalTrials.gov:NCT05186753",
         "ClinicalTrials.gov:NCT04910685",
         "ClinicalTrials.gov:NCT03731260"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-mastocytosis-tryptase-ddpcr-funnel",
@@ -166,7 +170,8 @@
         "Orphanet:ORPHA2467",
         "ClinicalTrials.gov:NCT04910685",
         "ClinicalTrials.gov:NCT05186753"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     },
     {
       "id": "opp-tbd-papd5-terc-stabilizer",
@@ -200,7 +205,8 @@
         "ClinicalTrials.gov:NCT01441037",
         "ClinicalTrials.gov:NCT03312400",
         "ClinicalTrials.gov:NCT01659606"
-      ]
+      ],
+      "atlas_tier": "comparative-expansion"
     }
   ]
 }

@@ -1,3 +1,3 @@
-"""Orphan Disease Opportunity MCP Server (v1.5 — 6 Curated Deep-Dives + Live 7,000-Disease Engine)."""
+"""Orphan Disease Opportunity MCP Server (Flagships: Clonal JAK2+ & Autoimmune Myelofibrosis)."""
 
-__version__ = "1.5.0"
+__version__ = "1.5.1"

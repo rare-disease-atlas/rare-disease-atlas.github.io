@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.rare-disease-atlas/orphan-disease-opportunity-mcp",
   "title": "Orphan Disease Opportunity Atlas MCP",
-  "description": "Live 7,000-disease diligence engine + 6 curated hematology/immunology venture & grant playbooks.",
-  "version": "1.5.0",
+  "description": "Myelofibrosis (JAK2+ & Autoimmune MF) flagship playbooks + live 7,000-orphan-disease diligence MCP.",
+  "version": "1.5.1",
   "repository": {
     "url": "https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp",
     "source": "github"
@@ -12,8 +12,8 @@
   "packages": [
     {
       "registryType": "mcpb",
-      "identifier": "https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp/releases/download/v1.5.0/orphan-disease-opportunity-mcp.mcpb",
-      "fileSha256": "ea85471c3fe0c20503e58a7c7adff92cb890a427701951ef795fca64d3b54876",
+      "identifier": "https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp/releases/download/v1.5.1/orphan-disease-opportunity-mcp.mcpb",
+      "fileSha256": "1e93f2a40a28b71ca36a7bedb0792c17fd6c6bf32b96d1b57b421efb96fbb962",
       "transport": {
         "type": "stdio"
       }

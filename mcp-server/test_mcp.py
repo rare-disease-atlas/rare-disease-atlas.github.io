@@ -130,9 +130,9 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
             self.assertEqual(
                 tool_names,
                 [
-                    "analyze_any_orphan_indication",
                     "match_founder_opportunities",
                     "get_disease_case_study",
+                    "analyze_any_orphan_indication",
                     "find_non_dilutive_grants",
                     "get_validation_communities",
                     "submit_atlas_feedback",

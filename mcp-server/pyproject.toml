@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "orphan-disease-opportunity-mcp"
-version = "1.5.0"
-description = "Model Context Protocol (MCP) server covering 7,000+ orphan diseases live (OpenTargets + ClinicalTrials.gov v2 + PubMed) plus 6 curated hematology/immunology venture & translational deep-dives."
+version = "1.5.1"
+description = "Model Context Protocol (MCP) server anchored on Paired Flagships Clonal JAK2 V617F+ Myelofibrosis and Autoimmune Myelofibrosis, plus live 7,000-orphan-disease diligence."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
