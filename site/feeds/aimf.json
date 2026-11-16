@@ -1,7 +1,7 @@
 {
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
-  "schema_version": "1.2.0",
-  "slice": "aimf",
+  "schema_version": "1.5.0",
+  "slice": "/feeds/aimf.json",
   "matched_count": 2,
   "opportunities": [
     {
@@ -15,8 +15,8 @@
       "capital_range_usd": "$250K - $1.5M",
       "wet_lab_required": false,
       "wet_lab_execution_model": "Academic pathology biobank FFPE core collaboration (10x Visium HD / Xenium spatial transcriptomics on paired pre/post-rituximab or steroid AIMF biopsies vs non-reversing JAK2+ PMF) + in-silico perturbation target ranking.",
-      "problem_wedge": "Clinical dogma treats established human bone marrow fibrosis as an irreversible scar because all 4 approved JAK inhibitors fail to clear Grade 2/3 fibrosis in JAK2+ PMF. Yet in Autoimmune Myelofibrosis (AIMF\u2014JAK2/CALR/MPL-negative, lupus/autoantibody-driven), reticulin fibrosis completely resolves in 74-80% of patients within 3-12 months of immunosuppression (Gangat et al., Mayo Clinic, Br J Haematol 2024).",
-      "solution_blueprint": "Contrast spatial and single-cell stromal states of resolving human AIMF marrow against persistent JAK2+ PMF (GSE156644, GSE144568) to isolate the exact myofibroblast de-differentiation and matrix metalloproteinase (MMP-1/8/13 vs TIMP-1 / GLI1 / S100A8/A9) switches\u2014unlocking orthogonal stromal antifibrotics applicable across PMF, IPF, and systemic sclerosis.",
+      "problem_wedge": "Clinical dogma treats established human bone marrow fibrosis as an irreversible scar because all 4 approved JAK inhibitors fail to clear Grade 2/3 fibrosis in JAK2+ PMF. Yet in Autoimmune Myelofibrosis (AIMF—JAK2/CALR/MPL-negative, lupus/autoantibody-driven), reticulin fibrosis completely resolves in 74-80% of patients within 3-12 months of immunosuppression (Gangat et al., Mayo Clinic, Br J Haematol 2024).",
+      "solution_blueprint": "Contrast spatial and single-cell stromal states of resolving human AIMF marrow against persistent JAK2+ PMF (GSE156644, GSE144568) to isolate the exact myofibroblast de-differentiation and matrix metalloproteinase (MMP-1/8/13 vs TIMP-1 / GLI1 / S100A8/A9) switches—unlocking orthogonal stromal antifibrotics applicable across PMF, IPF, and systemic sclerosis.",
       "unit_economics": {
         "initial_validation_budget_usd": "$90,000 - $220,000 (archived FFPE core spatial profiling of 15-20 AIMF vs PMF pairs via academic hematopathology DUA + computational target discovery)",
         "orphan_market_benchmark": "Direct stromal fibrosis-reversing therapy addresses 100% of Myelofibrosis genotypes ($2B+ market) with platform expansion into Idiopathic Pulmonary Fibrosis ($4B+).",
@@ -65,6 +65,5 @@
         "ClinicalTrials.gov:API-v2"
       ]
     }
-  ],
-  "feedback_issue_template": "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io/issues/new?template=agent_feedback.yml"
+  ]
 }

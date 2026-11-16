@@ -1055,3 +1055,513 @@ To empower autonomous AI research agents (Claude Desktop, Cursor, Antigravity, B
 14. **Gangat N, Tefferi A.** Myelofibrosis: Biology and management. *Br J Haematol*. 2023;200(3):284–98.
 15. **Pullarkat V.** Autoimmune myelofibrosis: clinical and pathological aspects. *Curr Hematol Rep*. 2005;4(3):225–9.
 
+
+## V1.5 Expansion: 6 Curated Hematology/Immunology Indications + Live 7,000-Disease MCP Engine
+- **Universal Live 7,000-Disease MCP Tool (`analyze_any_orphan_indication`):** Hosted at `https://api.rare-disease-atlas.workers.dev/mcp` (MCP `2026-07-28` & `2025-11-25` Streamable HTTP + interactive `ui://` MCP App widget). Queries OpenTargets Platform v4 GraphQL, ClinicalTrials.gov v2, and PubMed live for **any** orphan disease and pairs results with FY2026 FDA Orphan Drug unit economics ($4,682,003 PDUFA waiver, 7-yr exclusivity, Rare Pediatric PRV check) + non-dilutive grants.
+- **6 Curated Deep-Dive Case Studies (`19` Concrete Startup Blueprints):**
+  1. `jak2-myelofibrosis` — Clonal JAK2 V617F+ Primary Myelofibrosis (JH2 allosteric `INCB160058` NCT06313593, Type II `AJ1-11095` NCT06343805, mutant CALR).
+  2. `autoimmune-myelofibrosis` — Reversible JAK2-Negative Lupus/Autoimmune Myelofibrosis (74-80% fibrosis remission) + Dual Transfusional & IL-6/Hepcidin Iron Overload.
+  3. `vexas-syndrome` — Somatic `UBA1` M41 Myeloid Autoinflammation (`ORPHA:597743`, ~1 in 4,269 men >50, PAXIS pacritinib NCT06538181, NIH HSCT NCT05027945, scRNA-seq `GSE163683`, `PDB:6DC6`).
+  4. `castleman-disease` — Idiopathic Multicentric Castleman Disease & iMCD-TAFRO (`ORPHA:93685`, 66% siltuximab-refractory cliff, sirolimus mTOR NCT03933904, Every Cure KG).
+  5. `systemic-mastocytosis` — Clonal `KIT D816V` Indolent & Advanced SM (`ORPHA:2467`, CNS-sparing kinase/degrader wedge, SUMMIT NCT05186753, HARBOR NCT04910685, ddPCR + `TPSAB1` triage).
+  6. `telomere-biology-disorders` — Dyskeratosis Congenita & Cryptic Adult TBD (`ORPHA:1775`, Rare Pediatric PRV ~$100M-$158M catalyst, oral `PAPD5` TERC stabilizer, alkylator-free BMT NCT01659606, `PDB:7BG9`).
+- **Expansion Deep-Dive Page:** [Hematology & Immunology Orphan Expansion](https://rare-disease-atlas.github.io/hematology-immunology-orphan-expansion.html)
+
+### Structured V1.5 Case Studies & Blueprints JSON Appendix
+```json
+{
+  "new_case_studies": {
+    "vexas-syndrome": {
+      "disease_id": "vexas-syndrome",
+      "name": "VEXAS Syndrome (Somatic UBA1 X-Linked Myeloid Autoinflammation & Marrow Failure)",
+      "identifiers": {
+        "orphanet": "ORPHA:597743",
+        "mondo": "MONDO:0800442",
+        "icd10": [
+          "M35.9",
+          "D46.9",
+          "D64.89"
+        ],
+        "causal_driver": "Somatic UBA1 p.Met41Thr/Val/Leu & splice-site mutations in hematopoietic stem cells (loss of cytoplasmic UBA1b -> catalytically impaired UBA1c)",
+        "key_literature": [
+          "Beck et al., NEJM 2020 (Discovery of VEXAS somatic UBA1 syndrome)",
+          "Beck et al., JAMA 2023 (1 in 4,269 prevalence in men >50 across Geisinger health system)",
+          "Wu et al., Blood / Nat Med 2023-2024 (Single-cell bone marrow multi-omics GSE163683)",
+          "Patel et al., Blood 2024 (Allogeneic HSCT & clonal dynamics NCT05027945)"
+        ]
+      },
+      "epidemiology": {
+        "us_prevalence": "~15,000+ US adults (~1 in 4,269 men >50 yrs; ~1 in 26,238 women >50 yrs via X-monosomy/skewing)",
+        "demographics": "Median onset 64-68 years; >95% male due to X-linked UBA1 locus.",
+        "median_survival": "~50-63% 5-year survival overall; p.Met41Val genotype and transfusion dependence carry highest mortality."
+      },
+      "biological_tractability": {
+        "causal_mechanism": "Single somatic codon hotspot (Met41) in the master E1 ubiquitin-activating enzyme UBA1 ablates translation of cytoplasmic isoform UBA1b and shifts initiation to Met67 (UBA1c), starving myeloid progenitors of ubiquitylation, triggering PERK/IRE1a unfolded-protein response, cytoplasmic vacuoles, macrocytic anemia, and NLRP3/IL-1/IL-6/TNF/IFN cytokine storms.",
+        "why_invaluable_for_builders": "Monogenic somatic etiology (like JAK2 V617F!) with Primary Myelofibrosis-scale US prevalence (~15,000+), zero FDA-approved therapies, massive >80% underdiagnosis in routine EHRs (MCV >100 fL + CRP), and rich public single-cell bone marrow datasets (GSE163683)."
+      },
+      "standard_of_care_failure_modes": {
+        "core_failure_mechanisms": [
+          "Zero FDA-Approved Drugs & Steroid Toxicity Trap: Most patients require >=20 mg/day prednisone to suppress fevers/chondritis/vasculitis, suffering severe opportunistic infections, thrombosis (~40%), and progressive cytopenias.",
+          "Cytokine Palliatives Leave UBA1 Clones Intact: Ruxolitinib, pacritinib (PAXIS NCT06538181), tocilizumab, and azacitidine reduce inflammation in subsets, but non-clonal-eradicating palliatives allow UBA1 VAF expansion toward MDS/transfusion failure."
+        ]
+      },
+      "open_data_infrastructure": [
+        {
+          "id": "GEO:GSE163683",
+          "type": "Single-Cell Bone Marrow & Peripheral Multi-Omics",
+          "description": "Single-cell RNA-seq, CITE-seq, and somatic UBA1 genotyping of VEXAS HSPCs and myeloid lineages.",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE163683"
+        },
+        {
+          "id": "PDB:6DC6",
+          "type": "Human UBA1 Structural Complex",
+          "description": "High-resolution crystal structure of human ubiquitin-activating enzyme UBA1 for pocket and stabilizer modeling.",
+          "url": "https://www.rcsb.org/structure/6DC6"
+        },
+        {
+          "id": "ClinicalTrials.gov VEXAS Feed (NCT06538181, NCT05027945)",
+          "type": "Live Clinical Trials",
+          "description": "Randomized PAXIS pacritinib trial (NCT06538181) and NIH Phase 2 allogeneic HSCT study (NCT05027945).",
+          "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=VEXAS"
+        }
+      ]
+    },
+    "castleman-disease": {
+      "disease_id": "castleman-disease",
+      "name": "Idiopathic Multicentric Castleman Disease (iMCD & iMCD-TAFRO — IL-6 / mTOR / JAK-STAT Cytokine Storm)",
+      "identifiers": {
+        "orphanet": "ORPHA:93685",
+        "mondo": "MONDO:0015564",
+        "icd10": [
+          "D47.Z2"
+        ],
+        "causal_driver": "HHV-8-negative polyclonal/oligoclonal lymphoproliferative cytokine storm driven by IL-6, VEGF, PI3K/Akt/mTOR, and JAK-STAT1/3 hyperactivation",
+        "key_literature": [
+          "Fajgenbaum et al., Blood 2017 (International consensus diagnostic criteria for iMCD)",
+          "Fajgenbaum et al., J Clin Invest 2019 (mTOR activation & sirolimus clinical remission in siltuximab-refractory iMCD)",
+          "Pierson et al., Blood Advances 2021-2024 (Proteomic endotypes & JAK-STAT activation in siltuximab non-responders)"
+        ]
+      },
+      "epidemiology": {
+        "us_prevalence": "~4,300-5,200 new US Castleman cases/yr (~1,500-2,000 iMCD); ~35% 5-year mortality historically in severe refractory cohorts",
+        "demographics": "Affects children and adults (median age 35-50); iMCD-TAFRO subtype presents with acute thrombocytopenia, anasarca, fever, reticulin myelofibrosis, and organomegaly.",
+        "median_survival": "Dramatically improved in siltuximab responders, but 60-66% fail anti-IL-6 monotherapy and face recurrent ICU multiorgan flares."
+      },
+      "biological_tractability": {
+        "causal_mechanism": "Dysregulated stromal/myeloid/T-cell signaling drives systemic IL-6, VEGF, CXCL13, and mTORC1/JAK-STAT cascades—producing characteristic lymph-node germinal-center regression, hypervascularity, and reversible bone marrow reticulin fibrosis (TAFRO) closely mirroring Autoimmune Myelofibrosis (AIMF).",
+        "why_invaluable_for_builders": "Global poster child for AI-driven drug repurposing (Every Cure's origin story: sirolimus NCT03933904 & JAK1/2 inhibition rescuing siltuximab-refractory patients), backed by a world-class patient-led biobank & registry (CDCN ACCELERATE)."
+      },
+      "standard_of_care_failure_modes": {
+        "core_failure_mechanisms": [
+          "Two-Thirds Siltuximab Non-Response Cliff: Only 34% of trial patients achieved durable tumor + symptomatic response on siltuximab, leaving 66% reliant on toxic multi-agent lymphoma chemotherapy or trial-and-error off-label salvage.",
+          "ICU Misdiagnosis of iMCD-TAFRO: Reticulin marrow fibrosis + severe thrombocytopenia + anasarca mimics SLE/AIMF, TTP, or lymphoma, delaying life-saving targeted blockade."
+        ]
+      },
+      "open_data_infrastructure": [
+        {
+          "id": "Every Cure Open Drug-Disease Repurposing Graph",
+          "type": "Biomedical Repurposing Knowledge Graph",
+          "description": "Open Hugging Face biomedical graph born from iMCD translational repurposing research.",
+          "url": "https://huggingface.co/everycure"
+        },
+        {
+          "id": "ClinicalTrials.gov iMCD Feed (NCT03933904)",
+          "type": "Live Clinical Trials",
+          "description": "Phase 2 sirolimus trial in siltuximab-refractory iMCD (NCT03933904) and diagnostic/therapeutic studies.",
+          "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Multicentric+Castleman+Disease"
+        }
+      ]
+    },
+    "systemic-mastocytosis": {
+      "disease_id": "systemic-mastocytosis",
+      "name": "Systemic Mastocytosis (Indolent & Advanced SM — Clonal KIT D816V Kinase & Mast-Cell Mediator Syndrome)",
+      "identifiers": {
+        "orphanet": "ORPHA:2467",
+        "mondo": "MONDO:0016587",
+        "icd10": [
+          "D47.02",
+          "C96.21"
+        ],
+        "causal_driver": "Somatic KIT p.Asp816Val (D816V) activation-loop gain-of-function mutation (>90-95% of adult SM) +/- concurrent SRSF2/ASXL1/RUNX1 (S/A/R) in Advanced SM",
+        "key_literature": [
+          "Gotlib et al., NEJM / Nat Med 2021 (Avapritinib EXPLORER/PATHFINDER in Advanced SM)",
+          "Castells et al., NEJM Evid / JACI 2023 (PIONEER NCT03731260 low-dose avapritinib in Indolent SM)",
+          "Lyons et al., Nat Genet 2016 / JACI 2022 (TPSAB1 copy-number Hereditary Alpha-Tryptasemia overlap)"
+        ]
+      },
+      "epidemiology": {
+        "us_prevalence": "~30,000-35,000+ US patients (~85-90% Indolent/Smoldering SM; ~10-15% Advanced SM including SM-AHN frequently co-occurring with JAK2/CMML myeloid neoplasms!)",
+        "demographics": "Adult onset (median age 45-60); SM-AHN (SM with Associated Hematologic Neoplasm) bridges directly to MPN/Myelofibrosis.",
+        "median_survival": "Near-normal life expectancy in Indolent SM (with severe anaphylaxis/osteoporosis/GI morbidity), vs 2-4 years in Advanced SM-AHN / Mast Cell Leukemia."
+      },
+      "biological_tractability": {
+        "causal_mechanism": "Single point mutation KIT D816V locks the receptor tyrosine kinase activation loop in a constitutively active conformation resistant to Type II imatinib, driving neoplastic mast-cell accumulation in marrow/skin/GI and explosive tryptase, histamine, PGD2, and leukotriene release.",
+        "why_invaluable_for_builders": "Proven >$9B orphan franchise category (avapritinib, bezuclastinib SUMMIT NCT05186753, elenestinib HARBOR NCT04910685) with clear chemistry differentiation (CNS exclusion Kp,uu <0.02 + WT-KIT/PDGFRa sparing) AND a massive 6-8 year diagnostic gap solvable via ultra-sensitive peripheral ddPCR + TPSAB1 triage."
+      },
+      "standard_of_care_failure_modes": {
+        "core_failure_mechanisms": [
+          "Blood-Brain Barrier & PDGFRa Off-Target Liability: First-gen D816V kinase inhibition carries cognitive adverse events and intracranial bleed contraindications at higher doses.",
+          "6-to-8 Year Diagnostic Odyssey & False-Negative Blood NGS: Standard 1-2% VAF clinic NGS misses peripheral KIT D816V (requiring <=0.01% ddPCR), while ungenotyped TPSAB1 copy-number elevation confounds basal tryptase interpretation."
+        ]
+      },
+      "open_data_infrastructure": [
+        {
+          "id": "PDB:4U0I & PDB:1T46",
+          "type": "Human KIT Kinase Structural Complexes",
+          "description": "Crystal structures of active and autoinhibited human KIT kinase domains for D816V selectivity and efflux modeling.",
+          "url": "https://www.rcsb.org/structure/4U0I"
+        },
+        {
+          "id": "ClinicalTrials.gov SM Kinase Feed (NCT05186753, NCT04910685, NCT03731260)",
+          "type": "Live Clinical Trials",
+          "description": "SUMMIT (bezuclastinib), HARBOR (elenestinib), and PIONEER (avapritinib) Phase 2/3 trials.",
+          "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Systemic+Mastocytosis"
+        }
+      ]
+    },
+    "telomere-biology-disorders": {
+      "disease_id": "telomere-biology-disorders",
+      "name": "Dyskeratosis Congenita & Telomere Biology Disorders (TBD — TERT / TERC / DKC1 / PARN Stem-Cell Exhaustion)",
+      "identifiers": {
+        "orphanet": "ORPHA:1775",
+        "mondo": "MONDO:0015780",
+        "icd10": [
+          "Q82.8",
+          "D61.09",
+          "J84.112"
+        ],
+        "causal_driver": "Pathogenic germline variants across >=17 telomere maintenance genes (TERT, TERC, DKC1, RTEL1, PARN, TINF2, ACD, CTC1, ZCCHC8, NAF1) shortening telomeres <1st age-adjusted percentile",
+        "key_literature": [
+          "Townsley et al., NEJM 2016 (Danazol telomere elongation trial NCT01441037)",
+          "Nagpal et al., Nature / Blood 2020 (Small-molecule PAPD5 inhibition restores TERC RNA & telomeres in human TBD stem cells)",
+          "Ghanim et al., Cryo-EM Human Telomerase Holoenzyme PDB:7BG9",
+          "Agarwal et al., J Clin Oncol 2023 (Radiation- and alkylator-free HSCT NCT01659606)"
+        ]
+      },
+      "epidemiology": {
+        "us_prevalence": "~10,000-25,000+ US patients across pediatric classic Dyskeratosis Congenita and adult-onset cryptic TBD (accounting for ~15-25% of familial pulmonary fibrosis and ~5-10% of 'idiopathic' aplastic anemia/MDS)",
+        "demographics": "Bimodal: childhood marrow failure (PRV-eligible Rare Pediatric Disease!) and 40-65 yr adult cryptic pulmonary/hepatic/marrow presentation with genetic anticipation across generations.",
+        "median_survival": "Classic pediatric DC median survival ~30-40 yrs without non-myeloablative HSCT; adultTBD-IPF median post-diagnosis survival 3-5 yrs."
+      },
+      "biological_tractability": {
+        "causal_mechanism": "Defective telomerase RNA biogenesis/stability (DKC1, PARN, ZCCHC8, NAF1, TERC) or catalytic reverse transcription (TERT) causes premature replicative senescence of hematopoietic, alveolar type II, and hepatic stem cells. Crucially, inhibiting non-canonical poly(A) polymerase PAPD5 (TENT4B) prevents exosome degradation of TERC, restoring endogenous telomerase activity without exogenous viral gene delivery.",
+        "why_invaluable_for_builders": "Unlocks a $100M-$158M FDA Rare Pediatric Disease Priority Review Voucher (PRV) via pediatric Dyskeratosis Congenita while de-risking expansion into tens of thousands of adult telomere-driven pulmonary fibrosis and marrow failure patients!"
+      },
+      "standard_of_care_failure_modes": {
+        "core_failure_mechanisms": [
+          "Zero Approved Disease-Modifying Drugs & Androgen Toxicity: Off-label danazol/oxymetholone causes hepatotoxicity, peliosis, lipid disorders, and virilization.",
+          "Fatal Iatrogenic Transplant Conditioning in Cryptic Adult TBD: Unrecognized adult TBD patients given standard busulfan/cyclophosphamide HSCT conditioning or IPF cytotoxic immunosuppression suffer catastrophic fatal organ toxicity—preventable by pre-conditioning Flow-FISH + alkylator-free protocols (NCT01659606)."
+        ]
+      },
+      "open_data_infrastructure": [
+        {
+          "id": "PDB:7BG9",
+          "type": "Human Telomerase Holoenzyme Cryo-EM Structure",
+          "description": "Atomic cryo-EM architecture of human TERT-TERC-dyskerin H/ACA ribonucleoprotein complex.",
+          "url": "https://www.rcsb.org/structure/7BG9"
+        },
+        {
+          "id": "ClinicalTrials.gov TBD Feed (NCT01441037, NCT01659606)",
+          "type": "Live Clinical Trials",
+          "description": "NIH danazol study (NCT01441037) and radiation/alkylator-free BMT protocol (NCT01659606).",
+          "url": "https://clinicaltrials.gov/api/v2/studies?query.cond=Dyskeratosis+Congenita"
+        }
+      ]
+    }
+  },
+  "new_opportunities": [
+    {
+      "id": "opp-vexas-uba1b-translational-rescue",
+      "disease_id": "vexas-syndrome",
+      "title": "[AI-BIO-05] Structure-Guided UBA1c-to-UBA1b Ubiquitin-Activation Rescue & Mutant Clone Synthetic-Lethal Screen",
+      "backgrounds": [
+        "computational-ai-bio",
+        "venture-novel-financing"
+      ],
+      "capital_tier": "seed",
+      "capital_range_usd": "$350K - $2.0M",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "In-silico pocket & perturbation modeling on human UBA1 structures (PDB:6DC6) and VEXAS bone-marrow single-cell multi-omics (GEO:GSE163683) paired with outsourced CRO ubiquitin-thioester enzymatic & isogenic UBA1-M41 THP-1/HSPCs screening.",
+      "problem_wedge": "Discovered in Oct 2020 (Beck et al., NEJM), somatic UBA1 p.Met41Thr/Val/Leu mutations abolish cytoplasmic UBA1b translation and produce catalytically impaired UBA1c, driving severe adult-onset autoinflammation, vacuolated myeloid precursors, macrocytic anemia, and ~40-50% 5-year mortality in high-risk cohorts. Zero FDA-approved therapies exist; chronic high-dose glucocorticoids cause lethal infections, while JAK inhibitors (ruxolitinib, pacritinib PAXIS NCT06538181) control cytokines without eradicating UBA1-mutant HSC clones.",
+      "solution_blueprint": "Design small-molecule allosteric activators restoring residual UBA1c ubiquitin-charging efficiency OR synthetic-lethal ubiquitin-proteasome / unfolded-protein-response (PERK/IRE1a) inhibitors that selectively collapse ubiquitin-starved UBA1-M41 myeloid clones while sparing wild-type UBA1b hematopoiesis.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$110,000 - $300,000 (GSE163683 single-cell UPR vulnerability mapping + virtual screen on PDB:6DC6 + 40-compound isogenic UBA1-M41 cell viability panel)",
+        "orphan_market_benchmark": "Estimated ~1 in 4,200 men >50 yrs (~15,000+ US patients, rapidly expanding as UBA1 sequencing enters standard panels) — identical population scale to Primary Myelofibrosis with zero approved drugs.",
+        "exit_or_revenue_comps": "First-in-class precision autoinflammatory/myeloid assets command $100M-$500M+ Phase 1 pharma partnerships and full FDA Orphan Drug 7-year exclusivity + $4.68M PDUFA waiver."
+      },
+      "regulatory_pathway": "FDA Orphan Drug Designation (ORPHA:597743) + Fast Track / Breakthrough Therapy in steroid-dependent VEXAS.",
+      "first_90_days_milestones": [
+        "Re-analyze VEXAS patient CD34+ & monocyte scRNA-seq / CITE-seq (GEO:GSE163683) to quantify synthetic-lethal UPR and ubiquitin-E1/E2 bottlenecks.",
+        "Model UBA1 adenylation & thioester-transfer domain dynamics on PDB:6DC6 to identify non-competitive stabilization pockets.",
+        "Screen 35 prioritized compounds in engineered UBA1-M41V/T vs WT myeloid lines via fee-for-service CRO.",
+        "Submit NHLBI/NIAMS SBIR Phase I ($350K) and Penn Orphan Disease Center Million Dollar Bike Ride VEXAS grant."
+      ],
+      "open_datasets": [
+        "GEO:GSE163683",
+        "PDB:6DC6",
+        "Orphanet:ORPHA597743",
+        "ClinicalTrials.gov:NCT06538181",
+        "ClinicalTrials.gov:NCT05027945"
+      ]
+    },
+    {
+      "id": "opp-vexas-macrocytic-ehr-triage",
+      "disease_id": "vexas-syndrome",
+      "title": "[PUBLIC-HEALTH-05] Automated EHR Macrocytic-Inflammation Triage Closing the 4-to-7 Year VEXAS Diagnostic Odyssey",
+      "backgrounds": [
+        "public-health",
+        "computational-ai-bio"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $200K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "100% zero-wet-lab FHIR/EHR clinical decision support & reflex UBA1 sequencing router across rheumatology, dermatology, pulmonology, and hematology clinics.",
+      "problem_wedge": "Exome biobank studies (Geisinger MyCode, JAMA 2023) proved ~1 in 4,269 men over age 50 carry pathogenic somatic UBA1 variants—yet >80% remain undiagnosed, bouncing across rheumatology ('refractory relapsing polychondritis / giant cell arteritis'), dermatology ('Sweet syndrome'), and hematology ('atypical MDS') on toxic steroids for 4-7 years because routine myeloid NGS panels historically omitted X-linked UBA1.",
+      "solution_blueprint": "Deploy a lightweight FHIR clinical rule + ML phenotyping engine flagging patients age >=50 with unexplained macrocytic anemia (MCV >100 fL) + elevated ESR/CRP + steroid-refractory chondritis, neutrophilic dermatosis, unprovoked VTE, or pulmonary infiltrates for low-cost ($250) peripheral-blood UBA1 exon 3 reflex sequencing and PAXIS (NCT06538181) / NIH HSCT (NCT05027945) trial routing.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$35,000 - $95,000 (retrospective EHR cohort validation at 1 academic health system + FHIR SMART-on-FHIR reflex alert)",
+        "orphan_market_benchmark": "Diagnostic lab & clinical-trial finding partnerships pay $5,000-$20,000 per confirmed rare-patient trial referral plus reference-lab NGS pull-through.",
+        "exit_or_revenue_comps": "Proven orphan-finding SaaS business model (ThinkGenetic / Mendel.ai / specialty lab commercial sponsorships) reaching revenue within 6 months."
+      },
+      "regulatory_pathway": "Non-device Clinical Decision Support (21st Century Cures Act Sec. 3060 transparent clinician-reviewable criteria: MCV + CRP + clinical ICD-10 triad).",
+      "first_90_days_milestones": [
+        "Validate precision/recall of the MCV >100 fL + CRP/ESR + steroid-dependency classifier on de-identified EHR / All of Us / UK Biobank cohorts.",
+        "Co-design clinician alert card with VEXAS Foundation medical advisors and rheumatology-hematology clinics.",
+        "Partner with 1 CLIA molecular hematology lab offering standalone UBA1 droplet-digital PCR / NGS reflex testing.",
+        "Route newly identified patients to active VEXAS interventional trials (NCT06538181, NCT05027945)."
+      ],
+      "open_datasets": [
+        "Orphanet:ORPHA597743",
+        "ClinicalTrials.gov:NCT06538181",
+        "ClinicalTrials.gov:NCT05027945"
+      ]
+    },
+    {
+      "id": "opp-castleman-siltuximab-refractory-repurposing",
+      "disease_id": "castleman-disease",
+      "title": "[AI-BIO-06] Multi-Omic Proteomic Stratification & 505(b)(2) JAK1/2-mTOR Combination Repurposing for Siltuximab-Refractory iMCD",
+      "backgrounds": [
+        "computational-ai-bio",
+        "venture-novel-financing"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$75K - $250K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "Zero internal wet lab: computational cytokine/proteomic endotyping + Every Cure knowledge-graph ranking paired with CDCN ACCELERATE biobank validation.",
+      "problem_wedge": "Siltuximab (anti-IL-6 mAb) is the ONLY FDA-approved therapy for Idiopathic Multicentric Castleman Disease (iMCD, ORPHA:93685)—yet ~60-66% of patients fail to achieve durable response, progressing to life-threatening TAFRO multiorgan failure (thrombocytopenia, anasarca, myelofibrosis, renal dysfunction, organomegaly). Notably, iMCD-TAFRO features prominent secondary bone marrow reticulin fibrosis driven by IL-6/VEGF/mTOR/JAK-STAT hyperactivation—directly linking it to AIMF and JAK2 biology.",
+      "solution_blueprint": "Combine serum SomaScan/Olink proteomic signatures and lymph-node spatial transcriptomics with Every Cure's drug-disease repurposing graph to stratify IL-6-independent iMCD endotypes toward precision 505(b)(2) oral salvage regimens (sirolimus mTOR inhibition NCT03933904, ruxolitinib JAK1/2 inhibition, or synergistic low-dose mTOR+JAK combinations).",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$50,000 - $160,000 (computational endotype classifier + CDCN collaborative biobank validation)",
+        "orphan_market_benchmark": "~4,300-5,200 US Castleman diagnoses/yr (~1,500-2,000 iMCD); siltuximab prices at ~$150K-$250K/yr despite leaving two-thirds of patients refractory.",
+        "exit_or_revenue_comps": "505(b)(2) orphan indication expansion + companion proteomic responder assay eligible for CDCN, FDA OOPD ($1M-$3M), and ARPA-H repurposing awards."
+      },
+      "regulatory_pathway": "FDA 505(b)(2) + Orphan Drug Designation leveraging existing human safety dossiers of oral mTOR/JAK inhibitors + CLIA responder signature.",
+      "first_90_days_milestones": [
+        "Map siltuximab responder vs non-responder JAK-STAT, PI3K-Akt-mTOR, and Type I IFN pathway signatures across published iMCD serum proteomic datasets.",
+        "Cross-rank blood-brain and lymph-node penetrant oral generic/shelved combinations via Every Cure open KG.",
+        "Submit collaborative research proposal to the Castleman Disease Collaborative Network (CDCN) & ACCELERATE natural-history registry.",
+        "Draft FDA Pre-IND / Orphan Drug Designation briefing package for biomarker-selected siltuximab-refractory iMCD."
+      ],
+      "open_datasets": [
+        "HuggingFace:everycure",
+        "Orphanet:ORPHA93685",
+        "ClinicalTrials.gov:NCT03933904"
+      ]
+    },
+    {
+      "id": "opp-castleman-tafro-pathology-triage",
+      "disease_id": "castleman-disease",
+      "title": "[PUBLIC-HEALTH-06] AI Lymph-Node & Marrow Histopathology Triage Separating iMCD-TAFRO From Lupus, AIMF, IgG4-RD, and Lymphoma",
+      "backgrounds": [
+        "public-health",
+        "computational-ai-bio"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $200K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "Pure software digital pathology & clinical criteria scorer implementing the consensus iMCD diagnostic rubric on routine H&E WSIs + CBC/CRP/albumin labs.",
+      "problem_wedge": "iMCD-TAFRO patients present in ICU crisis with anasarca, severe thrombocytopenia, renal failure, and bone marrow reticulin fibrosis—routinely misdiagnosed as lupus/AIMF, TTP, infectious sepsis, or lymphoma. Diagnostic delay of even 4-8 weeks causes preventable ICU mortality because community pathologists rarely score regressed germinal centers, follicular dendritic cell prominence, vascularity, and plasmacytosis consistently.",
+      "solution_blueprint": "Build a whole-slide pathology vision scorer quantifying the 5 CDCN consensus lymph-node histopathological features (atrophic GCs, 'lollipop' penetrating vessels, FDC prominence, hypervascularity, interfollicular plasmacytosis) fused with automated TAFRO lab criteria (platelets, Cr, ALP, ferritin, marrow fibrosis) to deliver rapid 24-hour differential triage.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$45,000 - $130,000 (pathology foundation-model fine-tuning on multi-center lymph node WSIs + hematopathologist concordance study)",
+        "orphan_market_benchmark": "Tens of thousands of excisional lymph-node biopsies for 'reactive lymphadenopathy of unknown etiology' performed annually in the US; biopharma & specialty lab sponsorship covers deployment.",
+        "exit_or_revenue_comps": "High-leverage diagnostic triage SaaS licensing to hematopathology reference labs and IL-6/mTOR therapeutic sponsors."
+      },
+      "regulatory_pathway": "RUO telepathology consultation aid -> CLIA laboratory-developed digital morphometry report -> FDA De Novo / 510(k) SaMD.",
+      "first_90_days_milestones": [
+        "Encode CDCN consensus major/minor diagnostic & exclusion criteria (HHV-8, POEMS, SLE/AIMF, lymphoma) into a deterministic FHIR/JSON rule engine.",
+        "Fine-tune open histopathology vision encoders (UNI / Prov-GigaPath) on germinal-center involution and vascular proliferation grading.",
+        "Partner with CDCN reference pathologists for blinded inter-observer concordance benchmarking.",
+        "Publish open benchmark and deploy free clinician second-opinion triage portal."
+      ],
+      "open_datasets": [
+        "Orphanet:ORPHA93685",
+        "ClinicalTrials.gov:NCT03933904",
+        "ClinicalTrials.gov:NCT07793006"
+      ]
+    },
+    {
+      "id": "opp-mastocytosis-cns-sparing-kit-d816v",
+      "disease_id": "systemic-mastocytosis",
+      "title": "[AI-BIO-07] Blood-Brain-Barrier-Excluded & Wild-Type-Sparing KIT D816V Degrader / Allosteric Inhibitor Design",
+      "backgrounds": [
+        "computational-ai-bio",
+        "venture-novel-financing"
+      ],
+      "capital_tier": "seed",
+      "capital_range_usd": "$350K - $2.5M",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "Computational ADME/P-gp efflux + mutant-vs-WT structural selectivity design on KIT crystal structures (PDB:4U0I, PDB:1T46) + outsourced kinome & HMC-1.2 mast-cell CRO assays.",
+      "problem_wedge": "Over 90% of Systemic Mastocytosis (ORPHA:2467 — Indolent & Advanced SM, ~30,000+ US patients) is driven by a single somatic activation-loop mutation: KIT p.Asp816Val (D816V). First-in-class avapritinib (PIONEER NCT03731260) proved blockbuster orphan demand (> $500M-$1B+ trajectory) yet crosses the blood-brain barrier—causing cognitive impairment ('brain fog' in 10-30% of patients) and intracranial bleeding risk at higher doses, while off-target PDGFRa/WT-KIT inhibition limits chronic indolent dosing. Next-gen ATP-competitive inhibitors bezuclastinib (SUMMIT NCT05186753) and elenestinib (HARBOR NCT04910685) validate the massive commercial prize for peripheral-restricted precision.",
+      "solution_blueprint": "Design P-gp/BCRP-substrate peripheral-restricted heterobifunctional degraders or non-hinge allosteric binders selective for KIT D816V over WT KIT, PDGFRa/b, CSF1R, and FLT3 (>100x window, Kp,uu <0.02), eliminating mutant mast-cell burden without CNS neurotoxicity or cytopenias.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$130,000 - $350,000 (MD + P-gp efflux multiparameter generative design + MDCK-MDR1 permeability + KIT D816V vs WT/PDGFRa CRO panel)",
+        "orphan_market_benchmark": "Blueprint Medicines' Ayvakit (avapritinib) franchise drove Sanofi's >$9B acquisition benchmark in 2025; Indolent SM is a lifelong chronic orphan market.",
+        "exit_or_revenue_comps": "Best-in-class peripheral-restricted KIT D816V degraders represent premier $250M-$1B+ preclinical/Phase 1 pharma acquisition targets."
+      },
+      "regulatory_pathway": "FDA Orphan Drug Designation (Advanced & Indolent Systemic Mastocytosis) + Fast Track.",
+      "first_90_days_milestones": [
+        "Model active-state KIT D816V activation loop vs autoinhibited WT KIT (PDB:1T46, PDB:4U0I) and PDGFRa counter-targets.",
+        "Co-optimize ternary degrader / allosteric warheads for strict P-gp efflux (CNS exclusion Kp,uu <0.02) and oral bioavailability.",
+        "Synthesize 25-40 compounds via CRO and test in DiscoverX KIT(D816V) vs KIT(WT)/PDGFRA + MDCK-MDR1 bidirectional transport assays.",
+        "File composition-of-matter provisional patent and apply for NIAID/NHLBI SBIR Phase I."
+      ],
+      "open_datasets": [
+        "PDB:4U0I",
+        "PDB:1T46",
+        "Orphanet:ORPHA2467",
+        "ClinicalTrials.gov:NCT05186753",
+        "ClinicalTrials.gov:NCT04910685",
+        "ClinicalTrials.gov:NCT03731260"
+      ]
+    },
+    {
+      "id": "opp-mastocytosis-tryptase-ddpcr-funnel",
+      "disease_id": "systemic-mastocytosis",
+      "title": "[PUBLIC-HEALTH-07] High-Sensitivity Peripheral KIT D816V ddPCR + Hereditary Alpha-Tryptasemia (TPSAB1) Allergy/GI Triage Network",
+      "backgrounds": [
+        "public-health",
+        "venture-novel-financing"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $225K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "Zero wet lab: EHR/allergy-clinic risk stratification + mail-in dried-blood-spot / peripheral-blood ddPCR & TPSAB1 copy-number coordination via existing CLIA partner labs.",
+      "problem_wedge": "Indolent Systemic Mastocytosis patients endure a median 6-to-8 year diagnostic delay across allergy, GI ('refractory IBS'), and endocrinology ('idiopathic osteoporosis / Hymenoptera anaphylaxis') because standard NGS misses low-VAF (<0.01-0.1%) peripheral KIT D816V, leading clinicians to skip workup—or confuse clonal SM with Hereditary Alpha-Tryptasemia (TPSAB1 triplication, present in ~5% of the population and enriched in SM).",
+      "solution_blueprint": "Build a REMA-score + basal serum tryptase clinical triage engine across community allergy & GI networks that triggers paired ultra-sensitive peripheral-blood KIT D816V digital-droplet PCR (VAF sensitivity 0.01%) + buccal TPSAB1 copy-number genotyping, avoiding unnecessary marrow biopsies in pure HaT while accelerating clonal SM patients to precision trials (HARBOR NCT04910685).",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$40,000 - $110,000 (REMA/tryptase FHIR workflow + CLIA lab API integration + TMS patient advisory review)",
+        "orphan_market_benchmark": "Multiple commercial & Phase 3 KIT inhibitor sponsors actively fund non-promotional diagnostic-pathway & trial-screening programs ($10K-$25K per identified clonal SM trial candidate).",
+        "exit_or_revenue_comps": "High-margin specialty allergy/hematology diagnostic routing & sponsored testing network."
+      },
+      "regulatory_pathway": "Transparent REMA-score clinical decision support + CLIA-validated partner ddPCR/TPSAB1 laboratory testing.",
+      "first_90_days_milestones": [
+        "Implement validated REMA anaphylaxis score + tryptase-adjusted TPSAB1 copy-number calculator (`10 + 9*extra_alpha_copies` ng/mL threshold) as an open API/widget.",
+        "Partner with The Mast Cell Disease Society (TMS) and 5 regional allergy/anaphylaxis practices for workflow pilot.",
+        "Integrate mail-in peripheral KIT D816V ddPCR reflex ordering with a CLIA molecular hematology lab.",
+        "Establish clinical-trial referral contracts for active non-advanced SM studies (NCT04910685)."
+      ],
+      "open_datasets": [
+        "Orphanet:ORPHA2467",
+        "ClinicalTrials.gov:NCT04910685",
+        "ClinicalTrials.gov:NCT05186753"
+      ]
+    },
+    {
+      "id": "opp-tbd-papd5-terc-stabilizer",
+      "disease_id": "telomere-biology-disorders",
+      "title": "[AI-BIO-08] Oral Non-Hormonal PAPD5 (TENT4B) Inhibitor Restoring Endogenous TERC Telomerase RNA & Stem-Cell Telomeres",
+      "backgrounds": [
+        "computational-ai-bio",
+        "venture-novel-financing"
+      ],
+      "capital_tier": "seed",
+      "capital_range_usd": "$350K - $2.5M",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "Structure-guided medicinal optimization on human PAPD5/TENT4B & telomerase holoenzyme (PDB:7BG9) + outsourced TERC 3'-oligoadenylation & patient-iPSC HSPC Flow-FISH telomere elongation CRO assays.",
+      "problem_wedge": "Dyskeratosis Congenita & Telomere Biology Disorders (TBD, ORPHA:1775 — germline TERT, TERC, DKC1, PARN, RTEL1 mutations) cause lethal pediatric/adult bone marrow failure, pulmonary fibrosis, liver cirrhosis, and squamous cancers with zero FDA-approved targeted therapies. High-dose androgen danazol attenuated telomere attrition in NIH Phase 1/2 (NCT01441037, Townsley et al. NEJM) but causes dose-limiting hepatotoxicity, lipid derangements, and virilization. Seminal genetic studies (Nagpal & Agarwal, Blood/Cell Stem Cell) proved inhibiting poly(A) polymerase PAPD5 (TENT4B) blocks exosome degradation of TERC RNA and restores physiological telomere length in human TBD stem cells.",
+      "solution_blueprint": "Optimize selective, marrow- and lung-penetrant oral small-molecule PAPD5 (TENT4B) catalytic inhibitors (improving over CNS-toxic viral-hepatitis scaffold RG7834 via polarity/efflux tuning) to elevate endogenous TERC levels 2-3x and rescue telomerase activity across DKC1, PARN, and TERC-haploinsufficient marrow & alveolar stem cells.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$140,000 - $350,000 (CNS-excluded PAPD5 analog design + TENT4B vs TENT4A enzymatic selectivity + DKC1/PARN iPSC-HSPC TERC northern/qPCR & Flow-FISH assay)",
+        "orphan_market_benchmark": "Pediatric Dyskeratosis Congenita qualifies for BOTH FDA Orphan Drug Designation AND a Rare Pediatric Disease Priority Review Voucher (PRV recent secondary-market sales: $100M-$158M non-dilutive exit catalyst), with huge expansion into ~15-20% of familial idiopathic pulmonary fibrosis!",
+        "exit_or_revenue_comps": "Rare Pediatric PRV eligibility alone underwrites >$100M asset floor upon pediatric approval, prior to adult telomere-mediated IPF/cirrhosis expansion."
+      },
+      "regulatory_pathway": "FDA Rare Pediatric Disease Designation (PRV-eligible in Dyskeratosis Congenita) + Orphan Drug Designation + Fast Track.",
+      "first_90_days_milestones": [
+        "Map PAPD5 (TENT4B) active-site selectivity vs TENT4A/ mitochondrial poly(A) polymerases and optimize BBB-excluded physicochemical properties (tPSA, P-gp).",
+        "Synthesize 30 peripheral-restricted dihydroquinolizinone / novel-core analogs via CRO.",
+        "Measure TERC 3'-tail trimming rescue and telomere elongation in engineered PARN/DKC1-mutant human cells via academic core SRA.",
+        "Apply for NHLBI Catalyze / SBIR Phase I and Team Telomere / Million Dollar Bike Ride research grant."
+      ],
+      "open_datasets": [
+        "PDB:7BG9",
+        "Orphanet:ORPHA1775",
+        "ClinicalTrials.gov:NCT01441037",
+        "ClinicalTrials.gov:NCT03312400",
+        "ClinicalTrials.gov:NCT01659606"
+      ]
+    },
+    {
+      "id": "opp-tbd-pretransplant-genomic-safety-gate",
+      "disease_id": "telomere-biology-disorders",
+      "title": "[PUBLIC-HEALTH-08] Pre-Conditioning Cryptic Telomere Biology Disorder Alert Preventing Fatal Transplant & Immunosuppression Toxicity",
+      "backgrounds": [
+        "public-health",
+        "computational-ai-bio"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $200K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "100% software EHR + germline variant-interpretation safety gate integrating lymphocyte Flow-FISH & TBD gene panel flags prior to HSCT, lung transplant, or IPF immunosuppression.",
+      "problem_wedge": "Up to 70% of adult-onset Telomere Biology Disorders lack classic childhood nail/skin mucocutaneous triad ('cryptic TBD'), presenting instead as isolated 'idiopathic' aplastic anemia, 'cryptogenic' cirrhosis, or familial pulmonary fibrosis. Giving standard busulfan/alkylator HSCT conditioning or triple-therapy IPF immunosuppression to an unrecognized TBD patient causes >50-80% fatal organ toxicity—whereas dedicated radiation- and alkylator-free regimens (NCT01659606) achieve >85-90% engraftment survival.",
+      "solution_blueprint": "Embed an automated pre-transplant & marrow-failure safety check across BMT, ILD, and hepatology EHR intake workflows scoring personal/family red flags (macrocytosis + premature graying <30 + cytopenias + ILD/cirrhosis) and ACMG/ClinGen telomere gene VUS reclassification to trigger urgent 1st-percentile lymphocyte Flow-FISH and route confirmed patients to alkylator-free protocols (NCT01659606).",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$35,000 - $100,000 (FHIR pre-BMT/ILD risk scorer + ClinVar TERT/TERC/RTEL1/PARN structural-functional VUS classifier)",
+        "orphan_market_benchmark": "Preventing a single fatal transplant conditioning complication saves transplant centers & payers $500,000-$1.5M+ in ICU/readmission outlays under bundled transplant contracts.",
+        "exit_or_revenue_comps": "B2B clinical genomics & transplant-center quality/safety SaaS + specialty telomere diagnostic lab partnership."
+      },
+      "regulatory_pathway": "Transparent clinician-reviewable pre-conditioning safety checklist (21st Century Cures CDS exemption) + CLIA Flow-FISH/NGS partner integration.",
+      "first_90_days_milestones": [
+        "Aggregate ClinVar, gnomAD, and published functional telomerase activity scores across 17 canonical TBD genes (TERT, TERC, DKC1, RTEL1, PARN, TINF2, ACD, CTC1, RPA1, ZCCHC8).",
+        "Co-design pre-BMT and ILD intake screening scorecard with Team Telomere Clinical Care Consortium centers.",
+        "Validate sensitivity on retrospective adult cryptogenic cytopenia + pulmonary fibrosis EHR cohorts.",
+        "Launch open clinician calculator + SMART-on-FHIR pre-conditioning alert pilot."
+      ],
+      "open_datasets": [
+        "Orphanet:ORPHA1775",
+        "ClinicalTrials.gov:NCT01659606",
+        "ClinicalTrials.gov:NCT01441037"
+      ]
+    }
+  ],
+  "new_grants": [
+    {
+      "id": "grant-cdcn-everycure",
+      "name": "Castleman Disease Collaborative Network (CDCN) & Every Cure Repurposing Collaborations",
+      "track": "foundation",
+      "typical_award_usd": "$50,000 - $300,000+ (plus biobank/ACCELERATE registry access & clinical trial co-design)",
+      "equity_dilution": "0% (Non-dilutive high-velocity translational & drug-repurposing awards)",
+      "best_for_backgrounds": [
+        "computational-ai-bio",
+        "public-health"
+      ],
+      "focus_areas": "iMCD-TAFRO biomarker stratification, siltuximab-refractory drug repurposing (JAK/mTOR/cytokine pathways), and AI lymph-node/marrow diagnostics.",
+      "url": "https://cdcn.org/"
+    },
+    {
+      "id": "grant-penn-odc-mdbr",
+      "name": "UPenn Orphan Disease Center — Million Dollar Bike Ride (MDBR) Pilot Grants (VEXAS, Castleman, TBD & Mast Cell Tracks)",
+      "track": "foundation",
+      "typical_award_usd": "$50,000 - $150,000 (1-year rapid-turnaround non-dilutive pilot grants)",
+      "equity_dilution": "0% (Non-dilutive; frequently co-funded with Team Telomere, VEXAS Foundation, and CDCN)",
+      "best_for_backgrounds": [
+        "computational-ai-bio",
+        "public-health",
+        "venture-novel-financing"
+      ],
+      "focus_areas": "Seed proof-of-concept therapeutics, natural-history biomarkers, and computational repurposing across rare hematologic & autoinflammatory diseases.",
+      "url": "https://orphandiseasecenter.med.upenn.edu/"
+    }
+  ]
+}
+```

@@ -1,8 +1,8 @@
 {
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
-  "schema_version": "1.2.0",
-  "slice": "public-health",
-  "matched_count": 4,
+  "schema_version": "1.5.0",
+  "slice": "/feeds/public-health.json",
+  "matched_count": 8,
   "opportunities": [
     {
       "id": "opp-marrow-fibrosis-ai-biomarker",
@@ -16,8 +16,8 @@
       "capital_range_usd": "$50K - $250K",
       "wet_lab_required": false,
       "wet_lab_execution_model": "100% software / computational pathology & digital biomarker platform using digitized bone marrow H&E/reticulin WSIs, NGS VAF kinetics, and high-frequency wearable/ePRO feeds.",
-      "problem_wedge": "Between 2024 and 2026, three major frontline Phase 3 combination trials\u2014TRANSFORM-1 (navitoclax, NCT04472598), MANIFEST-2 (pelabresib, NCT04603495), and SENTRY (selinexor, NCT04562389)\u2014hit Spleen Volume Reduction (SVR35) yet missed strict Total Symptom Score (TSS50) statistical cutoffs due to noisy diary scores, while IMpactMF (imetelstat, NCT04576156) failed on Overall Survival in Oct 2026. Meanwhile, manual WHO marrow fibrosis grading (MF-0 to MF-3) has 30-40% inter-pathologist discordance.",
-      "solution_blueprint": "Build a regulatory-grade composite disease-modification biomarker platform combining foundation-model reticulin/megakaryocyte WSI morphometry, longitudinal JAK2 V617F / HMR VAF clearance, and passive wearable + micro-sampled MF-SAF v4.0 ePROs\u2014aligned with the FDA Rare Disease Endpoint Advancement (RDEA) program.",
+      "problem_wedge": "Between 2024 and 2026, three major frontline Phase 3 combination trials—TRANSFORM-1 (navitoclax, NCT04472598), MANIFEST-2 (pelabresib, NCT04603495), and SENTRY (selinexor, NCT04562389)—hit Spleen Volume Reduction (SVR35) yet missed strict Total Symptom Score (TSS50) statistical cutoffs due to noisy diary scores, while IMpactMF (imetelstat, NCT04576156) failed on Overall Survival in Oct 2026. Meanwhile, manual WHO marrow fibrosis grading (MF-0 to MF-3) has 30-40% inter-pathologist discordance.",
+      "solution_blueprint": "Build a regulatory-grade composite disease-modification biomarker platform combining foundation-model reticulin/megakaryocyte WSI morphometry, longitudinal JAK2 V617F / HMR VAF clearance, and passive wearable + micro-sampled MF-SAF v4.0 ePROs—aligned with the FDA Rare Disease Endpoint Advancement (RDEA) program.",
       "unit_economics": {
         "initial_validation_budget_usd": "$40,000 - $150,000 (academic biobank DUA + pathology vision encoder fine-tuning + hematopathologist adjudication)",
         "orphan_market_benchmark": "30+ active Phase 1-3 Myelofibrosis clinical trials globally spending $30M-$120M per trial; B2B SaaS biopharma endpoint & central pathology contracts average $300K-$1.5M per trial.",
@@ -50,7 +50,7 @@
       "wet_lab_required": false,
       "wet_lab_execution_model": "Zero wet lab; FHIR/EHR patient-authorized data sync complementary to existing registries (MPN PROGRESSion Registry NCT07362225, HealthTree) + automated community oncology trial routing.",
       "problem_wedge": "Median OS after ruxolitinib discontinuation is 11-23 months, yet >70% of US MF patients are treated in generalist community clinics. Worse, patients refuse salvage trials that require a 14-28 day ruxolitinib washout ('washout terror' from cytokine rebound), while sponsors pay $30K-$60K/patient recruiting Best-Available-Therapy control arms.",
-      "solution_blueprint": "Build a FHIR-native longitudinal companion and automated trial-matching engine that tracks CBC/transfusion velocity, MIPSS70+ v2.0 NGS risk, and RR6 ruxolitinib-failure criteria\u2014specifically filtering for add-on / overlap-bridging trials (e.g., POIESIS NCT06479135) while licensing FDA-auditable External Control Arms (ECAs) to Phase 2/3 sponsors.",
+      "solution_blueprint": "Build a FHIR-native longitudinal companion and automated trial-matching engine that tracks CBC/transfusion velocity, MIPSS70+ v2.0 NGS risk, and RR6 ruxolitinib-failure criteria—specifically filtering for add-on / overlap-bridging trials (e.g., POIESIS NCT06479135) while licensing FDA-auditable External Control Arms (ECAs) to Phase 2/3 sponsors.",
       "unit_economics": {
         "initial_validation_budget_usd": "$35,000 - $120,000 (FHIR EHR connector + ClinicalTrials.gov v2 eligibility parser + compensated patient advisory co-design)",
         "orphan_market_benchmark": "Rare hematology trial recruitment commands $8,000-$25,000 per enrolled/screened patient, plus $500K-$2M+ per biopharma External Control Arm licensing contract.",
@@ -81,7 +81,7 @@
       "wet_lab_required": false,
       "wet_lab_execution_model": "Pure care-delivery, clinical decision support (CDS), and reimbursed Remote Therapeutic Monitoring (RTM/CCM) infrastructure.",
       "problem_wedge": "Allogeneic stem cell transplant (allo-HSCT) is the ONLY curative therapy for MF (5-yr OS ~50-60%), yet <10-15% of eligible patients ever receive it. Community oncologists lack molecularly calibrated timing tools (balancing MIPSS70+ v2.0 progression risk against 20-36% transplant NRM) and struggle to titrate switches across ruxolitinib, momelotinib (anemia), and pacritinib (platelets <50k).",
-      "solution_blueprint": "Deploy a reimbursed RTM/CCM symptom & transfusion monitoring service paired with transparent NCCN/MIPSS70+/MTSS clinical decision support and BMT Center-of-Excellence referral navigation\u2014catching high-molecular-risk (ASXL1, SRSF2, U2AF1, TP53) patients in the optimal pre-blast transplant window.",
+      "solution_blueprint": "Deploy a reimbursed RTM/CCM symptom & transfusion monitoring service paired with transparent NCCN/MIPSS70+/MTSS clinical decision support and BMT Center-of-Excellence referral navigation—catching high-molecular-risk (ASXL1, SRSF2, U2AF1, TP53) patients in the optimal pre-blast transplant window.",
       "unit_economics": {
         "initial_validation_budget_usd": "$150,000 - $400,000 (MPN-SAF ePRO + MIPSS70+/MTSS CDS workflow + pilot with 2 academic BMT centers and regional oncology clinics)",
         "orphan_market_benchmark": "Prevents $100K-$250K/yr avoidable transfusion/splenomegaly admissions and blast-phase crises; monetizes via Medicare RTM/PCM CPT codes + BMT Center-of-Excellence value contracts.",
@@ -127,7 +127,134 @@
         "GEO:GSE144568",
         "ClinicalTrials.gov:API-v2"
       ]
+    },
+    {
+      "id": "opp-vexas-macrocytic-ehr-triage",
+      "disease_id": "vexas-syndrome",
+      "title": "[PUBLIC-HEALTH-05] Automated EHR Macrocytic-Inflammation Triage Closing the 4-to-7 Year VEXAS Diagnostic Odyssey",
+      "backgrounds": [
+        "public-health",
+        "computational-ai-bio"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $200K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "100% zero-wet-lab FHIR/EHR clinical decision support & reflex UBA1 sequencing router across rheumatology, dermatology, pulmonology, and hematology clinics.",
+      "problem_wedge": "Exome biobank studies (Geisinger MyCode, JAMA 2023) proved ~1 in 4,269 men over age 50 carry pathogenic somatic UBA1 variants—yet >80% remain undiagnosed, bouncing across rheumatology ('refractory relapsing polychondritis / giant cell arteritis'), dermatology ('Sweet syndrome'), and hematology ('atypical MDS') on toxic steroids for 4-7 years because routine myeloid NGS panels historically omitted X-linked UBA1.",
+      "solution_blueprint": "Deploy a lightweight FHIR clinical rule + ML phenotyping engine flagging patients age >=50 with unexplained macrocytic anemia (MCV >100 fL) + elevated ESR/CRP + steroid-refractory chondritis, neutrophilic dermatosis, unprovoked VTE, or pulmonary infiltrates for low-cost ($250) peripheral-blood UBA1 exon 3 reflex sequencing and PAXIS (NCT06538181) / NIH HSCT (NCT05027945) trial routing.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$35,000 - $95,000 (retrospective EHR cohort validation at 1 academic health system + FHIR SMART-on-FHIR reflex alert)",
+        "orphan_market_benchmark": "Diagnostic lab & clinical-trial finding partnerships pay $5,000-$20,000 per confirmed rare-patient trial referral plus reference-lab NGS pull-through.",
+        "exit_or_revenue_comps": "Proven orphan-finding SaaS business model (ThinkGenetic / Mendel.ai / specialty lab commercial sponsorships) reaching revenue within 6 months."
+      },
+      "regulatory_pathway": "Non-device Clinical Decision Support (21st Century Cures Act Sec. 3060 transparent clinician-reviewable criteria: MCV + CRP + clinical ICD-10 triad).",
+      "first_90_days_milestones": [
+        "Validate precision/recall of the MCV >100 fL + CRP/ESR + steroid-dependency classifier on de-identified EHR / All of Us / UK Biobank cohorts.",
+        "Co-design clinician alert card with VEXAS Foundation medical advisors and rheumatology-hematology clinics.",
+        "Partner with 1 CLIA molecular hematology lab offering standalone UBA1 droplet-digital PCR / NGS reflex testing.",
+        "Route newly identified patients to active VEXAS interventional trials (NCT06538181, NCT05027945)."
+      ],
+      "open_datasets": [
+        "Orphanet:ORPHA597743",
+        "ClinicalTrials.gov:NCT06538181",
+        "ClinicalTrials.gov:NCT05027945"
+      ]
+    },
+    {
+      "id": "opp-castleman-tafro-pathology-triage",
+      "disease_id": "castleman-disease",
+      "title": "[PUBLIC-HEALTH-06] AI Lymph-Node & Marrow Histopathology Triage Separating iMCD-TAFRO From Lupus, AIMF, IgG4-RD, and Lymphoma",
+      "backgrounds": [
+        "public-health",
+        "computational-ai-bio"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $200K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "Pure software digital pathology & clinical criteria scorer implementing the consensus iMCD diagnostic rubric on routine H&E WSIs + CBC/CRP/albumin labs.",
+      "problem_wedge": "iMCD-TAFRO patients present in ICU crisis with anasarca, severe thrombocytopenia, renal failure, and bone marrow reticulin fibrosis—routinely misdiagnosed as lupus/AIMF, TTP, infectious sepsis, or lymphoma. Diagnostic delay of even 4-8 weeks causes preventable ICU mortality because community pathologists rarely score regressed germinal centers, follicular dendritic cell prominence, vascularity, and plasmacytosis consistently.",
+      "solution_blueprint": "Build a whole-slide pathology vision scorer quantifying the 5 CDCN consensus lymph-node histopathological features (atrophic GCs, 'lollipop' penetrating vessels, FDC prominence, hypervascularity, interfollicular plasmacytosis) fused with automated TAFRO lab criteria (platelets, Cr, ALP, ferritin, marrow fibrosis) to deliver rapid 24-hour differential triage.",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$45,000 - $130,000 (pathology foundation-model fine-tuning on multi-center lymph node WSIs + hematopathologist concordance study)",
+        "orphan_market_benchmark": "Tens of thousands of excisional lymph-node biopsies for 'reactive lymphadenopathy of unknown etiology' performed annually in the US; biopharma & specialty lab sponsorship covers deployment.",
+        "exit_or_revenue_comps": "High-leverage diagnostic triage SaaS licensing to hematopathology reference labs and IL-6/mTOR therapeutic sponsors."
+      },
+      "regulatory_pathway": "RUO telepathology consultation aid -> CLIA laboratory-developed digital morphometry report -> FDA De Novo / 510(k) SaMD.",
+      "first_90_days_milestones": [
+        "Encode CDCN consensus major/minor diagnostic & exclusion criteria (HHV-8, POEMS, SLE/AIMF, lymphoma) into a deterministic FHIR/JSON rule engine.",
+        "Fine-tune open histopathology vision encoders (UNI / Prov-GigaPath) on germinal-center involution and vascular proliferation grading.",
+        "Partner with CDCN reference pathologists for blinded inter-observer concordance benchmarking.",
+        "Publish open benchmark and deploy free clinician second-opinion triage portal."
+      ],
+      "open_datasets": [
+        "Orphanet:ORPHA93685",
+        "ClinicalTrials.gov:NCT03933904",
+        "ClinicalTrials.gov:NCT07793006"
+      ]
+    },
+    {
+      "id": "opp-mastocytosis-tryptase-ddpcr-funnel",
+      "disease_id": "systemic-mastocytosis",
+      "title": "[PUBLIC-HEALTH-07] High-Sensitivity Peripheral KIT D816V ddPCR + Hereditary Alpha-Tryptasemia (TPSAB1) Allergy/GI Triage Network",
+      "backgrounds": [
+        "public-health",
+        "venture-novel-financing"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $225K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "Zero wet lab: EHR/allergy-clinic risk stratification + mail-in dried-blood-spot / peripheral-blood ddPCR & TPSAB1 copy-number coordination via existing CLIA partner labs.",
+      "problem_wedge": "Indolent Systemic Mastocytosis patients endure a median 6-to-8 year diagnostic delay across allergy, GI ('refractory IBS'), and endocrinology ('idiopathic osteoporosis / Hymenoptera anaphylaxis') because standard NGS misses low-VAF (<0.01-0.1%) peripheral KIT D816V, leading clinicians to skip workup—or confuse clonal SM with Hereditary Alpha-Tryptasemia (TPSAB1 triplication, present in ~5% of the population and enriched in SM).",
+      "solution_blueprint": "Build a REMA-score + basal serum tryptase clinical triage engine across community allergy & GI networks that triggers paired ultra-sensitive peripheral-blood KIT D816V digital-droplet PCR (VAF sensitivity 0.01%) + buccal TPSAB1 copy-number genotyping, avoiding unnecessary marrow biopsies in pure HaT while accelerating clonal SM patients to precision trials (HARBOR NCT04910685).",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$40,000 - $110,000 (REMA/tryptase FHIR workflow + CLIA lab API integration + TMS patient advisory review)",
+        "orphan_market_benchmark": "Multiple commercial & Phase 3 KIT inhibitor sponsors actively fund non-promotional diagnostic-pathway & trial-screening programs ($10K-$25K per identified clonal SM trial candidate).",
+        "exit_or_revenue_comps": "High-margin specialty allergy/hematology diagnostic routing & sponsored testing network."
+      },
+      "regulatory_pathway": "Transparent REMA-score clinical decision support + CLIA-validated partner ddPCR/TPSAB1 laboratory testing.",
+      "first_90_days_milestones": [
+        "Implement validated REMA anaphylaxis score + tryptase-adjusted TPSAB1 copy-number calculator (`10 + 9*extra_alpha_copies` ng/mL threshold) as an open API/widget.",
+        "Partner with The Mast Cell Disease Society (TMS) and 5 regional allergy/anaphylaxis practices for workflow pilot.",
+        "Integrate mail-in peripheral KIT D816V ddPCR reflex ordering with a CLIA molecular hematology lab.",
+        "Establish clinical-trial referral contracts for active non-advanced SM studies (NCT04910685)."
+      ],
+      "open_datasets": [
+        "Orphanet:ORPHA2467",
+        "ClinicalTrials.gov:NCT04910685",
+        "ClinicalTrials.gov:NCT05186753"
+      ]
+    },
+    {
+      "id": "opp-tbd-pretransplant-genomic-safety-gate",
+      "disease_id": "telomere-biology-disorders",
+      "title": "[PUBLIC-HEALTH-08] Pre-Conditioning Cryptic Telomere Biology Disorder Alert Preventing Fatal Transplant & Immunosuppression Toxicity",
+      "backgrounds": [
+        "public-health",
+        "computational-ai-bio"
+      ],
+      "capital_tier": "bootstrapped-grant",
+      "capital_range_usd": "$50K - $200K",
+      "wet_lab_required": false,
+      "wet_lab_execution_model": "100% software EHR + germline variant-interpretation safety gate integrating lymphocyte Flow-FISH & TBD gene panel flags prior to HSCT, lung transplant, or IPF immunosuppression.",
+      "problem_wedge": "Up to 70% of adult-onset Telomere Biology Disorders lack classic childhood nail/skin mucocutaneous triad ('cryptic TBD'), presenting instead as isolated 'idiopathic' aplastic anemia, 'cryptogenic' cirrhosis, or familial pulmonary fibrosis. Giving standard busulfan/alkylator HSCT conditioning or triple-therapy IPF immunosuppression to an unrecognized TBD patient causes >50-80% fatal organ toxicity—whereas dedicated radiation- and alkylator-free regimens (NCT01659606) achieve >85-90% engraftment survival.",
+      "solution_blueprint": "Embed an automated pre-transplant & marrow-failure safety check across BMT, ILD, and hepatology EHR intake workflows scoring personal/family red flags (macrocytosis + premature graying <30 + cytopenias + ILD/cirrhosis) and ACMG/ClinGen telomere gene VUS reclassification to trigger urgent 1st-percentile lymphocyte Flow-FISH and route confirmed patients to alkylator-free protocols (NCT01659606).",
+      "unit_economics": {
+        "initial_validation_budget_usd": "$35,000 - $100,000 (FHIR pre-BMT/ILD risk scorer + ClinVar TERT/TERC/RTEL1/PARN structural-functional VUS classifier)",
+        "orphan_market_benchmark": "Preventing a single fatal transplant conditioning complication saves transplant centers & payers $500,000-$1.5M+ in ICU/readmission outlays under bundled transplant contracts.",
+        "exit_or_revenue_comps": "B2B clinical genomics & transplant-center quality/safety SaaS + specialty telomere diagnostic lab partnership."
+      },
+      "regulatory_pathway": "Transparent clinician-reviewable pre-conditioning safety checklist (21st Century Cures CDS exemption) + CLIA Flow-FISH/NGS partner integration.",
+      "first_90_days_milestones": [
+        "Aggregate ClinVar, gnomAD, and published functional telomerase activity scores across 17 canonical TBD genes (TERT, TERC, DKC1, RTEL1, PARN, TINF2, ACD, CTC1, RPA1, ZCCHC8).",
+        "Co-design pre-BMT and ILD intake screening scorecard with Team Telomere Clinical Care Consortium centers.",
+        "Validate sensitivity on retrospective adult cryptogenic cytopenia + pulmonary fibrosis EHR cohorts.",
+        "Launch open clinician calculator + SMART-on-FHIR pre-conditioning alert pilot."
+      ],
+      "open_datasets": [
+        "Orphanet:ORPHA1775",
+        "ClinicalTrials.gov:NCT01659606",
+        "ClinicalTrials.gov:NCT01441037"
+      ]
     }
-  ],
-  "feedback_issue_template": "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io/issues/new?template=agent_feedback.yml"
+  ]
 }

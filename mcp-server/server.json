@@ -1,36 +1,28 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.rare-disease-atlas/orphan-disease-opportunity-mcp",
-  "description": "Open venture & translational opportunity atlas for orphan diseases (Flagship #1: JAK2+ Myelofibrosis): startup blueprints, JH2 biology, Orphan Drug economics, SBIR/MPNRF/LLS grants & ethical validation.",
-  "status": "active",
+  "title": "Orphan Disease Opportunity Atlas MCP",
+  "description": "Live 7,000-disease diligence engine + 6 curated hematology/immunology venture & grant playbooks.",
+  "version": "1.5.0",
   "repository": {
-    "url": "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io",
+    "url": "https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp",
     "source": "github"
   },
-  "version": "1.0.0",
   "websiteUrl": "https://rare-disease-atlas.github.io",
   "packages": [
     {
-      "registryType": "pypi",
-      "identifier": "orphan-disease-opportunity-mcp",
-      "version": "1.0.0",
+      "registryType": "mcpb",
+      "identifier": "https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp/releases/download/v1.5.0/orphan-disease-opportunity-mcp.mcpb",
+      "fileSha256": "ea85471c3fe0c20503e58a7c7adff92cb890a427701951ef795fca64d3b54876",
       "transport": {
         "type": "stdio"
-      },
-      "environmentVariables": [
-        {
-          "name": "ATLAS_DATA_URL",
-          "description": "Optional override URL for live opportunities.json feed (defaults to https://rare-disease-atlas.github.io/opportunities.json).",
-          "isRequired": false,
-          "isSecret": false
-        },
-        {
-          "name": "ATLAS_OFFLINE",
-          "description": "Set to '1' to force deterministic offline execution using bundled data/opportunities.json.",
-          "isRequired": false,
-          "isSecret": false
-        }
-      ]
+      }
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.rare-disease-atlas.workers.dev/mcp"
     }
   ]
 }

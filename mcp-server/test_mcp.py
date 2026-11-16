@@ -130,6 +130,7 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
             self.assertEqual(
                 tool_names,
                 [
+                    "analyze_any_orphan_indication",
                     "match_founder_opportunities",
                     "get_disease_case_study",
                     "find_non_dilutive_grants",
@@ -137,6 +138,22 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
                     "submit_atlas_feedback",
                 ],
             )
+
+            # 4b. tools/call -> analyze_any_orphan_indication (VEXAS)
+            vexas_resp = client.send_request(
+                {
+                    "jsonrpc": "2.0",
+                    "id": 301,
+                    "method": "tools/call",
+                    "params": {
+                        "name": "analyze_any_orphan_indication",
+                        "arguments": {"disease_query": "vexas"},
+                    },
+                }
+            )
+            self.assertFalse(vexas_resp["result"]["isError"])
+            vexas_data = json.loads(vexas_resp["result"]["content"][0]["text"])
+            self.assertEqual(vexas_data["curated_atlas_match"], "vexas-syndrome")
 
             # 5. tools/call -> match_founder_opportunities (AI-Bio, no wet lab)
             match_resp = client.send_request(
@@ -325,9 +342,10 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
                 fb_srv = OrphanDiseaseMCPServer(repository=fallback_repo)
                 fb_res = fb_srv.tool_match_founder_opportunities(background="all")
                 self.assertEqual(fb_res["data_source"], "bundled_fallback")
-                self.assertEqual(fb_res["matched_count"], 8)
-                aimf_cs = fb_srv.tool_get_disease_case_study("autoimmune-myelofibrosis")
-                self.assertIn("case_study", aimf_cs)
+                self.assertGreaterEqual(fb_res["matched_count"], 16)
+                for slug in ("autoimmune-myelofibrosis", "vexas-syndrome", "castleman-disease", "systemic-mastocytosis", "telomere-biology-disorders"):
+                    sub_cs = fb_srv.tool_get_disease_case_study(slug)
+                    self.assertIn("case_study", sub_cs)
             finally:
                 if prev_offline is not None:
                     os.environ["ATLAS_OFFLINE"] = prev_offline
@@ -401,7 +419,7 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
         with server_json_path.open("r", encoding="utf-8") as fh:
             reg = json.load(fh)
         self.assertEqual(reg["name"], "io.github.rare-disease-atlas/orphan-disease-opportunity-mcp")
-        self.assertEqual(reg["packages"][0]["registryType"], "pypi")
+        self.assertIn(reg["packages"][0]["registryType"], ("mcpb", "pypi"))
 
 
 if __name__ == "__main__":

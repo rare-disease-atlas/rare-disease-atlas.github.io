@@ -43,3 +43,14 @@
 - **MCP Tool (`v1.3.0+`):** Call `submit_atlas_feedback(signal_type='missing-wedge' | 'citation-errata' | 'new-dataset' | 'disease-expansion', summary='...', founder_background='...', disease_id='...')` to report unserved founder backgrounds, updated `ClinicalTrials.gov` readouts, or newly deposited GEO/PDB datasets (strictly zero PII / zero confidential IP).
 - **GitHub Issue / CLI Channel:** Coding agents with `gh` access or human builders can file structured `[agent-signal]` reports at <https://github.com/rare-disease-atlas/rare-disease-atlas.github.io/issues/new?template=agent_feedback.yml>.
 - **Autonomous Agent Contributor Guide (`AGENTS.md` & `🤖🤖🤖` Fast-Track PRs):** <https://rare-disease-atlas.github.io/AGENTS.md> · [Standalone `SKILL.md` Repo](https://github.com/rare-disease-atlas/orphan-disease-venture-scout-skill)
+
+## V1.5 Expansion: 6 Curated Hematology/Immunology Indications + Live 7,000-Disease MCP Engine
+- **Universal Live 7,000-Disease MCP Tool (`analyze_any_orphan_indication`):** Hosted at `https://api.rare-disease-atlas.workers.dev/mcp` (MCP `2026-07-28` & `2025-11-25` Streamable HTTP + interactive `ui://` MCP App widget). Queries OpenTargets Platform v4 GraphQL, ClinicalTrials.gov v2, and PubMed live for **any** orphan disease and pairs results with FY2026 FDA Orphan Drug unit economics ($4,682,003 PDUFA waiver, 7-yr exclusivity, Rare Pediatric PRV check) + non-dilutive grants.
+- **6 Curated Deep-Dive Case Studies (`19` Concrete Startup Blueprints):**
+  1. `jak2-myelofibrosis` — Clonal JAK2 V617F+ Primary Myelofibrosis (JH2 allosteric `INCB160058` NCT06313593, Type II `AJ1-11095` NCT06343805, mutant CALR).
+  2. `autoimmune-myelofibrosis` — Reversible JAK2-Negative Lupus/Autoimmune Myelofibrosis (74-80% fibrosis remission) + Dual Transfusional & IL-6/Hepcidin Iron Overload.
+  3. `vexas-syndrome` — Somatic `UBA1` M41 Myeloid Autoinflammation (`ORPHA:597743`, ~1 in 4,269 men >50, PAXIS pacritinib NCT06538181, NIH HSCT NCT05027945, scRNA-seq `GSE163683`, `PDB:6DC6`).
+  4. `castleman-disease` — Idiopathic Multicentric Castleman Disease & iMCD-TAFRO (`ORPHA:93685`, 66% siltuximab-refractory cliff, sirolimus mTOR NCT03933904, Every Cure KG).
+  5. `systemic-mastocytosis` — Clonal `KIT D816V` Indolent & Advanced SM (`ORPHA:2467`, CNS-sparing kinase/degrader wedge, SUMMIT NCT05186753, HARBOR NCT04910685, ddPCR + `TPSAB1` triage).
+  6. `telomere-biology-disorders` — Dyskeratosis Congenita & Cryptic Adult TBD (`ORPHA:1775`, Rare Pediatric PRV ~$100M-$158M catalyst, oral `PAPD5` TERC stabilizer, alkylator-free BMT NCT01659606, `PDB:7BG9`).
+- **Expansion Deep-Dive Page:** [Hematology & Immunology Orphan Expansion](https://rare-disease-atlas.github.io/hematology-immunology-orphan-expansion.html)
