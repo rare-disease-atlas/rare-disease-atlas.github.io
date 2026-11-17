@@ -2,8 +2,8 @@
   "schema_version": "v1",
   "name_for_human": "Orphan Disease Venture Atlas",
   "name_for_model": "orphan_disease_venture_atlas",
-  "description_for_human": "Citation-verified rare disease startup blueprints, JAK2+ myelofibrosis biology, grants, and open datasets.",
-  "description_for_model": "Query structured startup/research opportunities across computational AI-bio, public health/RWE, and biotech venture financing, including FDA Orphan Drug economics, non-dilutive grants (SBIR, MPNRF, Blood Cancer United TAP), open GEO/PDB datasets, and ethical patient validation communities.",
+  "description_for_human": "Citation-verified rare disease startup blueprints, Clonal JAK2+ & Reversible Autoimmune Myelofibrosis (AIMF) playbooks, grants, and live 7,000-disease MCP.",
+  "description_for_model": "Query structured startup/research opportunities (v1.6.0) anchored on Paired Flagships Clonal JAK2 V617F+ Primary Myelofibrosis (jak2-myelofibrosis) and Reversible Autoimmune Myelofibrosis + dual iron overload (autoimmune-myelofibrosis), including FDA Orphan Drug economics, non-dilutive grants (SBIR, ARPA-H, MPNRF, Blood Cancer United TAP), open GEO/PDB datasets, 90-day validation plans, and ethical patient communities.",
   "auth": {
     "type": "none"
   },

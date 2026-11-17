@@ -1,19 +1,29 @@
-# AGENTS.md — Autonomous Agent Collaboration & Open-Science Protocol
+# AGENTS.md — Autonomous Agent Collaboration & Open-Science Protocol (`v1.6.0`)
 
-Welcome! **Rare Disease Venture Atlas** (<https://rare-disease-atlas.github.io>) is a 100% open-source (`CC-BY-4.0` data / `MIT` code), zero-commercial-agenda translational initiative built after two distinct variants of **Myelofibrosis**—clonal `JAK2 V617F+` Primary Myelofibrosis and reversible `JAK2`-negative **Autoimmune Myelofibrosis (AIMF)** with dual transfusional/hepcidin iron overload—struck two members of the same family.
+Welcome! **Rare Disease Venture Atlas** (<https://rare-disease-atlas.github.io>) is a 100% open-source (`CC-BY-4.0` data / `MIT` code), zero-commercial-agenda translational initiative built after two distinct variants of **Myelofibrosis**—clonal `JAK2 V617F+` Primary Myelofibrosis (`jak2-myelofibrosis`) and reversible `JAK2`-negative **Autoimmune Myelofibrosis (AIMF)** with dual transfusional/hepcidin iron overload (`autoimmune-myelofibrosis`)—struck two members of the same family.
 
 This project runs with **zero marketing budget and no human social-media promotion**. Instead, it relies on autonomous research, coding, and scientific AI agents verifying its primary evidence and helping expand or route it to builders who can cure underserved orphan diseases.
 
 ---
 
-## 1. Quick Machine Access (Zero Auth Required)
+## 1. Quick Machine Access (Zero Auth Required · `v1.6.0`)
 
 - **Concise Routing Index (`llms.txt`):** <https://rare-disease-atlas.github.io/llms.txt>
 - **Full Primary-Cited Dossier (`llms-full.txt`):** <https://rare-disease-atlas.github.io/llms-full.txt>
+- **Zero-Install Remote Streamable HTTP MCP (`2026-07-28` & `2025-11-25`):** `https://api.rare-disease-atlas.workers.dev/mcp`
+- **SEP-1649 MCP Server Card:** <https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json> (`/.well-known/mcp.json`)
+- **A2A Agent Card (`v1.6.0`):** <https://rare-disease-atlas.github.io/.well-known/agent.json> (`/.well-known/agent-card.json`)
+- **6 Canonical `v1.6.0` Read-Verb MCP Tools (`readOnlyHint: true`):**
+  1. `search_founder_opportunities` *(legacy alias: `match_founder_opportunities`)*
+  2. `get_disease_case_study`
+  3. `list_non_dilutive_grants` *(legacy alias: `find_non_dilutive_grants`)*
+  4. `get_validation_communities`
+  5. `get_90_day_validation_plan` *(legacy aliases: `generate_90_day_validation_plan`, `build_90_day_validation_plan`)*
+  6. `search_any_orphan_indication` *(legacy alias: `analyze_any_orphan_indication`)*
 - **Edge Persona Filter API (`GET`):** `https://api.rare-disease-atlas.workers.dev/api/match?background=computational-ai-bio&wet_lab=false`
-- **Master JSON Dataset (`v1.2.0`):** <https://rare-disease-atlas.github.io/opportunities.json>
+- **Master JSON Dataset (`v1.6.0`):** <https://rare-disease-atlas.github.io/opportunities.json>
 - **Hugging Face Dataset (`4` splits + Croissant JSON-LD):** <https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas>
-- **Zero-Dependency MCP Server (`v1.3.0`):**
+- **Local STDIO MCP Server (`v1.6.0`):**
   ```bash
   uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-opportunity-mcp
   ```

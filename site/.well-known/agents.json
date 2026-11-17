@@ -1,22 +1,29 @@
 {
-  "schemaVersion": "0.1.0",
+  "schemaVersion": "1.6.0",
   "name": "rare-disease-atlas.github.io",
-  "description": "Autonomous agent discovery manifest for the Rare Disease Venture & Translational Opportunity Atlas (Flagship: JAK2 V617F+ Myelofibrosis).",
+  "description": "Autonomous agent discovery manifest for the Rare Disease Venture & Translational Opportunity Atlas (Paired Flagships: Clonal JAK2 V617F+ Primary Myelofibrosis & Reversible Autoimmune Myelofibrosis AIMF + Iron/Hepcidin Overload, plus live 7,000-orphan-disease MCP).",
   "specs": {
     "openapi": "https://rare-disease-atlas.github.io/openapi.yaml",
     "mcp": "https://rare-disease-atlas.github.io/.well-known/mcp.json",
+    "mcp_server_card": "https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json",
+    "a2a_agent_card": "https://rare-disease-atlas.github.io/.well-known/agent.json",
     "llms_txt": "https://rare-disease-atlas.github.io/llms.txt",
     "llms_full_txt": "https://rare-disease-atlas.github.io/llms-full.txt"
   },
   "intents": [
     {
+      "id": "search_founder_opportunities",
+      "description": "Search startup and research blueprints across AI/CompBio, Public Health/RWE, and Venture Philanthropy via MCP or JSON.",
+      "endpoint": "POST https://api.rare-disease-atlas.workers.dev/mcp"
+    },
+    {
       "id": "discover_venture_blueprints",
-      "description": "Retrieve startup and research blueprints across AI/CompBio, Public Health/RWE, and Venture Philanthropy.",
+      "description": "Retrieve full structured CC-BY-4.0 corpus (v1.6.0) covering Paired Myelofibrosis Flagships, 4 comparative cohorts, grants, and communities.",
       "endpoint": "GET https://rare-disease-atlas.github.io/opportunities.json"
     },
     {
       "id": "ingest_full_translational_dossier",
-      "description": "Ingest complete citation-verified Markdown corpus on JAK2 V617F biology, 2024-2026 clinical trials, grants, and patient communities.",
+      "description": "Ingest complete citation-verified Markdown corpus on JAK2 V617F JH2 vs JH1 biology, Autoimmune Myelofibrosis (AIMF) & dual iron overload, clinical trials, grants, and patient communities.",
       "endpoint": "GET https://rare-disease-atlas.github.io/llms-full.txt"
     }
   ]

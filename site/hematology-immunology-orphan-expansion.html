@@ -9,6 +9,8 @@
   <link rel="canonical" href="https://rare-disease-atlas.github.io/hematology-immunology-orphan-expansion.html">
   <link rel="describedby" href="./llms.txt" type="text/markdown" title="LLM Summary Index">
   <link rel="alternate" href="./llms-full.txt" type="text/markdown" title="Full Markdown Knowledge Base">
+  <link rel="mcp-server" href="https://api.rare-disease-atlas.workers.dev/mcp">
+  <link rel="agent-card" href="https://api.rare-disease-atlas.workers.dev/.well-known/agent.json">
   <link rel="stylesheet" href="./styles.css">
 
   <meta property="og:type" content="article">
@@ -81,7 +83,7 @@
     <div class="site-header__inner">
       <a class="brand-mark" href="./">
         <span class="brand-mark__domain">rare-disease-atlas.github.io</span>
-        <span class="brand-mark__sub">Open Translational Opportunity Dossier [v1.5]</span>
+        <span class="brand-mark__sub">Open Translational Opportunity Dossier [v1.6.0]</span>
       </a>
       <nav class="funnel-nav" aria-label="Opportunity Funnel Navigation">
         <a href="./">00 // Briefing Hub</a>
@@ -96,10 +98,10 @@
 
   <main id="main-content" class="container">
     <header class="dossier-hero">
-      <p class="dossier-kicker">V1.5 Indication Expansion // 6 Curated Deep-Dives + Live 7,000-Disease Edge MCP Engine</p>
-      <h1>Four High-Tractability Hematology &amp; Immunology Orphan Expansions Adjacent to Myelofibrosis</h1>
+      <p class="dossier-kicker">V1.6 Indication Expansion // Paired Myelofibrosis Flagships + 4 Comparative Cohorts + Live 7,000-Disease Edge MCP Engine</p>
+      <h1>Four High-Tractability Hematology &amp; Immunology Orphan Expansions Benchmarked Against Myelofibrosis</h1>
       <p class="lead">
-        Expanding beyond paired Clonal <code>JAK2 V617F+</code> Myelofibrosis and Reversible <code>Autoimmune Myelofibrosis (AIMF)</code>, v1.5 adds eight zero-wet-lab-ready AI-bio, EHR diagnostic, and Rare Pediatric PRV startup blueprints across <strong>VEXAS Syndrome (<code>UBA1</code>)</strong>, <strong>Idiopathic Multicentric Castleman Disease (<code>iMCD</code>)</strong>, <strong>Systemic Mastocytosis (<code>KIT D816V</code>)</strong>, and <strong>Telomere Biology Disorders (<code>TERT/TERC/PAPD5</code>)</strong>—plus a live federated tool (<code>analyze_any_orphan_indication</code>) covering all 7,000+ orphan diseases on <code>https://api.rare-disease-atlas.workers.dev/mcp</code>.
+        Benchmarked directly against our Paired Flagships—Clonal <code>JAK2 V617F+</code> Primary Myelofibrosis (<code>jak2-myelofibrosis</code>) and Reversible <code>Autoimmune Myelofibrosis (AIMF)</code> + Dual Transfusional/Hepcidin Iron Overload (<code>autoimmune-myelofibrosis</code>)—v1.6 exposes eight zero-wet-lab-ready AI-bio, EHR diagnostic, and Rare Pediatric PRV startup blueprints across <strong>VEXAS Syndrome (<code>UBA1</code>)</strong>, <strong>Idiopathic Multicentric Castleman Disease (<code>iMCD</code>)</strong>, <strong>Systemic Mastocytosis (<code>KIT D816V</code>)</strong>, and <strong>Telomere Biology Disorders (<code>TERT/TERC/PAPD5</code>)</strong>, plus a live federated read-verb tool (<code>search_any_orphan_indication</code>; legacy alias <code>analyze_any_orphan_indication</code> supported) covering all 7,000+ orphan diseases on <code>https://api.rare-disease-atlas.workers.dev/mcp</code>.
       </p>
     </header>
 
@@ -160,8 +162,8 @@
     </section>
 
     <section aria-labelledby="universal-mcp">
-      <h2 id="universal-mcp">3. Query All 6 Deep-Dives + Any of 7,000+ Orphan Diseases Live via MCP or DuckDB</h2>
-      <p>Connect zero-install Streamable HTTP MCP (<code>2026-07-28</code> &amp; <code>2025-11-25</code>) at <code>https://api.rare-disease-atlas.workers.dev/mcp</code> and call <code>analyze_any_orphan_indication</code> for live OpenTargets + ClinicalTrials.gov v2 + PubMed + FDA Orphan unit economics on any rare disease:</p>
+      <h2 id="universal-mcp">3. Query All 6 Deep-Dives + Any of 7,000+ Orphan Diseases Live via MCP (`v1.6.0`) or DuckDB</h2>
+      <p>Connect zero-install Streamable HTTP MCP (<code>2026-07-28</code> &amp; <code>2025-11-25</code>) at <code>https://api.rare-disease-atlas.workers.dev/mcp</code> and call our 6 canonical read-verb tools—<code>search_founder_opportunities</code>, <code>get_disease_case_study</code>, <code>list_non_dilutive_grants</code>, <code>get_validation_communities</code>, <code>get_90_day_validation_plan</code>, and <code>search_any_orphan_indication</code> (legacy aliases <code>match_founder_opportunities</code>, <code>find_non_dilutive_grants</code>, <code>generate_90_day_validation_plan</code>, and <code>analyze_any_orphan_indication</code> remain supported)—for live OpenTargets + ClinicalTrials.gov v2 + PubMed + FDA Orphan unit economics benchmarked against Clonal <code>JAK2 V617F+</code> and Reversible <code>Autoimmune Myelofibrosis</code>:</p>
       <pre><code>claude mcp add --transport http orphan-disease-atlas https://api.rare-disease-atlas.workers.dev/mcp</code></pre>
       <p>Or query the Hugging Face Parquet dataset directly in 3 lines of DuckDB SQL:</p>
       <pre><code>INSTALL httpfs; LOAD httpfs;

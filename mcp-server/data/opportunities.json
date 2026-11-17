@@ -1,12 +1,23 @@
 {
-  "schema_version": "1.5.1",
+  "schema_version": "1.6.0",
   "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
   "canonical_url": "https://rare-disease-atlas.github.io/opportunities.json",
   "edge_api_base": "https://api.rare-disease-atlas.workers.dev",
+  "mcp_endpoint": "https://api.rare-disease-atlas.workers.dev/mcp",
+  "mcp_server_card_url": "https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json",
+  "a2a_agent_card_url": "https://rare-disease-atlas.github.io/.well-known/agent.json",
+  "mcp_tools": [
+    "search_founder_opportunities",
+    "get_disease_case_study",
+    "list_non_dilutive_grants",
+    "get_validation_communities",
+    "get_90_day_validation_plan",
+    "search_any_orphan_indication"
+  ],
   "feedback_webhook_url": "https://api.rare-disease-atlas.workers.dev/api/feedback",
   "documentation_url": "https://rare-disease-atlas.github.io/llms.txt",
   "license": "CC-BY-4.0",
-  "last_updated": "2026-11-16",
+  "last_updated": "2026-11-17",
   "flagship_disease_id": "jak2-myelofibrosis",
   "umbrella_note": "Open venture and translational opportunity dataset anchored on two Paired Flagship Myelofibrosis Deep-Dives—Clonal JAK2 V617F+ Primary Myelofibrosis (jak2-myelofibrosis) and Reversible JAK2-Negative Autoimmune Myelofibrosis & The Lupus-Iron-Hepcidin Axis (autoimmune-myelofibrosis, Nature's Positive Control for 74-80% marrow fibrosis reversal)—supported by 4 comparative hematology/immunology intake cohorts (VEXAS, Castleman, Systemic Mastocytosis, Telomere Disorders) and a live 7,000-disease MCP diligence funnel.",
   "opportunities": [

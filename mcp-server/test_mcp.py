@@ -130,23 +130,23 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
             self.assertEqual(
                 tool_names,
                 [
-                    "match_founder_opportunities",
+                    "search_founder_opportunities",
                     "get_disease_case_study",
-                    "analyze_any_orphan_indication",
-                    "find_non_dilutive_grants",
+                    "list_non_dilutive_grants",
                     "get_validation_communities",
-                    "submit_atlas_feedback",
+                    "get_90_day_validation_plan",
+                    "search_any_orphan_indication",
                 ],
             )
 
-            # 4b. tools/call -> analyze_any_orphan_indication (VEXAS)
+            # 4b. tools/call -> search_any_orphan_indication (VEXAS) + legacy alias
             vexas_resp = client.send_request(
                 {
                     "jsonrpc": "2.0",
                     "id": 301,
                     "method": "tools/call",
                     "params": {
-                        "name": "analyze_any_orphan_indication",
+                        "name": "search_any_orphan_indication",
                         "arguments": {"disease_query": "vexas"},
                     },
                 }
@@ -155,14 +155,33 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
             vexas_data = json.loads(vexas_resp["result"]["content"][0]["text"])
             self.assertEqual(vexas_data["curated_atlas_match"], "vexas-syndrome")
 
-            # 5. tools/call -> match_founder_opportunities (AI-Bio, no wet lab)
+            # 4c. tools/call -> get_90_day_validation_plan
+            plan_resp = client.send_request(
+                {
+                    "jsonrpc": "2.0",
+                    "id": 302,
+                    "method": "tools/call",
+                    "params": {
+                        "name": "get_90_day_validation_plan",
+                        "arguments": {
+                            "disease_id": "autoimmune-myelofibrosis",
+                            "background": "computational-ai-bio",
+                        },
+                    },
+                }
+            )
+            self.assertFalse(plan_resp["result"]["isError"])
+            plan_data = json.loads(plan_resp["result"]["content"][0]["text"])
+            self.assertEqual(plan_data["disease_id"], "autoimmune-myelofibrosis")
+
+            # 5. tools/call -> search_founder_opportunities (AI-Bio, no wet lab) + legacy alias match_founder_opportunities
             match_resp = client.send_request(
                 {
                     "jsonrpc": "2.0",
                     "id": 4,
                     "method": "tools/call",
                     "params": {
-                        "name": "match_founder_opportunities",
+                        "name": "search_founder_opportunities",
                         "arguments": {
                             "background": "computational-ai-bio",
                             "capital_tier": "bootstrapped-grant",
@@ -199,14 +218,14 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
                 len(cs_data["case_study"]["open_datasets_and_tools"]), 4
             )
 
-            # 7. tools/call -> find_non_dilutive_grants
+            # 7. tools/call -> list_non_dilutive_grants
             grants_resp = client.send_request(
                 {
                     "jsonrpc": "2.0",
                     "id": 6,
                     "method": "tools/call",
                     "params": {
-                        "name": "find_non_dilutive_grants",
+                        "name": "list_non_dilutive_grants",
                         "arguments": {"track": "sbir"},  # tests alias -> sbir-sttr
                     },
                 }
@@ -279,7 +298,7 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
                 }
             )
             prompt_msg = p_get["result"]["messages"][0]["content"]["text"]
-            self.assertIn("match_founder_opportunities", prompt_msg)
+            self.assertIn("search_founder_opportunities", prompt_msg)
             self.assertIn("public-health", prompt_msg)
         finally:
             client.close()
@@ -368,9 +387,9 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
                 self.assertEqual(resp.status, 200)
                 manifest = json.loads(resp.read().decode("utf-8"))
                 self.assertEqual(manifest["transport"]["type"], "streamable-http")
-                self.assertIn("match_founder_opportunities", manifest["tools"])
+                self.assertIn("search_founder_opportunities", manifest["tools"])
 
-            # POST /mcp -> tools/call
+            # POST /mcp -> tools/call (canonical + legacy alias compatibility)
             rpc_req = urllib.request.Request(
                 f"http://127.0.0.1:{port}/mcp",
                 data=json.dumps(
@@ -379,7 +398,7 @@ class OrphanDiseaseMCPTestSuite(unittest.TestCase):
                         "id": 99,
                         "method": "tools/call",
                         "params": {
-                            "name": "match_founder_opportunities",
+                            "name": "search_founder_opportunities",
                             "arguments": {"background": "public-health"},
                         },
                     }

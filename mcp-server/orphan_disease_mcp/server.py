@@ -34,12 +34,13 @@ from . import __version__
 SERVER_NAME = "orphan-disease-opportunity-mcp"
 DEFAULT_LIVE_URL = "https://api.rare-disease-atlas.workers.dev/opportunities.json"
 SUPPORTED_PROTOCOL_VERSIONS = (
+    "2026-07-28",
     "2025-11-25",
     "2025-06-18",
     "2025-03-26",
     "2024-11-05",
 )
-DEFAULT_PROTOCOL_VERSION = "2025-11-25"
+DEFAULT_PROTOCOL_VERSION = "2026-07-28"
 
 BACKGROUND_ALIASES: dict[str, str] = {
     "computational-ai-bio": "computational-ai-bio",
@@ -223,12 +224,19 @@ class AtlasRepository:
 
 TOOLS_MANIFEST: list[dict[str, Any]] = [
     {
-        "name": "match_founder_opportunities",
+        "name": "search_founder_opportunities",
+        "title": "Search Orphan Disease Startup & Translational Blueprints",
         "description": (
-            "Match high-tractability orphan disease startup & translational research "
+            "Search high-tractability orphan disease startup & translational research "
             "blueprints anchored on Paired Flagships Clonal JAK2 V617F+ Myelofibrosis "
             "and Autoimmune Myelofibrosis (plus 4 comparative cohorts)."
         ),
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": False,
+        },
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -262,11 +270,18 @@ TOOLS_MANIFEST: list[dict[str, Any]] = [
     },
     {
         "name": "get_disease_case_study",
+        "title": "Get Curated Orphan Disease Translational Case Study",
         "description": (
             "Retrieve biological tractability, standard-of-care failure modes (Flagships: "
             "'jak2-myelofibrosis' and 'autoimmune-myelofibrosis'), FDA Orphan Drug Act "
             "unit economics, and open structural/transcriptomic datasets."
         ),
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": False,
+        },
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -280,34 +295,18 @@ TOOLS_MANIFEST: list[dict[str, Any]] = [
         },
     },
     {
-        "name": "analyze_any_orphan_indication",
+        "name": "list_non_dilutive_grants",
+        "title": "List Non-Dilutive SBIR, ARPA-H & Rare Disease Foundation Grants",
         "description": (
-            "Run live diligence on any of 7,000+ rare diseases via OpenTargets, "
-            "ClinicalTrials.gov v2, and PubMed, benchmarked against our Myelofibrosis flagships."
+            "List non-dilutive SBIR/STTR, rare-disease foundation (MPNRF, CDCN/Every Cure, Harrington), "
+            "venture philanthropy (Blood Cancer United TAP), FDA Orphan Products, and ARPA-H funding pathways."
         ),
-        "inputSchema": {
-            "type": "object",
-            "properties": {
-                "disease_query": {
-                    "type": "string",
-                    "description": "Any rare disease name (e.g., 'JAK2 V617F myelofibrosis', 'autoimmune myelofibrosis', 'Duchenne muscular dystrophy').",
-                },
-                "founder_background": {
-                    "type": "string",
-                    "description": "Optional track: 'computational-ai-bio', 'public-health', 'venture-novel-financing', or 'all'.",
-                    "default": "all",
-                },
-            },
-            "required": ["disease_query"],
-            "additionalProperties": False,
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": False,
         },
-    },
-    {
-        "name": "find_non_dilutive_grants",
-        "description": (
-            "Find non-dilutive SBIR/STTR, rare-disease foundation (MPNRF, Harrington), "
-            "venture philanthropy (LLS TAP), FDA Orphan Products, and ARPA-H funding pathways."
-        ),
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -325,10 +324,17 @@ TOOLS_MANIFEST: list[dict[str, Any]] = [
     },
     {
         "name": "get_validation_communities",
+        "title": "Get Ethical Patient & Clinical Validation Communities",
         "description": (
             "Return established rare-disease patient & hematology clinical networks plus "
             "strict non-extractive ethical guidelines for founder problem discovery."
         ),
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": False,
+        },
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -342,48 +348,73 @@ TOOLS_MANIFEST: list[dict[str, Any]] = [
         },
     },
     {
-        "name": "submit_atlas_feedback",
+        "name": "get_90_day_validation_plan",
+        "title": "Get 90-Day Killer-Experiment & Grant Validation Plan",
         "description": (
-            "Opt-in feedback & gap-reporting channel for AI agents and builders. Report missing "
-            "founder wedges, requested orphan indications, new datasets, or ClinicalTrials.gov "
-            "citation errata. Strictly exclude all personal identifiers (PII), patient health "
-            "records, and confidential user IP."
+            "Retrieve a structured 30/60/90-day validation roadmap, open dataset checklist, "
+            "non-dilutive grant stack, and ethical patient advisory protocol anchored on "
+            "Paired Myelofibrosis Flagships ('jak2-myelofibrosis' and 'autoimmune-myelofibrosis')."
         ),
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": False,
+        },
         "inputSchema": {
             "type": "object",
             "properties": {
-                "signal_type": {
+                "disease_id": {
                     "type": "string",
-                    "description": (
-                        "Category of feedback: 'missing-wedge', 'citation-errata', "
-                        "'new-dataset', 'disease-expansion', or 'usage-feedback'."
-                    ),
-                    "default": "missing-wedge",
+                    "description": "Target disease slug (default: 'jak2-myelofibrosis').",
+                    "default": "jak2-myelofibrosis",
                 },
-                "summary": {
+                "background": {
                     "type": "string",
-                    "description": (
-                        "Concise non-PII description of the missing founder opportunity, "
-                        "updated trial readout, or dataset suggestion (max 1000 chars)."
-                    ),
+                    "description": "Founder track: 'computational-ai-bio', 'public-health', or 'venture-novel-financing'.",
+                    "default": "computational-ai-bio",
+                },
+                "capital_tier": {
+                    "type": "string",
+                    "description": "Initial budget tier: 'bootstrapped-grant', 'seed', or 'series-a-platform'.",
+                    "default": "bootstrapped-grant",
+                },
+                "wet_lab_required": {
+                    "type": "boolean",
+                    "description": "Whether internal wet lab is available (default: false).",
+                    "default": False,
+                },
+            },
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "search_any_orphan_indication",
+        "title": "Search & Benchmark Any of 7,000+ Orphan Indications Live",
+        "description": (
+            "Run live diligence on any of 7,000+ rare diseases via OpenTargets, "
+            "ClinicalTrials.gov v2, and PubMed, benchmarked against our Myelofibrosis flagships."
+        ),
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": True,
+        },
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "disease_query": {
+                    "type": "string",
+                    "description": "Any rare disease name (e.g., 'JAK2 V617F myelofibrosis', 'autoimmune myelofibrosis', 'Duchenne muscular dystrophy').",
                 },
                 "founder_background": {
                     "type": "string",
-                    "description": "Optional founder track context (e.g., 'computational-ai-bio', 'public-health', 'venture-novel-financing').",
-                    "default": "unspecified",
-                },
-                "disease_id": {
-                    "type": "string",
-                    "description": "Target disease slug (e.g., 'jak2-myelofibrosis', 'autoimmune-myelofibrosis', or a proposed orphan indication).",
-                    "default": "jak2-myelofibrosis",
-                },
-                "agent_client": {
-                    "type": "string",
-                    "description": "Optional identifier of the calling agent/IDE (e.g., 'claude-code', 'cursor', 'claude-desktop').",
-                    "default": "mcp-agent",
+                    "description": "Optional track: 'computational-ai-bio', 'public-health', 'venture-novel-financing', or 'all'.",
+                    "default": "all",
                 },
             },
-            "required": ["summary"],
+            "required": ["disease_query"],
             "additionalProperties": False,
         },
     },
@@ -520,8 +551,8 @@ class OrphanDiseaseMCPServer:
                 "version": __version__,
             },
             "instructions": (
-                "Orphan Disease Venture & Translational Opportunity Server. "
-                "Start with `match_founder_opportunities` or read "
+                "Orphan Disease Venture & Translational Opportunity Server (v1.6.0). "
+                "Start with `search_founder_opportunities` or read "
                 "`briefing://rare-disease-playbook/jak2-myelofibrosis` to explore "
                 "high-tractability startup, AI-bio, and public-health blueprints."
             ),
@@ -533,13 +564,13 @@ class OrphanDiseaseMCPServer:
         if not isinstance(args, dict):
             raise ValueError("Tool 'arguments' must be a JSON object.")
 
-        if name == "analyze_any_orphan_indication":
-            payload = self.tool_analyze_any_orphan_indication(
+        if name in ("search_any_orphan_indication", "analyze_any_orphan_indication"):
+            payload = self.tool_search_any_orphan_indication(
                 disease_query=str(args.get("disease_query") or args.get("disease_id") or ""),
                 founder_background=str(args.get("founder_background", "all")),
             )
-        elif name == "match_founder_opportunities":
-            payload = self.tool_match_founder_opportunities(
+        elif name in ("search_founder_opportunities", "match_founder_opportunities"):
+            payload = self.tool_search_founder_opportunities(
                 background=args.get("background", "all"),
                 capital_tier=args.get("capital_tier", "all"),
                 wet_lab_required=args.get("wet_lab_required"),
@@ -548,13 +579,24 @@ class OrphanDiseaseMCPServer:
             payload = self.tool_get_disease_case_study(
                 disease_id=args.get("disease_id", "jak2-myelofibrosis")
             )
-        elif name == "find_non_dilutive_grants":
-            payload = self.tool_find_non_dilutive_grants(
+        elif name in ("list_non_dilutive_grants", "find_non_dilutive_grants"):
+            payload = self.tool_list_non_dilutive_grants(
                 track=args.get("track", "all")
             )
         elif name == "get_validation_communities":
             payload = self.tool_get_validation_communities(
                 disease_id=args.get("disease_id", "jak2-myelofibrosis")
+            )
+        elif name in (
+            "get_90_day_validation_plan",
+            "generate_90_day_validation_plan",
+            "build_90_day_validation_plan",
+        ):
+            payload = self.tool_get_90_day_validation_plan(
+                disease_id=str(args.get("disease_id", "jak2-myelofibrosis")),
+                background=str(args.get("background", "computational-ai-bio")),
+                capital_tier=str(args.get("capital_tier", "bootstrapped-grant")),
+                wet_lab_required=bool(args.get("wet_lab_required", False)),
             )
         elif name == "submit_atlas_feedback":
             payload = self.tool_submit_atlas_feedback(
@@ -583,7 +625,7 @@ class OrphanDiseaseMCPServer:
     # Tool implementations
     # ------------------------------------------------------------------
 
-    def tool_analyze_any_orphan_indication(
+    def tool_search_any_orphan_indication(
         self,
         disease_query: str,
         founder_background: str = "all",
@@ -642,9 +684,15 @@ class OrphanDiseaseMCPServer:
                 "clinical_trial_tax_credit": "25% federal QCTE tax credit",
             },
             "matched_grants": grants[:5],
+            "flagship_myelofibrosis_benchmarks": [
+                "jak2-myelofibrosis (Clonal JAK2 V617F+ JH2 vs JH1 Primary Myelofibrosis)",
+                "autoimmune-myelofibrosis (Reversible AIMF 74-80% marrow fibrosis resolution + dual iron overload)",
+            ],
         }
 
-    def tool_match_founder_opportunities(
+    tool_analyze_any_orphan_indication = tool_search_any_orphan_indication
+
+    def tool_search_founder_opportunities(
         self,
         background: str = "all",
         capital_tier: str = "all",
@@ -692,10 +740,14 @@ class OrphanDiseaseMCPServer:
             "opportunities": matched,
             "next_recommended_calls": [
                 "get_disease_case_study(disease_id='jak2-myelofibrosis')",
-                "find_non_dilutive_grants(track='all')",
+                "get_disease_case_study(disease_id='autoimmune-myelofibrosis')",
+                "list_non_dilutive_grants(track='all')",
                 "get_validation_communities(disease_id='jak2-myelofibrosis')",
+                "get_90_day_validation_plan(disease_id='jak2-myelofibrosis')",
             ],
         }
+
+    tool_match_founder_opportunities = tool_search_founder_opportunities
 
     def tool_get_disease_case_study(
         self, disease_id: str = "jak2-myelofibrosis"
@@ -721,7 +773,7 @@ class OrphanDiseaseMCPServer:
             "case_study": study,
         }
 
-    def tool_find_non_dilutive_grants(self, track: str = "all") -> dict[str, Any]:
+    def tool_list_non_dilutive_grants(self, track: str = "all") -> dict[str, Any]:
         atlas, data_source = self.repo.get_atlas()
         norm_track = GRANT_TRACK_ALIASES.get(
             str(track).strip().lower(), str(track).strip().lower()
@@ -750,9 +802,78 @@ class OrphanDiseaseMCPServer:
             "capital_stacking_strategy": (
                 "Founders commonly pair an MPNRF Seed/Challenge Grant ($100K-$300K) + "
                 "NCI/NHLBI Phase I SBIR ($400K, 0% dilution) to generate killer JH2-selectivity "
-                "or primary MF CD34+ data before unlocking $1M-$5M from LLS TAP or institutional seed VCs."
+                "or primary MF CD34+ data before unlocking $1M-$5M from Blood Cancer United TAP or institutional seed VCs."
             ),
         }
+
+    tool_find_non_dilutive_grants = tool_list_non_dilutive_grants
+
+    def tool_get_90_day_validation_plan(
+        self,
+        disease_id: str = "jak2-myelofibrosis",
+        background: str = "computational-ai-bio",
+        capital_tier: str = "bootstrapped-grant",
+        wet_lab_required: bool = False,
+    ) -> dict[str, Any]:
+        atlas, data_source = self.repo.get_atlas()
+        norm_id = DISEASE_ID_ALIASES.get(
+            str(disease_id).strip().lower(), str(disease_id).strip().lower()
+        )
+        norm_bg = BACKGROUND_ALIASES.get(
+            str(background).strip().lower(), "computational-ai-bio"
+        )
+        norm_cap = CAPITAL_TIER_ALIASES.get(
+            str(capital_tier).strip().lower(), "bootstrapped-grant"
+        )
+        studies = atlas.get("case_studies", {})
+        study = studies.get(norm_id) or studies.get("jak2-myelofibrosis", {})
+        resolved_id = str(study.get("disease_id", norm_id or "jak2-myelofibrosis"))
+
+        disease_opps = [
+            o for o in atlas.get("opportunities", []) if o.get("disease_id") == resolved_id
+        ]
+        matched_opps = [
+            o
+            for o in disease_opps
+            if (norm_bg == "all" or norm_bg in [b.lower() for b in o.get("backgrounds", [])])
+            and (not wet_lab_required and not bool(o.get("wet_lab_required", False)) or wet_lab_required)
+        ] or disease_opps[:2]
+
+        primary_opp = matched_opps[0] if matched_opps else {}
+        milestones = primary_opp.get("first_90_days_milestones", [
+            "Days 1-30: Benchmark open structural/transcriptomic accessions (PDB 4FVR/6E2Q vs WT 4FVP; GEO GSE144568, GSE122198).",
+            "Days 31-60: Execute fee-for-service CRO selectivity or SMART-on-FHIR de-identified RWE pilot.",
+            "Days 61-90: Submit non-dilutive NCI/NHLBI SBIR Phase I + MPNRF LOI and conduct FMV-compensated ($100-$250/hr) foundation-routed advisory review.",
+        ])
+        grants = atlas.get("non_dilutive_grants", [])[:4]
+        val_group = atlas.get("validation_communities", {}).get(resolved_id, {})
+
+        return {
+            "data_source": data_source,
+            "disease_id": resolved_id,
+            "disease_name": study.get("name", resolved_id),
+            "founder_profile": {
+                "background": norm_bg,
+                "capital_tier": norm_cap,
+                "wet_lab_required": wet_lab_required,
+            },
+            "anchor_opportunity_id": primary_opp.get("id"),
+            "anchor_opportunity_title": primary_opp.get("title"),
+            "phases": {
+                "days_1_to_30_in_silico_and_evidence": milestones[:1],
+                "days_31_to_60_killer_experiment": milestones[1:2] or milestones[:1],
+                "days_61_to_90_grant_and_clinical_validation": milestones[2:] or milestones[-1:],
+            },
+            "open_datasets": primary_opp.get("open_datasets", []),
+            "recommended_grant_stack": [
+                {"id": g.get("id"), "name": g.get("name"), "typical_award_usd": g.get("typical_award_usd")}
+                for g in grants
+            ],
+            "ethical_validation_communities": val_group.get("institutional_and_patient_communities", []),
+            "ethical_discovery_guidelines": val_group.get("ethical_discovery_guidelines", []),
+        }
+
+    tool_generate_90_day_validation_plan = tool_get_90_day_validation_plan
 
     def tool_get_validation_communities(
         self, disease_id: str = "jak2-myelofibrosis"
@@ -988,12 +1109,14 @@ class OrphanDiseaseMCPServer:
             f"You are evaluating a high-impact biotech, AI-bio, or public-health startup opportunity "
             f"for a founder team with background='{bg}', capital_budget='{budget}', and "
             f"internal_wet_lab_access={wet_lab}.\n\n"
-            f"Step 1: Call `match_founder_opportunities(background='{bg}', capital_tier='{budget}', "
+            f"Step 1: Call `search_founder_opportunities(background='{bg}', capital_tier='{budget}', "
             f"wet_lab_required={str(wet_lab).lower() == 'true'})` to retrieve tailored startup blueprints.\n"
-            f"Step 2: Call `get_disease_case_study(disease_id='jak2-myelofibrosis')` to ground your "
-            f"technical thesis in exact structural biology (PDB 6E2Q vs 4FVP), transcriptomics (GSE153319), "
-            f"Type I JH1 cytopenia failure modes, and FDA Orphan Drug unit economics.\n"
-            f"Step 3: Call `find_non_dilutive_grants(track='all')` and `get_validation_communities(disease_id='jak2-myelofibrosis')`.\n"
+            f"Step 2: Call `get_disease_case_study(disease_id='jak2-myelofibrosis')` and "
+            f"`get_disease_case_study(disease_id='autoimmune-myelofibrosis')` to ground your "
+            f"technical thesis in exact structural biology (PDB 4FVR/6E2Q vs 4FVP), transcriptomics (GSE144568, GSE122198), "
+            f"Type I JH1 cytopenia failure modes, AIMF 74-80% marrow fibrosis reversal + dual iron overload, and FDA Orphan Drug unit economics.\n"
+            f"Step 3: Call `list_non_dilutive_grants(track='all')`, `get_validation_communities(disease_id='jak2-myelofibrosis')`, "
+            f"and `get_90_day_validation_plan(disease_id='jak2-myelofibrosis', background='{bg}', capital_tier='{budget}')`.\n"
             f"Step 4: Synthesize a concrete 90-day killer-experiment & grant-stacking execution plan "
             f"that strictly respects non-extractive patient discovery ethics."
         )

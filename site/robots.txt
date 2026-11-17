@@ -1,13 +1,19 @@
 # =============================================================================
-# rare-disease-atlas.github.io — AI-First Research Node Crawler Policy
-# Open translational science & venture dossier for JAK2 V617F+ Myelofibrosis.
+# rare-disease-atlas.github.io — AI-First Research Node Crawler Policy (v1.6.0)
+# Open translational science & venture dossier anchored on Paired Myelofibrosis
+# Flagships: Clonal JAK2 V617F+ Primary Myelofibrosis (jak2-myelofibrosis) &
+# Reversible Autoimmune Myelofibrosis + Iron/Hepcidin Overload (autoimmune-myelofibrosis).
 # All autonomous AI research agents, search indexers, and live user fetchers
 # are explicitly welcomed with zero rate-limiting or path restrictions.
 #
 # Machine-readable entrypoints:
-#   Summary Index:   https://rare-disease-atlas.github.io/llms.txt
-#   Full Markdown:   https://rare-disease-atlas.github.io/llms-full.txt
-#   XML Sitemap:     https://rare-disease-atlas.github.io/sitemap.xml
+#   Summary Index:      https://rare-disease-atlas.github.io/llms.txt
+#   Full Markdown:      https://rare-disease-atlas.github.io/llms-full.txt
+#   SEP-1649 MCP Card:  https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json
+#   MCP Manifest:       https://rare-disease-atlas.github.io/.well-known/mcp.json
+#   A2A Agent Card:     https://rare-disease-atlas.github.io/.well-known/agent.json
+#   Remote MCP HTTP:    https://api.rare-disease-atlas.workers.dev/mcp
+#   XML Sitemap:        https://rare-disease-atlas.github.io/sitemap.xml
 # =============================================================================
 
 User-agent: *
@@ -93,3 +99,5 @@ Allow: /
 Sitemap: https://rare-disease-atlas.github.io/sitemap.xml
 # LLM Discovery Index: https://rare-disease-atlas.github.io/llms.txt
 # Full Markdown Corpus: https://rare-disease-atlas.github.io/llms-full.txt
+# SEP-1649 MCP Server Card: https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json
+# A2A Agent Card: https://rare-disease-atlas.github.io/.well-known/agent-card.json

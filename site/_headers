@@ -1,7 +1,7 @@
 /*
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
-  Link: </llms.txt>; rel="describedby"; type="text/markdown"
+  Link: </llms.txt>; rel="describedby"; type="text/markdown", <https://api.rare-disease-atlas.workers.dev/mcp>; rel="mcp-server", <https://api.rare-disease-atlas.workers.dev/.well-known/agent.json>; rel="agent-card"
 
 /llms.txt
   Content-Type: text/markdown; charset=utf-8
@@ -13,6 +13,9 @@
   Content-Type: application/json; charset=utf-8
 
 /.well-known/*
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/mcp/*
   Content-Type: application/json; charset=utf-8
 
 /openapi.yaml

@@ -41,7 +41,7 @@
   "@type": "sc:Dataset",
   "name": "rare-disease-venture-atlas",
   "conformsTo": "http://mlcommons.org/croissant/1.0",
-  "version": "1.2.0",
+  "version": "1.6.0",
   "description": "Structured orphan disease translational & venture blueprints (Flagships: Clonal JAK2 V617F+ Myelofibrosis and Autoimmune Myelofibrosis + Iron/Hepcidin Axis), non-dilutive grant routing, open GEO/PDB accessions, and ethical patient-community validation.",
   "license": "https://opensource.org/licenses/MIT",
   "url": "https://rare-disease-atlas.github.io/",
@@ -68,7 +68,7 @@
       "name": "opportunities.jsonl",
       "contentUrl": "https://rare-disease-atlas.github.io/data/opportunities.jsonl",
       "encodingFormat": "application/jsonlines",
-      "sha256": "6b553ae24ecaeeea8b314bb92f425cbdad209093b49894619f2e6eece2004667"
+      "sha256": "14536c10b0a5261dcbcf029fb8113e7a4554bd4ed5a1a9233c29c88b19e27156"
     },
     {
       "@type": "cr:FileObject",
@@ -76,7 +76,7 @@
       "name": "case_studies.jsonl",
       "contentUrl": "https://rare-disease-atlas.github.io/data/case_studies.jsonl",
       "encodingFormat": "application/jsonlines",
-      "sha256": "b496ce7208fd21bd46ddd7c0fd72846bfa2c552f43500b08dcad8a33701cac1b"
+      "sha256": "7a80c368637f640c5d480703df45781032f44a8a2159c6accd9991be32ea1abf"
     },
     {
       "@type": "cr:FileObject",
@@ -84,7 +84,7 @@
       "name": "non_dilutive_grants.jsonl",
       "contentUrl": "https://rare-disease-atlas.github.io/data/non_dilutive_grants.jsonl",
       "encodingFormat": "application/jsonlines",
-      "sha256": "5f49e7db987a35f4068c8ebd11aad55513d5cb27791ff320290db2e15de523c4"
+      "sha256": "7410d2f8e34ef2bb0fe56059aa77fe4b6e3a46b2fc340b35e3dbb0637f295d2b"
     },
     {
       "@type": "cr:FileObject",
@@ -92,7 +92,7 @@
       "name": "validation_communities.jsonl",
       "contentUrl": "https://rare-disease-atlas.github.io/data/validation_communities.jsonl",
       "encodingFormat": "application/jsonlines",
-      "sha256": "bad7c7959f466b1d3cba069fabfe401726ec18b7049d088ddfbdd4268f72b46d"
+      "sha256": "7530a1464ffce855708013c572c9e85bb218c60a6350c2cd781e58b7746a24bc"
     },
     {
       "@type": "cr:FileObject",
@@ -100,7 +100,7 @@
       "name": "opportunities.json",
       "contentUrl": "https://rare-disease-atlas.github.io/opportunities.json",
       "encodingFormat": "application/json",
-      "sha256": "7cc4a5f8a2ba60ff2824dd2988318734cf8b5168119762f805721e55266f726f"
+      "sha256": "888e68a96bb181f2002bfba40eb9c11c00bc36606fe9829d9113004bb173f8e9"
     }
   ],
   "recordSet": [
@@ -108,7 +108,7 @@
       "@type": "cr:RecordSet",
       "@id": "opportunities",
       "name": "opportunities",
-      "description": "8 founder-ready translational & venture blueprints across AI/CompBio, Public Health/Diagnostics, and Biotech Venture.",
+      "description": "16 founder-ready translational & venture blueprints across AI/CompBio, Public Health/Diagnostics, and Biotech Venture, anchored on Paired Myelofibrosis Flagships.",
       "field": [
         {
           "@type": "cr:Field",

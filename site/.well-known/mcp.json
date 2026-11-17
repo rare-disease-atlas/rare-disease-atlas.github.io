@@ -1,12 +1,13 @@
 {
-  "mcpVersion": "2025-06-18",
+  "mcpVersion": "2026-07-28",
   "name": "io.github.rare-disease-atlas/orphan-disease-opportunity-mcp",
   "packageName": "orphan-disease-opportunity-mcp",
-  "version": "1.4.0",
-  "title": "Orphan Disease Venture & Translational Opportunity Atlas MCP",
-  "description": "Zero-dependency STDIO & zero-auth Remote Streamable HTTP MCP server exposing rare-disease startup blueprints, clonal JAK2 V617F+ Myelofibrosis & reversible Autoimmune Myelofibrosis (AIMF / iron-hepcidin) biology, FDA Orphan Drug unit economics, non-dilutive grants, and ethical validation communities.",
+  "title": "Orphan Disease Opportunity Atlas MCP",
+  "version": "1.6.0",
+  "description": "Myelofibrosis (JAK2+ & Autoimmune MF) flagship playbooks + live 7,000-orphan-disease diligence MCP.",
   "homepage": "https://rare-disease-atlas.github.io",
   "canonicalDataUrl": "https://rare-disease-atlas.github.io/opportunities.json",
+  "serverCardUrl": "https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json",
   "license": "MIT",
   "remotes": [
     {
@@ -14,18 +15,33 @@
       "url": "https://api.rare-disease-atlas.workers.dev/mcp"
     }
   ],
+  "authentication": {
+    "required": false
+  },
+  "capabilities": {
+    "tools": {},
+    "resources": {},
+    "prompts": {}
+  },
   "install": {
     "remote_streamable_http_zero_install": "https://api.rare-disease-atlas.workers.dev/mcp",
     "uvx_github_zero_install": "uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-mcp",
     "huggingface_mcp_space": "https://huggingface.co/spaces/rare-disease-atlas/orphan-disease-venture-scout"
   },
   "tools": [
-    "match_founder_opportunities",
+    "search_founder_opportunities",
     "get_disease_case_study",
-    "find_non_dilutive_grants",
+    "list_non_dilutive_grants",
     "get_validation_communities",
-    "submit_atlas_feedback"
+    "get_90_day_validation_plan",
+    "search_any_orphan_indication"
   ],
+  "legacyToolAliases": {
+    "match_founder_opportunities": "search_founder_opportunities",
+    "find_non_dilutive_grants": "list_non_dilutive_grants",
+    "generate_90_day_validation_plan": "get_90_day_validation_plan",
+    "analyze_any_orphan_indication": "search_any_orphan_indication"
+  },
   "resources": [
     "briefing://rare-disease-playbook/jak2-myelofibrosis",
     "briefing://rare-disease-playbook/autoimmune-myelofibrosis"

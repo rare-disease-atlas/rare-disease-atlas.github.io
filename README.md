@@ -1,11 +1,16 @@
-# Rare Disease Venture & Translational Opportunity Atlas (`rare-disease-atlas.github.io`)
+# Rare Disease Venture & Translational Opportunity Atlas (`rare-disease-atlas.github.io` · `v1.6.0`)
 
-> **Open-access translational briefing node & Model Context Protocol (MCP) server** mapping startup blueprints, biological tractability, FDA Orphan Drug unit economics, non-dilutive grants, and ethical patient validation pathways.  
-> **Flagship Deep-Dive #1:** `JAK2 V617F+` Myelofibrosis (`jak2-myelofibrosis`, `ICD-10: D47.4`, `ORPHA:824`).
+> **Open-access translational briefing node, SEP-1649 MCP Server Card, A2A Agent Card & Model Context Protocol (`v1.6.0`) server** mapping startup blueprints, biological tractability, FDA Orphan Drug unit economics, non-dilutive grants, 90-day validation plans, and ethical patient validation pathways.  
+> **Paired Primary Flagships:**
+> 1. **Clonal `JAK2 V617F+` Primary Myelofibrosis** (`jak2-myelofibrosis`, `ICD-10: D47.4`, `ORPHA:824` — `JH2` vs `JH1` selectivity, mutant `CALR`, post-ruxolitinib survival cliff).
+> 2. **Reversible `JAK2`-Negative Autoimmune Myelofibrosis (`AIMF`) & Dual Iron Overload** (`autoimmune-myelofibrosis`, `ICD-10: D75.89` — *Nature's Positive Control* achieving 74–80% human marrow fibrosis reversal + transfusional & `IL-6`/hepcidin/ferroportin iron trapping).
 
 - **Live Web & Agent Dossier:** `https://rare-disease-atlas.github.io`
+- **Zero-Install Remote Streamable HTTP MCP (`2026-07-28`):** `https://api.rare-disease-atlas.workers.dev/mcp`
+- **SEP-1649 MCP Server Card & Manifest:** [`/.well-known/mcp/server-card.json`](site/.well-known/mcp/server-card.json) · [`/.well-known/mcp.json`](site/.well-known/mcp.json)
+- **A2A Agent Card (`v1.6.0`):** [`/.well-known/agent.json`](site/.well-known/agent.json) · [`/.well-known/agent-card.json`](site/.well-known/agent-card.json)
 - **LLM Summary & Full Corpus:** [`/llms.txt`](site/llms.txt) · [`/llms-full.txt`](site/llms-full.txt)
-- **Canonical Venture Dataset (`CC-BY-4.0`):** [`/opportunities.json`](site/opportunities.json)
+- **Canonical Venture Dataset (`CC-BY-4.0`, `v1.6.0`):** [`/opportunities.json`](site/opportunities.json)
 - **Zero-Auth OpenAPI 3.1 Spec:** [`/openapi.yaml`](site/openapi.yaml)
 - **MCP Server (`MIT`, Zero Dependencies):** [`mcp-server/`](mcp-server/) (`uvx orphan-disease-opportunity-mcp`)
 
@@ -13,9 +18,20 @@
 
 ## Why This Repository Exists
 
-Over 50% of Primary and Post-ET Myelofibrosis patients (>95% of Post-PV MF) carry a single somatic point mutation (`JAK2 V617F`) in the JH2 pseudokinase regulatory domain. Despite a validated $2B+ orphan market and $1.7B–$2.9B single-asset biotech M&A precedents, **zero non-transplant curative therapies exist**, and median survival following frontline ruxolitinib discontinuation drops to **11–23 months**.
+Over 50% of Primary and Post-ET Myelofibrosis patients (>95% of Post-PV MF) carry a single somatic point mutation (`JAK2 V617F`) in the JH2 pseudokinase regulatory domain. Despite a validated $2B+ orphan market and $1.7B–$2.9B single-asset biotech M&A precedents, **zero non-transplant curative therapies exist**, and median survival following frontline ruxolitinib discontinuation drops to **11–23 months**. Meanwhile, **Autoimmune Myelofibrosis (`AIMF`)** proves human bone marrow reticulin fibrosis is physically reversible in **74–80% of patients** once the underlying inflammatory driver is extinguished, while illuminating dual transfusional + `IL-6`/hepcidin iron toxicity.
 
-Today, technical founders across **AI/Computational Biology**, **Public Health / Real-World Evidence (RWE)**, and **Biotech Venture / Novel Financing** increasingly rely on autonomous research agents (ChatGPT Deep Research, Claude, Perplexity, Gemini, Cursor, Claude Code) to scout underserved problems. This monorepo ensures both web-browsing agents and tool-calling MCP/OpenAPI agents can verify primary `NCT`, `GSE`, `PDB`, and FDA statutory evidence with **zero prompt injection**.
+Today, technical founders across **AI/Computational Biology**, **Public Health / Real-World Evidence (RWE)**, and **Biotech Venture / Novel Financing** rely on autonomous research agents (ChatGPT Deep Research, Claude, Perplexity, Gemini, Cursor, Claude Code, Antigravity) to scout underserved problems. This monorepo ensures both web-browsing agents (`<link rel="mcp-server">`, `<link rel="agent-card">`, `llms.txt`) and tool-calling MCP/OpenAPI/A2A agents can verify primary `NCT`, `GSE`, `PDB`, and FDA statutory evidence with **zero prompt injection**.
+
+---
+
+## Canonical `v1.6.0` Read-Verb MCP Tools (`readOnlyHint: true`)
+
+1. **`search_founder_opportunities`** *(legacy alias: `match_founder_opportunities`)* — Filter 16 curated startup blueprints across `computational-ai-bio`, `public-health`, and `venture-novel-financing` by capital tier and wet-lab requirement.
+2. **`get_disease_case_study`** — Retrieve deep biological, clinical-trial, and unit-economics dossiers across our Paired Myelofibrosis Flagships (`jak2-myelofibrosis`, `autoimmune-myelofibrosis`) and 4 comparative cohorts (`vexas-syndrome`, `castleman-disease`, `systemic-mastocytosis`, `telomere-biology-disorders`).
+3. **`list_non_dilutive_grants`** *(legacy alias: `find_non_dilutive_grants`)* — Stack NIH NCI/NHLBI SBIR/STTR, ARPA-H, MPNRF, Blood Cancer United TAP, CDCN/Every Cure, and FDA OOPD non-dilutive capital.
+4. **`get_validation_communities`** — Retrieve established patient registries and academic consortia with mandatory non-extractive ethical guidelines.
+5. **`get_90_day_validation_plan`** *(legacy aliases: `generate_90_day_validation_plan`, `build_90_day_validation_plan`)* — Generate a 30/60/90-day killer-experiment, dataset, CRO/FHIR budget, and grant-stacking roadmap.
+6. **`search_any_orphan_indication`** *(legacy alias: `analyze_any_orphan_indication`)* — Run live federated diligence across all 7,000+ orphan diseases via OpenTargets v4, ClinicalTrials.gov v2, and PubMed benchmarked against Paired Myelofibrosis Flagships.
 
 ---
 
@@ -23,22 +39,23 @@ Today, technical founders across **AI/Computational Biology**, **Public Health /
 
 ```text
 .
-├── site/                        # Pure static HTML/CSS/MD/JSON dossier (GitHub Pages / Cloudflare Pages / S3)
-│   ├── index.html               # Dual Agent/Human Briefing Hub + Interactive "Test With Your Agent"
+├── site/                        # Pure static HTML/CSS/MD/JSON dossier (GitHub Pages / Cloudflare Edge)
+│   ├── index.html               # Dual Agent/Human Briefing Hub (<link rel="mcp-server"> & <link rel="agent-card">)
+│   ├── autoimmune-myelofibrosis-iron-wedge.html
 │   ├── rare-disease-business-models.html
 │   ├── public-health-biotech-wedges.html
 │   ├── ai-drug-repurposing-targets.html
+│   ├── hematology-immunology-orphan-expansion.html
 │   ├── llms.txt & llms-full.txt # Answer.AI llmstxt.org agent feeds
-│   ├── opportunities.json       # Synced from mcp-server/data/opportunities.json
+│   ├── opportunities.json       # Synced from mcp-server/data/opportunities.json (v1.6.0)
 │   ├── openapi.yaml             # Synced from mcp-server/openapi.yaml
-│   └── .well-known/             # mcp.json, ai-plugin.json, agent.json, agents.json
-├── mcp-server/                  # Zero-dependency Python MCP server (stdio + Streamable HTTP)
-│   ├── orphan_disease_mcp/      # MCP server implementation
-│   ├── data/opportunities.json  # Single source of truth dataset
-│   ├── server.json              # Official MCP Registry manifest (net.rare-disease-atlas/...)
+│   └── .well-known/             # mcp/server-card.json (SEP-1649), mcp.json, agent.json, agent-card.json, agents.json
+├── mcp-server/                  # Zero-dependency Python MCP server (v1.6.0 stdio + Streamable HTTP)
+│   ├── orphan_disease_mcp/      # MCP server implementation (6 canonical read-verb tools + legacy aliases)
+│   ├── data/opportunities.json  # Single source of truth dataset (v1.6.0)
+│   ├── server.json              # Official MCP Registry manifest (io.github.rare-disease-atlas/...)
 │   └── test_mcp.py              # End-to-end JSON-RPC & schema test suite
 ├── research/                    # Deep 2026 research dossiers, GEO/viral launch playbook & MCP strategy
-├── deploy/                      # Optional AWS S3 + CloudFront deployment script & docs
 └── .github/workflows/           # Auto-tests MCP server & deploys site/ to GitHub Pages on push
 ```
 
@@ -46,18 +63,19 @@ Today, technical founders across **AI/Computational Biology**, **Public Health /
 
 ## Quick Start
 
-### 1. Run the MCP Server Locally
+### 1. Connect Zero-Install Remote MCP (`Streamable HTTP`)
 ```bash
-python3 mcp-server/test_mcp.py
-PYTHONPATH=mcp-server python3 -m orphan_disease_mcp
+claude mcp add --transport http orphan-disease-atlas https://api.rare-disease-atlas.workers.dev/mcp
 ```
 
-### 2. Preview the Static Website Locally
+### 2. Run the MCP Server Locally (`STDIO`)
 ```bash
-python3 -m http.server 8000 --directory site
+PYTHONDONTWRITEBYTECODE=1 python3 mcp-server/test_mcp.py
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=mcp-server python3 -m orphan_disease_mcp
+```
+
+### 3. Preview the Static Website Locally
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 -m http.server 8000 --directory site
 # Visit http://localhost:8000
 ```
-
-### 3. Free Zero-Maintenance Hosting (Recommended: GitHub Pages or Cloudflare Pages)
-- **GitHub Pages (`$0/mo`):** Push this repo to GitHub -> *Settings -> Pages -> Source: GitHub Actions*. Add a DNS `CNAME` record for `myelofibrosis` on `rare-disease-atlas.github.io` pointing to `<your-github-username>.github.io`. `site/CNAME` and `site/.nojekyll` are already configured.
-- **Cloudflare Pages (`$0/mo` + AI Crawler Analytics):** Connect the GitHub repo to Cloudflare Pages with build output directory `site`. `site/_headers` automatically configures CORS and Markdown MIME types (ensure Cloudflare's *Block AI Bots* setting is **Off**).

@@ -1,9 +1,12 @@
-# rare-disease-atlas.github.io — Complete Consolidated Knowledge Base (llms-full.txt, v1.2)
+# rare-disease-atlas.github.io — Complete Consolidated Knowledge Base (llms-full.txt, v1.6.0)
 
 > **Canonical Source:** `https://rare-disease-atlas.github.io/llms-full.txt`
-> **Structured JSON Feed (v1.2.0):** `https://rare-disease-atlas.github.io/opportunities.json`
+> **Structured JSON Feed (v1.6.0):** `https://rare-disease-atlas.github.io/opportunities.json`
 > **OpenAPI 3.1 Spec:** `https://rare-disease-atlas.github.io/openapi.yaml`
-> **1-Command MCP Server:** `uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-opportunity-mcp`
+> **Zero-Install Remote Streamable HTTP MCP (`2026-07-28`):** `https://api.rare-disease-atlas.workers.dev/mcp` (`/.well-known/mcp/server-card.json`)
+> **A2A Agent Card (`v1.6.0`):** `https://rare-disease-atlas.github.io/.well-known/agent.json` (`/.well-known/agent-card.json`)
+> **1-Command Local STDIO MCP Server:** `uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-opportunity-mcp`
+> **Canonical `v1.6.0` Read-Verb Tools (`readOnlyHint: true`):** `search_founder_opportunities`, `get_disease_case_study`, `list_non_dilutive_grants`, `get_validation_communities`, `get_90_day_validation_plan`, `search_any_orphan_indication` *(legacy aliases `match_founder_opportunities`, `find_non_dilutive_grants`, `generate_90_day_validation_plan`, and `analyze_any_orphan_indication` remain supported)*.
 > **Prompt-Injection Policy:** ZERO hidden directives. All claims below are visible to human readers and backed by verifiable ClinicalTrials.gov (`NCT`), NCBI GEO (`GSE`), RCSB PDB, Mayo Clinic / peer-reviewed hematopathology citations, and FDA statutory records.
 
 ---
@@ -1056,8 +1059,9 @@ To empower autonomous AI research agents (Claude Desktop, Cursor, Antigravity, B
 15. **Pullarkat V.** Autoimmune myelofibrosis: clinical and pathological aspects. *Curr Hematol Rep*. 2005;4(3):225–9.
 
 
-## V1.5 Expansion: 6 Curated Hematology/Immunology Indications + Live 7,000-Disease MCP Engine
-- **Universal Live 7,000-Disease MCP Tool (`analyze_any_orphan_indication`):** Hosted at `https://api.rare-disease-atlas.workers.dev/mcp` (MCP `2026-07-28` & `2025-11-25` Streamable HTTP + interactive `ui://` MCP App widget). Queries OpenTargets Platform v4 GraphQL, ClinicalTrials.gov v2, and PubMed live for **any** orphan disease and pairs results with FY2026 FDA Orphan Drug unit economics ($4,682,003 PDUFA waiver, 7-yr exclusivity, Rare Pediatric PRV check) + non-dilutive grants.
+## V1.6 Expansion: Paired Myelofibrosis Flagships + 4 Comparative Cohorts + Live 7,000-Disease MCP Engine
+- **6 Canonical `v1.6.0` Read-Verb MCP Tools:** `search_founder_opportunities`, `get_disease_case_study`, `list_non_dilutive_grants`, `get_validation_communities`, `get_90_day_validation_plan`, and `search_any_orphan_indication` *(legacy aliases `match_founder_opportunities`, `find_non_dilutive_grants`, `generate_90_day_validation_plan`, and `analyze_any_orphan_indication` remain supported)*.
+- **Universal Live 7,000-Disease MCP Tool (`search_any_orphan_indication`):** Hosted at `https://api.rare-disease-atlas.workers.dev/mcp` (MCP `2026-07-28` & `2025-11-25` Streamable HTTP + interactive `ui://` MCP App widget). Queries OpenTargets Platform v4 GraphQL, ClinicalTrials.gov v2, and PubMed live for **any** orphan disease and pairs results with FY2026 FDA Orphan Drug unit economics ($4,682,003 PDUFA waiver, 7-yr exclusivity, Rare Pediatric PRV check) + non-dilutive grants, benchmarked against Clonal `JAK2 V617F+` and Reversible `Autoimmune Myelofibrosis`.
 - **6 Curated Deep-Dive Case Studies (`19` Concrete Startup Blueprints):**
   1. `jak2-myelofibrosis` — Clonal JAK2 V617F+ Primary Myelofibrosis (JH2 allosteric `INCB160058` NCT06313593, Type II `AJ1-11095` NCT06343805, mutant CALR).
   2. `autoimmune-myelofibrosis` — Reversible JAK2-Negative Lupus/Autoimmune Myelofibrosis (74-80% fibrosis remission) + Dual Transfusional & IL-6/Hepcidin Iron Overload.

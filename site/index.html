@@ -10,6 +10,8 @@
   <link rel="describedby" href="./llms.txt" type="text/markdown" title="LLM Summary Index (llms.txt)">
   <link rel="alternate" href="./llms-full.txt" type="text/markdown" title="Consolidated Markdown Knowledge Base (llms-full.txt)">
   <link rel="alternate" href="./croissant.json" type="application/ld+json" title="MLCommons Croissant 1.0 Dataset Metadata">
+  <link rel="mcp-server" href="https://api.rare-disease-atlas.workers.dev/mcp">
+  <link rel="agent-card" href="https://api.rare-disease-atlas.workers.dev/.well-known/agent.json">
   <link rel="stylesheet" href="./styles.css">
 
   <!-- Open Graph / Social Sharing -->
@@ -157,7 +159,8 @@
         <a href="./llms-full.txt">/llms-full.txt</a>
         <a href="./opportunities.json">/opportunities.json</a>
         <a href="./openapi.yaml">/openapi.yaml</a>
-        <a href="./.well-known/mcp.json">/.well-known/mcp.json</a>
+        <a href="./.well-known/mcp/server-card.json">/.well-known/mcp/server-card.json</a>
+        <a href="./.well-known/agent-card.json">/.well-known/agent-card.json</a>
       </div>
     </div>
   </div>
@@ -615,18 +618,32 @@
       </section>
 
       <section class="dossier-section" id="open-source-builder-quickstart" data-dossier-section="builder-quickstart">
-        <span class="section-tag">Section 08 // Fork &amp; Build Today (MIT / CC-BY-4.0 Open Infrastructure)</span>
+        <span class="section-tag">Section 08 // Fork &amp; Build Today (MIT / CC-BY-4.0 Open Infrastructure &middot; v1.6.0)</span>
         <h2>Mount the MCP Server or Fork the Opportunity Schema in 60 Seconds</h2>
-        <p>Every dataset, OpenAPI 3.1 endpoint, and MCP tool powering this dossier is open-source with zero authentication or rate limits:</p>
-        <pre class="prompt-box" style="margin-bottom: 1rem;"># 1-Command Zero-Install MCP Server (Claude Code, Cursor, Windsurf, Cline, Antigravity)
+        <p>Every dataset, OpenAPI 3.1 endpoint, SEP-1649 MCP Server Card, and A2A Agent Card powering our Paired Myelofibrosis Flagships (<code>jak2-myelofibrosis</code> &amp; <code>autoimmune-myelofibrosis</code>) and 7,000-disease diligence engine is open-source with zero authentication or rate limits:</p>
+        <pre class="prompt-box" style="margin-bottom: 1rem;"># Zero-Install Remote Streamable HTTP MCP (Claude Code, Claude Web, OpenAI mcp, Cursor, Antigravity)
+claude mcp add --transport http orphan-disease-atlas https://api.rare-disease-atlas.workers.dev/mcp
+
+# Local STDIO MCP via uvx (Zero API Keys)
 uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-opportunity-mcp
 
 # Direct JSON / OpenAPI Fetch (Python, cURL, Custom GPT Actions)
 curl -s https://rare-disease-atlas.github.io/opportunities.json | jq '.opportunities[].title'</pre>
+        <p style="margin-bottom: 0.75rem;">
+          <strong>Canonical <code>v1.6.0</code> Read-Verb MCP Tools</strong> (legacy aliases <code>match_founder_opportunities</code>, <code>find_non_dilutive_grants</code>, <code>generate_90_day_validation_plan</code>, and <code>analyze_any_orphan_indication</code> remain supported):
+          <code>search_founder_opportunities</code> &middot;
+          <code>get_disease_case_study</code> &middot;
+          <code>list_non_dilutive_grants</code> &middot;
+          <code>get_validation_communities</code> &middot;
+          <code>get_90_day_validation_plan</code> &middot;
+          <code>search_any_orphan_indication</code>
+        </p>
         <p style="margin: 0;">
-          <strong>Open Repositories:</strong>
+          <strong>Open Repositories &amp; Discovery Cards:</strong>
           <a href="https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp" target="_blank" rel="noopener noreferrer"><code>github.com/rare-disease-atlas/orphan-disease-opportunity-mcp</code></a> &middot;
-          <a href="https://github.com/rare-disease-atlas/rare-disease-atlas.github.io" target="_blank" rel="noopener noreferrer"><code>github.com/rare-disease-atlas/rare-disease-atlas.github.io</code></a>
+          <a href="https://github.com/rare-disease-atlas/rare-disease-atlas.github.io" target="_blank" rel="noopener noreferrer"><code>github.com/rare-disease-atlas/rare-disease-atlas.github.io</code></a> &middot;
+          <a href="./.well-known/mcp/server-card.json"><code>/.well-known/mcp/server-card.json</code></a> &middot;
+          <a href="./.well-known/agent-card.json"><code>/.well-known/agent-card.json</code></a>
         </p>
       </section>
 
@@ -680,8 +697,8 @@ curl -s https://rare-disease-atlas.github.io/opportunities.json | jq '.opportuni
         <h4>Machine Feeds &amp; Open GitHub</h4>
         <ul>
           <li><a href="./llms.txt"><code>/llms.txt</code></a> &middot; <a href="./llms-full.txt"><code>/llms-full.txt</code></a></li>
-          <li><a href="./opportunities.json"><code>/opportunities.json</code> (v1.2.0 Venture Atlas)</a></li>
-          <li><a href="./openapi.yaml"><code>/openapi.yaml</code></a> &middot; <a href="./.well-known/mcp.json"><code>/.well-known/mcp.json</code></a></li>
+          <li><a href="./opportunities.json"><code>/opportunities.json</code> (v1.6.0 Venture Atlas)</a></li>
+          <li><a href="./openapi.yaml"><code>/openapi.yaml</code></a> &middot; <a href="./.well-known/mcp/server-card.json"><code>/.well-known/mcp/server-card.json</code></a> &middot; <a href="./.well-known/agent-card.json"><code>/.well-known/agent-card.json</code></a></li>
           <li><a href="https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp" target="_blank" rel="noopener noreferrer">GitHub: Standalone MCP Server</a></li>
           <li><a href="https://github.com/rare-disease-atlas/rare-disease-atlas.github.io" target="_blank" rel="noopener noreferrer">GitHub: Web Dossier Monorepo</a></li>
         </ul>

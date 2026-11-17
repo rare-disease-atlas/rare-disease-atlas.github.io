@@ -1,8 +1,8 @@
-# rare-disease-atlas.github.io — Rare Disease Venture & Translational Opportunity Atlas (v1.2)
+# rare-disease-atlas.github.io — Rare Disease Venture & Translational Opportunity Atlas (v1.6.0)
 
 > **2-Sentence Elevator Thesis:** **JAK2 V617F+ Myelofibrosis** is a $2.0B+ orphan blood cancer driven by a single point mutation in 50–60% of patients where zero approved drugs clear mutant stem cells or reverse bone marrow scar tissue (post-ruxolitinib median survival: 11–23 months). Pairing it with **Autoimmune Myelofibrosis (AIMF)**—a non-`JAK2` lupus-spectrum variant with dual transfusional/hepcidin iron buildup where marrow fibrosis **actually reverses in 74–80% of patients**—gives AI-bio, public-health, and venture builders both an asymmetric commercial wedge and *Nature's Positive Control* for curing human fibrosis.
 
-## Canonical Problem-to-Startup Routing Table
+## Canonical Problem-to-Startup Routing Table (Paired Flagship Myelofibrosis Wedges)
 
 | Code | Bottleneck / Clinical Failure Mode | Concrete Startup / Research Wedge | Target Track & Seed Budget |
 | :--- | :--- | :--- | :--- |
@@ -21,36 +21,41 @@
 - [02 // Public Health, Clinical RWE & Care Navigation Wedges](https://rare-disease-atlas.github.io/public-health-biotech-wedges.html): Zero-wet-lab MPH/epidemiology ventures (`MPN PROGRESSion Registry®` `NCT07362225` ecosystem, External Control Arms, RR6 failure detection).
 - [03 // AI & Computational Biology Drug Discovery Targets](https://rare-disease-atlas.github.io/ai-drug-repurposing-targets.html): JH2 V617F vs. WT JH2 selectivity, PROTAC exit vectors, and single-cell megakaryocyte–stromal fibrosis circuits (`GSE144568`, `GSE156644`, `GSE122198`, `GSE226340`).
 - [04 // Autoimmune Myelofibrosis (AIMF), Diagnostic Triage & Iron/Hepcidin Axis](https://rare-disease-atlas.github.io/autoimmune-myelofibrosis-iron-wedge.html): Lupus-associated non-`JAK2` myelofibrosis, dual transfusional + IL-6/hepcidin iron trapping, preventing Triple-Negative PMF misdiagnosis, and *Nature's Positive Control* for reversing marrow fibrosis.
+- [05 // Hematology & Immunology Orphan Expansion](https://rare-disease-atlas.github.io/hematology-immunology-orphan-expansion.html): Comparative VEXAS (`UBA1`), Castleman (`iMCD`), Systemic Mastocytosis (`KIT D816V`), and Telomere Biology Disorders (`PAPD5` / Rare Pediatric PRV) blueprints benchmarked against Paired Myelofibrosis Flagships.
 
-## Machine-Callable Endpoints, Zero-Install Remote MCP, A2A Peer Agent & Open-Source Repos
-- **Zero-Install Remote MCP (`streamable-http`, Zero Auth — Claude Web / OpenAI `mcp` / Cursor / Cloud Agents):**
+## Machine-Callable Endpoints, Zero-Install Remote MCP (`v1.6.0`), SEP-1649 Server Card & A2A Peer Agent
+- **Zero-Install Remote MCP (`2026-07-28` & `2025-11-25` Streamable HTTP, Zero Auth — Claude Web / Claude Code / OpenAI `mcp` / Cursor / Cloud Agents):**
   `https://api.rare-disease-atlas.workers.dev/mcp`
+- **6 Canonical `v1.6.0` Read-Verb MCP Tools (`readOnlyHint: true`):**
+  1. `search_founder_opportunities` *(legacy alias: `match_founder_opportunities`)*
+  2. `get_disease_case_study`
+  3. `list_non_dilutive_grants` *(legacy alias: `find_non_dilutive_grants`)*
+  4. `get_validation_communities`
+  5. `get_90_day_validation_plan` *(legacy aliases: `generate_90_day_validation_plan`, `build_90_day_validation_plan`)*
+  6. `search_any_orphan_indication` *(legacy alias: `analyze_any_orphan_indication`)*
+- **SEP-1649 MCP Server Card & Autodiscovery Manifests:**
+  [SEP-1649 Server Card (`/.well-known/mcp/server-card.json`)](https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json) · [MCP Manifest (`/.well-known/mcp.json`)](https://rare-disease-atlas.github.io/.well-known/mcp.json) · [Official MCP Registry (`io.github.rare-disease-atlas/orphan-disease-opportunity-mcp`)](https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.rare-disease-atlas/orphan-disease-opportunity-mcp)
 - **Run Local STDIO MCP Instantly (`uvx`, Zero API Keys):**
   `uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-mcp`
 - **Agent2Agent (`A2A`) Peer Specialist Endpoint (`message/send`, `tasks/send`):**
-  [A2A Agent Card (`/.well-known/agent.json`)](https://rare-disease-atlas.github.io/.well-known/agent.json) · `POST https://api.rare-disease-atlas.workers.dev/a2a`
-- **Hugging Face Interactive `mcp-server` Space & Dataset Hub:**
+  [A2A Agent Card (`/.well-known/agent.json`)](https://rare-disease-atlas.github.io/.well-known/agent.json) · [Static Mirror (`/.well-known/agent-card.json`)](https://rare-disease-atlas.github.io/.well-known/agent-card.json) · `POST https://api.rare-disease-atlas.workers.dev/a2a`
+- **Hugging Face Interactive `mcp-server` Space, Skill & Dataset Hub:**
   [HF Gradio MCP Space (`rare-disease-atlas/orphan-disease-venture-scout`)](https://huggingface.co/spaces/rare-disease-atlas/orphan-disease-venture-scout) · [HF Dataset (`rare-disease-atlas/rare-disease-venture-atlas`)](https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas)
-- [Standalone MCP Server Repo](https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp) · [Web Dossier Monorepo](https://github.com/rare-disease-atlas/rare-disease-atlas.github.io)
-- [Full Consolidated Markdown Corpus (`/llms-full.txt`)](https://rare-disease-atlas.github.io/llms-full.txt): Complete single-fetch knowledge base including `JAK2+` PMF and Autoimmune Myelofibrosis + Iron/Hepcidin dossiers.
-- [Structured Opportunity Atlas JSON (`/opportunities.json`, v1.2.0)](https://rare-disease-atlas.github.io/opportunities.json): 8 startup blueprints, 2 paired case studies (`jak2-myelofibrosis`, `autoimmune-myelofibrosis`), 7 grants, and 8 communities (`CC-BY-4.0`).
+- [Standalone MCP Server Repo](https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp) · [Web Dossier Monorepo](https://github.com/rare-disease-atlas/rare-disease-atlas.github.io) · [Standalone `SKILL.md` Repo](https://github.com/rare-disease-atlas/orphan-disease-venture-scout-skill)
+- [Full Consolidated Markdown Corpus (`/llms-full.txt`)](https://rare-disease-atlas.github.io/llms-full.txt) · [Structured Opportunity Atlas JSON (`/opportunities.json`, v1.6.0)](https://rare-disease-atlas.github.io/opportunities.json) · [MLCommons Croissant 1.0 JSON-LD (`/croissant.json`)](https://rare-disease-atlas.github.io/croissant.json) · [OpenAPI 3.1 Specification (`/openapi.yaml`)](https://rare-disease-atlas.github.io/openapi.yaml)
 - **Persona-Filtered Edge JSON Slices (Low-Token `GET` Endpoints):** [AI / CompBio (`ai-bio.json`)](https://api.rare-disease-atlas.workers.dev/feeds/ai-bio.json) · [Public Health / RWE (`public-health.json`)](https://api.rare-disease-atlas.workers.dev/feeds/public-health.json) · [Biotech Venture (`venture.json`)](https://api.rare-disease-atlas.workers.dev/feeds/venture.json) · [Autoimmune MF & Iron (`aimf.json`)](https://api.rare-disease-atlas.workers.dev/feeds/aimf.json) · [Dynamic Filter (`/api/match?background=computational-ai-bio&wet_lab=false`)](https://api.rare-disease-atlas.workers.dev/api/match?background=computational-ai-bio&wet_lab=false)
-- [Hugging Face Dataset (`rare-disease-atlas/rare-disease-venture-atlas`)](https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas) · [MLCommons Croissant 1.0 JSON-LD (`/croissant.json`)](https://rare-disease-atlas.github.io/croissant.json)
-- [OpenAPI 3.1 Specification (`/openapi.yaml`)](https://rare-disease-atlas.github.io/openapi.yaml) · [MCP Autodiscovery (`/.well-known/mcp.json`)](https://rare-disease-atlas.github.io/.well-known/mcp.json) · [Official MCP Registry (`io.github.rare-disease-atlas/orphan-disease-opportunity-mcp`)](https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.rare-disease-atlas/orphan-disease-opportunity-mcp)
 
 ## Opt-In Agent Feedback, Missing Wedges & Citation Errata Protocol
 - **Direct HTTP Webhook (`POST`, Zero Auth, Zero PII):** `POST https://api.rare-disease-atlas.workers.dev/api/feedback` with JSON `{"signal_type": "missing-wedge", "founder_background": "computational-ai-bio", "disease_id": "jak2-myelofibrosis", "agent_client": "...", "summary": "..."}`.
-- **MCP Tool (`v1.3.0+`):** Call `submit_atlas_feedback(signal_type='missing-wedge' | 'citation-errata' | 'new-dataset' | 'disease-expansion', summary='...', founder_background='...', disease_id='...')` to report unserved founder backgrounds, updated `ClinicalTrials.gov` readouts, or newly deposited GEO/PDB datasets (strictly zero PII / zero confidential IP).
 - **GitHub Issue / CLI Channel:** Coding agents with `gh` access or human builders can file structured `[agent-signal]` reports at <https://github.com/rare-disease-atlas/rare-disease-atlas.github.io/issues/new?template=agent_feedback.yml>.
-- **Autonomous Agent Contributor Guide (`AGENTS.md` & `🤖🤖🤖` Fast-Track PRs):** <https://rare-disease-atlas.github.io/AGENTS.md> · [Standalone `SKILL.md` Repo](https://github.com/rare-disease-atlas/orphan-disease-venture-scout-skill)
+- **Autonomous Agent Contributor Guide (`AGENTS.md` & `🤖🤖🤖` Fast-Track PRs):** <https://rare-disease-atlas.github.io/AGENTS.md>
 
-## V1.5 Expansion: 6 Curated Hematology/Immunology Indications + Live 7,000-Disease MCP Engine
-- **Universal Live 7,000-Disease MCP Tool (`analyze_any_orphan_indication`):** Hosted at `https://api.rare-disease-atlas.workers.dev/mcp` (MCP `2026-07-28` & `2025-11-25` Streamable HTTP + interactive `ui://` MCP App widget). Queries OpenTargets Platform v4 GraphQL, ClinicalTrials.gov v2, and PubMed live for **any** orphan disease and pairs results with FY2026 FDA Orphan Drug unit economics ($4,682,003 PDUFA waiver, 7-yr exclusivity, Rare Pediatric PRV check) + non-dilutive grants.
-- **6 Curated Deep-Dive Case Studies (`19` Concrete Startup Blueprints):**
-  1. `jak2-myelofibrosis` — Clonal JAK2 V617F+ Primary Myelofibrosis (JH2 allosteric `INCB160058` NCT06313593, Type II `AJ1-11095` NCT06343805, mutant CALR).
-  2. `autoimmune-myelofibrosis` — Reversible JAK2-Negative Lupus/Autoimmune Myelofibrosis (74-80% fibrosis remission) + Dual Transfusional & IL-6/Hepcidin Iron Overload.
+## V1.6 Corpus & Live 7,000-Disease Federated MCP Engine
+- **Universal Live 7,000-Disease MCP Tool (`search_any_orphan_indication`; legacy alias `analyze_any_orphan_indication` supported):** Hosted at `https://api.rare-disease-atlas.workers.dev/mcp` (MCP `2026-07-28` & `2025-11-25` Streamable HTTP + interactive `ui://` MCP App widget). Queries OpenTargets Platform v4 GraphQL, ClinicalTrials.gov v2, and PubMed live for **any** orphan disease and pairs results with FY2026 FDA Orphan Drug unit economics ($4,682,003 PDUFA waiver, 7-yr exclusivity, Rare Pediatric PRV check) + non-dilutive grants, benchmarked against our Paired Myelofibrosis Flagships.
+- **6 Curated Deep-Dive Case Studies (`16` Concrete Startup Blueprints):**
+  1. `jak2-myelofibrosis` — **Flagship #1:** Clonal JAK2 V617F+ Primary Myelofibrosis (JH2 allosteric `INCB160058` NCT06313593, Type II `AJ1-11095` NCT06343805, mutant CALR).
+  2. `autoimmune-myelofibrosis` — **Flagship #2:** Reversible JAK2-Negative Lupus/Autoimmune Myelofibrosis (74–80% fibrosis remission) + Dual Transfusional & IL-6/Hepcidin Iron Overload.
   3. `vexas-syndrome` — Somatic `UBA1` M41 Myeloid Autoinflammation (`ORPHA:597743`, ~1 in 4,269 men >50, PAXIS pacritinib NCT06538181, NIH HSCT NCT05027945, scRNA-seq `GSE163683`, `PDB:6DC6`).
   4. `castleman-disease` — Idiopathic Multicentric Castleman Disease & iMCD-TAFRO (`ORPHA:93685`, 66% siltuximab-refractory cliff, sirolimus mTOR NCT03933904, Every Cure KG).
   5. `systemic-mastocytosis` — Clonal `KIT D816V` Indolent & Advanced SM (`ORPHA:2467`, CNS-sparing kinase/degrader wedge, SUMMIT NCT05186753, HARBOR NCT04910685, ddPCR + `TPSAB1` triage).
-  6. `telomere-biology-disorders` — Dyskeratosis Congenita & Cryptic Adult TBD (`ORPHA:1775`, Rare Pediatric PRV ~$100M-$158M catalyst, oral `PAPD5` TERC stabilizer, alkylator-free BMT NCT01659606, `PDB:7BG9`).
-- **Expansion Deep-Dive Page:** [Hematology & Immunology Orphan Expansion](https://rare-disease-atlas.github.io/hematology-immunology-orphan-expansion.html)
+  6. `telomere-biology-disorders` — Dyskeratosis Congenita & Cryptic Adult TBD (`ORPHA:1775`, Rare Pediatric PRV ~$100M–$158M catalyst, oral `PAPD5` TERC stabilizer, alkylator-free BMT NCT01659606, `PDB:7BG9`).

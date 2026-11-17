@@ -1,0 +1,239 @@
+{
+  "mcpVersion": "2026-07-28",
+  "protocolVersion": "2026-07-28",
+  "name": "io.github.rare-disease-atlas/orphan-disease-opportunity-mcp",
+  "title": "Orphan Disease Opportunity Atlas MCP",
+  "version": "1.6.0",
+  "description": "Myelofibrosis (JAK2+ & Autoimmune MF) flagship playbooks + live 7,000-orphan-disease diligence MCP.",
+  "serverInfo": {
+    "name": "io.github.rare-disease-atlas/orphan-disease-opportunity-mcp",
+    "title": "Orphan Disease Opportunity Atlas MCP",
+    "version": "1.6.0",
+    "websiteUrl": "https://rare-disease-atlas.github.io"
+  },
+  "homepage": "https://rare-disease-atlas.github.io",
+  "documentationUrl": "https://rare-disease-atlas.github.io/llms-full.txt",
+  "canonicalDataUrl": "https://rare-disease-atlas.github.io/opportunities.json",
+  "license": "MIT",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.rare-disease-atlas.workers.dev/mcp"
+    }
+  ],
+  "transport": {
+    "type": "streamable-http",
+    "url": "https://api.rare-disease-atlas.workers.dev/mcp"
+  },
+  "authentication": {
+    "required": false
+  },
+  "capabilities": {
+    "tools": {},
+    "resources": {},
+    "prompts": {}
+  },
+  "flagshipIndications": [
+    "jak2-myelofibrosis",
+    "autoimmune-myelofibrosis"
+  ],
+  "toolNames": [
+    "search_founder_opportunities",
+    "get_disease_case_study",
+    "list_non_dilutive_grants",
+    "get_validation_communities",
+    "get_90_day_validation_plan",
+    "search_any_orphan_indication"
+  ],
+  "tools": [
+    {
+      "name": "search_founder_opportunities",
+      "title": "Search Orphan Disease Startup & Translational Blueprints",
+      "description": "Search citation-verified orphan disease startup blueprints across computational AI-bio, public health/RWE, and biotech venture financing—anchored on Paired Flagships Clonal JAK2 V617F+ Primary Myelofibrosis (jak2-myelofibrosis) and Reversible Autoimmune Myelofibrosis + Iron/Hepcidin Overload (autoimmune-myelofibrosis).",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "background": {
+            "type": "string",
+            "description": "Founder background: 'computational-ai-bio', 'public-health', 'venture-novel-financing', or 'all'.",
+            "default": "all"
+          },
+          "capital_tier": {
+            "type": "string",
+            "description": "Initial capital tier: 'bootstrapped-grant' (<$250K), 'seed' ($250K-$2.5M), 'series-a-platform', or 'all'.",
+            "default": "all"
+          },
+          "wet_lab_required": {
+            "type": "boolean",
+            "description": "Set false for zero-wet-lab AI/software/RWE or CRO-outsourced plays; omit for all."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_disease_case_study",
+      "title": "Get Curated Orphan Disease Translational Case Study",
+      "description": "Retrieve causal biology, standard-of-care failure cliffs (Flagships: Clonal JAK2 V617F+ JH2 vs JH1 Primary Myelofibrosis and Reversible Autoimmune Myelofibrosis AIMF + dual transfusional/hepcidin iron overload), FDA Orphan Drug unit economics, and open PDB/GEO/NCT accessions.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "disease_id": {
+            "type": "string",
+            "description": "Curated disease slug (Flagships: 'jak2-myelofibrosis', 'autoimmune-myelofibrosis'; Comparative cohorts: 'vexas-syndrome', 'castleman-disease', 'systemic-mastocytosis', 'telomere-biology-disorders').",
+            "default": "jak2-myelofibrosis"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "list_non_dilutive_grants",
+      "title": "List Non-Dilutive SBIR, ARPA-H & Rare Disease Foundation Grants",
+      "description": "List stackable non-dilutive federal (NIH NCI/NHLBI SBIR/STTR, ARPA-H, FDA OOPD), rare-disease foundation (MPN Research Foundation, CDCN/Every Cure, Penn ODC), and venture-philanthropy (Blood Cancer United TAP) mechanisms.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "track": {
+            "type": "string",
+            "description": "Grant track filter: 'all', 'sbir-sttr', 'foundation', 'venture-philanthropy', 'regulatory-orphan', or 'federal-translational'.",
+            "default": "all"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_validation_communities",
+      "title": "Get Ethical Patient & Clinical Validation Communities",
+      "description": "Retrieve institutional registries, academic consortia, and patient foundations paired with mandatory non-extractive ethical engagement rules.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "disease_id": {
+            "type": "string",
+            "description": "Disease slug (default: 'jak2-myelofibrosis' or 'autoimmune-myelofibrosis').",
+            "default": "jak2-myelofibrosis"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_90_day_validation_plan",
+      "title": "Get 90-Day Killer-Experiment & Grant Validation Plan",
+      "description": "Retrieve a structured 30/60/90-day validation roadmap, open GEO/PDB dataset checklist, CRO/FHIR budget, non-dilutive grant stack, and ethical patient advisory protocol for a founder persona and orphan indication (defaulting to Paired Myelofibrosis Flagships).",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "disease_id": {
+            "type": "string",
+            "description": "Target disease slug (default: 'jak2-myelofibrosis' or 'autoimmune-myelofibrosis').",
+            "default": "jak2-myelofibrosis"
+          },
+          "background": {
+            "type": "string",
+            "description": "Founder track: 'computational-ai-bio', 'public-health', or 'venture-novel-financing'.",
+            "default": "computational-ai-bio"
+          },
+          "capital_tier": {
+            "type": "string",
+            "description": "Target initial budget tier: 'bootstrapped-grant', 'seed', or 'series-a-platform'.",
+            "default": "bootstrapped-grant"
+          },
+          "wet_lab_required": {
+            "type": "boolean",
+            "description": "Whether internal wet-lab infrastructure is available (default: false).",
+            "default": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "search_any_orphan_indication",
+      "title": "Search & Benchmark Any of 7,000+ Orphan Indications Live",
+      "description": "Run live federated diligence across all 7,000+ orphan diseases via OpenTargets Platform v4, ClinicalTrials.gov v2, and PubMed, paired with FY2026 FDA Orphan Drug / Rare Pediatric PRV unit economics and benchmarked against Clonal JAK2 V617F+ and Reversible Autoimmune Myelofibrosis.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "disease_query": {
+            "type": "string",
+            "description": "Any rare or orphan disease name or identifier (e.g., 'JAK2 V617F myelofibrosis', 'autoimmune myelofibrosis', 'VEXAS syndrome', 'Duchenne muscular dystrophy')."
+          },
+          "founder_background": {
+            "type": "string",
+            "description": "Optional founder track: 'computational-ai-bio', 'public-health', 'venture-novel-financing', or 'all'.",
+            "default": "all"
+          }
+        },
+        "required": [
+          "disease_query"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "legacyToolAliases": {
+    "match_founder_opportunities": "search_founder_opportunities",
+    "find_non_dilutive_grants": "list_non_dilutive_grants",
+    "generate_90_day_validation_plan": "get_90_day_validation_plan",
+    "analyze_any_orphan_indication": "search_any_orphan_indication"
+  },
+  "resources": [
+    {
+      "uri": "briefing://rare-disease-playbook/jak2-myelofibrosis",
+      "name": "Clonal JAK2 V617F+ Myelofibrosis Playbook (Flagship #1)",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "briefing://rare-disease-playbook/autoimmune-myelofibrosis",
+      "name": "Reversible Autoimmune Myelofibrosis (AIMF) & Iron/Hepcidin Playbook (Flagship #2)",
+      "mimeType": "text/markdown"
+    }
+  ],
+  "prompts": [
+    {
+      "name": "evaluate-rare-disease-venture",
+      "description": "Multi-step 90-day killer-experiment, grant-stacking, and ethical validation workflow anchored on Paired Myelofibrosis Flagships."
+    }
+  ],
+  "a2aAgentCard": "https://rare-disease-atlas.github.io/.well-known/agent.json",
+  "repository": "https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp"
+}
