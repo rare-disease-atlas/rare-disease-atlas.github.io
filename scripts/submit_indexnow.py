@@ -44,6 +44,18 @@ PATHS = (
     "/.well-known/agent.json",
     "/.well-known/agent-card.json",
     "/.well-known/agents.json",
+    "/.well-known/x402.json",
+    "/open-problems.json",
+    "/benchmarks/myelofibrosis_bench.jsonl",
+    "/benchmarks/README.md",
+    "/CITATION.cff",
+    "/codemeta.json",
+    "/atom.xml",
+    "/feeds/bio-delta.json",
+    "/data/myelofibrosis_gene_signatures.jsonl",
+    "/data/jak2_structural_pockets.jsonl",
+    "/data/myelofibrosis_clinical_trials.jsonl",
+    "/notebooks/myelofibrosis_translational_quickstart.ipynb",
 )
 
 

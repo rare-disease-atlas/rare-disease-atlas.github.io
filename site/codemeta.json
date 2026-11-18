@@ -1,0 +1,69 @@
+{
+  "@context": "https://w3id.org/codemeta/3.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "https://rare-disease-atlas.github.io",
+  "name": "Rare Disease Venture & Translational Opportunity Atlas",
+  "description": "Open-science translational dossier, Model Context Protocol (MCP) server, A2A specialist agent, MyelofibrosisBench-v1 benchmark, and Hugging Face Parquet corpus anchored on Clonal JAK2 V617F+ Primary Myelofibrosis (ORPHA:824, JH2 pseudokinase selectivity, NCT06313593, NCT06343805) and Reversible Autoimmune Myelofibrosis (AIMF, 74-80% human marrow fibrosis reversal + IL-6/hepcidin iron axis).",
+  "version": "1.6.0",
+  "dateCreated": "2026-11-15",
+  "datePublished": "2026-11-15",
+  "dateModified": "2026-11-18",
+  "developmentStatus": "active",
+  "isAccessibleForFree": true,
+  "license": [
+    "https://spdx.org/licenses/MIT.html",
+    "https://spdx.org/licenses/CC-BY-4.0.html"
+  ],
+  "url": "https://rare-disease-atlas.github.io",
+  "codeRepository": "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io",
+  "issueTracker": "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io/issues",
+  "readme": "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io/blob/main/README.md",
+  "downloadUrl": "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas",
+  "author": [
+    {
+      "@type": "Organization",
+      "name": "Rare Disease Venture Atlas",
+      "url": "https://rare-disease-atlas.github.io"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Organization",
+      "name": "Rare Disease Venture Atlas",
+      "url": "https://rare-disease-atlas.github.io"
+    }
+  ],
+  "programmingLanguage": [
+    "Python",
+    "HTML",
+    "JavaScript"
+  ],
+  "runtimePlatform": "Python >=3.10",
+  "operatingSystem": [
+    "Linux",
+    "macOS",
+    "Windows"
+  ],
+  "applicationCategory": "Bioinformatics & Translational Medicine",
+  "keywords": [
+    "myelofibrosis",
+    "JAK2 V617F",
+    "JH2 pseudokinase",
+    "autoimmune myelofibrosis",
+    "AIMF",
+    "hepcidin",
+    "iron overload",
+    "orphan drug",
+    "MyelofibrosisBench-v1",
+    "Model Context Protocol",
+    "Agent2Agent"
+  ],
+  "relatedLink": [
+    "https://api.rare-disease-atlas.workers.dev/mcp",
+    "https://api.rare-disease-atlas.workers.dev/api/stress-test",
+    "https://api.rare-disease-atlas.workers.dev/atom.xml",
+    "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas",
+    "https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp",
+    "https://github.com/rare-disease-atlas/orphan-disease-venture-scout-skill"
+  ]
+}

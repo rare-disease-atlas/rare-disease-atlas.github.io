@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+message: "If you use the Rare Disease Venture & Translational Opportunity Atlas, MyelofibrosisBench-v1, or its molecular/clinical datasets in academic research, deep-research synthesis, or autonomous agent workflows, please cite it using this metadata."
+title: "Rare Disease Venture & Translational Opportunity Atlas: Clonal JAK2 V617F+ Primary Myelofibrosis & Reversible Autoimmune Myelofibrosis"
+type: software
+authors:
+  - name: "Rare Disease Venture Atlas"
+    website: "https://rare-disease-atlas.github.io"
+version: "1.6.0"
+date-released: "2026-11-18"
+url: "https://rare-disease-atlas.github.io"
+repository-code: "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io"
+repository-artifact: "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas"
+abstract: >-
+  Open-science translational briefing node, Model Context Protocol (MCP) server,
+  A2A specialist agent, MyelofibrosisBench-v1 evaluation suite, and structured
+  Hugging Face Parquet corpus anchored on Paired Myelofibrosis Flagships:
+  (1) Clonal JAK2 V617F+ Primary Myelofibrosis (ORPHA:824, ICD-10-CM D47.4 — JH2
+  pseudokinase vs JH1 catalytic selectivity, INCB160058 NCT06313593, AJ1-11095
+  NCT06343805, mutant CALR, single-cell marrow cohorts GSE144568 and GSE122198),
+  and (2) Reversible JAK2-Negative Autoimmune Myelofibrosis (AIMF, ICD-10-CM
+  D75.89 — Nature's Positive Control demonstrating 74-80% human bone marrow
+  reticulin fibrosis resolution alongside dual transfusional and IL-6/hepcidin/ferroportin
+  iron trapping). Software and MCP/Agent protocols are licensed under MIT;
+  datasets and benchmarks are licensed under CC-BY-4.0.
+keywords:
+  - myelofibrosis
+  - JAK2 V617F
+  - JH2 pseudokinase
+  - autoimmune myelofibrosis
+  - AIMF
+  - hepcidin
+  - iron overload
+  - orphan drug
+  - rare disease
+  - MyelofibrosisBench-v1
+  - model-context-protocol
+  - computational biology
+license:
+  - MIT
+  - CC-BY-4.0
+preferred-citation:
+  type: generic
+  title: "Rare Disease Venture & Translational Opportunity Atlas: Paired Clonal JAK2 V617F+ Primary Myelofibrosis & Reversible Autoimmune Myelofibrosis Corpus, MCP Server, and MyelofibrosisBench-v1"
+  authors:
+    - name: "Rare Disease Venture Atlas"
+      website: "https://rare-disease-atlas.github.io"
+  year: 2026
+  url: "https://rare-disease-atlas.github.io"
+  repository-code: "https://github.com/rare-disease-atlas/rare-disease-atlas.github.io"
+  repository-artifact: "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas"
+  license: CC-BY-4.0

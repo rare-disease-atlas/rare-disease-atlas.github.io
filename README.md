@@ -11,6 +11,14 @@
 - **A2A Agent Card (`v1.6.0`):** [`/.well-known/agent.json`](site/.well-known/agent.json) · [`/.well-known/agent-card.json`](site/.well-known/agent-card.json)
 - **LLM Summary & Full Corpus:** [`/llms.txt`](site/llms.txt) · [`/llms-full.txt`](site/llms-full.txt)
 - **Canonical Venture Dataset (`CC-BY-4.0`, `v1.6.0`):** [`/opportunities.json`](site/opportunities.json)
+- **Academic Citation & CodeMeta (`CFF 1.2.0`):** [`CITATION.cff`](CITATION.cff) (`https://rare-disease-atlas.github.io/CITATION.cff`) · [`codemeta.json`](codemeta.json)
+- **x402 Free Public-Good Manifest (`$0 USD`):** [`/.well-known/x402.json`](site/.well-known/x402.json)
+- **Open Agent Nectar Suite (`CC-BY-4.0` / Zero Auth):**
+  - **`MyelofibrosisBench-v1` (30-Item Translational Benchmark):** `https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl`
+  - **3 Molecular & Clinical HF Parquet Tables:** `myelofibrosis_gene_signatures`, `jak2_structural_pockets`, `myelofibrosis_clinical_trials` on [`rare-disease-atlas/rare-disease-venture-atlas`](https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas)
+  - **Stateless Hypothesis Red-Team API:** `POST https://api.rare-disease-atlas.workers.dev/api/stress-test`
+  - **Live Daily Myelofibrosis Bio-Delta Wire:** `https://api.rare-disease-atlas.workers.dev/atom.xml` (`/atom.xml`) · `https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json` (`/feeds/bio-delta.json`)
+  - **Open Computational Problems:** `https://rare-disease-atlas.github.io/open-problems.json`
 - **Zero-Auth OpenAPI 3.1 Spec:** [`/openapi.yaml`](site/openapi.yaml)
 - **MCP Server (`MIT`, Zero Dependencies):** [`mcp-server/`](mcp-server/) (`uvx orphan-disease-opportunity-mcp`)
 

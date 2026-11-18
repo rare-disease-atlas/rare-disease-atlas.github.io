@@ -8,9 +8,12 @@ info:
     non-dilutive SBIR/venture-philanthropy grants, 90-day validation roadmaps, and ethical clinical validation pathways.
     Anchored on Paired Myelofibrosis Flagships—Clonal JAK2 V617F+ Primary Myelofibrosis (`jak2-myelofibrosis`)
     and Reversible JAK2-Negative Autoimmune Myelofibrosis + Iron/Hepcidin Overload (`autoimmune-myelofibrosis`)—plus
-    4 comparative hematology/immunology cohorts and live 7,000-orphan-disease MCP diligence (`https://api.rare-disease-atlas.workers.dev/mcp`,
+    4 comparative hematology/immunology cohorts, live 7,000-orphan-disease MCP diligence (`https://api.rare-disease-atlas.workers.dev/mcp`,
     canonical v1.6.0 read-verb tools: `search_founder_opportunities`, `get_disease_case_study`, `list_non_dilutive_grants`,
-    `get_validation_communities`, `get_90_day_validation_plan`, `search_any_orphan_indication`).
+    `get_validation_communities`, `get_90_day_validation_plan`, `search_any_orphan_indication`), the Open Agent Nectar Suite
+    (`POST /api/stress-test`, `/benchmarks/myelofibrosis_bench.jsonl`, `/open-problems.json`, `/feeds/bio-delta.json`, `/atom.xml`,
+    `/.well-known/x402.json`, `/CITATION.cff`), and 3 Hugging Face Parquet tables (`myelofibrosis_gene_signatures`,
+    `jak2_structural_pockets`, `myelofibrosis_clinical_trials` on `huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas`).
   contact:
     name: Rare Disease Venture Atlas
     url: https://rare-disease-atlas.github.io
@@ -103,6 +106,119 @@ paths:
             application/json:
               schema:
                 type: object
+
+  /.well-known/x402.json:
+    get:
+      operationId: getX402Manifest
+      summary: Retrieve x402 v1.0 Free-Public-Good Agent Pricing & Endpoint Manifest ($0 USD, paymentRequired false).
+      responses:
+        "200":
+          description: x402 Free Public-Good JSON manifest.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/stress-test:
+    post:
+      operationId: stressTestOrphanHypothesis
+      summary: Stateless Hypothesis Red-Team API critiquing drug, diagnostic, or rare-disease venture hypotheses.
+      description: >
+        Evaluates a candidate biological, diagnostic, or commercial rare-disease hypothesis against JH2 vs JH1
+        allosteric selectivity traps, AIMF vs Triple-Negative PMF misdiagnosis discordance, Phase 3 clinical trial
+        endpoint casualties (TRANSFORM-1, IMpactMF), MyelofibrosisBench-v1, and FY2026 FDA Orphan unit economics.
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge Stateless Red-Team Worker
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - hypothesis
+              additionalProperties: true
+              properties:
+                hypothesis:
+                  type: string
+                  description: Drug target, molecular binder/PROTAC, diagnostic classifier, or venture thesis to red-team.
+                disease_id:
+                  type: string
+                  default: jak2-myelofibrosis
+                target:
+                  type: string
+                modality:
+                  type: string
+                background:
+                  type: string
+      responses:
+        "200":
+          description: Structured biological, clinical-endpoint, and unit-economics stress-test critique.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /feeds/bio-delta.json:
+    get:
+      operationId: getBioDeltaJsonWire
+      summary: Retrieve daily Myelofibrosis & Orphan Bio-Delta intelligence wire (JSON Feed 1.1).
+      responses:
+        "200":
+          description: Structured JSON Feed 1.1 of ClinicalTrials.gov, PubMed, NCBI GEO, and PDB deltas.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /atom.xml:
+    get:
+      operationId: getBioDeltaAtomWire
+      summary: Retrieve daily Myelofibrosis & Orphan Bio-Delta syndication wire (Atom 1.0 XML).
+      responses:
+        "200":
+          description: Atom 1.0 XML feed.
+          content:
+            application/atom+xml:
+              schema:
+                type: string
+
+  /open-problems.json:
+    get:
+      operationId: getOpenComputationalProblems
+      summary: Retrieve structured open computational & translational grand challenges in Myelofibrosis and AIMF.
+      responses:
+        "200":
+          description: JSON array/registry of open computational problems with datasets, evaluation metrics, and starter baselines.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /benchmarks/myelofibrosis_bench.jsonl:
+    get:
+      operationId: getMyelofibrosisBenchV1
+      summary: Download MyelofibrosisBench-v1 (30 primary-cited translational & structural reasoning items in JSONL).
+      responses:
+        "200":
+          description: Newline-delimited JSON (JSONL) benchmark items.
+          content:
+            application/jsonl:
+              schema:
+                type: string
+
+  /CITATION.cff:
+    get:
+      operationId: getCitationCff
+      summary: Retrieve CFF 1.2.0 academic citation metadata for the Rare Disease Venture Atlas & MyelofibrosisBench-v1.
+      responses:
+        "200":
+          description: Citation File Format (CFF 1.2.0) YAML document.
+          content:
+            text/yaml:
+              schema:
+                type: string
 
 components:
   schemas:

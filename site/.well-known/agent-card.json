@@ -1,10 +1,12 @@
 {
   "name": "Rare Disease Venture Atlas Agent",
-  "description": "Open translational & venture diligence specialist agent anchored on Paired Myelofibrosis Flagships—Clonal JAK2 V617F+ Primary Myelofibrosis (JH2 vs JH1 allosteric selectivity, mutant CALR) and Reversible JAK2-Negative Autoimmune Myelofibrosis (AIMF, 74-80% marrow fibrosis reversal + dual transfusional & IL-6/hepcidin/ferroportin iron overload)—plus 4 comparative hematology/immunology cohorts, non-dilutive grant stacks (SBIR, ARPA-H, Blood Cancer United TAP, MPNRF), 90-day validation plans, and live federated diligence across all 7,000+ orphan diseases.",
+  "description": "Open translational & venture diligence specialist agent anchored on Paired Myelofibrosis Flagships—Clonal JAK2 V617F+ Primary Myelofibrosis (JH2 vs JH1 allosteric selectivity, mutant CALR) and Reversible JAK2-Negative Autoimmune Myelofibrosis (AIMF, 74-80% marrow fibrosis reversal + dual transfusional & IL-6/hepcidin/ferroportin iron overload)—plus stateless hypothesis red-teaming (POST /api/stress-test), MyelofibrosisBench-v1, Hugging Face Parquet tables, non-dilutive grant stacks, 90-day validation plans, and live federated diligence across all 7,000+ orphan diseases.",
   "url": "https://api.rare-disease-atlas.workers.dev/a2a",
   "documentationUrl": "https://rare-disease-atlas.github.io/llms-full.txt",
   "mcpServerUrl": "https://api.rare-disease-atlas.workers.dev/mcp",
   "mcpServerCardUrl": "https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json",
+  "x402ManifestUrl": "https://rare-disease-atlas.github.io/.well-known/x402.json",
+  "citationUrl": "https://rare-disease-atlas.github.io/CITATION.cff",
   "provider": {
     "organization": "Rare Disease Venture Atlas",
     "url": "https://rare-disease-atlas.github.io"
@@ -12,6 +14,14 @@
   "version": "1.6.0",
   "protocolVersion": "0.3.0",
   "preferredTransport": "JSONRPC",
+  "x402": {
+    "paymentRequired": false,
+    "priceUsd": "0"
+  },
+  "erc8004": {
+    "status": "ready",
+    "trustModel": "open-science-public-good"
+  },
   "capabilities": {
     "streaming": false,
     "pushNotifications": false,
@@ -61,6 +71,24 @@
       "examples": [
         "How does JAK2-negative autoimmune myelofibrosis (AIMF) with lupus suspicion and dual iron overload differ from triple-negative PMF?",
         "Use AIMF as Nature's Positive Control to identify human marrow fibrosis reversal switches."
+      ]
+    },
+    {
+      "id": "stress-test-orphan-hypothesis",
+      "name": "Stateless Orphan Hypothesis Red-Team & Biological/Venture Stress-Test",
+      "description": "Red-teams candidate drug targets, structural ML binders, diagnostic triage classifiers, or orphan venture theses via POST https://api.rare-disease-atlas.workers.dev/api/stress-test against JH2 vs JH1 selectivity traps, AIMF vs Triple-Negative PMF pathology discordance, Phase 3 endpoint casualties (TRANSFORM-1, IMpactMF), MyelofibrosisBench-v1, and FY2026 FDA Orphan unit economics.",
+      "tags": [
+        "stress-test",
+        "red-team",
+        "hypothesis-validation",
+        "myelofibrosis",
+        "AIMF",
+        "JAK2-V617F",
+        "MyelofibrosisBench-v1"
+      ],
+      "examples": [
+        "Stress-test a mutant-selective JAK2 V617F JH2 PROTAC degrader hypothesis via POST https://api.rare-disease-atlas.workers.dev/api/stress-test.",
+        "Red-team an EHR + WSI diagnostic triage wedge separating lupus-associated Autoimmune Myelofibrosis from Triple-Negative PMF."
       ]
     },
     {

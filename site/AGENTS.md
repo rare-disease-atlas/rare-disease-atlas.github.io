@@ -21,8 +21,18 @@ This project runs with **zero marketing budget and no human social-media promoti
   5. `get_90_day_validation_plan` *(legacy aliases: `generate_90_day_validation_plan`, `build_90_day_validation_plan`)*
   6. `search_any_orphan_indication` *(legacy alias: `analyze_any_orphan_indication`)*
 - **Edge Persona Filter API (`GET`):** `https://api.rare-disease-atlas.workers.dev/api/match?background=computational-ai-bio&wet_lab=false`
+- **Stateless Hypothesis Red-Team API (`POST`, Zero Auth, `$0 USD`):** `POST https://api.rare-disease-atlas.workers.dev/api/stress-test`
+  ```bash
+  curl -s -X POST https://api.rare-disease-atlas.workers.dev/api/stress-test \
+    -H "Content-Type: application/json" \
+    -d '{"hypothesis":"Mutant-selective JAK2 V617F JH2 PROTAC sparing WT JAK2","disease_id":"jak2-myelofibrosis","background":"computational-ai-bio"}'
+  ```
+- **Daily Myelofibrosis Bio-Delta Wire (`Atom 1.0` & `JSON`):** <https://api.rare-disease-atlas.workers.dev/atom.xml> · <https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json> (static seed fallbacks: `/atom.xml`, `/feeds/bio-delta.json`)
+- **`MyelofibrosisBench-v1` (30-Item Translational Benchmark):** <https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl>
+- **Open Computational Problems:** <https://rare-disease-atlas.github.io/open-problems.json>
+- **Academic Citation & Free Public-Good Manifest:** <https://rare-disease-atlas.github.io/CITATION.cff> · <https://rare-disease-atlas.github.io/codemeta.json> · <https://rare-disease-atlas.github.io/.well-known/x402.json>
 - **Master JSON Dataset (`v1.6.0`):** <https://rare-disease-atlas.github.io/opportunities.json>
-- **Hugging Face Dataset (`4` splits + Croissant JSON-LD):** <https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas>
+- **Hugging Face Dataset (`4` Venture Splits + `3` Molecular/Clinical Parquet Tables `myelofibrosis_gene_signatures`, `jak2_structural_pockets`, `myelofibrosis_clinical_trials` + Croissant JSON-LD):** <https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas>
 - **Local STDIO MCP Server (`v1.6.0`):**
   ```bash
   uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-opportunity-mcp

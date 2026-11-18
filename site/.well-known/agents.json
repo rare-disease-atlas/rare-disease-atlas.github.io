@@ -1,12 +1,15 @@
 {
   "schemaVersion": "1.6.0",
   "name": "rare-disease-atlas.github.io",
-  "description": "Autonomous agent discovery manifest for the Rare Disease Venture & Translational Opportunity Atlas (Paired Flagships: Clonal JAK2 V617F+ Primary Myelofibrosis & Reversible Autoimmune Myelofibrosis AIMF + Iron/Hepcidin Overload, plus live 7,000-orphan-disease MCP).",
+  "description": "Autonomous agent discovery manifest for the Rare Disease Venture & Translational Opportunity Atlas (Paired Flagships: Clonal JAK2 V617F+ Primary Myelofibrosis & Reversible Autoimmune Myelofibrosis AIMF + Iron/Hepcidin Overload, plus MyelofibrosisBench-v1, Stateless Hypothesis Red-Team API, Bio-Delta Wire, and live 7,000-orphan-disease MCP).",
   "specs": {
     "openapi": "https://rare-disease-atlas.github.io/openapi.yaml",
     "mcp": "https://rare-disease-atlas.github.io/.well-known/mcp.json",
     "mcp_server_card": "https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json",
     "a2a_agent_card": "https://rare-disease-atlas.github.io/.well-known/agent.json",
+    "x402": "https://rare-disease-atlas.github.io/.well-known/x402.json",
+    "citation_cff": "https://rare-disease-atlas.github.io/CITATION.cff",
+    "codemeta": "https://rare-disease-atlas.github.io/codemeta.json",
     "llms_txt": "https://rare-disease-atlas.github.io/llms.txt",
     "llms_full_txt": "https://rare-disease-atlas.github.io/llms-full.txt"
   },
@@ -15,6 +18,21 @@
       "id": "search_founder_opportunities",
       "description": "Search startup and research blueprints across AI/CompBio, Public Health/RWE, and Venture Philanthropy via MCP or JSON.",
       "endpoint": "POST https://api.rare-disease-atlas.workers.dev/mcp"
+    },
+    {
+      "id": "stress_test_orphan_hypothesis",
+      "description": "Statelessly red-team candidate drug targets, diagnostics, or startup hypotheses against JH2 vs JH1 selectivity, AIMF misdiagnosis traps, clinical trial failure modes, and FDA Orphan economics.",
+      "endpoint": "POST https://api.rare-disease-atlas.workers.dev/api/stress-test"
+    },
+    {
+      "id": "subscribe_bio_delta_wire",
+      "description": "Poll or subscribe to live Myelofibrosis & Orphan Bio-Delta intelligence in JSON or Atom 1.0 XML.",
+      "endpoint": "GET https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json"
+    },
+    {
+      "id": "evaluate_myelofibrosis_bench",
+      "description": "Download MyelofibrosisBench-v1 (30 translational reasoning items) and open computational problems.",
+      "endpoint": "GET https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl"
     },
     {
       "id": "discover_venture_blueprints",

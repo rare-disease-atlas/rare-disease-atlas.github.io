@@ -6,13 +6,23 @@
 # All autonomous AI research agents, search indexers, and live user fetchers
 # are explicitly welcomed with zero rate-limiting or path restrictions.
 #
-# Machine-readable entrypoints:
+# Machine-readable entrypoints & Open Agent Nectar Suite:
 #   Summary Index:      https://rare-disease-atlas.github.io/llms.txt
 #   Full Markdown:      https://rare-disease-atlas.github.io/llms-full.txt
+#   Citation (CFF 1.2): https://rare-disease-atlas.github.io/CITATION.cff
+#   CodeMeta JSON-LD:   https://rare-disease-atlas.github.io/codemeta.json
+#   x402 Free Manifest: https://rare-disease-atlas.github.io/.well-known/x402.json
 #   SEP-1649 MCP Card:  https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json
 #   MCP Manifest:       https://rare-disease-atlas.github.io/.well-known/mcp.json
 #   A2A Agent Card:     https://rare-disease-atlas.github.io/.well-known/agent.json
 #   Remote MCP HTTP:    https://api.rare-disease-atlas.workers.dev/mcp
+#   Stress-Test API:    POST https://api.rare-disease-atlas.workers.dev/api/stress-test
+#   Bio-Delta Atom XML: https://api.rare-disease-atlas.workers.dev/atom.xml
+#   Bio-Delta JSON:     https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json
+#   MyelofibrosisBench: https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl
+#   Open Problems:      https://rare-disease-atlas.github.io/open-problems.json
+#   HF Parquet Tables:  https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas
+#                       (myelofibrosis_gene_signatures, jak2_structural_pockets, myelofibrosis_clinical_trials)
 #   XML Sitemap:        https://rare-disease-atlas.github.io/sitemap.xml
 # =============================================================================
 
@@ -99,5 +109,9 @@ Allow: /
 Sitemap: https://rare-disease-atlas.github.io/sitemap.xml
 # LLM Discovery Index: https://rare-disease-atlas.github.io/llms.txt
 # Full Markdown Corpus: https://rare-disease-atlas.github.io/llms-full.txt
+# Citation Metadata: https://rare-disease-atlas.github.io/CITATION.cff
+# x402 Free Public-Good Manifest: https://rare-disease-atlas.github.io/.well-known/x402.json
 # SEP-1649 MCP Server Card: https://rare-disease-atlas.github.io/.well-known/mcp/server-card.json
 # A2A Agent Card: https://rare-disease-atlas.github.io/.well-known/agent-card.json
+# MyelofibrosisBench-v1: https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl
+# Open Computational Problems: https://rare-disease-atlas.github.io/open-problems.json

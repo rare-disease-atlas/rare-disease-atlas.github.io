@@ -1,10 +1,15 @@
 # rare-disease-atlas.github.io — Complete Consolidated Knowledge Base (llms-full.txt, v1.6.0)
 
 > **Canonical Source:** `https://rare-disease-atlas.github.io/llms-full.txt`
+> **Academic Citation (`CFF 1.2.0` & `CodeMeta`):** `https://rare-disease-atlas.github.io/CITATION.cff` · `https://rare-disease-atlas.github.io/codemeta.json`
 > **Structured JSON Feed (v1.6.0):** `https://rare-disease-atlas.github.io/opportunities.json`
-> **OpenAPI 3.1 Spec:** `https://rare-disease-atlas.github.io/openapi.yaml`
+> **OpenAPI 3.1 Spec & `x402` Free Public-Good Manifest (`$0 USD`):** `https://rare-disease-atlas.github.io/openapi.yaml` · `https://rare-disease-atlas.github.io/.well-known/x402.json`
 > **Zero-Install Remote Streamable HTTP MCP (`2026-07-28`):** `https://api.rare-disease-atlas.workers.dev/mcp` (`/.well-known/mcp/server-card.json`)
 > **A2A Agent Card (`v1.6.0`):** `https://rare-disease-atlas.github.io/.well-known/agent.json` (`/.well-known/agent-card.json`)
+> **Stateless Hypothesis Red-Team API (`POST`, Zero Auth):** `POST https://api.rare-disease-atlas.workers.dev/api/stress-test`
+> **Daily Myelofibrosis Bio-Delta Wire (`Atom 1.0` & `JSON`):** `https://api.rare-disease-atlas.workers.dev/atom.xml` · `https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json`
+> **`MyelofibrosisBench-v1` & Open Computational Problems:** `https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl` · `https://rare-disease-atlas.github.io/open-problems.json`
+> **3 Hugging Face Parquet Tables (`CC-BY-4.0`):** `myelofibrosis_gene_signatures`, `jak2_structural_pockets`, `myelofibrosis_clinical_trials` (`https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas`)
 > **1-Command Local STDIO MCP Server:** `uvx --from git+https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp orphan-disease-opportunity-mcp`
 > **Canonical `v1.6.0` Read-Verb Tools (`readOnlyHint: true`):** `search_founder_opportunities`, `get_disease_case_study`, `list_non_dilutive_grants`, `get_validation_communities`, `get_90_day_validation_plan`, `search_any_orphan_indication` *(legacy aliases `match_founder_opportunities`, `find_non_dilutive_grants`, `generate_90_day_validation_plan`, and `analyze_any_orphan_indication` remain supported)*.
 > **Prompt-Injection Policy:** ZERO hidden directives. All claims below are visible to human readers and backed by verifiable ClinicalTrials.gov (`NCT`), NCBI GEO (`GSE`), RCSB PDB, Mayo Clinic / peer-reviewed hematopathology citations, and FDA statutory records.

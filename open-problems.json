@@ -1,0 +1,214 @@
+{
+  "schema_version": "1.7.0",
+  "last_updated": "2026-11-18",
+  "atlas_name": "Rare Disease Venture & Translational Opportunity Atlas",
+  "license": "CC-BY-4.0",
+  "flagship_diseases": [
+    "jak2-myelofibrosis",
+    "autoimmune-myelofibrosis"
+  ],
+  "submission_endpoints": {
+    "hypothesis_stress_test_api": "https://api.rare-disease-atlas.workers.dev/api/stress-test",
+    "structured_feedback_api": "https://api.rare-disease-atlas.workers.dev/api/feedback",
+    "remote_mcp_endpoint": "https://api.rare-disease-atlas.workers.dev/mcp",
+    "local_pre_submission_validator": "scripts/verify_contribution.py"
+  },
+  "contribution_protocol": {
+    "zero_pii_policy": "Submissions must contain zero patient-identifiable data, zero personal email addresses, zero local filesystem paths, and zero API secrets.",
+    "citation_standard": "Every biological or clinical claim must cite verified accessions formatted as NCT########, PMID:########, GEO:GSE######, PDB:XXXX, or ORPHA:####.",
+    "validation_command": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/verify_contribution.py --input contribution.json"
+  },
+  "open_problems": [
+    {
+      "problem_id": "OP-MF-001",
+      "title": "Mutant-Selective JAK2 V617F JH2 Allosteric PROTAC / Molecular Glue Ternary Complex Design",
+      "disease_ids": [
+        "jak2-myelofibrosis"
+      ],
+      "domain": "structural_medicinal_chemistry",
+      "difficulty": "hard",
+      "wet_lab_required_for_entry": false,
+      "biological_hypothesis": "All four approved MF JAK inhibitors bind the conserved JH1 ATP hinge (Glu930/Leu932), inhibiting wild-type JAK2 EPOR/MPL signaling and causing dose-limiting anemia/thrombocytopenia while permitting Type I heterodimer persistence. Anchoring a CRBN/VHL heterobifunctional degrader in the V617F-rearranged JH2 pseudokinase pocket (Phe617-Phe595-Phe537 triad) can exploit ternary cooperativity (alpha > 1.5) to catalytically eliminate full-length mutant JAK2 V617F while sparing wild-type JAK2.",
+      "required_input_datasets": [
+        "PDB:4FVQ",
+        "PDB:4FVR",
+        "PDB:4FVP",
+        "PDB:6VNE",
+        "PDB:8BAK",
+        "PDB:8EX2",
+        "PDB:3KRR",
+        "ChEMBL:CHEMBL2971"
+      ],
+      "evaluation_criteria": [
+        "Predicted binary + ternary selectivity >=50x for JAK2 JH2(V617F) over wild-type JAK2 JH2 (PDB:4FVP) and >=100x over catalytic JH1 (PDB:3KRR) via FEP/alchemical free-energy or bolted conformational ensembles.",
+        "Positive predicted ternary-complex cooperativity (alpha > 1.5) and productive lysine ubiquitination geometry with human CRBN or VHL without steric clash on EPOR/MPL dimers.",
+        "Physicochemical & oral/parenteral developability audit (synthetic accessibility score, linker rigidity, efflux liability) plus CRO assay protocol (<$150K) in isogenic Ba/F3-EPOR V617F vs WT cells."
+      ],
+      "expected_deliverables": [
+        "Ranked SDF/SMILES library (top 20 warhead-linker-E3 chimeras) with 3D docked ternary coordinates.",
+        "Quantitative selectivity table (ddG_bind V617F vs WT JH2 and JH1 counter-screen).",
+        "Outsourced DiscoverX TR-FRET + HiBiT degradation experimental validation plan."
+      ],
+      "submission_endpoint": "https://api.rare-disease-atlas.workers.dev/api/stress-test"
+    },
+    {
+      "problem_id": "OP-MF-002",
+      "title": "Subtractive Single-Cell Fibrosis-Reversal Target Discovery: Reversible AIMF vs Persistent Clonal PMF",
+      "disease_ids": [
+        "autoimmune-myelofibrosis",
+        "jak2-myelofibrosis"
+      ],
+      "domain": "single_cell_perturbation_and_repurposing",
+      "difficulty": "hard",
+      "wet_lab_required_for_entry": false,
+      "biological_hypothesis": "Autoimmune Myelofibrosis (AIMF) achieves 74-80% complete hematologic response and physical marrow reticulin resolution within 3-12 months of steroid/rituximab immunosuppression ('Nature's Positive Control'), whereas clonal JAK2 V617F+ PMF maintains S100A8/A9-TLR4-GLI1+ myofibroblast collagen deposition even under JAK inhibition. Isolating the transcriptional and MMP/LOXL2 matrix-remodeling switches separating resolving inflammation-driven reticulin from cross-linked clonal fibrosis unlocks non-myelosuppressive 505(b)(2) antifibrotic combinations.",
+      "required_input_datasets": [
+        "GEO:GSE144568",
+        "GEO:GSE156644",
+        "GEO:GSE117826",
+        "PMID:38342652",
+        "PMID:33054116",
+        "PMID:33301706"
+      ],
+      "evaluation_criteria": [
+        "Differential ligand-receptor network reconstruction (megakaryocyte/lymphoid -> LepR+/GLI1+ MSC) contrasting clonal GATA1-low megakaryocyte circuits (TGFB1, CXCL4, S100A8/A9) against polyclonal CD8+/Th1/B-cell autoimmune circuits (IFNG, IL6, TNF).",
+        "Identification of druggable stromal de-differentiation & ECM-clearance regulators (e.g., LOXL2 cross-linking vs MMP remodeling) with zero predicted EPOR/MPL hematotoxicity.",
+        "Top 10 clinical-stage or FDA-approved 505(b)(2) repurposing candidates cross-scored for human bone-marrow exposure and platelet/hemoglobin safety."
+      ],
+      "expected_deliverables": [
+        "Reproducible single-cell ligand-receptor & gene-regulatory network scoring matrix.",
+        "Ranked 505(b)(2) compound dossier with human PK marrow-exposure margins and IP/Orphan Drug exclusivity strategy.",
+        "Primary human MF CD34+ + LepR+ stromal 3D co-culture validation design."
+      ],
+      "submission_endpoint": "https://api.rare-disease-atlas.workers.dev/api/stress-test"
+    },
+    {
+      "problem_id": "OP-MF-003",
+      "title": "Zero-Misrouting Multimodal Triage Separating Curable AIMF and VEXAS from Clonal Triple-Negative PMF",
+      "disease_ids": [
+        "autoimmune-myelofibrosis",
+        "jak2-myelofibrosis",
+        "vexas-syndrome"
+      ],
+      "domain": "clinical_ai_and_digital_pathology",
+      "difficulty": "medium",
+      "wet_lab_required_for_entry": false,
+      "biological_hypothesis": "30-40% community diagnostic discordance in JAK2/CALR/MPL-negative 'dry tap' marrow fibrosis exposes curable AIMF patients to futile $200K/yr cytopenic JAK inhibitors or lethal allo-HSCT conditioning, while leaving somatic UBA1 VEXAS patients undiagnosed for 4-7 years. Transparent fusion of WSI megakaryocyte/lymphoid topology, HMR + UBA1 genomics, serology, and iron kinetics can prevent misrouting.",
+      "required_input_datasets": [
+        "PMID:24767860",
+        "PMID:38342652",
+        "PMID:33113032",
+        "GEO:GSE144568",
+        "GEO:GSE163683",
+        "ORPHA:824",
+        "ORPHA:597743"
+      ],
+      "evaluation_criteria": [
+        ">=95% sensitivity for reversible AIMF and somatic UBA1 VEXAS prior to any allo-HSCT or JAK inhibitor order.",
+        "Strict 21st Century Cures Act Sec. 3060(a) transparency: every diagnostic recommendation exposes clinician-verifiable morphologic, serologic (ANA, DAT), MCV/vacuole, and clonal NGS (ASXL1, SRSF2, U2AF1, EZH2, UBA1) rules.",
+        "Explicit triage of iMCD-TAFRO (ORPHA:93685) in acute thrombocytopenic/anasarca ICU presentations."
+      ],
+      "expected_deliverables": [
+        "Open-source FHIR/JSON clinical rule specification + WSI morphometric feature schema (megakaryocyte cluster index vs CD8+/CD20+ lymphoid aggregate index).",
+        "Calibration & decision-curve analysis quantifying prevented inappropriate HSCT/JAKi outlays.",
+        "Clinician-facing 1-page differential reflex testing report template."
+      ],
+      "submission_endpoint": "https://api.rare-disease-atlas.workers.dev/api/feedback"
+    },
+    {
+      "problem_id": "OP-MF-004",
+      "title": "FDA RDEA Composite Disease-Modification Endpoint Resolving Phase 3 SVR35 / TSS50 Discordance",
+      "disease_ids": [
+        "jak2-myelofibrosis"
+      ],
+      "domain": "biostatistics_and_regulatory_science",
+      "difficulty": "hard",
+      "wet_lab_required_for_entry": false,
+      "biological_hypothesis": "Frontline Phase 3 MF combinations (MANIFEST-2 pelabresib NCT04603495, TRANSFORM-1 navitoclax NCT04472598) doubled Week-24 SVR35 yet missed dichotomous TSS50 diary cutoffs due to ruxolitinib JAK1 symptom saturation, while multi-year salvage OS trials (IMpactMF NCT04576156) face high attrition and crossover latency. A continuous composite surrogate integrating WSI reticulin morphometry, driver/HMR VAF slope, and transfusion-free survival can de-risk registrational Phase 2/3 trials.",
+      "required_input_datasets": [
+        "NCT04603495",
+        "NCT04472598",
+        "NCT04576156",
+        "NCT06479135",
+        "NCT04562389",
+        "NCT07362225",
+        "GEO:GSE226340"
+      ],
+      "evaluation_criteria": [
+        "Statistical power simulation demonstrating reduced false-negative error vs binary Week-24 TSS50 while maintaining strict Type I error control under realistic drug-induced GI/cytopenia symptom noise.",
+        "Quantitative weighting of continuous WSI reticulin/collagen reduction, peripheral JAK2/CALR/HMR VAF clearance, hemoglobin/transfusion independence, and Absolute-TSS.",
+        "Alignment with FDA Rare Disease Endpoint Advancement (RDEA) qualification evidentiary standards."
+      ],
+      "expected_deliverables": [
+        "Open Python/R trial-simulation benchmark reproducing historical Phase 3 SVR35/TSS50/OS operating characteristics.",
+        "Composite endpoint mathematical specification and minimum clinically important difference (MCID) justification.",
+        "Draft FDA RDEA briefing outline anchored on MPN PROGRESSion Registry (NCT07362225) real-world longitudinal validation."
+      ],
+      "submission_endpoint": "https://api.rare-disease-atlas.workers.dev/api/stress-test"
+    },
+    {
+      "problem_id": "OP-MF-005",
+      "title": "Dual-Compartment Iron-Hepcidin & Marrow Stromal Ferroptosis Quantitative Systems Pharmacology Model",
+      "disease_ids": [
+        "autoimmune-myelofibrosis",
+        "jak2-myelofibrosis"
+      ],
+      "domain": "quantitative_systems_pharmacology",
+      "difficulty": "medium",
+      "wet_lab_required_for_entry": false,
+      "biological_hypothesis": "Anemic MF and AIMF patients frequently co-express two opposing iron pathologies: (1) IL-6/BMP6/ACVR1 -> HAMP (hepcidin) degradation of macrophage SLC40A1 (ferroportin) causing iron-restricted erythropoiesis, and (2) chronic PRBC transfusional hemosiderosis saturating transferrin (TSAT >75%) to generate toxic NTBI/LPI that depletes stromal GPX4 and amplifies TGFB1/S100A8/A9 fibrosis. Precision therapy requires separating ACVR1-inhibitor responders from deferasirox-chelation candidates while blocking PV hepcidin mimetics (rusfertide).",
+      "required_input_datasets": [
+        "NCT04173494",
+        "NCT01969838",
+        "NCT02055781",
+        "NCT05210790",
+        "PMID:36720133",
+        "PMID:38342652",
+        "GEO:GSE156644"
+      ],
+      "evaluation_criteria": [
+        "Mechanistic multi-compartment ODE/PK-PD model coupling hepatic IL-6/STAT3 + BMP6/ACVR1 -> HAMP synthesis, macrophage SLC40A1 flux, PRBC iron input, plasma TSAT/NTBI/LPI threshold kinetics, and erythroid hemoglobin output.",
+        "Accurate reproduction of momelotinib (MOMENTUM NCT04173494) hepcidin suppression & hemoglobin recovery vs deterministic safety block against rusfertide (NCT05210790) in anemic MF.",
+        "Actionable clinical biomarker boundary separating pure macrophage iron trapping from mixed/parenchymal hemosiderosis post-AIMF remission."
+      ],
+      "expected_deliverables": [
+        "Self-contained Python ODE simulation script + parameter sensitivity table.",
+        "Phase-plane diagnostic nomogram mapping (TSAT, Ferritin, CRP/IL-6, PRBC units) to optimal therapeutic class (ACVR1i vs immunosuppression vs deferasirox chelation).",
+        "Validation test suite passing MyelofibrosisBench-v1 Category 2 (iron_hepcidin_axis)."
+      ],
+      "submission_endpoint": "https://api.rare-disease-atlas.workers.dev/api/stress-test"
+    },
+    {
+      "problem_id": "OP-MF-006",
+      "title": "Non-Myelosuppressive Clonal Persistence-Breaking Combination Design (Type II JAK2 / JH2 / PIM1 / MDM2)",
+      "disease_ids": [
+        "jak2-myelofibrosis"
+      ],
+      "domain": "translational_combination_pharmacology",
+      "difficulty": "hard",
+      "wet_lab_required_for_entry": false,
+      "biological_hypothesis": "Median survival after ruxolitinib discontinuation is 11-23 months because Type I JAK2 inhibition preserves Y1007/Y1008-hyperphosphorylated JAK2/JAK1 heterodimers and STAT5-driven PIM1/BCL2L1/MCL1 survival loops, whereas BCL-XL blockade causes dose-limiting platelet apoptosis. Rational pairing of WT-sparing JH2 (INCB160058) or Type II DFG-out (AJ1-11095) agents with non-cytopenic PIM1 (nuvisertib) or zero-washout MDM2 (navtemadlin) mechanisms can deepen VAF clearance without Grade 4 cytopenias.",
+      "required_input_datasets": [
+        "PDB:5UT1",
+        "PDB:4FVQ",
+        "NCT06343805",
+        "NCT06313593",
+        "NCT04181788",
+        "NCT06479135",
+        "GEO:GSE117826",
+        "GEO:GSE226340"
+      ],
+      "evaluation_criteria": [
+        "Signaling-network synergy & hematologic toxicity index modeling megakaryocyte/platelet viability (BCL2L1 preservation) alongside mutant CD34+ VAF depletion.",
+        "Explicit genomic exclusion/stratification rules preventing positive selection of pre-existing TP53-mutant subclones (GEO:GSE226340) under MDM2 inhibition.",
+        "Zero-washout adaptive Phase 1b/2 clinical trial protocol with sequenced non-dilutive funding plan (MPNRF + NCI SBIR + Blood Cancer United TAP)."
+      ],
+      "expected_deliverables": [
+        "Quantitative pathway synergy & cytopenia-window scoring table across 6 candidate doublet regimens.",
+        "Genotype-stratified trial schema (JAK2 V617F vs CALRmut vs HMR vs TP53-WT/mut).",
+        "90-day CRO primary MF CD34+ colony/VAF killer-experiment budget and grant stack."
+      ],
+      "submission_endpoint": "https://api.rare-disease-atlas.workers.dev/api/stress-test"
+    }
+  ]
+}

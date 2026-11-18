@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Myelofibrosis &amp; Orphan Bio-Delta Wire — Rare Disease Venture Atlas</title>
+  <subtitle>Daily primary-cited ClinicalTrials.gov, PubMed, NCBI GEO &amp; PDB delta intelligence anchored on Clonal JAK2 V617F+ Primary Myelofibrosis (ORPHA:824) and Reversible Autoimmune Myelofibrosis (AIMF).</subtitle>
+  <id>urn:rare-disease-atlas:bio-delta-wire</id>
+  <updated>2026-11-18T00:00:00Z</updated>
+  <link rel="self" type="application/atom+xml" href="https://api.rare-disease-atlas.workers.dev/atom.xml"/>
+  <link rel="alternate" type="text/html" href="https://rare-disease-atlas.github.io/"/>
+  <link rel="alternate" type="application/feed+json" href="https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json"/>
+  <rights>CC-BY-4.0 (Data &amp; Corpus) / MIT (Code &amp; Protocols)</rights>
+  <author>
+    <name>Rare Disease Venture Atlas</name>
+    <uri>https://rare-disease-atlas.github.io</uri>
+  </author>
+
+  <entry>
+    <title>Open Agent Nectar Suite: MyelofibrosisBench-v1, 3 HF Parquet Tables &amp; Stateless Hypothesis Stress-Test API</title>
+    <id>urn:rare-disease-atlas:bio-delta:2026-11-18:nectar-suite-v1</id>
+    <link rel="alternate" type="text/html" href="https://rare-disease-atlas.github.io/#open-agent-nectar-suite"/>
+    <updated>2026-11-18T00:00:00Z</updated>
+    <published>2026-11-18T00:00:00Z</published>
+    <category term="MyelofibrosisBench-v1"/>
+    <category term="JAK2-V617F"/>
+    <category term="AIMF"/>
+    <summary type="text">Released MyelofibrosisBench-v1 (30 translational reasoning items at /benchmarks/myelofibrosis_bench.jsonl), 3 Hugging Face Parquet tables (myelofibrosis_gene_signatures, jak2_structural_pockets, myelofibrosis_clinical_trials), /open-problems.json, and stateless red-teaming at POST https://api.rare-disease-atlas.workers.dev/api/stress-test.</summary>
+  </entry>
+
+  <entry>
+    <title>First-in-Class Mutant-Selective JAK2 V617F JH2 (NCT06313593, INCB160058) &amp; Type II DFG-Out (NCT06343805, AJ1-11095) Clinical Benchmarks</title>
+    <id>urn:rare-disease-atlas:bio-delta:nct06313593-nct06343805-jh2-type2</id>
+    <link rel="alternate" type="text/html" href="https://rare-disease-atlas.github.io/ai-drug-repurposing-targets.html"/>
+    <link rel="related" type="text/html" href="https://clinicaltrials.gov/study/NCT06313593"/>
+    <link rel="related" type="text/html" href="https://clinicaltrials.gov/study/NCT06343805"/>
+    <updated>2026-11-16T00:00:00Z</updated>
+    <published>2026-11-16T00:00:00Z</published>
+    <category term="NCT06313593"/>
+    <category term="NCT06343805"/>
+    <category term="JH2"/>
+    <summary type="text">Phase 1 trials of INCB160058 (NCT06313593, mutant-selective JH2 pseudokinase binder; PDB 4FVR, 6E2Q, 8BAK vs WT 4FVP) and AJ1-11095 (NCT06343805, Type II DFG-out inhibitor breaking Type I persistence) validate structural druggability while leaving catalytic JH2 PROTAC degraders wide open.</summary>
+  </entry>
+
+  <entry>
+    <title>Post-JAKi Salvage White Space After IMpactMF (NCT04576156) Overall Survival Futility Halt</title>
+    <id>urn:rare-disease-atlas:bio-delta:nct04576156-impactmf-salvage-gap</id>
+    <link rel="alternate" type="text/html" href="https://rare-disease-atlas.github.io/#clinical-trials-registry"/>
+    <link rel="related" type="text/html" href="https://clinicaltrials.gov/study/NCT04576156"/>
+    <updated>2026-11-15T12:00:00Z</updated>
+    <published>2026-11-15T12:00:00Z</published>
+    <category term="NCT04576156"/>
+    <category term="post-ruxolitinib"/>
+    <summary type="text">Oct 2026 IDMC Overall Survival futility discontinuation of Phase 3 IMpactMF (imetelstat, NCT04576156) leaves relapsed/refractory post-ruxolitinib myelofibrosis (median OS 11-23 months) open for clonal-eradicating and zero-washout add-on combinations (POIESIS NCT06479135, SENTRY NCT04562389).</summary>
+  </entry>
+
+  <entry>
+    <title>Autoimmune Myelofibrosis (AIMF) 74-80% Fibrosis Reversal &amp; Dual Transfusional / IL-6-Hepcidin Iron Axis</title>
+    <id>urn:rare-disease-atlas:bio-delta:aimf-reversibility-hepcidin-iron</id>
+    <link rel="alternate" type="text/html" href="https://rare-disease-atlas.github.io/autoimmune-myelofibrosis-iron-wedge.html"/>
+    <updated>2026-11-15T00:00:00Z</updated>
+    <published>2026-11-15T00:00:00Z</published>
+    <category term="AIMF"/>
+    <category term="hepcidin"/>
+    <category term="GSE156644"/>
+    <summary type="text">JAK2/CALR/MPL-negative Autoimmune Myelofibrosis achieves 74-80% hematologic and histological reticulin fibrosis remission on corticosteroids or rituximab alongside resolution of IL-6 -> hepcidin -> ferroportin macrophage iron trapping, providing an in-vivo human positive control against persistent clonal PMF stroma (GSE156644, GSE144568).</summary>
+  </entry>
+</feed>

@@ -1,0 +1,93 @@
+{
+  "protocol": "x402",
+  "version": "1.0",
+  "name": "Rare Disease Venture & Translational Opportunity Atlas — Free Public-Good Agent Endpoints",
+  "description": "Zero-cost, zero-API-key open-science MCP, A2A, hypothesis red-teaming, Bio-Delta wire, open computational problems, and MyelofibrosisBench-v1 endpoints anchored on Clonal JAK2 V617F+ Primary Myelofibrosis and Reversible Autoimmune Myelofibrosis (AIMF).",
+  "provider": {
+    "organization": "Rare Disease Venture Atlas",
+    "url": "https://rare-disease-atlas.github.io",
+    "citationUrl": "https://rare-disease-atlas.github.io/CITATION.cff",
+    "codemetaUrl": "https://rare-disease-atlas.github.io/codemeta.json"
+  },
+  "pricing": {
+    "model": "free-public-good",
+    "amount": "0",
+    "currency": "USD",
+    "paymentRequired": false
+  },
+  "erc8004": {
+    "status": "ready",
+    "trustModel": "open-science-public-good"
+  },
+  "license": {
+    "code": "MIT",
+    "data": "CC-BY-4.0"
+  },
+  "endpoints": [
+    {
+      "path": "/mcp",
+      "url": "https://api.rare-disease-atlas.workers.dev/mcp",
+      "methods": ["GET", "POST"],
+      "description": "Zero-install Streamable HTTP Model Context Protocol (MCP v1.6.0) server exposing 6 canonical read-only orphan disease venture & translational diligence tools.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/a2a",
+      "url": "https://api.rare-disease-atlas.workers.dev/a2a",
+      "methods": ["POST"],
+      "description": "Agent2Agent (A2A) JSON-RPC peer specialist endpoint for Paired Myelofibrosis Flagships and 7,000-disease orphan diligence.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/api/stress-test",
+      "url": "https://api.rare-disease-atlas.workers.dev/api/stress-test",
+      "methods": ["POST"],
+      "description": "Stateless Hypothesis Red-Team API critiquing candidate drug, diagnostic, or rare-disease startup hypotheses against JH2 vs JH1 selectivity, AIMF misdiagnosis traps, clinical trial failure modes, and FDA Orphan unit economics.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/feeds/bio-delta.json",
+      "url": "https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json",
+      "staticFallbackUrl": "https://rare-disease-atlas.github.io/feeds/bio-delta.json",
+      "methods": ["GET"],
+      "description": "Live daily structured JSON Bio-Delta wire tracking ClinicalTrials.gov v2, PubMed, NCBI GEO, and RCSB PDB updates in Myelofibrosis and AIMF.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/atom.xml",
+      "url": "https://api.rare-disease-atlas.workers.dev/atom.xml",
+      "staticFallbackUrl": "https://rare-disease-atlas.github.io/atom.xml",
+      "methods": ["GET"],
+      "description": "Atom 1.0 syndication wire for daily Myelofibrosis & Orphan Bio-Delta intelligence.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/open-problems.json",
+      "url": "https://rare-disease-atlas.github.io/open-problems.json",
+      "methods": ["GET"],
+      "description": "Machine-readable open computational & translational problems across JAK2 V617F JH2 selective degradation, subtractive AIMF fibrosis reversal, hepcidin/iron mobilization, and FDA RDEA endpoints.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/benchmarks/myelofibrosis_bench.jsonl",
+      "url": "https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl",
+      "methods": ["GET"],
+      "description": "MyelofibrosisBench-v1: 30-item primary-cited translational reasoning benchmark evaluating AI models on JH2 allostery, AIMF fibrosis reversal, dual iron overload, and orphan clinical trial design.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    }
+  ]
+}

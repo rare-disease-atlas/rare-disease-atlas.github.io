@@ -9,6 +9,9 @@
   <link rel="canonical" href="https://rare-disease-atlas.github.io/autoimmune-myelofibrosis-iron-wedge.html">
   <link rel="describedby" href="./llms.txt" type="text/markdown" title="LLM Summary Index">
   <link rel="alternate" href="./llms-full.txt" type="text/markdown" title="Full Markdown Knowledge Base">
+  <link rel="alternate" type="application/atom+xml" title="Myelofibrosis & Orphan Bio-Delta Wire" href="https://api.rare-disease-atlas.workers.dev/atom.xml">
+  <link rel="payment" href="./.well-known/x402.json" type="application/json" title="x402 Free Public-Good Agent Manifest">
+  <link rel="cite-as" href="./CITATION.cff" type="text/yaml" title="Academic Citation Metadata (CITATION.cff)">
   <link rel="mcp-server" href="https://api.rare-disease-atlas.workers.dev/mcp">
   <link rel="agent-card" href="https://api.rare-disease-atlas.workers.dev/.well-known/agent.json">
   <link rel="stylesheet" href="./styles.css">
@@ -16,7 +19,7 @@
   <meta property="og:type" content="article">
   <meta property="og:title" content="Autoimmune Myelofibrosis (AIMF) &amp; The Iron/Hepcidin Axis — Nature's Positive Control for Marrow Fibrosis Reversal">
   <meta property="og:description" content="Preventing catastrophic misdiagnosis of JAK2-negative lupus-spectrum myelofibrosis while unlocking spatial multi-omics switches that dissolve human bone marrow scar tissue.">
-  <meta property="og:url" href="https://rare-disease-atlas.github.io/autoimmune-myelofibrosis-iron-wedge.html">
+  <meta property="og:url" content="https://rare-disease-atlas.github.io/autoimmune-myelofibrosis-iron-wedge.html">
 
   <script type="application/ld+json">
   {
@@ -24,10 +27,139 @@
     "@graph": [
       {
         "@type": "MedicalWebPage",
+        "@id": "https://rare-disease-atlas.github.io/autoimmune-myelofibrosis-iron-wedge.html#webpage",
         "headline": "Autoimmune Myelofibrosis (AIMF), Non-JAK2 Diagnostic Triage, and the Transfusional/Hepcidin Iron Overload Axis",
         "datePublished": "2026-11-15",
-        "dateModified": "2026-11-15",
-        "url": "https://rare-disease-atlas.github.io/autoimmune-myelofibrosis-iron-wedge.html"
+        "dateModified": "2026-11-18",
+        "url": "https://rare-disease-atlas.github.io/autoimmune-myelofibrosis-iron-wedge.html",
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "citation": "https://rare-disease-atlas.github.io/CITATION.cff",
+        "about": [
+          {"@id": "https://rare-disease-atlas.github.io/#aimf-condition"},
+          {"@id": "https://rare-disease-atlas.github.io/#condition"}
+        ]
+      },
+      {
+        "@type": "MedicalCondition",
+        "@id": "https://rare-disease-atlas.github.io/#aimf-condition",
+        "name": "Autoimmune Myelofibrosis",
+        "alternateName": ["AIMF", "Primary Autoimmune Myelofibrosis", "Secondary Lupus-Associated Autoimmune Myelofibrosis"],
+        "code": [
+          {
+            "@type": "MedicalCode",
+            "codeValue": "D75.89",
+            "codingSystem": "ICD-10-CM"
+          },
+          {
+            "@type": "MedicalCode",
+            "codeValue": "M32.19",
+            "codingSystem": "ICD-10-CM"
+          }
+        ],
+        "epidemiology": "JAK2/CALR/MPL-negative and extended somatic myeloid NGS-negative reactive marrow fibrosis (median age 37-45 years, ~75-80% female) presenting alongside lupus-spectrum serology (ANA, anti-dsDNA, Coombs/DAT) and facing 30-40% misdiagnosis discordance against Clonal Triple-Negative Primary Myelofibrosis.",
+        "pathophysiology": "Reversible non-clonal bone marrow reticulin fibrosis driven by benign polyclonal CD8+/CD4+ T-lymphocyte and CD20+ B-lymphocyte aggregates without megakaryocyte clustering or osteosclerosis, accompanied by dual transfusional hemosiderosis and IL-6 -> STAT3 -> hepcidin degradation of ferroportin (SLC40A1) trapping recycled iron inside marrow macrophages. Achieves 74-80% complete hematologic and histological fibrosis remission on corticosteroids or rituximab.",
+        "possibleTreatment": [
+          {"@type": "Drug", "name": "Prednisone / Systemic Corticosteroids"},
+          {"@type": "Drug", "name": "Rituximab"},
+          {"@type": "Drug", "name": "Mycophenolate Mofetil"},
+          {"@type": "Drug", "name": "Deferasirox"}
+        ]
+      },
+      {
+        "@type": "MedicalCondition",
+        "@id": "https://rare-disease-atlas.github.io/#condition",
+        "name": "JAK2 V617F-Positive Primary Myelofibrosis",
+        "alternateName": ["Primary Myelofibrosis", "PMF", "Clonal JAK2 V617F+ Myelofibrosis"],
+        "code": [
+          {
+            "@type": "MedicalCode",
+            "codeValue": "D47.4",
+            "codingSystem": "ICD-10-CM"
+          },
+          {
+            "@type": "MedicalCode",
+            "codeValue": "ORPHA:824",
+            "codingSystem": "Orphanet"
+          },
+          {
+            "@type": "MedicalCode",
+            "codeValue": "MONDO:0019565",
+            "codingSystem": "MONDO"
+          }
+        ],
+        "pathophysiology": "Clonal hematopoietic stem cell neoplasm driven by somatic JAK2 V617F mutation in the JH2 pseudokinase domain (disrupting autoinhibition of JH1 kinase), persistent megakaryocyte-stromal S100A8/A9-GLI1 signaling, and progressive collagen fibrosis."
+      },
+      {
+        "@type": ["MedicalStudy", "MedicalTrial"],
+        "@id": "https://clinicaltrials.gov/study/NCT06313593",
+        "additionalType": "https://schema.org/ClinicalTrial",
+        "identifier": "NCT06313593",
+        "name": "Phase 1 Study of INCB160058 (Mutant-Selective JAK2 V617F JH2 Inhibitor) in Myeloproliferative Neoplasms (NCT06313593)",
+        "url": "https://clinicaltrials.gov/study/NCT06313593",
+        "status": "Recruiting",
+        "healthCondition": {"@id": "https://rare-disease-atlas.github.io/#condition"},
+        "studySubject": {"@type": "Drug", "name": "INCB160058"}
+      },
+      {
+        "@type": ["MedicalStudy", "MedicalTrial"],
+        "@id": "https://clinicaltrials.gov/study/NCT06343805",
+        "additionalType": "https://schema.org/ClinicalTrial",
+        "identifier": "NCT06343805",
+        "name": "Phase 1/2 Study of AJ1-11095 (Type II DFG-Out JAK2 Inhibitor) in Post-JAKi Myelofibrosis (NCT06343805)",
+        "url": "https://clinicaltrials.gov/study/NCT06343805",
+        "status": "Recruiting",
+        "healthCondition": {"@id": "https://rare-disease-atlas.github.io/#condition"},
+        "studySubject": {"@type": "Drug", "name": "AJ1-11095"}
+      },
+      {
+        "@type": "Dataset",
+        "@id": "https://rare-disease-atlas.github.io/#venture-dataset",
+        "name": "Rare Disease Venture & Translational Opportunity Atlas — Paired AIMF & JAK2+ Myelofibrosis Parquet Corpus & MyelofibrosisBench-v1",
+        "description": "CC-BY-4.0 dataset of reversible Autoimmune Myelofibrosis (AIMF) vs Clonal JAK2 V617F+ Primary Myelofibrosis translational blueprints (opportunities.json), MyelofibrosisBench-v1 benchmark (myelofibrosis_bench.jsonl), and 3 Hugging Face Parquet tables (myelofibrosis_gene_signatures, jak2_structural_pockets, myelofibrosis_clinical_trials).",
+        "url": "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas",
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isAccessibleForFree": true,
+        "creator": {
+          "@type": "Organization",
+          "name": "Rare Disease Venture Atlas",
+          "url": "https://rare-disease-atlas.github.io"
+        },
+        "about": [
+          {"@id": "https://rare-disease-atlas.github.io/#aimf-condition"},
+          {"@id": "https://rare-disease-atlas.github.io/#condition"}
+        ],
+        "distribution": [
+          {
+            "@type": "DataDownload",
+            "name": "opportunities.json",
+            "encodingFormat": "application/json",
+            "contentUrl": "https://rare-disease-atlas.github.io/opportunities.json"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "MyelofibrosisBench-v1",
+            "encodingFormat": "application/jsonl",
+            "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "myelofibrosis_gene_signatures (Parquet)",
+            "encodingFormat": "application/vnd.apache.parquet",
+            "contentUrl": "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas/resolve/main/data/myelofibrosis_gene_signatures.parquet"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "jak2_structural_pockets (Parquet)",
+            "encodingFormat": "application/vnd.apache.parquet",
+            "contentUrl": "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas/resolve/main/data/jak2_structural_pockets.parquet"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "myelofibrosis_clinical_trials (Parquet)",
+            "encodingFormat": "application/vnd.apache.parquet",
+            "contentUrl": "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas/resolve/main/data/myelofibrosis_clinical_trials.parquet"
+          }
+        ]
       },
       {
         "@type": "FAQPage",

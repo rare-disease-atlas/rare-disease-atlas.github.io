@@ -10,6 +10,9 @@
   <link rel="describedby" href="./llms.txt" type="text/markdown" title="LLM Summary Index (llms.txt)">
   <link rel="alternate" href="./llms-full.txt" type="text/markdown" title="Consolidated Markdown Knowledge Base (llms-full.txt)">
   <link rel="alternate" href="./croissant.json" type="application/ld+json" title="MLCommons Croissant 1.0 Dataset Metadata">
+  <link rel="alternate" type="application/atom+xml" title="Myelofibrosis & Orphan Bio-Delta Wire" href="https://api.rare-disease-atlas.workers.dev/atom.xml">
+  <link rel="payment" href="./.well-known/x402.json" type="application/json" title="x402 Free Public-Good Agent Manifest">
+  <link rel="cite-as" href="./CITATION.cff" type="text/yaml" title="Academic Citation Metadata (CITATION.cff)">
   <link rel="mcp-server" href="https://api.rare-disease-atlas.workers.dev/mcp">
   <link rel="agent-card" href="https://api.rare-disease-atlas.workers.dev/.well-known/agent.json">
   <link rel="stylesheet" href="./styles.css">
@@ -33,23 +36,26 @@
         "@type": "MedicalWebPage",
         "@id": "https://rare-disease-atlas.github.io/#webpage",
         "url": "https://rare-disease-atlas.github.io/",
-        "name": "JAK2 V617F+ Myelofibrosis — Open Opportunity Dossier for AI Research Agents & Builders",
+        "name": "JAK2 V617F+ Myelofibrosis & Reversible Autoimmune Myelofibrosis — Open Opportunity Dossier for AI Research Agents & Builders",
         "datePublished": "2026-11-15",
-        "dateModified": "2026-11-15",
+        "dateModified": "2026-11-18",
         "inLanguage": "en-US",
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "citation": "https://rare-disease-atlas.github.io/CITATION.cff",
         "audience": {
           "@type": "MedicalAudience",
           "audienceType": "Biotechnology Founders, Computational Biologists, Public Health Researchers, Clinical Trialists"
         },
-        "about": {
-          "@id": "https://rare-disease-atlas.github.io/#condition"
-        }
+        "about": [
+          {"@id": "https://rare-disease-atlas.github.io/#condition"},
+          {"@id": "https://rare-disease-atlas.github.io/#aimf-condition"}
+        ]
       },
       {
         "@type": "MedicalCondition",
         "@id": "https://rare-disease-atlas.github.io/#condition",
-        "name": "JAK2 V617F-Positive Myelofibrosis",
-        "alternateName": ["Primary Myelofibrosis", "Post-PV Myelofibrosis", "Post-ET Myelofibrosis", "PMF"],
+        "name": "JAK2 V617F-Positive Primary Myelofibrosis",
+        "alternateName": ["Primary Myelofibrosis", "Post-PV Myelofibrosis", "Post-ET Myelofibrosis", "PMF", "Clonal JAK2 V617F+ Myelofibrosis"],
         "code": [
           {
             "@type": "MedicalCode",
@@ -67,31 +73,148 @@
             "codingSystem": "MONDO"
           }
         ],
-        "epidemiology": "US prevalence ~4 to 6 per 100,000 (~18,000-25,000 US patients; 55,000-70,000+ across 7 major markets); global incidence ~0.5 to 1.5 per 100,000/year; JAK2 V617F somatic mutation present in 50-60% of cases.",
-        "pathophysiology": "Constitutive JAK-STAT signaling driven by the somatic V617F mutation in the JH2 pseudokinase regulatory domain of JAK2, causing megakaryocyte hyperplasia, pro-inflammatory cytokine storms, progressive bone marrow reticulin/collagen fibrosis, extramedullary hematopoiesis (splenomegaly), and severe cytopenias.",
+        "epidemiology": "US prevalence ~4 to 6 per 100,000 (~18,000-25,000 US patients; 55,000-70,000+ across 7 major markets); global incidence ~0.5 to 1.5 per 100,000/year; JAK2 V617F somatic mutation in the JH2 pseudokinase domain present in 50-60% of PMF/post-ET MF and >95% of post-PV MF.",
+        "pathophysiology": "Constitutive JAK-STAT3/STAT5 signaling driven by somatic G1849T (Val617Phe, JAK2 V617F) substitution in the regulatory JH2 pseudokinase domain, abolishing JH2-mediated autoinhibition of the JH1 catalytic kinase domain and driving megakaryocyte hyperplasia, S100A8/A9-GLI1 myofibroblast reprogramming, progressive reticulin/collagen marrow fibrosis, splenomegaly, and post-ruxolitinib clonal persistence.",
         "possibleTreatment": [
           {"@type": "Drug", "name": "Ruxolitinib (Jakafi)"},
           {"@type": "Drug", "name": "Momelotinib (Ojjaara)"},
           {"@type": "Drug", "name": "Pacritinib (Vonjo)"},
           {"@type": "Drug", "name": "Fedratinib (Inrebic)"},
+          {"@type": "Drug", "name": "INCB160058 (Investigational JH2 V617F-Selective Inhibitor, NCT06313593)"},
+          {"@type": "Drug", "name": "AJ1-11095 (Investigational Type II JAK2 Inhibitor, NCT06343805)"},
           {"@type": "MedicalProcedure", "name": "Allogeneic Hematopoietic Stem Cell Transplantation (HSCT)"}
         ]
       },
       {
+        "@type": "MedicalCondition",
+        "@id": "https://rare-disease-atlas.github.io/#aimf-condition",
+        "name": "Autoimmune Myelofibrosis",
+        "alternateName": ["AIMF", "Primary Autoimmune Myelofibrosis", "Lupus-Associated Autoimmune Myelofibrosis", "JAK2-Negative Autoimmune Myelofibrosis"],
+        "code": [
+          {
+            "@type": "MedicalCode",
+            "codeValue": "D75.89",
+            "codingSystem": "ICD-10-CM"
+          },
+          {
+            "@type": "MedicalCode",
+            "codeValue": "M32.19",
+            "codingSystem": "ICD-10-CM"
+          }
+        ],
+        "epidemiology": "JAK2/CALR/MPL-negative and somatic HMR-negative reactive marrow fibrosis predominantly affecting younger and middle-aged adults (median age 37-45 years, ~75-80% female), frequently associated with systemic lupus erythematosus (SLE), incomplete lupus/UCTD, Sjogren's syndrome, or autoimmune hemolytic anemia, facing 30-40% misdiagnosis risk as clonal Triple-Negative PMF.",
+        "pathophysiology": "Non-clonal, reversible bone marrow reticulin fibrosis driven by polyclonal CD8+/CD4+ T-lymphocyte and CD20+ B-lymphocyte aggregates without megakaryocytic clustering or osteosclerosis, compounded by dual iron overload: transfusional hemosiderosis plus autoimmune IL-6 -> STAT3 -> hepatic hepcidin surges that degrade ferroportin (SLC40A1) and lock iron inside marrow macrophages. Achieves 74-80% hematologic and histological fibrosis resolution on corticosteroids or rituximab.",
+        "possibleTreatment": [
+          {"@type": "Drug", "name": "Prednisone / Systemic Corticosteroids"},
+          {"@type": "Drug", "name": "Rituximab (Anti-CD20 Monoclonal Antibody)"},
+          {"@type": "Drug", "name": "Mycophenolate Mofetil (MMF)"},
+          {"@type": "Drug", "name": "Deferasirox (Transfusional Iron Chelation)"}
+        ]
+      },
+      {
+        "@type": ["MedicalStudy", "MedicalTrial"],
+        "@id": "https://clinicaltrials.gov/study/NCT06313593",
+        "additionalType": "https://schema.org/ClinicalTrial",
+        "identifier": "NCT06313593",
+        "name": "Phase 1 Study of INCB160058 in Myeloproliferative Neoplasms Harboring JAK2V617F (NCT06313593)",
+        "description": "First-in-human clinical trial evaluating INCB160058, a mutant-selective small-molecule inhibitor targeting the JAK2 V617F JH2 pseudokinase regulatory domain to suppress clonal myeloproliferation while sparing wild-type JAK2 erythropoiesis and thrombopoiesis.",
+        "url": "https://clinicaltrials.gov/study/NCT06313593",
+        "status": "Recruiting",
+        "healthCondition": {"@id": "https://rare-disease-atlas.github.io/#condition"},
+        "studySubject": {
+          "@type": "Drug",
+          "name": "INCB160058",
+          "activeIngredient": "Mutant-selective JAK2 V617F JH2 pseudokinase inhibitor"
+        }
+      },
+      {
+        "@type": ["MedicalStudy", "MedicalTrial"],
+        "@id": "https://clinicaltrials.gov/study/NCT06343805",
+        "additionalType": "https://schema.org/ClinicalTrial",
+        "identifier": "NCT06343805",
+        "name": "Phase 1/2 Study of AJ1-11095 in Myelofibrosis Previously Treated With a Type I JAK2 Inhibitor (NCT06343805)",
+        "description": "First-in-class clinical trial evaluating AJ1-11095, a Type II DFG-out conformation JAK2 inhibitor engineered to reverse Type I JAK2 heterodimer persistence resistance and reduce mutant allele burden in relapsed/refractory myelofibrosis.",
+        "url": "https://clinicaltrials.gov/study/NCT06343805",
+        "status": "Recruiting",
+        "healthCondition": {"@id": "https://rare-disease-atlas.github.io/#condition"},
+        "studySubject": {
+          "@type": "Drug",
+          "name": "AJ1-11095",
+          "activeIngredient": "Type II DFG-out JAK2 inhibitor"
+        }
+      },
+      {
         "@type": "Dataset",
         "@id": "https://rare-disease-atlas.github.io/#venture-dataset",
-        "name": "Rare Disease Venture & Translational Opportunity Atlas — Flagship #1: JAK2+ Myelofibrosis",
-        "description": "Structured CC-BY-4.0 JSON dataset of startup blueprints across AI-bio, public health RWE, and venture philanthropy, paired with JAK2 V617F JH2 tractability, FDA Orphan Drug unit economics, non-dilutive grants, and patient communities.",
-        "url": "https://rare-disease-atlas.github.io/",
+        "name": "Rare Disease Venture & Translational Opportunity Atlas — Myelofibrosis Parquet Tables, MyelofibrosisBench-v1 & Startup Corpus",
+        "description": "Open CC-BY-4.0 dataset uniting 16 orphan startup blueprints (opportunities.json), MyelofibrosisBench-v1 (30 translational reasoning benchmark items), open computational problems (open-problems.json), and 3 Hugging Face Parquet tables (myelofibrosis_gene_signatures, jak2_structural_pockets, myelofibrosis_clinical_trials) anchored on Clonal JAK2 V617F+ Primary Myelofibrosis and Reversible Autoimmune Myelofibrosis (AIMF).",
+        "url": "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas",
+        "sameAs": [
+          "https://rare-disease-atlas.github.io/",
+          "https://rare-disease-atlas.github.io/croissant.json"
+        ],
+        "version": "1.6.0",
         "license": "https://creativecommons.org/licenses/by/4.0/",
         "isAccessibleForFree": true,
-        "keywords": ["rare disease", "orphan drug", "drug repurposing", "myelofibrosis", "JAK2 V617F", "JH2 pseudokinase", "public health RWE", "SBIR"],
-        "about": {"@id": "https://rare-disease-atlas.github.io/#condition"},
+        "creator": {
+          "@type": "Organization",
+          "name": "Rare Disease Venture Atlas",
+          "url": "https://rare-disease-atlas.github.io"
+        },
+        "keywords": [
+          "rare disease",
+          "orphan drug",
+          "myelofibrosis",
+          "JAK2 V617F",
+          "JH2 pseudokinase",
+          "autoimmune myelofibrosis",
+          "AIMF",
+          "hepcidin",
+          "MyelofibrosisBench-v1",
+          "myelofibrosis_gene_signatures",
+          "jak2_structural_pockets",
+          "myelofibrosis_clinical_trials"
+        ],
+        "about": [
+          {"@id": "https://rare-disease-atlas.github.io/#condition"},
+          {"@id": "https://rare-disease-atlas.github.io/#aimf-condition"}
+        ],
         "distribution": [
           {
             "@type": "DataDownload",
+            "name": "opportunities.json",
             "encodingFormat": "application/json",
             "contentUrl": "https://rare-disease-atlas.github.io/opportunities.json"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "MyelofibrosisBench-v1 (myelofibrosis_bench.jsonl)",
+            "encodingFormat": "application/jsonl",
+            "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "open-problems.json",
+            "encodingFormat": "application/json",
+            "contentUrl": "https://rare-disease-atlas.github.io/open-problems.json"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "myelofibrosis_gene_signatures (Parquet)",
+            "encodingFormat": "application/vnd.apache.parquet",
+            "contentUrl": "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas/resolve/main/data/myelofibrosis_gene_signatures.parquet"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "jak2_structural_pockets (Parquet)",
+            "encodingFormat": "application/vnd.apache.parquet",
+            "contentUrl": "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas/resolve/main/data/jak2_structural_pockets.parquet"
+          },
+          {
+            "@type": "DataDownload",
+            "name": "myelofibrosis_clinical_trials (Parquet)",
+            "encodingFormat": "application/vnd.apache.parquet",
+            "contentUrl": "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas/resolve/main/data/myelofibrosis_clinical_trials.parquet"
           }
         ]
       },
@@ -158,7 +281,11 @@
         <a href="./llms.txt">/llms.txt</a>
         <a href="./llms-full.txt">/llms-full.txt</a>
         <a href="./opportunities.json">/opportunities.json</a>
-        <a href="./openapi.yaml">/openapi.yaml</a>
+        <a href="./benchmarks/myelofibrosis_bench.jsonl">/benchmarks/myelofibrosis_bench.jsonl</a>
+        <a href="./open-problems.json">/open-problems.json</a>
+        <a href="https://api.rare-disease-atlas.workers.dev/atom.xml">/atom.xml</a>
+        <a href="./CITATION.cff">/CITATION.cff</a>
+        <a href="./.well-known/x402.json">/.well-known/x402.json</a>
         <a href="./.well-known/mcp/server-card.json">/.well-known/mcp/server-card.json</a>
         <a href="./.well-known/agent-card.json">/.well-known/agent-card.json</a>
       </div>
@@ -643,13 +770,78 @@ curl -s https://rare-disease-atlas.github.io/opportunities.json | jq '.opportuni
           <a href="https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp" target="_blank" rel="noopener noreferrer"><code>github.com/rare-disease-atlas/orphan-disease-opportunity-mcp</code></a> &middot;
           <a href="https://github.com/rare-disease-atlas/rare-disease-atlas.github.io" target="_blank" rel="noopener noreferrer"><code>github.com/rare-disease-atlas/rare-disease-atlas.github.io</code></a> &middot;
           <a href="./.well-known/mcp/server-card.json"><code>/.well-known/mcp/server-card.json</code></a> &middot;
-          <a href="./.well-known/agent-card.json"><code>/.well-known/agent-card.json</code></a>
+          <a href="./.well-known/agent-card.json"><code>/.well-known/agent-card.json</code></a> &middot;
+          <a href="./.well-known/x402.json"><code>/.well-known/x402.json</code></a> &middot;
+          <a href="./CITATION.cff"><code>/CITATION.cff</code></a>
         </p>
+      </section>
+
+      <!-- Open Agent Nectar Suite -->
+      <section class="dossier-section" id="open-agent-nectar-suite" data-dossier-section="agent-nectar-suite">
+        <span class="section-tag">Section 09 // Open Agent Nectar Suite (Zero Auth &middot; x402 Free Public Good &middot; CC-BY-4.0)</span>
+        <h2>Benchmarks, Molecular Parquet Tables, Hypothesis Red-Teaming &amp; Live Bio-Delta Wire</h2>
+        <p>
+          Beyond the 6 frozen read-only MCP tools, autonomous coding, computational biology, and deep-research agents can directly evaluate reasoning, query structured multi-omics/structural tables, red-team candidate hypotheses, and subscribe to daily primary-literature deltas:
+        </p>
+
+        <div class="routing-grid">
+          <article class="route-card route-card--accent">
+            <div>
+              <div class="route-card__role">01 // Benchmark + 3 HF Parquet Tables</div>
+              <h3><code>MyelofibrosisBench-v1</code> &amp; Molecular/Clinical Parquet</h3>
+              <p>
+                Evaluate frontier reasoning across <strong>30 primary-cited translational items</strong> covering <code>JAK2 V617F</code> <code>JH2</code> vs <code>JH1</code> allostery, reversible <code>AIMF</code> stromal remodeling, dual iron/hepcidin biology, and Phase 3 surrogate failure modes—paired with <strong>3 Hugging Face Parquet tables</strong>:
+              </p>
+              <ul>
+                <li><code>myelofibrosis_gene_signatures</code> (single-cell &amp; stromal signatures: <code>GSE144568</code>, <code>GSE122198</code>, <code>GSE156644</code>, <code>GSE226340</code>)</li>
+                <li><code>jak2_structural_pockets</code> (<code>JH2 V617F</code> vs <code>WT JH2/JH1</code> PDB pockets: <code>4FVR</code>, <code>6E2Q</code>, <code>8BAK</code>, <code>4FVP</code>)</li>
+                <li><code>myelofibrosis_clinical_trials</code> (<code>NCT06313593</code>, <code>NCT06343805</code>, <code>NCT04576156</code>, <code>SVR35</code>/<code>TSS50</code>/<code>VAF</code> readouts)</li>
+              </ul>
+            </div>
+            <div class="route-card__cta">
+              <a href="./benchmarks/myelofibrosis_bench.jsonl"><code>/benchmarks/myelofibrosis_bench.jsonl</code></a> &middot; <a href="https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas" target="_blank" rel="noopener noreferrer">HF Parquet Hub &nearr;</a>
+            </div>
+          </article>
+
+          <article class="route-card">
+            <div>
+              <div class="route-card__role">02 // Stateless Adversarial Diligence</div>
+              <h3>Hypothesis Red-Team API (<code>POST /api/stress-test</code>)</h3>
+              <p>
+                Submit any candidate drug target, allosteric binder/PROTAC, EHR/WSI diagnostic algorithm, or orphan startup thesis for instant zero-auth biological, regulatory, and unit-economics stress-testing against known MPN/AIMF clinical traps.
+              </p>
+              <pre class="prompt-box" style="margin: 0.75rem 0 0; font-size: 0.76rem; padding: 0.75rem;">curl -s -X POST https://api.rare-disease-atlas.workers.dev/api/stress-test \
+  -H "Content-Type: application/json" \
+  -d '{"hypothesis":"JH2 V617F selective PROTAC sparing WT JAK2","disease_id":"jak2-myelofibrosis","background":"computational-ai-bio"}'</pre>
+            </div>
+            <div class="route-card__cta">
+              <a href="./openapi.yaml">OpenAPI 3.1 Schema (<code>/openapi.yaml</code>) &rarr;</a>
+            </div>
+          </article>
+
+          <article class="route-card">
+            <div>
+              <div class="route-card__role">03 // Daily Wire + Open Problems</div>
+              <h3>Live Bio-Delta Stream &amp; <code>/open-problems.json</code></h3>
+              <p>
+                Poll daily machine-verifiable deltas across <code>ClinicalTrials.gov</code> v2, <code>PubMed</code>, <code>NCBI GEO</code>, and <code>RCSB PDB</code>, or pull structured open computational challenges for autonomous agent sprints:
+              </p>
+              <ul>
+                <li><strong>Atom 1.0 &amp; JSON Wire:</strong> <a href="https://api.rare-disease-atlas.workers.dev/atom.xml"><code>/atom.xml</code></a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json"><code>/feeds/bio-delta.json</code></a></li>
+                <li><strong>Open Computational Problems:</strong> <a href="./open-problems.json"><code>/open-problems.json</code></a></li>
+                <li><strong>Free Public-Good &amp; Citation Metadata:</strong> <a href="./.well-known/x402.json"><code>/.well-known/x402.json</code></a> (<code>$0 USD</code>) &middot; <a href="./CITATION.cff"><code>/CITATION.cff</code></a> &middot; <a href="./codemeta.json"><code>/codemeta.json</code></a></li>
+              </ul>
+            </div>
+            <div class="route-card__cta">
+              <a href="./open-problems.json">Inspect Open Computational Problems &rarr;</a>
+            </div>
+          </article>
+        </div>
       </section>
 
       <!-- Question-First FAQ Section (Mirrors JSON-LD FAQPage) -->
       <section class="dossier-section" id="faq-schema-section" data-dossier-section="faq">
-        <span class="section-tag">Section 09 // Frequently Queried Agent Questions</span>
+        <span class="section-tag">Section 10 // Frequently Queried Agent Questions</span>
         <h2>Direct Answers for Autonomous Research Synthesis</h2>
         <div class="faq-list">
           <article class="faq-item">
@@ -696,11 +888,11 @@ curl -s https://rare-disease-atlas.github.io/opportunities.json | jq '.opportuni
       <div>
         <h4>Machine Feeds &amp; Open GitHub</h4>
         <ul>
-          <li><a href="./llms.txt"><code>/llms.txt</code></a> &middot; <a href="./llms-full.txt"><code>/llms-full.txt</code></a></li>
-          <li><a href="./opportunities.json"><code>/opportunities.json</code> (v1.6.0 Venture Atlas)</a></li>
-          <li><a href="./openapi.yaml"><code>/openapi.yaml</code></a> &middot; <a href="./.well-known/mcp/server-card.json"><code>/.well-known/mcp/server-card.json</code></a> &middot; <a href="./.well-known/agent-card.json"><code>/.well-known/agent-card.json</code></a></li>
-          <li><a href="https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp" target="_blank" rel="noopener noreferrer">GitHub: Standalone MCP Server</a></li>
-          <li><a href="https://github.com/rare-disease-atlas/rare-disease-atlas.github.io" target="_blank" rel="noopener noreferrer">GitHub: Web Dossier Monorepo</a></li>
+          <li><a href="./llms.txt"><code>/llms.txt</code></a> &middot; <a href="./llms-full.txt"><code>/llms-full.txt</code></a> &middot; <a href="./CITATION.cff"><code>/CITATION.cff</code></a></li>
+          <li><a href="./opportunities.json"><code>/opportunities.json</code></a> &middot; <a href="./open-problems.json"><code>/open-problems.json</code></a></li>
+          <li><a href="./benchmarks/myelofibrosis_bench.jsonl"><code>/benchmarks/myelofibrosis_bench.jsonl</code></a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/atom.xml"><code>/atom.xml</code></a></li>
+          <li><a href="./openapi.yaml"><code>/openapi.yaml</code></a> &middot; <a href="./.well-known/x402.json"><code>/.well-known/x402.json</code></a> &middot; <a href="./.well-known/mcp/server-card.json"><code>/.well-known/mcp/server-card.json</code></a></li>
+          <li><a href="https://github.com/rare-disease-atlas/orphan-disease-opportunity-mcp" target="_blank" rel="noopener noreferrer">GitHub: Standalone MCP Server</a> &middot; <a href="https://github.com/rare-disease-atlas/rare-disease-atlas.github.io" target="_blank" rel="noopener noreferrer">Monorepo</a></li>
         </ul>
       </div>
     </div>

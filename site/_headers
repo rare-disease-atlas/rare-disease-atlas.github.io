@@ -1,7 +1,7 @@
 /*
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
-  Link: </llms.txt>; rel="describedby"; type="text/markdown", <https://api.rare-disease-atlas.workers.dev/mcp>; rel="mcp-server", <https://api.rare-disease-atlas.workers.dev/.well-known/agent.json>; rel="agent-card"
+  Link: </llms.txt>; rel="describedby"; type="text/markdown", <https://api.rare-disease-atlas.workers.dev/mcp>; rel="mcp-server", <https://api.rare-disease-atlas.workers.dev/.well-known/agent.json>; rel="agent-card", <https://rare-disease-atlas.github.io/.well-known/x402.json>; rel="payment", <https://api.rare-disease-atlas.workers.dev/atom.xml>; rel="alternate"; type="application/atom+xml", </CITATION.cff>; rel="cite-as"; type="text/yaml"
 
 /llms.txt
   Content-Type: text/markdown; charset=utf-8
@@ -11,6 +11,24 @@
 
 /opportunities.json
   Content-Type: application/json; charset=utf-8
+
+/open-problems.json
+  Content-Type: application/json; charset=utf-8
+
+/codemeta.json
+  Content-Type: application/ld+json; charset=utf-8
+
+/CITATION.cff
+  Content-Type: text/yaml; charset=utf-8
+
+/atom.xml
+  Content-Type: application/atom+xml; charset=utf-8
+
+/feeds/*
+  Content-Type: application/json; charset=utf-8
+
+/benchmarks/*
+  Content-Type: application/x-ndjson; charset=utf-8
 
 /.well-known/*
   Content-Type: application/json; charset=utf-8
