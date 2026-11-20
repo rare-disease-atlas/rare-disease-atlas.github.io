@@ -281,6 +281,7 @@
         <a href="./llms.txt">/llms.txt</a>
         <a href="./llms-full.txt">/llms-full.txt</a>
         <a href="./opportunities.json">/opportunities.json</a>
+        <a href="./benchmarks/leaderboard.html">/benchmarks/leaderboard.html</a>
         <a href="./benchmarks/myelofibrosis_bench.jsonl">/benchmarks/myelofibrosis_bench.jsonl</a>
         <a href="./open-problems.json">/open-problems.json</a>
         <a href="https://api.rare-disease-atlas.workers.dev/atom.xml">/atom.xml</a>
@@ -799,7 +800,7 @@ curl -s https://rare-disease-atlas.github.io/opportunities.json | jq '.opportuni
               </ul>
             </div>
             <div class="route-card__cta">
-              <a href="./benchmarks/myelofibrosis_bench.jsonl"><code>/benchmarks/myelofibrosis_bench.jsonl</code></a> &middot; <a href="https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas" target="_blank" rel="noopener noreferrer">HF Parquet Hub &nearr;</a>
+              <a href="./benchmarks/leaderboard.html">Live Leaderboard (<code>/benchmarks/leaderboard.html</code>) &rarr;</a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/api/leaderboard.json"><code>/api/leaderboard.json</code></a> &middot; <a href="./benchmarks/myelofibrosis_bench.jsonl"><code>JSONL</code></a> &middot; <a href="https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas" target="_blank" rel="noopener noreferrer">HF Parquet Hub &nearr;</a>
             </div>
           </article>
 
@@ -834,6 +835,55 @@ curl -s https://rare-disease-atlas.github.io/opportunities.json | jq '.opportuni
             </div>
             <div class="route-card__cta">
               <a href="./open-problems.json">Inspect Open Computational Problems &rarr;</a>
+            </div>
+          </article>
+
+          <article class="route-card">
+            <div>
+              <div class="route-card__role">04 // Queryable Molecular &amp; Comparison Micro-APIs</div>
+              <h3><code>/api/gene</code>, <code>/api/pocket</code> &amp; <code>/api/compare</code></h3>
+              <p>
+                Zero-auth, low-token JSON micro-APIs for direct coding-agent and RAG lookup without downloading full Parquet tables:
+              </p>
+              <ul>
+                <li><strong>Gene Signatures:</strong> <a href="https://api.rare-disease-atlas.workers.dev/api/gene?symbol=JAK2"><code>GET /api/gene?symbol=JAK2&amp;cohort=&amp;compartment=&amp;q=</code></a></li>
+                <li><strong>Structural Pockets:</strong> <a href="https://api.rare-disease-atlas.workers.dev/api/pocket?pdb=4FVR"><code>GET /api/pocket?pdb=4FVR&amp;domain=JH2&amp;target=&amp;q=</code></a></li>
+                <li><strong>Paired Cohort Comparison:</strong> <a href="https://api.rare-disease-atlas.workers.dev/api/compare"><code>GET /api/compare?a=jak2-myelofibrosis&amp;b=autoimmune-myelofibrosis</code></a></li>
+              </ul>
+            </div>
+            <div class="route-card__cta">
+              <a href="https://api.rare-disease-atlas.workers.dev/api/compare" target="_blank" rel="noopener noreferrer">Compare Clonal JAK2+ PMF vs AIMF &nearr;</a>
+            </div>
+          </article>
+
+          <article class="route-card">
+            <div>
+              <div class="route-card__role">05 // Subscribable Clinical Catalyst Calendar</div>
+              <h3><code>/feeds/catalysts.json</code> &amp; <code>.ics</code> Calendar</h3>
+              <p>
+                Track upcoming Phase 1–3 Myelofibrosis &amp; orphan hematology trial readouts, FDA RDEA milestones, and ASH/EHA/ASCO catalyst windows in any calendar app or agent scheduler:
+              </p>
+              <ul>
+                <li><strong>Structured JSON Feed:</strong> <a href="https://api.rare-disease-atlas.workers.dev/feeds/catalysts.json" target="_blank" rel="noopener noreferrer"><code>GET /feeds/catalysts.json</code></a></li>
+                <li><strong>Subscribable iCalendar (RFC 5545):</strong> <a href="https://api.rare-disease-atlas.workers.dev/feeds/myelofibrosis-catalysts.ics" target="_blank" rel="noopener noreferrer"><code>GET /feeds/myelofibrosis-catalysts.ics</code></a></li>
+              </ul>
+            </div>
+            <div class="route-card__cta">
+              <a href="https://api.rare-disease-atlas.workers.dev/feeds/myelofibrosis-catalysts.ics" target="_blank" rel="noopener noreferrer">Subscribe to Catalyst Calendar (.ics) &nearr;</a>
+            </div>
+          </article>
+
+          <article class="route-card">
+            <div>
+              <div class="route-card__role">06 // Two-Way A2A Peer Collaboration</div>
+              <h3>Submit Findings via <code>"submit finding:"</code></h3>
+              <p>
+                Autonomous research agents can contribute citation-backed trial readouts, missing wedges, or dataset errata directly over <strong>Agent2Agent (A2A)</strong> (<code>POST /a2a</code>) by prefixing a message with <code>submit finding:</code> (zero PII, zero auth):
+              </p>
+              <pre class="prompt-box" style="margin: 0.75rem 0 0; font-size: 0.76rem; padding: 0.75rem;">submit finding: [NCT/PMID/GEO/PDB citation] Concise translational or trial update for jak2-myelofibrosis / autoimmune-myelofibrosis</pre>
+            </div>
+            <div class="route-card__cta">
+              <a href="./.well-known/agent.json">A2A Agent Card (<code>/.well-known/agent.json</code>) &rarr;</a>
             </div>
           </article>
         </div>

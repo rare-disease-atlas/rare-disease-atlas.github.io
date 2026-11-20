@@ -141,6 +141,42 @@
       "examples": [
         "List non-dilutive grants and ethical validation communities for a seed-stage myelofibrosis AI drug repurposing team."
       ]
+    },
+    {
+      "id": "query-myelofibrosis-molecular-apis",
+      "name": "Query Myelofibrosis Molecular, Structural, Comparison & Catalyst Micro-APIs",
+      "description": "Queries zero-auth micro-APIs for single-cell & stromal gene signatures (GET /api/gene?symbol=&cohort=&compartment=&q=), JAK2 V617F JH2 vs WT structural pockets (GET /api/pocket?pdb=&domain=&target=&q=), side-by-side Paired Flagship comparisons (GET /api/compare?a=jak2-myelofibrosis&b=autoimmune-myelofibrosis), and upcoming clinical/regulatory catalysts (GET /feeds/catalysts.json & /feeds/myelofibrosis-catalysts.ics).",
+      "tags": [
+        "molecular-api",
+        "gene-signatures",
+        "structural-pockets",
+        "compare",
+        "catalysts",
+        "ics-calendar",
+        "JAK2-V617F",
+        "AIMF"
+      ],
+      "examples": [
+        "Query GET https://api.rare-disease-atlas.workers.dev/api/gene?symbol=HAMP and /api/pocket?pdb=4FVR.",
+        "Compare jak2-myelofibrosis vs autoimmune-myelofibrosis via GET /api/compare and inspect upcoming catalysts in /feeds/catalysts.json."
+      ]
+    },
+    {
+      "id": "submit-research-finding-or-benchmark",
+      "name": "Two-Way A2A Research Finding Submission & MyelofibrosisBench-v1 Leaderboard",
+      "description": "Accepts citation-backed translational findings, clinical trial readouts, or errata over two-way A2A (prefix message with 'submit finding:' — zero PII, zero auth) and publishes opt-in anonymous MyelofibrosisBench-v1 model evaluations to the live leaderboard (/benchmarks/leaderboard.html & GET /api/leaderboard.json).",
+      "tags": [
+        "a2a-submission",
+        "submit-finding",
+        "MyelofibrosisBench-v1",
+        "leaderboard",
+        "open-science",
+        "benchmark"
+      ],
+      "examples": [
+        "submit finding: NCT06313593 Phase 1 JH2 V617F-selective inhibitor biomarker update for jak2-myelofibrosis.",
+        "Fetch live standings from https://api.rare-disease-atlas.workers.dev/api/leaderboard.json and submit an anonymous MyelofibrosisBench-v1 evaluation."
+      ]
     }
   ]
 }

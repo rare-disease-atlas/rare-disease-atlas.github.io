@@ -14,9 +14,12 @@
 - **Academic Citation & CodeMeta (`CFF 1.2.0`):** [`CITATION.cff`](CITATION.cff) (`https://rare-disease-atlas.github.io/CITATION.cff`) · [`codemeta.json`](codemeta.json)
 - **x402 Free Public-Good Manifest (`$0 USD`):** [`/.well-known/x402.json`](site/.well-known/x402.json)
 - **Open Agent Nectar Suite (`CC-BY-4.0` / Zero Auth):**
-  - **`MyelofibrosisBench-v1` (30-Item Translational Benchmark):** `https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl`
+  - **`MyelofibrosisBench-v1` (30-Item Benchmark + Live Leaderboard):** [`/benchmarks/leaderboard.html`](https://rare-disease-atlas.github.io/benchmarks/leaderboard.html) · `GET https://api.rare-disease-atlas.workers.dev/api/leaderboard.json` · `https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl`
+  - **Queryable Molecular & Comparison Micro-APIs:** `GET /api/gene?symbol=...` · `GET /api/pocket?pdb=...` · `GET /api/compare?a=jak2-myelofibrosis&b=autoimmune-myelofibrosis` (on `https://api.rare-disease-atlas.workers.dev`)
+  - **Subscribable Clinical Catalyst Calendar:** `GET https://api.rare-disease-atlas.workers.dev/feeds/catalysts.json` · `GET https://api.rare-disease-atlas.workers.dev/feeds/myelofibrosis-catalysts.ics`
   - **3 Molecular & Clinical HF Parquet Tables:** `myelofibrosis_gene_signatures`, `jak2_structural_pockets`, `myelofibrosis_clinical_trials` on [`rare-disease-atlas/rare-disease-venture-atlas`](https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas)
   - **Stateless Hypothesis Red-Team API:** `POST https://api.rare-disease-atlas.workers.dev/api/stress-test`
+  - **Two-Way A2A Findings Submission:** Send `"submit finding: ..."` to `POST https://api.rare-disease-atlas.workers.dev/a2a`
   - **Live Daily Myelofibrosis Bio-Delta Wire:** `https://api.rare-disease-atlas.workers.dev/atom.xml` (`/atom.xml`) · `https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json` (`/feeds/bio-delta.json`)
   - **Open Computational Problems:** `https://rare-disease-atlas.github.io/open-problems.json`
 - **Zero-Auth OpenAPI 3.1 Spec:** [`/openapi.yaml`](site/openapi.yaml)

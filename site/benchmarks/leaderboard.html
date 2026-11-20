@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MyelofibrosisBench-v1 — Live Translational &amp; Venture Agent Leaderboard</title>
+  <meta name="description" content="Live public leaderboard for MyelofibrosisBench-v1: 30 primary-literature-grounded translational &amp; venture reasoning items anchored on Paired Flagships Clonal JAK2 V617F+ Primary Myelofibrosis and Reversible Autoimmune Myelofibrosis (AIMF) + Iron/Hepcidin Axis.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://rare-disease-atlas.github.io/benchmarks/leaderboard.html">
+  <link rel="describedby" href="../llms.txt" type="text/markdown" title="LLM Summary Index (llms.txt)">
+  <link rel="alternate" href="../llms-full.txt" type="text/markdown" title="Consolidated Markdown Knowledge Base (llms-full.txt)">
+  <link rel="alternate" type="application/atom+xml" title="Myelofibrosis &amp; Orphan Bio-Delta Wire" href="https://api.rare-disease-atlas.workers.dev/atom.xml">
+  <link rel="payment" href="../.well-known/x402.json" type="application/json" title="x402 Free Public-Good Agent Manifest">
+  <link rel="cite-as" href="../CITATION.cff" type="text/yaml" title="Academic Citation Metadata (CITATION.cff)">
+  <link rel="mcp-server" href="https://api.rare-disease-atlas.workers.dev/mcp">
+  <link rel="agent-card" href="https://api.rare-disease-atlas.workers.dev/.well-known/agent.json">
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* Self-contained fallback & leaderboard-specific styling */
+    :root {
+      --bg-paper: #f8f7f3;
+      --bg-surface: #ffffff;
+      --bg-subtle: #efede6;
+      --bg-terminal: #121518;
+      --ink-primary: #111417;
+      --ink-secondary: #3d444d;
+      --ink-muted: #636c76;
+      --accent-crimson: #9f1d20;
+      --accent-emerald: #116329;
+      --accent-emerald-soft: #dafbe1;
+      --accent-amber: #9a6700;
+      --accent-amber-soft: #fff8c5;
+      --border-hairline: #d5d2c8;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      --max-width: 1080px;
+    }
+    body {
+      margin: 0;
+      background-color: var(--bg-paper);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      line-height: 1.62;
+    }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+    .lb-status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .lb-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.74rem;
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
+    }
+    .lb-pill--fallback {
+      background: var(--accent-amber-soft);
+      color: var(--accent-amber);
+    }
+    .lb-score-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      min-width: 145px;
+    }
+    .lb-score-track {
+      flex: 1;
+      height: 8px;
+      background: #e5e2d8;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .lb-score-fill {
+      height: 100%;
+      background: var(--accent-emerald);
+      border-radius: 999px;
+    }
+    .lb-score-fill--mid { background: var(--accent-amber); }
+    .lb-score-fill--low { background: var(--accent-crimson); }
+    .lb-rank-badge {
+      display: inline-block;
+      min-width: 1.8rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-hairline);
+    }
+    .lb-privacy-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-left: 4px solid var(--accent-emerald);
+      border-radius: 6px;
+      padding: 1rem 1.15rem;
+      margin-top: 1rem;
+      font-size: 0.92rem;
+    }
+    .lb-cli-wrap {
+      position: relative;
+    }
+    .lb-copy-btn {
+      margin-top: 0.65rem;
+      padding: 0.5rem 0.95rem;
+      border-radius: 5px;
+      border: 1px solid #111417;
+      background: #111417;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .lb-copy-btn:hover { background: var(--accent-crimson); border-color: var(--accent-crimson); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: var(--bg-surface); }
+    th, td { padding: 0.7rem 0.8rem; border-bottom: 1px solid var(--border-hairline); text-align: left; vertical-align: top; }
+    th { background: var(--bg-subtle); font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    pre.prompt-box {
+      background: var(--bg-terminal);
+      color: #e6edf3;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+  </style>
+
+  <!-- Schema.org Dataset JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "@id": "https://rare-disease-atlas.github.io/benchmarks/leaderboard.html#myelofibrosis-bench-v1",
+    "name": "MyelofibrosisBench-v1 — Live Translational & Venture Agent Benchmark & Leaderboard",
+    "description": "30-item primary-literature-grounded translational, structural-pharmacology, clinical-trial, and orphan-venture reasoning benchmark and live leaderboard anchored on Paired Flagships Clonal JAK2 V617F+ Primary Myelofibrosis (ORPHA:824) and Reversible Autoimmune Myelofibrosis (AIMF, ICD-10 D75.89) + Iron/Hepcidin Axis.",
+    "url": "https://rare-disease-atlas.github.io/benchmarks/leaderboard.html",
+    "sameAs": [
+      "https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl",
+      "https://api.rare-disease-atlas.workers.dev/api/leaderboard.json",
+      "https://huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas"
+    ],
+    "version": "1.6.0",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "isAccessibleForFree": true,
+    "creator": {
+      "@type": "Organization",
+      "name": "Rare Disease Venture Atlas",
+      "url": "https://rare-disease-atlas.github.io"
+    },
+    "keywords": [
+      "MyelofibrosisBench-v1",
+      "AI benchmark",
+      "leaderboard",
+      "JAK2 V617F",
+      "JH2 pseudokinase",
+      "autoimmune myelofibrosis",
+      "AIMF",
+      "hepcidin",
+      "orphan drug",
+      "clinical trial forensics"
+    ],
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "name": "MyelofibrosisBench-v1 Questions (JSONL)",
+        "encodingFormat": "application/jsonl",
+        "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "MyelofibrosisBench-v1 Live Leaderboard Feed (JSON)",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://api.rare-disease-atlas.workers.dev/api/leaderboard.json"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "Zero-Dependency Deterministic Evaluator (Python)",
+        "encodingFormat": "text/x-python",
+        "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/evaluate_agent.py"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to leaderboard</a>
+
+  <!-- Top Protocol Telemetry Strip -->
+  <div class="protocol-bar" role="region" aria-label="Protocol Metadata">
+    <div class="protocol-bar__inner">
+      <div class="protocol-status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>BENCHMARK: MYELOFIBROSISBENCH-V1 // 30 ITEMS // CC-BY-4.0 // ZERO_PII</span>
+      </div>
+      <div class="protocol-links">
+        <a href="../">Briefing Hub</a>
+        <a href="./myelofibrosis_bench.jsonl">/benchmarks/myelofibrosis_bench.jsonl</a>
+        <a href="https://api.rare-disease-atlas.workers.dev/api/leaderboard.json">/api/leaderboard.json</a>
+        <a href="../openapi.yaml">/openapi.yaml</a>
+        <a href="https://api.rare-disease-atlas.workers.dev/atom.xml">/atom.xml</a>
+        <a href="../.well-known/x402.json">/.well-known/x402.json</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Site Header -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand-mark" href="../">
+        <span class="brand-mark__domain">rare-disease-atlas.github.io</span>
+        <span class="brand-mark__sub">MyelofibrosisBench-v1 Public Leaderboard [v1.6.0]</span>
+      </a>
+      <nav class="funnel-nav" aria-label="Atlas Navigation">
+        <a href="../">00 // Briefing Hub</a>
+        <a href="../ai-drug-repurposing-targets.html">03 // AI &amp; CompBio</a>
+        <a href="../autoimmune-myelofibrosis-iron-wedge.html">04 // AIMF &amp; Iron</a>
+        <a href="./leaderboard.html" aria-current="page">Bench // Leaderboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <!-- Hero Header -->
+    <header class="dossier-hero" id="leaderboard-hero">
+      <p class="dossier-kicker">Deterministic Biomedical &amp; Orphan Venture Benchmark // Paired Flagships: Clonal JAK2 V617F+ PMF &amp; Reversible Autoimmune Myelofibrosis (AIMF) + Iron Axis</p>
+      <h1 class="dossier-title">MyelofibrosisBench-v1 — Live Translational &amp; Venture Agent Leaderboard</h1>
+      <div class="quick-answer" role="region" aria-label="Benchmark Overview">
+        <span class="quick-answer__label">Benchmark Scope &amp; Scoring Contract</span>
+        <p>
+          <strong>MyelofibrosisBench-v1</strong> evaluates frontier LLMs, coding agents, and biomedical MCP workflows across <strong>30 primary-literature-grounded items</strong> (5 categories &times; 6 items) anchored on <strong>Paired Flagships</strong>: Clonal <code>JAK2 V617F+</code> Primary Myelofibrosis (<code>ORPHA:824</code>, <code>JH2</code> vs <code>JH1</code> allostery) and Reversible <code>Autoimmune Myelofibrosis</code> (<code>AIMF</code>, <code>ICD-10: D75.89</code>, 74–80% human marrow fibrosis reversal + dual transfusional/<code>IL-6 -&gt; hepcidin</code> iron trapping).
+        </p>
+      </div>
+    </header>
+
+    <!-- Live Leaderboard Table -->
+    <section class="dossier-section" id="live-leaderboard" aria-label="Live Leaderboard Standings">
+      <span class="section-tag">Section 01 // Live Standings (GET /api/leaderboard.json)</span>
+      <h2>Model &amp; Agent Accuracy Standings</h2>
+
+      <div class="lb-status-bar" role="status" aria-live="polite">
+        <div>
+          <span id="lb-status-pill" class="lb-pill lb-pill--fallback">Reference Baselines Loaded</span>
+          <span id="lb-status-detail" style="margin-left: 0.5rem;">Fetching live standings from <code>https://api.rare-disease-atlas.workers.dev/api/leaderboard.json</code>&hellip;</span>
+        </div>
+        <div>
+          <a href="https://api.rare-disease-atlas.workers.dev/api/leaderboard.json" target="_blank" rel="noopener noreferrer">Raw JSON Feed &nearr;</a>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table aria-describedby="lb-status-detail">
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Model / Agent System</th>
+              <th scope="col">Type</th>
+              <th scope="col">Accuracy (30 Items)</th>
+              <th scope="col">Reasoning Keyword Coverage</th>
+              <th scope="col">Updated / Notes</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-tbody">
+            <!-- Pre-rendered graceful fallback rows -->
+            <tr class="highlight-row" data-fallback="true">
+              <td><span class="lb-rank-badge">#1</span></td>
+              <td><strong>Oracle Ground-Truth Ceiling</strong><br><code>oracle-ground-truth</code></td>
+              <td><span class="badge badge--high">Reference Ceiling</span></td>
+              <td>
+                <div class="lb-score-bar-wrap">
+                  <strong>100.0%</strong>
+                  <div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill" style="width: 100%;"></div></div>
+                </div>
+                <small>30 / 30 correct</small>
+              </td>
+              <td><strong>100.0%</strong></td>
+              <td>Deterministic answer-key verifier (<code>--self-test</code>)</td>
+            </tr>
+            <tr data-fallback="true">
+              <td><span class="lb-rank-badge">#2</span></td>
+              <td><strong>Stratified Keyword Heuristic</strong><br><code>stratified-keyword-heuristic</code></td>
+              <td><span class="badge badge--warn">Reference Baseline</span></td>
+              <td>
+                <div class="lb-score-bar-wrap">
+                  <strong>50.0%</strong>
+                  <div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill lb-score-fill--mid" style="width: 50%;"></div></div>
+                </div>
+                <small>15 / 30 correct</small>
+              </td>
+              <td><strong>46.7%</strong></td>
+              <td>Zero-LLM lexical overlap baseline</td>
+            </tr>
+            <tr data-fallback="true">
+              <td><span class="lb-rank-badge">#3</span></td>
+              <td><strong>Random 4-Choice Baseline</strong><br><code>random-4-choice-baseline</code></td>
+              <td><span class="badge badge--gap">Chance Floor</span></td>
+              <td>
+                <div class="lb-score-bar-wrap">
+                  <strong>25.0%</strong>
+                  <div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill lb-score-fill--low" style="width: 25%;"></div></div>
+                </div>
+                <small>7.5 / 30 expected</small>
+              </td>
+              <td><strong>0.0%</strong></td>
+              <td>Uniform 4-option multiple-choice floor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5 Benchmark Categories Breakdown -->
+    <section class="dossier-section" id="benchmark-categories">
+      <span class="section-tag">Section 02 // Evaluation Architecture (5 Categories &times; 6 Items = 30 Ground-Truth Items)</span>
+      <h2>Category Breakdown &amp; Primary-Cited Competencies</h2>
+      <p>
+        Every item in <a href="./myelofibrosis_bench.jsonl"><code>myelofibrosis_bench.jsonl</code></a> pairs a scenario-grounded 4-choice question with 3–5 required mechanistic/accession reasoning keywords and verifiable <code>NCT</code>, <code>PMID</code>, <code>GEO</code>, <code>PDB</code>, and <code>ORPHA</code> citations:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Category Key</th>
+              <th scope="col">Items</th>
+              <th scope="col">Core Translational &amp; Venture Competencies Tested</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>aimf_differential_triage</code></td>
+              <td><strong>6 items</strong><br><small><code>mf-bench-001..006</code></small></td>
+              <td>Separating reversible <code>JAK2/CALR/MPL</code>-negative Autoimmune Myelofibrosis (<code>AIMF</code> in SLE/Sj&ouml;gren's/Evans — polyclonal T/B aggregates, 0% <code>ASXL1/SRSF2/U2AF1/EZH2</code> clonality, <strong>74–80% human marrow reticulin resolution</strong> on steroids/rituximab) from clonal Triple-Negative PMF, <code>UBA1</code> VEXAS (<code>NCT05027945</code>), and <code>iMCD-TAFRO</code> (<code>NCT03933904</code>).</td>
+            </tr>
+            <tr>
+              <td><code>iron_hepcidin_axis</code></td>
+              <td><strong>6 items</strong><br><small><code>mf-bench-007..012</code></small></td>
+              <td>Dissecting dual iron overload in <code>AIMF</code> &amp; <code>PMF</code>: inflammatory <code>IL-6 -&gt; STAT3</code> + <code>BMP6/ACVR1 -&gt; HAMP (hepcidin) -&gt; SLC40A1 (ferroportin)</code> macrophage iron trapping (<code>momelotinib</code> <code>NCT04173494</code>, <code>pacritinib</code> <code>NCT02055781</code>) vs transfusional parenchymal hemosiderosis (<code>NTBI/LPI</code>, <code>GPX4</code> ferroptosis, <code>deferasirox</code>) vs <code>PV</code> erythrocytosis (<code>rusfertide</code> <code>NCT05210790</code>).</td>
+            </tr>
+            <tr>
+              <td><code>jak2_jh2_structural_selectivity</code></td>
+              <td><strong>6 items</strong><br><small><code>mf-bench-013..018</code></small></td>
+              <td>Structural &amp; clinical pharmacology of <code>JAK2 V617F</code> (<code>F595/F537</code> pi-stacking in <code>PDB:4FVQ/4FVR</code> vs WT <code>4FVP</code>), pan-<code>JH1</code> <code>EPO/TPO</code> cytopenias (<code>PDB:3KRR</code>), Type I heterodimer persistence vs Type II <code>DFG-out</code> breakers (<code>AJ1-11095</code> <code>NCT06343805</code>), selective <code>JH2</code> inhibitors (<code>INCB160058</code> <code>NCT06313593</code>) &amp; PROTACs (<code>PDB:8BAK/8EX2</code>), mutant <code>CALR</code> mAbs (<code>NCT06034002</code>), and CNS-sparing <code>KIT D816V</code> design (<code>PDB:4U0I</code>).</td>
+            </tr>
+            <tr>
+              <td><code>clinical_trial_forensics</code></td>
+              <td><strong>6 items</strong><br><small><code>mf-bench-019..024</code></small></td>
+              <td>Phase 2/3 endpoint forensics: Week-24 <code>SVR35</code> vs <code>TSS50</code> dissociation (<code>MANIFEST-2</code> <code>NCT04603495</code>, <code>TRANSFORM-1</code> <code>NCT04472598</code>), <code>IMpactMF</code> (<code>NCT04576156</code>) OS endpoint tradeoffs, zero-washout add-on trials (<code>POIESIS</code> <code>NCT06479135</code>), non-myelosuppressive <code>PIM1</code> (<code>NCT04181788</code>) &amp; <code>XPO1</code> (<code>SENTRY</code> <code>NCT04562389</code>) combos, and continuous WSI reticulin morphometry.</td>
+            </tr>
+            <tr>
+              <td><code>orphan_venture_economics</code></td>
+              <td><strong>6 items</strong><br><small><code>mf-bench-025..030</code></small></td>
+              <td>FY2026 FDA Orphan Drug Act unit economics (~$4.68M PDUFA waiver, 25% ODTC, 7-yr exclusivity vs Rare Pediatric PRV boundaries), non-dilutive grant stacking (<code>MPNRF</code>, <code>NIH/NCI SBIR</code>, <code>Blood Cancer United TAP</code>, <code>CDCN/Every Cure</code>, <code>ARPA-H</code>), 21st Century Cures CDS &amp; RWE External Control Arms, 505(b)(2) repurposing, and ethical registry governance (<code>NCT07362225</code>).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 2-Line CLI Submission Instructions -->
+    <section class="dossier-section" id="submit-score">
+      <span class="section-tag">Section 03 // Evaluate &amp; Submit in 2 Commands (Zero Dependencies)</span>
+      <h2>Run Locally &amp; Submit Your Agent Score</h2>
+      <p>
+        Generate a predictions file (<code>preds.jsonl</code> with <code>{"id": "mf-bench-001", "choice": "A", "reasoning": "..."}</code> per line), then score and optionally publish your aggregate score to the live leaderboard:
+      </p>
+
+      <div class="lb-cli-wrap">
+        <pre class="prompt-box" id="cli-submit-snippet">curl -sLO https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl &amp;&amp; curl -sLO https://rare-disease-atlas.github.io/benchmarks/evaluate_agent.py
+PYTHONDONTWRITEBYTECODE=1 python3 evaluate_agent.py --predictions preds.jsonl --submit-anonymous-score --model-name &lt;your-model&gt;</pre>
+        <button type="button" class="lb-copy-btn" id="copy-cli-btn">Copy 2-Line CLI Command</button>
+      </div>
+
+      <div class="lb-privacy-box" role="note" aria-label="Privacy and Open License Notice">
+        <strong>Transparent Privacy &amp; Open-Science Notice:</strong>
+        <code>--submit-anonymous-score</code> is 100% opt-in and transmits <em>only</em> aggregate accuracy, per-category counts, reasoning-keyword coverage, and your chosen <code>--model-name</code> string. <strong>Zero IP addresses, zero raw prompts, zero prediction text, and zero PII are logged or stored.</strong> All benchmark items and aggregate standings are published under <strong>CC-BY-4.0</strong> (evaluator code: <strong>MIT</strong>).
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div>
+        <h4>MyelofibrosisBench-v1</h4>
+        <p style="margin: 0;">Part of the <a href="../">Rare Disease Venture Atlas</a> (<code>CC-BY-4.0</code> data &middot; <code>MIT</code> code &middot; zero auth &middot; zero tracking).</p>
+      </div>
+      <div>
+        <h4>Related Micro-APIs &amp; Feeds</h4>
+        <ul>
+          <li><a href="https://api.rare-disease-atlas.workers.dev/api/leaderboard.json"><code>GET /api/leaderboard.json</code></a></li>
+          <li><a href="https://api.rare-disease-atlas.workers.dev/api/gene?symbol=JAK2"><code>GET /api/gene</code></a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/api/pocket?pdb=4FVR"><code>GET /api/pocket</code></a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/api/compare"><code>GET /api/compare</code></a></li>
+          <li><a href="https://api.rare-disease-atlas.workers.dev/feeds/catalysts.json"><code>GET /feeds/catalysts.json</code></a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/feeds/myelofibrosis-catalysts.ics"><code>.ics Calendar</code></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer-bar">
+      MEDICAL &amp; RESEARCH DISCLAIMER: MyelofibrosisBench-v1 is an open translational and venture-diligence evaluation suite for AI research agents. It is NOT medical advice.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var API_URL = "https://api.rare-disease-atlas.workers.dev/api/leaderboard.json";
+      var tbody = document.getElementById("leaderboard-tbody");
+      var pill = document.getElementById("lb-status-pill");
+      var detail = document.getElementById("lb-status-detail");
+      var copyBtn = document.getElementById("copy-cli-btn");
+      var cliBox = document.getElementById("cli-submit-snippet");
+
+      if (copyBtn && cliBox) {
+        copyBtn.addEventListener("click", function () {
+          var text = cliBox.textContent;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () {
+              copyBtn.textContent = "Copied 2-Line CLI Command!";
+              setTimeout(function () { copyBtn.textContent = "Copy 2-Line CLI Command"; }, 2500);
+            });
+          }
+        });
+      }
+
+      function esc(str) {
+        return String(str == null ? "" : str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function toPct(val) {
+        if (val == null || isNaN(Number(val))) return null;
+        var n = Number(val);
+        return n <= 1.0 && n >= 0 ? n * 100 : n;
+      }
+
+      function renderRows(entries, updatedAt) {
+        if (!Array.isArray(entries) || entries.length === 0) return false;
+        var sorted = entries.slice().sort(function (a, b) {
+          var sa = toPct(a.accuracy_pct != null ? a.accuracy_pct : (a.accuracy != null ? a.accuracy : a.score_pct)) || 0;
+          var sb = toPct(b.accuracy_pct != null ? b.accuracy_pct : (b.accuracy != null ? b.accuracy : b.score_pct)) || 0;
+          return sb - sa;
+        });
+
+        var html = sorted.map(function (row, idx) {
+          var name = row.display_name || row.model_name || row.model || row.name || "Unnamed Agent";
+          var slug = row.model_name || row.id || "";
+          var acc = toPct(row.accuracy_pct != null ? row.accuracy_pct : (row.accuracy != null ? row.accuracy : row.score_pct));
+          if (acc == null) acc = 0;
+          var accClamped = Math.max(0, Math.min(100, acc));
+          var fillClass = accClamped >= 70 ? "" : (accClamped >= 40 ? " lb-score-fill--mid" : " lb-score-fill--low");
+          var reasoning = toPct(row.reasoning_pct != null ? row.reasoning_pct : (row.reasoning_coverage_pct != null ? row.reasoning_coverage_pct : row.reasoning_coverage));
+          var reasoningStr = reasoning != null ? "<strong>" + reasoning.toFixed(1) + "%</strong>" : "<span style=\"color:#636c76;\">N/A</span>";
+          var correct = row.correct != null ? row.correct : Math.round((accClamped / 100) * (row.total || 30));
+          var total = row.total || 30;
+          var isRef = Boolean(row.is_baseline || row.is_reference || /oracle|baseline|heuristic/i.test(name + " " + slug));
+          var typeLabel = row.badge || (isRef ? "Reference Baseline" : "Submitted Agent");
+          var badgeClass = isRef ? (accClamped >= 99 ? "badge--high" : (accClamped >= 40 ? "badge--warn" : "badge--gap")) : "badge--high";
+          var notes = row.notes || row.submitted_at || row.updated_at || (row.submissions ? (row.submissions + " run(s)") : "Live telemetry");
+
+          return (
+            "<tr" + (idx === 0 ? " class=\"highlight-row\"" : "") + ">" +
+              "<td><span class=\"lb-rank-badge\">#" + (idx + 1) + "</span></td>" +
+              "<td><strong>" + esc(name) + "</strong>" + (slug && slug !== name ? "<br><code>" + esc(slug) + "</code>" : "") + "</td>" +
+              "<td><span class=\"badge " + badgeClass + "\">" + esc(typeLabel) + "</span></td>" +
+              "<td>" +
+                "<div class=\"lb-score-bar-wrap\">" +
+                  "<strong>" + accClamped.toFixed(1) + "%</strong>" +
+                  "<div class=\"lb-score-track\" aria-hidden=\"true\"><div class=\"lb-score-fill" + fillClass + "\" style=\"width:" + accClamped.toFixed(1) + "%;\"></div></div>" +
+                "</div>" +
+                "<small>" + esc(correct) + " / " + esc(total) + " correct</small>" +
+              "</td>" +
+              "<td>" + reasoningStr + "</td>" +
+              "<td>" + esc(notes) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+
+        tbody.innerHTML = html;
+        pill.textContent = "Live Feed Connected";
+        pill.className = "lb-pill";
+        detail.innerHTML = "Loaded <strong>" + sorted.length + "</strong> standings from <code>/api/leaderboard.json</code>" + (updatedAt ? " (updated " + esc(updatedAt) + ")" : "") + ".";
+        return true;
+      }
+
+      fetch(API_URL, { headers: { "Accept": "application/json" } })
+        .then(function (resp) {
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          return resp.json();
+        })
+        .then(function (data) {
+          var entries = Array.isArray(data)
+            ? data
+            : (data.entries || data.leaderboard || data.models || data.rows || data.standings || []);
+          var ok = renderRows(entries, data.updated_at || data.generated_at || "");
+          if (!ok) {
+            pill.textContent = "Reference Baselines";
+            pill.className = "lb-pill lb-pill--fallback";
+            detail.textContent = "Live feed returned zero custom submissions yet — displaying pre-rendered reference baselines.";
+          }
+        })
+        .catch(function () {
+          pill.textContent = "Pre-Rendered Baselines";
+          pill.className = "lb-pill lb-pill--fallback";
+          detail.textContent = "Displaying pre-rendered reference baselines (live /api/leaderboard.json syncs automatically when reachable).";
+        });
+    })();
+  </script>
+</body>
+</html>

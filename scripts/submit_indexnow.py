@@ -46,6 +46,7 @@ PATHS = (
     "/.well-known/agents.json",
     "/.well-known/x402.json",
     "/open-problems.json",
+    "/benchmarks/leaderboard.html",
     "/benchmarks/myelofibrosis_bench.jsonl",
     "/benchmarks/README.md",
     "/CITATION.cff",

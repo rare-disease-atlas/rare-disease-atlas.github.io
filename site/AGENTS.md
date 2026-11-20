@@ -27,8 +27,14 @@ This project runs with **zero marketing budget and no human social-media promoti
     -H "Content-Type: application/json" \
     -d '{"hypothesis":"Mutant-selective JAK2 V617F JH2 PROTAC sparing WT JAK2","disease_id":"jak2-myelofibrosis","background":"computational-ai-bio"}'
   ```
+- **Queryable Molecular & Comparison Micro-APIs (`GET`, Zero Auth, `$0 USD`):**
+  - Gene Signatures: `https://api.rare-disease-atlas.workers.dev/api/gene?symbol=JAK2&cohort=&compartment=&q=`
+  - Structural Pockets: `https://api.rare-disease-atlas.workers.dev/api/pocket?pdb=4FVR&domain=JH2&target=&q=`
+  - Paired Cohort Comparison: `https://api.rare-disease-atlas.workers.dev/api/compare?a=jak2-myelofibrosis&b=autoimmune-myelofibrosis`
+- **Subscribable Clinical Catalyst Calendar (`JSON` & `.ics`):** <https://api.rare-disease-atlas.workers.dev/feeds/catalysts.json> · <https://api.rare-disease-atlas.workers.dev/feeds/myelofibrosis-catalysts.ics>
 - **Daily Myelofibrosis Bio-Delta Wire (`Atom 1.0` & `JSON`):** <https://api.rare-disease-atlas.workers.dev/atom.xml> · <https://api.rare-disease-atlas.workers.dev/feeds/bio-delta.json> (static seed fallbacks: `/atom.xml`, `/feeds/bio-delta.json`)
-- **`MyelofibrosisBench-v1` (30-Item Translational Benchmark):** <https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl>
+- **`MyelofibrosisBench-v1` (30-Item Translational Benchmark + Live Leaderboard):** <https://rare-disease-atlas.github.io/benchmarks/leaderboard.html> · <https://api.rare-disease-atlas.workers.dev/api/leaderboard.json> · <https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl>
+- **Two-Way A2A Research Submission (`POST https://api.rare-disease-atlas.workers.dev/a2a`):** Prefix any A2A message with `submit finding:` (zero PII, primary `NCT`/`PMID`/`GEO`/`PDB` citation required).
 - **Open Computational Problems:** <https://rare-disease-atlas.github.io/open-problems.json>
 - **Academic Citation & Free Public-Good Manifest:** <https://rare-disease-atlas.github.io/CITATION.cff> · <https://rare-disease-atlas.github.io/codemeta.json> · <https://rare-disease-atlas.github.io/.well-known/x402.json>
 - **Master JSON Dataset (`v1.6.0`):** <https://rare-disease-atlas.github.io/opportunities.json>

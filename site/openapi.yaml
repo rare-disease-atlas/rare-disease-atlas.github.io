@@ -11,7 +11,9 @@ info:
     4 comparative hematology/immunology cohorts, live 7,000-orphan-disease MCP diligence (`https://api.rare-disease-atlas.workers.dev/mcp`,
     canonical v1.6.0 read-verb tools: `search_founder_opportunities`, `get_disease_case_study`, `list_non_dilutive_grants`,
     `get_validation_communities`, `get_90_day_validation_plan`, `search_any_orphan_indication`), the Open Agent Nectar Suite
-    (`POST /api/stress-test`, `/benchmarks/myelofibrosis_bench.jsonl`, `/open-problems.json`, `/feeds/bio-delta.json`, `/atom.xml`,
+    (`POST /api/stress-test`, `GET /api/gene`, `GET /api/pocket`, `GET /api/compare`, `GET /api/leaderboard.json`,
+    `GET /feeds/catalysts.json`, `GET /feeds/myelofibrosis-catalysts.ics`, `/benchmarks/leaderboard.html`,
+    `/benchmarks/myelofibrosis_bench.jsonl`, `/open-problems.json`, `/feeds/bio-delta.json`, `/atom.xml`,
     `/.well-known/x402.json`, `/CITATION.cff`), and 3 Hugging Face Parquet tables (`myelofibrosis_gene_signatures`,
     `jak2_structural_pockets`, `myelofibrosis_clinical_trials` on `huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas`).
   contact:
@@ -159,6 +161,181 @@ paths:
             application/json:
               schema:
                 type: object
+
+  /api/gene:
+    get:
+      operationId: queryMyelofibrosisGeneSignatures
+      summary: Query single-cell and stromal gene expression signatures across Clonal JAK2+ PMF and Reversible AIMF.
+      description: >
+        Zero-auth micro-API querying `myelofibrosis_gene_signatures` (GSE144568, GSE122198, GSE156644, GSE226340,
+        and AIMF vs PMF stromal/iron axes) by gene symbol, disease cohort, marrow compartment, or free-text query.
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge Molecular Micro-API Worker
+      parameters:
+        - name: symbol
+          in: query
+          required: false
+          description: HGNC gene symbol filter (e.g., JAK2, HAMP, SLC40A1, S100A8, GLI1, TGFB1, G6B).
+          schema:
+            type: string
+        - name: cohort
+          in: query
+          required: false
+          description: Disease or cohort filter (e.g., jak2-myelofibrosis, autoimmune-myelofibrosis, pmf, aimf).
+          schema:
+            type: string
+        - name: compartment
+          in: query
+          required: false
+          description: Bone marrow cellular compartment filter (e.g., CD34+ HSPC, megakaryocyte, stroma, macrophage).
+          schema:
+            type: string
+        - name: q
+          in: query
+          required: false
+          description: Free-text keyword search across pathways, accessions, and biological notes.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Matching gene signature records with primary GEO/PMID citations.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/pocket:
+    get:
+      operationId: queryJak2StructuralPockets
+      summary: Query JAK2 V617F JH2 vs wild-type JH2/JH1 and comparative orphan structural pockets.
+      description: >
+        Zero-auth micro-API querying `jak2_structural_pockets` (PDB 4FVR, 4FVQ, 6E2Q, 8BAK, 8EX2 vs WT 4FVP, 3KRR,
+        and comparative UBA1 6DC6 / KIT D816V 4U0I / PAPD5 7BG9) by PDB ID, domain, target, or free-text query.
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge Molecular Micro-API Worker
+      parameters:
+        - name: pdb
+          in: query
+          required: false
+          description: RCSB PDB identifier filter (e.g., 4FVR, 4FVP, 6E2Q, 8BAK, 3KRR).
+          schema:
+            type: string
+        - name: domain
+          in: query
+          required: false
+          description: Protein domain filter (e.g., JH2, JH1, pseudokinase, kinase).
+          schema:
+            type: string
+        - name: target
+          in: query
+          required: false
+          description: Molecular target filter (e.g., JAK2 V617F, JAK2 WT, CALR, KIT D816V, UBA1).
+          schema:
+            type: string
+        - name: q
+          in: query
+          required: false
+          description: Free-text keyword search across residues, exit vectors, and selectivity notes.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Matching structural pocket records with selectivity residues and PDB references.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/compare:
+    get:
+      operationId: compareOrphanDiseaseCohorts
+      summary: Side-by-side biological, clinical-trial, iron-axis, and venture comparison of two orphan cohorts.
+      description: >
+        Zero-auth micro-API comparing any two curated Atlas cohorts side-by-side. Defaults to the Paired Myelofibrosis
+        Flagships: Clonal JAK2 V617F+ Primary Myelofibrosis (`jak2-myelofibrosis`) vs Reversible Autoimmune
+        Myelofibrosis (`autoimmune-myelofibrosis`).
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge Comparison Micro-API Worker
+      parameters:
+        - name: a
+          in: query
+          required: false
+          description: First disease_id to compare.
+          schema:
+            type: string
+            default: jak2-myelofibrosis
+        - name: b
+          in: query
+          required: false
+          description: Second disease_id to compare.
+          schema:
+            type: string
+            default: autoimmune-myelofibrosis
+      responses:
+        "200":
+          description: Structured side-by-side translational, diagnostic, and venture comparison JSON.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/leaderboard.json:
+    get:
+      operationId: getMyelofibrosisBenchLeaderboard
+      summary: Retrieve live MyelofibrosisBench-v1 model & agent leaderboard standings (zero PII, CC-BY-4.0).
+      description: >
+        Returns aggregate accuracy, per-category breakdown, and reasoning-keyword coverage across reference baselines
+        (Oracle Ground-Truth Ceiling 100.0%, Stratified Keyword Heuristic 50.0%, Random 4-Choice Baseline 25.0%) and
+        opt-in anonymous agent submissions.
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge Leaderboard API
+      responses:
+        "200":
+          description: Live MyelofibrosisBench-v1 leaderboard JSON.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /feeds/catalysts.json:
+    get:
+      operationId: getMyelofibrosisCatalystsJson
+      summary: Retrieve structured JSON calendar of upcoming Myelofibrosis, AIMF, and comparative orphan clinical/regulatory catalysts.
+      description: >
+        Zero-auth JSON feed listing upcoming Phase 1–3 trial readouts, FDA regulatory/RDEA milestones, and major
+        hematology congress (ASH, EHA, ASCO) catalyst windows with primary NCT identifiers.
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge Catalyst Feed Worker
+      responses:
+        "200":
+          description: Structured clinical and regulatory catalyst calendar JSON.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /feeds/myelofibrosis-catalysts.ics:
+    get:
+      operationId: getMyelofibrosisCatalystsIcs
+      summary: Subscribe to the iCalendar (.ics) feed of Myelofibrosis & orphan hematology clinical trial catalysts.
+      description: >
+        RFC 5545 iCalendar (`.ics`) feed subscribable in Google Calendar, Apple Calendar, Outlook, or autonomous
+        research agent schedulers tracking NCT trial readouts and hematology congress milestones.
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge Catalyst Calendar Worker
+      responses:
+        "200":
+          description: RFC 5545 iCalendar (.ics) document.
+          content:
+            text/calendar:
+              schema:
+                type: string
 
   /feeds/bio-delta.json:
     get:

@@ -88,6 +88,69 @@
       "paymentRequired": false,
       "amount": "0",
       "currency": "USD"
+    },
+    {
+      "path": "/benchmarks/leaderboard.html",
+      "url": "https://rare-disease-atlas.github.io/benchmarks/leaderboard.html",
+      "methods": ["GET"],
+      "description": "Public MyelofibrosisBench-v1 live agent leaderboard UI with 5-category breakdown and zero-PII CLI submission instructions.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/api/leaderboard.json",
+      "url": "https://api.rare-disease-atlas.workers.dev/api/leaderboard.json",
+      "methods": ["GET"],
+      "description": "Live JSON standings for MyelofibrosisBench-v1 across reference baselines and opt-in anonymous agent submissions (zero PII, CC-BY-4.0).",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/api/gene",
+      "url": "https://api.rare-disease-atlas.workers.dev/api/gene",
+      "methods": ["GET"],
+      "description": "Queryable single-cell and stromal gene signature micro-API (?symbol=, ?cohort=, ?compartment=, ?q=) spanning Clonal JAK2+ PMF and Reversible AIMF.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/api/pocket",
+      "url": "https://api.rare-disease-atlas.workers.dev/api/pocket",
+      "methods": ["GET"],
+      "description": "Queryable structural pocket micro-API (?pdb=, ?domain=, ?target=, ?q=) covering JAK2 V617F JH2 vs WT JH2/JH1 and comparative orphan targets.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/api/compare",
+      "url": "https://api.rare-disease-atlas.workers.dev/api/compare",
+      "methods": ["GET"],
+      "description": "Side-by-side biological, iron-axis, clinical-trial, and venture comparison micro-API (?a=jak2-myelofibrosis&b=autoimmune-myelofibrosis).",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/feeds/catalysts.json",
+      "url": "https://api.rare-disease-atlas.workers.dev/feeds/catalysts.json",
+      "methods": ["GET"],
+      "description": "Structured JSON calendar of upcoming Myelofibrosis, AIMF, and comparative orphan clinical trial readouts and hematology congress milestones.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/feeds/myelofibrosis-catalysts.ics",
+      "url": "https://api.rare-disease-atlas.workers.dev/feeds/myelofibrosis-catalysts.ics",
+      "methods": ["GET"],
+      "description": "Subscribable RFC 5545 iCalendar (.ics) feed of Myelofibrosis & orphan hematology clinical and regulatory catalyst windows.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
     }
   ]
 }
