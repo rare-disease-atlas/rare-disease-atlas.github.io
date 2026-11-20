@@ -1,32 +1,40 @@
 #!/usr/bin/env python3
 """
-MyelofibrosisBench-v1 Deterministic Evaluator (`benchmarks/evaluate_agent.py`)
-==============================================================================
+MyelofibrosisBench-v1.1 Deterministic Evaluator (`evaluate_agent.py`)
+=====================================================================
 100% Python standard-library evaluation harness for biomedical, clinical-trial,
-structural-pharmacology, and orphan-venture AI agents on MyelofibrosisBench-v1.
+structural-pharmacology, and orphan-venture AI agents on MyelofibrosisBench-v1.1
+(50 test items + 5 few-shot dev exemplars across 5 translational categories).
 
 Usage:
-  # Run built-in schema, citation, zero-PII, and mock-agent self-tests:
-  PYTHONDONTWRITEBYTECODE=1 python3 benchmarks/evaluate_agent.py --self-test
+  # Run built-in schema, citation, balance, zero-PII, and mock-agent self-tests:
+  PYTHONDONTWRITEBYTECODE=1 python3 evaluate_agent.py --self-test
 
-  # Score an agent's JSONL predictions:
-  PYTHONDONTWRITEBYTECODE=1 python3 benchmarks/evaluate_agent.py \
+  # Score an agent's JSONL predictions locally:
+  PYTHONDONTWRITEBYTECODE=1 python3 evaluate_agent.py \
       --predictions path/to/predictions.jsonl \
       --output-json path/to/score_report.json
 
+  # Grade predictions remotely via the Rare Disease Venture Atlas API:
+  PYTHONDONTWRITEBYTECODE=1 python3 evaluate_agent.py \
+      --predictions path/to/predictions.jsonl \
+      --grade-via-api \
+      --model-name "example-biomed-agent-v1"
+
   # Opt-in anonymous aggregate leaderboard/telemetry submission (zero PII/IPs stored):
-  PYTHONDONTWRITEBYTECODE=1 python3 benchmarks/evaluate_agent.py \
+  PYTHONDONTWRITEBYTECODE=1 python3 evaluate_agent.py \
       --predictions path/to/predictions.jsonl \
       --submit-anonymous-score \
       --model-name "example-biomed-agent-v1"
 
 Expected prediction JSONL format (one JSON object per line):
-  {"id": "mf-bench-001", "choice": "B", "reasoning": "Autoimmune Myelofibrosis shows non-clustered megakaryocytes..."}
+  {"id": "mf-bench-001", "choice": "A", "reasoning": "Autoimmune Myelofibrosis shows non-clustered megakaryocytes..."}
 """
 
 from __future__ import annotations
 
 import argparse
+import collections
 import json
 from pathlib import Path
 import re
@@ -35,8 +43,13 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-BENCHMARK_VERSION = "MyelofibrosisBench-v1"
+BENCHMARK_VERSION = "MyelofibrosisBench-v1.1"
+EXPECTED_TEST_COUNT = 50
+EXPECTED_PER_CATEGORY_TEST = 10
+EXPECTED_DEV_COUNT = 5
+EXPECTED_PER_CATEGORY_DEV = 1
 FEEDBACK_ENDPOINT = "https://api.rare-disease-atlas.workers.dev/api/feedback"
+GRADE_ENDPOINT = "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark"
 EXPECTED_CATEGORIES = (
     "aimf_differential_triage",
     "iron_hepcidin_axis",
@@ -51,6 +64,18 @@ CITATION_PATTERN = re.compile(
 )
 EMAIL_PATTERN = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 LOCAL_PATH_PATTERN = re.compile(r"/(?:home|Users)/[A-Za-z0-9._-]+")
+
+
+def resolve_default_paths(script_dir: Path) -> tuple[Path, Path]:
+    """Support both standalone repo (`data/test.jsonl`) and `benchmarks/` layouts."""
+    data_test = script_dir / "data" / "test.jsonl"
+    data_dev = script_dir / "data" / "dev.jsonl"
+    flat_test = script_dir / "myelofibrosis_bench.jsonl"
+    flat_dev = script_dir / "myelofibrosis_bench_dev.jsonl"
+
+    test_path = data_test if data_test.exists() else flat_test
+    dev_path = data_dev if data_dev.exists() else flat_dev
+    return test_path, dev_path
 
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -70,13 +95,29 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
     return records
 
 
-def validate_benchmark_schema(items: list[dict[str, Any]]) -> list[str]:
+def validate_split_schema(
+    items: list[dict[str, Any]],
+    *,
+    split: str = "test",
+) -> list[str]:
     errors: list[str] = []
-    if len(items) != 30:
-        errors.append(f"Expected exactly 30 benchmark items, found {len(items)}")
+    if split == "test":
+        expected_total = EXPECTED_TEST_COUNT
+        expected_per_cat = EXPECTED_PER_CATEGORY_TEST
+        id_prefix = "mf-bench-"
+    elif split == "dev":
+        expected_total = EXPECTED_DEV_COUNT
+        expected_per_cat = EXPECTED_PER_CATEGORY_DEV
+        id_prefix = "mf-bench-dev-"
+    else:
+        return [f"Unknown split '{split}'"]
+
+    if len(items) != expected_total:
+        errors.append(f"[{split}] Expected exactly {expected_total} items, found {len(items)}")
 
     seen_ids: set[str] = set()
     category_counts: dict[str, int] = {cat: 0 for cat in EXPECTED_CATEGORIES}
+    choice_counts: collections.Counter[str] = collections.Counter()
 
     required_keys = {
         "id",
@@ -91,12 +132,12 @@ def validate_benchmark_schema(items: list[dict[str, Any]]) -> list[str]:
     }
 
     for idx, item in enumerate(items, start=1):
-        expected_id = f"mf-bench-{idx:03d}"
+        expected_id = f"{id_prefix}{idx:03d}"
         item_id = item.get("id")
         if item_id != expected_id:
-            errors.append(f"Row {idx}: expected id '{expected_id}', got '{item_id}'")
+            errors.append(f"[{split}] Row {idx}: expected id '{expected_id}', got '{item_id}'")
         if item_id in seen_ids:
-            errors.append(f"Duplicate id '{item_id}'")
+            errors.append(f"[{split}] Duplicate id '{item_id}'")
         seen_ids.add(str(item_id))
 
         missing = required_keys - set(item.keys())
@@ -121,12 +162,21 @@ def validate_benchmark_schema(items: list[dict[str, Any]]) -> list[str]:
                 if not isinstance(choice_text, str) or len(choice_text.strip()) < 10:
                     errors.append(f"{item_id}: choice {choice_key} must be a non-trivial string")
 
-        if item["correct_choice"] not in VALID_CHOICES:
-            errors.append(f"{item_id}: invalid correct_choice '{item['correct_choice']}'")
+        gold = item["correct_choice"]
+        if gold not in VALID_CHOICES:
+            errors.append(f"{item_id}: invalid correct_choice '{gold}'")
+        else:
+            choice_counts[gold] += 1
 
         kws = item["required_reasoning_keywords"]
-        if not isinstance(kws, list) or not (3 <= len(kws) <= 5) or not all(isinstance(k, str) and k.strip() for k in kws):
-            errors.append(f"{item_id}: required_reasoning_keywords must be a list of 3-5 non-empty strings")
+        if (
+            not isinstance(kws, list)
+            or not (3 <= len(kws) <= 5)
+            or not all(isinstance(k, str) and k.strip() for k in kws)
+        ):
+            errors.append(
+                f"{item_id}: required_reasoning_keywords must be a list of 3-5 non-empty strings"
+            )
 
         if not isinstance(item["question"], str) or len(item["question"].strip()) < 40:
             errors.append(f"{item_id}: question too short")
@@ -146,10 +196,24 @@ def validate_benchmark_schema(items: list[dict[str, Any]]) -> list[str]:
             errors.append(f"{item_id}: potential PII or local filesystem path detected")
 
     for cat, count in category_counts.items():
-        if count != 6:
-            errors.append(f"Category '{cat}' expected 6 items, found {count}")
+        if count != expected_per_cat:
+            errors.append(
+                f"[{split}] Category '{cat}' expected {expected_per_cat} items, found {count}"
+            )
+
+    if split == "test" and len(items) == EXPECTED_TEST_COUNT:
+        for ch in VALID_CHOICES:
+            cnt = choice_counts.get(ch, 0)
+            if not (12 <= cnt <= 13):
+                errors.append(
+                    f"[test] Unbalanced correct_choice '{ch}': expected 12-13, found {cnt}"
+                )
 
     return errors
+
+
+def validate_benchmark_schema(items: list[dict[str, Any]]) -> list[str]:
+    return validate_split_schema(items, split="test")
 
 
 def extract_choice(pred: dict[str, Any]) -> str:
@@ -278,12 +342,52 @@ def evaluate_predictions(
     }
 
 
+def grade_via_api(
+    predictions: list[dict[str, Any]],
+    model_name: str,
+    endpoint: str,
+) -> dict[str, Any]:
+    clean_model = re.sub(r"[^A-Za-z0-9._:/-]+", "-", model_name.strip())[:80] or "anonymous-model"
+    normalized_preds = [
+        {
+            "id": str(row.get("id", "")).strip(),
+            "choice": extract_choice(row),
+            "reasoning": extract_reasoning(row),
+        }
+        for row in predictions
+        if isinstance(row.get("id"), str) and row.get("id", "").strip()
+    ]
+    payload = {
+        "benchmark_version": BENCHMARK_VERSION,
+        "model_name": clean_model,
+        "predictions": normalized_preds,
+    }
+    body = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        endpoint,
+        data=body,
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "RareDiseaseVentureAtlas-MyelofibrosisBench/1.1",
+        },
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        resp_text = resp.read().decode("utf-8", errors="replace")
+        parsed: Any
+        try:
+            parsed = json.loads(resp_text)
+        except json.JSONDecodeError:
+            parsed = {"raw_response": resp_text}
+        return {"http_status": resp.status, "data": parsed}
+
+
 def submit_anonymous_score(report: dict[str, Any], model_name: str, endpoint: str) -> dict[str, Any]:
     clean_model = re.sub(r"[^A-Za-z0-9._:/-]+", "-", model_name.strip())[:80] or "anonymous-model"
     payload = {
         "signal_type": "usage-feedback",
         "disease_id": "jak2-myelofibrosis",
-        "source": "myelofibrosis-bench-v1-evaluator",
+        "source": "myelofibrosis-bench-v1.1-evaluator",
         "benchmark_version": BENCHMARK_VERSION,
         "model_name": clean_model,
         "summary": (
@@ -318,7 +422,7 @@ def submit_anonymous_score(report: dict[str, Any], model_name: str, endpoint: st
         data=body,
         headers={
             "Content-Type": "application/json",
-            "User-Agent": "RareDiseaseVentureAtlas-MyelofibrosisBench/1.0",
+            "User-Agent": "RareDiseaseVentureAtlas-MyelofibrosisBench/1.1",
         },
         method="POST",
     )
@@ -347,37 +451,46 @@ def print_summary(report: dict[str, Any]) -> None:
         )
 
 
-def run_self_test(benchmark_path: Path) -> int:
-    print(f"[self-test] Loading benchmark from {benchmark_path.name} ...")
-    items = load_jsonl(benchmark_path)
-    errors = validate_benchmark_schema(items)
-    if errors:
-        print("[self-test] FAILED schema validation:", file=sys.stderr)
-        for err in errors:
+def run_self_test(benchmark_path: Path, dev_path: Path) -> int:
+    print(f"[self-test] Loading test split from {benchmark_path} ...")
+    test_items = load_jsonl(benchmark_path)
+    test_errors = validate_split_schema(test_items, split="test")
+    if test_errors:
+        print("[self-test] FAILED test schema validation:", file=sys.stderr)
+        for err in test_errors:
             print(f"  - {err}", file=sys.stderr)
         return 1
 
-    # Test 1: Oracle predictions -> 100% choice accuracy & 100% keyword coverage
+    print(f"[self-test] Loading dev split from {dev_path} ...")
+    dev_items = load_jsonl(dev_path)
+    dev_errors = validate_split_schema(dev_items, split="dev")
+    if dev_errors:
+        print("[self-test] FAILED dev schema validation:", file=sys.stderr)
+        for err in dev_errors:
+            print(f"  - {err}", file=sys.stderr)
+        return 1
+
+    # Test 1: Oracle predictions on test split -> 50/50 = 100%
     oracle_preds = [
         {
             "id": it["id"],
             "choice": it["correct_choice"],
             "reasoning": it["rationale"] + " " + " ".join(it["required_reasoning_keywords"]),
         }
-        for it in items
+        for it in test_items
     ]
-    oracle_report = evaluate_predictions(items, oracle_preds)
-    assert oracle_report["correct_answers"] == 30, "Oracle must score 30/30"
+    oracle_report = evaluate_predictions(test_items, oracle_preds)
+    assert oracle_report["correct_answers"] == EXPECTED_TEST_COUNT, "Oracle must score 50/50"
     assert oracle_report["overall_choice_accuracy"] == 1.0, "Oracle accuracy must be 1.0"
     assert oracle_report["overall_reasoning_keyword_coverage"] == 1.0, "Oracle kw coverage must be 1.0"
     assert oracle_report["composite_translational_score"] == 1.0, "Oracle composite must be 1.0"
 
-    # Test 2: Half-correct deterministic mock predictions (first 3 of each category correct)
+    # Test 2: Half-correct deterministic mock predictions (first 5 of each category correct)
     mock_preds = []
     cat_seen: dict[str, int] = {c: 0 for c in EXPECTED_CATEGORIES}
-    for it in items:
+    for it in test_items:
         cat_seen[it["category"]] += 1
-        if cat_seen[it["category"]] <= 3:
+        if cat_seen[it["category"]] <= EXPECTED_PER_CATEGORY_TEST // 2:
             choice = it["correct_choice"]
             reasoning = " ".join(it["required_reasoning_keywords"][:2])
         else:
@@ -386,30 +499,56 @@ def run_self_test(benchmark_path: Path) -> int:
             reasoning = "Unrelated generic cytokine discussion."
         mock_preds.append({"id": it["id"], "choice": choice, "reasoning": reasoning})
 
-    mock_report = evaluate_predictions(items, mock_preds)
-    assert mock_report["correct_answers"] == 15, f"Expected 15/30 on half-mock, got {mock_report['correct_answers']}"
+    mock_report = evaluate_predictions(test_items, mock_preds)
+    expected_half = EXPECTED_TEST_COUNT // 2
+    assert (
+        mock_report["correct_answers"] == expected_half
+    ), f"Expected {expected_half}/{EXPECTED_TEST_COUNT} on half-mock, got {mock_report['correct_answers']}"
     assert abs(mock_report["overall_choice_accuracy"] - 0.5) < 1e-6, "Expected 50.0% mock accuracy"
     for cat in EXPECTED_CATEGORIES:
-        assert mock_report["category_breakdown"][cat]["correct"] == 3, f"Expected 3/6 in {cat}"
+        assert (
+            mock_report["category_breakdown"][cat]["correct"] == EXPECTED_PER_CATEGORY_TEST // 2
+        ), f"Expected 5/10 in {cat}"
 
+    # Test 3: Oracle predictions on dev split -> 5/5 = 100%
+    dev_oracle = [
+        {
+            "id": it["id"],
+            "choice": it["correct_choice"],
+            "reasoning": it["rationale"] + " " + " ".join(it["required_reasoning_keywords"]),
+        }
+        for it in dev_items
+    ]
+    dev_report = evaluate_predictions(dev_items, dev_oracle)
+    assert dev_report["correct_answers"] == EXPECTED_DEV_COUNT, "Dev oracle must score 5/5"
+    assert dev_report["overall_choice_accuracy"] == 1.0, "Dev oracle accuracy must be 1.0"
+
+    choice_dist = dict(sorted(collections.Counter(it["correct_choice"] for it in test_items).items()))
     print(
-        f"[self-test] PASS — Verified {len(items)} items across {len(EXPECTED_CATEGORIES)} categories "
-        "(6 items/category), citation accessions, zero-PII checks, oracle (30/30 = 100.0%), "
-        "and stratified mock evaluation (15/30 = 50.0%)."
+        f"[self-test] PASS — Verified {len(test_items)} test items ({EXPECTED_PER_CATEGORY_TEST}/category, "
+        f"choice balance {choice_dist}) + {len(dev_items)} dev exemplars ({EXPECTED_PER_CATEGORY_DEV}/category), "
+        "citation accessions, zero-PII checks, oracle (50/50 = 100.0%, dev 5/5 = 100.0%), "
+        "and stratified mock evaluation (25/50 = 50.0%)."
     )
     return 0
 
 
 def main() -> int:
-    default_bench = Path(__file__).resolve().parent / "myelofibrosis_bench.jsonl"
+    default_bench, default_dev = resolve_default_paths(Path(__file__).resolve().parent)
     parser = argparse.ArgumentParser(
-        description="Evaluate AI agent predictions on MyelofibrosisBench-v1 (zero external dependencies)."
+        description=f"Evaluate AI agent predictions on {BENCHMARK_VERSION} (zero external dependencies)."
     )
     parser.add_argument(
         "--benchmark",
         type=Path,
         default=default_bench,
-        help="Path to myelofibrosis_bench.jsonl (default: alongside evaluate_agent.py).",
+        help="Path to test split JSONL (default: data/test.jsonl or myelofibrosis_bench.jsonl).",
+    )
+    parser.add_argument(
+        "--dev",
+        type=Path,
+        default=default_dev,
+        help="Path to dev split JSONL (default: data/dev.jsonl or myelofibrosis_bench_dev.jsonl).",
     )
     parser.add_argument(
         "--predictions",
@@ -424,7 +563,18 @@ def main() -> int:
     parser.add_argument(
         "--self-test",
         action="store_true",
-        help="Validate benchmark schema, citations, zero-PII rules, and run deterministic mock evaluations.",
+        help="Validate test (50) + dev (5) schemas, citations, balance, zero-PII rules, and mock evals.",
+    )
+    parser.add_argument(
+        "--grade-via-api",
+        action="store_true",
+        help=f"Submit predictions to the hosted deterministic grader ({GRADE_ENDPOINT}).",
+    )
+    parser.add_argument(
+        "--grade-endpoint",
+        type=str,
+        default=GRADE_ENDPOINT,
+        help=f"Remote grading API URL (default: {GRADE_ENDPOINT}).",
     )
     parser.add_argument(
         "--submit-anonymous-score",
@@ -435,7 +585,7 @@ def main() -> int:
         "--model-name",
         type=str,
         default="",
-        help="Model or agent identifier required when --submit-anonymous-score is enabled.",
+        help="Model or agent identifier (required for --submit-anonymous-score; recommended for --grade-via-api).",
     )
     parser.add_argument(
         "--feedback-endpoint",
@@ -446,10 +596,29 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.self_test:
-        return run_self_test(args.benchmark)
+        return run_self_test(args.benchmark, args.dev)
 
     if not args.predictions:
         parser.error("Provide --predictions path/to/preds.jsonl or run with --self-test.")
+
+    preds = load_jsonl(args.predictions)
+
+    if args.grade_via_api:
+        try:
+            res = grade_via_api(preds, args.model_name or "anonymous-model", args.grade_endpoint)
+            print(f"Remote grading completed (HTTP {res['http_status']}):")
+            print(json.dumps(res["data"], indent=2, ensure_ascii=False))
+            if args.output_json:
+                args.output_json.parent.mkdir(parents=True, exist_ok=True)
+                args.output_json.write_text(
+                    json.dumps(res["data"], indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8",
+                )
+                print(f"\nSaved remote grading report to {args.output_json}")
+            return 0
+        except urllib.error.URLError as exc:
+            print(f"Remote grading error ({args.grade_endpoint}): {exc}", file=sys.stderr)
+            return 2
 
     items = load_jsonl(args.benchmark)
     schema_errors = validate_benchmark_schema(items)
@@ -458,13 +627,15 @@ def main() -> int:
             print(f"Schema error: {err}", file=sys.stderr)
         return 1
 
-    preds = load_jsonl(args.predictions)
     report = evaluate_predictions(items, preds)
     print_summary(report)
 
     if args.output_json:
         args.output_json.parent.mkdir(parents=True, exist_ok=True)
-        args.output_json.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        args.output_json.write_text(
+            json.dumps(report, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
         print(f"\nSaved full JSON report to {args.output_json}")
 
     if args.submit_anonymous_score:

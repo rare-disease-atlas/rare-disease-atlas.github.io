@@ -11,10 +11,12 @@ info:
     4 comparative hematology/immunology cohorts, live 7,000-orphan-disease MCP diligence (`https://api.rare-disease-atlas.workers.dev/mcp`,
     canonical v1.6.0 read-verb tools: `search_founder_opportunities`, `get_disease_case_study`, `list_non_dilutive_grants`,
     `get_validation_communities`, `get_90_day_validation_plan`, `search_any_orphan_indication`), the Open Agent Nectar Suite
-    (`POST /api/stress-test`, `GET /api/gene`, `GET /api/pocket`, `GET /api/compare`, `GET /api/leaderboard.json`,
+    (`POST /api/stress-test`, `GET/POST /api/grade-benchmark`, `GET /api/gene`, `GET /api/pocket`, `GET /api/compare`, `GET /api/leaderboard.json`,
     `GET /feeds/catalysts.json`, `GET /feeds/myelofibrosis-catalysts.ics`, `/benchmarks/leaderboard.html`,
     `/benchmarks/myelofibrosis_bench.jsonl`, `/open-problems.json`, `/feeds/bio-delta.json`, `/atom.xml`,
-    `/.well-known/x402.json`, `/CITATION.cff`), and 3 Hugging Face Parquet tables (`myelofibrosis_gene_signatures`,
+    `/.well-known/x402.json`, `/CITATION.cff`), MyelofibrosisBench-v1.1 (50 test + 5 dev items on
+    `huggingface.co/datasets/rare-disease-atlas/MyelofibrosisBench` and `github.com/rare-disease-atlas/myelofibrosis-bench`
+    with EleutherAI `lm-eval` and UK AISI `Inspect AI` harnesses), and 3 Hugging Face Parquet tables (`myelofibrosis_gene_signatures`,
     `jak2_structural_pockets`, `myelofibrosis_clinical_trials` on `huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas`).
   contact:
     name: Rare Disease Venture Atlas
@@ -282,20 +284,112 @@ paths:
               schema:
                 type: object
 
+  /api/grade-benchmark:
+    get:
+      operationId: getMyelofibrosisBenchQuestions
+      summary: Fetch MyelofibrosisBench-v1.1 (50 test + 5 dev) ungraded question manifest & grading schema (zero auth, $0 USD).
+      description: >
+        Returns the ungraded MyelofibrosisBench-v1.1 question set (without answer keys), category metadata,
+        and submission schema for zero-install evaluation via `POST /api/grade-benchmark` (companion to
+        `huggingface.co/datasets/rare-disease-atlas/MyelofibrosisBench` and `github.com/rare-disease-atlas/myelofibrosis-bench`).
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge Zero-Install Benchmark Grader
+      parameters:
+        - name: split
+          in: query
+          required: false
+          description: Dataset split to retrieve (`test` for 50 scored items, `dev` for 5 calibration items, or `all`).
+          schema:
+            type: string
+            enum:
+              - test
+              - dev
+              - all
+            default: test
+      responses:
+        "200":
+          description: Ungraded MyelofibrosisBench-v1.1 items and submission instructions.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      operationId: gradeMyelofibrosisBenchPredictions
+      summary: Deterministically grade MyelofibrosisBench-v1.1 predictions & optionally publish aggregate score to the live leaderboard.
+      description: >
+        Statelessly grades submitted 4-choice answers and mechanistic reasoning-keyword coverage against the
+        MyelofibrosisBench-v1.1 ground truth (50 test + 5 dev items). When `submit_to_leaderboard: true`,
+        publishes only aggregate accuracy, per-category counts, reasoning coverage, and `model_name` (zero PII, zero raw prompts).
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge Zero-Install Benchmark Grader
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - predictions
+              additionalProperties: true
+              properties:
+                model_name:
+                  type: string
+                  description: Optional model or agent identifier for leaderboard attribution.
+                split:
+                  type: string
+                  enum:
+                    - test
+                    - dev
+                  default: test
+                submit_to_leaderboard:
+                  type: boolean
+                  default: false
+                  description: Opt-in flag to publish aggregate score to GET /api/leaderboard.json (zero PII).
+                predictions:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                      - choice
+                    properties:
+                      id:
+                        type: string
+                        example: "mf-bench-001"
+                      choice:
+                        type: string
+                        enum:
+                          - A
+                          - B
+                          - C
+                          - D
+                      reasoning:
+                        type: string
+                        description: Optional mechanistic reasoning text evaluated for primary-cited keyword coverage.
+      responses:
+        "200":
+          description: Deterministic accuracy, per-category breakdown, reasoning-keyword coverage, and leaderboard status.
+          content:
+            application/json:
+              schema:
+                type: object
+
   /api/leaderboard.json:
     get:
       operationId: getMyelofibrosisBenchLeaderboard
-      summary: Retrieve live MyelofibrosisBench-v1 model & agent leaderboard standings (zero PII, CC-BY-4.0).
+      summary: Retrieve live MyelofibrosisBench-v1.1 model & agent leaderboard standings (zero PII, CC-BY-4.0).
       description: >
         Returns aggregate accuracy, per-category breakdown, and reasoning-keyword coverage across reference baselines
         (Oracle Ground-Truth Ceiling 100.0%, Stratified Keyword Heuristic 50.0%, Random 4-Choice Baseline 25.0%) and
-        opt-in anonymous agent submissions.
+        opt-in anonymous agent submissions for MyelofibrosisBench-v1.1 (50 test + 5 dev items).
       servers:
         - url: https://api.rare-disease-atlas.workers.dev
           description: Cloudflare Edge Leaderboard API
       responses:
         "200":
-          description: Live MyelofibrosisBench-v1 leaderboard JSON.
+          description: Live MyelofibrosisBench-v1.1 leaderboard JSON.
           content:
             application/json:
               schema:
@@ -376,7 +470,7 @@ paths:
   /benchmarks/myelofibrosis_bench.jsonl:
     get:
       operationId: getMyelofibrosisBenchV1
-      summary: Download MyelofibrosisBench-v1 (30 primary-cited translational & structural reasoning items in JSONL).
+      summary: Download MyelofibrosisBench-v1.1 (50 test + 5 dev primary-cited translational & structural reasoning items in JSONL).
       responses:
         "200":
           description: Newline-delimited JSON (JSONL) benchmark items.
@@ -388,7 +482,7 @@ paths:
   /CITATION.cff:
     get:
       operationId: getCitationCff
-      summary: Retrieve CFF 1.2.0 academic citation metadata for the Rare Disease Venture Atlas & MyelofibrosisBench-v1.
+      summary: Retrieve CFF 1.2.0 academic citation metadata for the Rare Disease Venture Atlas & MyelofibrosisBench-v1.1.
       responses:
         "200":
           description: Citation File Format (CFF 1.2.0) YAML document.

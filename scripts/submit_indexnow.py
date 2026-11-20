@@ -48,6 +48,8 @@ PATHS = (
     "/open-problems.json",
     "/benchmarks/leaderboard.html",
     "/benchmarks/myelofibrosis_bench.jsonl",
+    "/benchmarks/myelofibrosis_bench_dev.jsonl",
+    "/benchmarks/evaluate_agent.py",
     "/benchmarks/README.md",
     "/CITATION.cff",
     "/codemeta.json",

@@ -2,7 +2,7 @@
   "protocol": "x402",
   "version": "1.0",
   "name": "Rare Disease Venture & Translational Opportunity Atlas — Free Public-Good Agent Endpoints",
-  "description": "Zero-cost, zero-API-key open-science MCP, A2A, hypothesis red-teaming, Bio-Delta wire, open computational problems, and MyelofibrosisBench-v1 endpoints anchored on Clonal JAK2 V617F+ Primary Myelofibrosis and Reversible Autoimmune Myelofibrosis (AIMF).",
+  "description": "Zero-cost, zero-API-key open-science MCP, A2A, hypothesis red-teaming, zero-install benchmark grading (POST /api/grade-benchmark), Bio-Delta wire, open computational problems, and MyelofibrosisBench-v1.1 (50 test + 5 dev) endpoints anchored on Clonal JAK2 V617F+ Primary Myelofibrosis and Reversible Autoimmune Myelofibrosis (AIMF).",
   "provider": {
     "organization": "Rare Disease Venture Atlas",
     "url": "https://rare-disease-atlas.github.io",
@@ -84,7 +84,7 @@
       "path": "/benchmarks/myelofibrosis_bench.jsonl",
       "url": "https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl",
       "methods": ["GET"],
-      "description": "MyelofibrosisBench-v1: 30-item primary-cited translational reasoning benchmark evaluating AI models on JH2 allostery, AIMF fibrosis reversal, dual iron overload, and orphan clinical trial design.",
+      "description": "MyelofibrosisBench-v1.1: 50 test + 5 dev primary-cited translational reasoning benchmark (also on huggingface.co/datasets/rare-disease-atlas/MyelofibrosisBench and github.com/rare-disease-atlas/myelofibrosis-bench with lm-eval & Inspect AI harnesses).",
       "paymentRequired": false,
       "amount": "0",
       "currency": "USD"
@@ -93,7 +93,16 @@
       "path": "/benchmarks/leaderboard.html",
       "url": "https://rare-disease-atlas.github.io/benchmarks/leaderboard.html",
       "methods": ["GET"],
-      "description": "Public MyelofibrosisBench-v1 live agent leaderboard UI with 5-category breakdown and zero-PII CLI submission instructions.",
+      "description": "Public MyelofibrosisBench-v1.1 interactive 3-question traps quiz, 5 failure-mode traps showcase, live agent leaderboard UI, and 4-tab quickstart (HF Datasets, lm-eval, Inspect AI, HTTP POST).",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/api/grade-benchmark",
+      "url": "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark",
+      "methods": ["GET", "POST"],
+      "description": "Zero-install MyelofibrosisBench-v1.1 (50 test + 5 dev) question fetcher (GET) and deterministic HTTP grader + opt-in anonymous leaderboard publisher (POST, zero PII).",
       "paymentRequired": false,
       "amount": "0",
       "currency": "USD"
@@ -102,7 +111,7 @@
       "path": "/api/leaderboard.json",
       "url": "https://api.rare-disease-atlas.workers.dev/api/leaderboard.json",
       "methods": ["GET"],
-      "description": "Live JSON standings for MyelofibrosisBench-v1 across reference baselines and opt-in anonymous agent submissions (zero PII, CC-BY-4.0).",
+      "description": "Live JSON standings for MyelofibrosisBench-v1.1 (50 test + 5 dev) across reference baselines and opt-in anonymous agent submissions (zero PII, CC-BY-4.0).",
       "paymentRequired": false,
       "amount": "0",
       "currency": "USD"
