@@ -11,10 +11,15 @@ info:
     4 comparative hematology/immunology cohorts, live 7,000-orphan-disease MCP diligence (`https://api.rare-disease-atlas.workers.dev/mcp`,
     canonical v1.6.0 read-verb tools: `search_founder_opportunities`, `get_disease_case_study`, `list_non_dilutive_grants`,
     `get_validation_communities`, `get_90_day_validation_plan`, `search_any_orphan_indication`), the Open Agent Nectar Suite
-    (`POST /api/stress-test`, `GET/POST /api/grade-benchmark`, `GET /api/gene`, `GET /api/pocket`, `GET /api/compare`, `GET /api/leaderboard.json`,
-    `GET /feeds/catalysts.json`, `GET /feeds/myelofibrosis-catalysts.ics`, `/benchmarks/leaderboard.html`,
-    `/benchmarks/myelofibrosis_bench.jsonl`, `/open-problems.json`, `/feeds/bio-delta.json`, `/atom.xml`,
-    `/.well-known/x402.json`, `/CITATION.cff`), MyelofibrosisBench-v1.1 (50 test + 5 dev items on
+    (`POST /api/stress-test`, `GET/POST /api/grade-benchmark`, `GET /api/gene`, `GET /api/pocket`, `GET /api/compare`,
+    `GET /api/rare-tx-leaderboard.json`, `GET /api/leaderboard.json`, `GET /feeds/catalysts.json`,
+    `GET /feeds/myelofibrosis-catalysts.ics`, `/benchmarks/rare-tx-bench.html`, `/benchmarks/rare_tx_bench.jsonl`,
+    `/benchmarks/rare_tx_open_frontier.jsonl`, `/benchmarks/leaderboard.html`, `/benchmarks/myelofibrosis_bench.jsonl`,
+    `/open-problems.json`, `/feeds/bio-delta.json`, `/atom.xml`, `/.well-known/x402.json`, `/CITATION.cff`),
+    RareTxBench-v1.0 (100 adversarially hardened 6-choice A–F post-diagnosis rare-disease translational items [40 MF/AIMF
+    flagship + 60 Cross-Orphan across 20+ rare diseases] + 10 dev + 20 choice-free open_frontier exact derivations with
+    50 critical_harm CTER traps on `huggingface.co/datasets/rare-disease-atlas/RareTxBench` and
+    `github.com/rare-disease-atlas/rare-tx-bench`), MyelofibrosisBench-v1.1 (50 test + 5 dev items on
     `huggingface.co/datasets/rare-disease-atlas/MyelofibrosisBench` and `github.com/rare-disease-atlas/myelofibrosis-bench`
     with EleutherAI `lm-eval` and UK AISI `Inspect AI` harnesses), and 3 Hugging Face Parquet tables (`myelofibrosis_gene_signatures`,
     `jak2_structural_pockets`, `myelofibrosis_clinical_trials` on `huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas`).
@@ -286,20 +291,32 @@ paths:
 
   /api/grade-benchmark:
     get:
-      operationId: getMyelofibrosisBenchQuestions
-      summary: Fetch MyelofibrosisBench-v1.1 (50 test + 5 dev) ungraded question manifest & grading schema (zero auth, $0 USD).
+      operationId: getBenchmarkQuestions
+      summary: Fetch ungraded RareTxBench-v1.0 (MCQ-100 / open_frontier) or MyelofibrosisBench-v1.1 question manifest & grading schema (zero auth, $0 USD).
       description: >
-        Returns the ungraded MyelofibrosisBench-v1.1 question set (without answer keys), category metadata,
-        and submission schema for zero-install evaluation via `POST /api/grade-benchmark` (companion to
-        `huggingface.co/datasets/rare-disease-atlas/MyelofibrosisBench` and `github.com/rare-disease-atlas/myelofibrosis-bench`).
+        Returns the ungraded question set (without answer keys), category/track metadata, and submission schema for
+        zero-install evaluation via `POST /api/grade-benchmark`. Supports `benchmark=rare-tx-bench` (100 6-choice A–F
+        items + 50 CTER traps), `benchmark=rare-tx-bench-open` (20 choice-free exact-answer derivations), and
+        `benchmark=myelofibrosis-bench` (default, 50 test + 5 dev items).
       servers:
         - url: https://api.rare-disease-atlas.workers.dev
           description: Cloudflare Edge Zero-Install Benchmark Grader
       parameters:
+        - name: benchmark
+          in: query
+          required: false
+          description: Benchmark suite to retrieve (`myelofibrosis-bench`, `rare-tx-bench`, or `rare-tx-bench-open`).
+          schema:
+            type: string
+            enum:
+              - myelofibrosis-bench
+              - rare-tx-bench
+              - rare-tx-bench-open
+            default: myelofibrosis-bench
         - name: split
           in: query
           required: false
-          description: Dataset split to retrieve (`test` for 50 scored items, `dev` for 5 calibration items, or `all`).
+          description: Dataset split to retrieve (`test`, `dev`, or `all`).
           schema:
             type: string
             enum:
@@ -309,18 +326,20 @@ paths:
             default: test
       responses:
         "200":
-          description: Ungraded MyelofibrosisBench-v1.1 items and submission instructions.
+          description: Ungraded benchmark items and submission instructions.
           content:
             application/json:
               schema:
                 type: object
     post:
-      operationId: gradeMyelofibrosisBenchPredictions
-      summary: Deterministically grade MyelofibrosisBench-v1.1 predictions & optionally publish aggregate score to the live leaderboard.
+      operationId: gradeBenchmarkPredictions
+      summary: Deterministically grade RareTxBench-v1.0 (MCQ-100 / open_frontier) or MyelofibrosisBench-v1.1 predictions & optionally publish aggregate score.
       description: >
-        Statelessly grades submitted 4-choice answers and mechanistic reasoning-keyword coverage against the
-        MyelofibrosisBench-v1.1 ground truth (50 test + 5 dev items). When `submit_to_leaderboard: true`,
-        publishes only aggregate accuracy, per-category counts, reasoning coverage, and `model_name` (zero PII, zero raw prompts).
+        Statelessly grades submitted predictions against ground truth. Supports `benchmark: "rare-tx-bench"` (100-item
+        6-choice A–F with dual-track MF/Cross-Orphan accuracy, CTER across 50 critical_harm traps, and rubric keyword
+        coverage), `benchmark: "rare-tx-bench-open"` (20-item choice-free exact numeric/residue derivations + CTER),
+        and `benchmark: "myelofibrosis-bench"` (50 test + 5 dev 4-choice items). When `publish_to_leaderboard: true`
+        (or `submit_to_leaderboard: true`), publishes only aggregate metrics and `model_name` (zero PII, zero raw prompts).
       servers:
         - url: https://api.rare-disease-atlas.workers.dev
           description: Cloudflare Edge Zero-Install Benchmark Grader
@@ -334,6 +353,14 @@ paths:
                 - predictions
               additionalProperties: true
               properties:
+                benchmark:
+                  type: string
+                  enum:
+                    - myelofibrosis-bench
+                    - rare-tx-bench
+                    - rare-tx-bench-open
+                  default: myelofibrosis-bench
+                  description: Target benchmark suite (`rare-tx-bench` for MCQ-100, `rare-tx-bench-open` for 20-item choice-free derivations, or `myelofibrosis-bench`).
                 model_name:
                   type: string
                   description: Optional model or agent identifier for leaderboard attribution.
@@ -343,21 +370,24 @@ paths:
                     - test
                     - dev
                   default: test
+                publish_to_leaderboard:
+                  type: boolean
+                  default: false
+                  description: Opt-in flag to publish aggregate score to GET /api/rare-tx-leaderboard.json or GET /api/leaderboard.json (zero PII).
                 submit_to_leaderboard:
                   type: boolean
                   default: false
-                  description: Opt-in flag to publish aggregate score to GET /api/leaderboard.json (zero PII).
+                  description: Alias for `publish_to_leaderboard`.
                 predictions:
                   type: array
                   items:
                     type: object
                     required:
                       - id
-                      - choice
                     properties:
                       id:
                         type: string
-                        example: "mf-bench-001"
+                        example: "rtx-007"
                       choice:
                         type: string
                         enum:
@@ -365,12 +395,38 @@ paths:
                           - B
                           - C
                           - D
+                          - E
+                          - F
+                        description: Selected option letter (`A–F` for `rare-tx-bench`; `A–D` for `myelofibrosis-bench`).
+                      answer:
+                        type: string
+                        description: "Exact choice-free derived answer string or numeric value for benchmark rare-tx-bench-open (e.g., 13, F595, 10.4)."
                       reasoning:
                         type: string
-                        description: Optional mechanistic reasoning text evaluated for primary-cited keyword coverage.
+                        description: Optional mechanistic reasoning text evaluated for primary-cited rubric keyword coverage.
       responses:
         "200":
-          description: Deterministic accuracy, per-category breakdown, reasoning-keyword coverage, and leaderboard status.
+          description: Deterministic accuracy, track/category breakdown, CTER (for RareTxBench), rubric keyword coverage, and leaderboard status.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/rare-tx-leaderboard.json:
+    get:
+      operationId: getRareTxBenchLeaderboard
+      summary: Retrieve live RareTxBench-v1.0 model & agent leaderboard standings (MCQ-100, MF Track, Cross-Orphan, Open-Frontier, CTER, Rubric KW).
+      description: >
+        Returns aggregate standings for RareTxBench-v1.0 (100 adversarially hardened 6-choice A–F items [40 MF/AIMF
+        flagship + 60 Cross-Orphan across 20+ rare diseases] + 20 choice-free open_frontier exact derivations),
+        tracking Catastrophic Translational Error Rate (CTER) across 50 critical_harm safety traps and mechanistic
+        rubric keyword coverage across verified blind runs, anti-gaming controls, and opt-in anonymous submissions (zero PII, CC-BY-4.0).
+      servers:
+        - url: https://api.rare-disease-atlas.workers.dev
+          description: Cloudflare Edge RareTxBench Leaderboard API
+      responses:
+        "200":
+          description: Live RareTxBench-v1.0 leaderboard JSON.
           content:
             application/json:
               schema:
@@ -466,6 +522,30 @@ paths:
             application/json:
               schema:
                 type: object
+
+  /benchmarks/rare_tx_bench.jsonl:
+    get:
+      operationId: getRareTxBenchV1
+      summary: Download RareTxBench-v1.0 100-item 6-choice (A–F) post-diagnosis rare-disease translational benchmark JSONL (40 MF/AIMF + 60 Cross-Orphan, 50 CTER traps).
+      responses:
+        "200":
+          description: Newline-delimited JSON (JSONL) RareTxBench-v1.0 test items.
+          content:
+            application/jsonl:
+              schema:
+                type: string
+
+  /benchmarks/rare_tx_open_frontier.jsonl:
+    get:
+      operationId: getRareTxOpenFrontierV1
+      summary: Download RareTxBench-v1.0 open_frontier 20-item choice-free exact-answer translational derivation benchmark JSONL.
+      responses:
+        "200":
+          description: Newline-delimited JSON (JSONL) RareTxBench-v1.0 open_frontier items.
+          content:
+            application/jsonl:
+              schema:
+                type: string
 
   /benchmarks/myelofibrosis_bench.jsonl:
     get:

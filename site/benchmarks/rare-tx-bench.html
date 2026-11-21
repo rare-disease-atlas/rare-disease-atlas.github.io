@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RareTxBench-v1.0 — Beyond RareBench: Post-Diagnosis Rare-Disease Translational Benchmark &amp; CTER Leaderboard</title>
+  <meta name="description" content="RareTxBench-v1.0: 100 adversarially hardened 6-choice (A–F) post-diagnosis rare-disease translational items (40 Myelofibrosis/AIMF flagship + 60 Cross-Orphan across 20+ rare diseases), 10 dev items, and 20 choice-free exact-answer open_frontier derivations with Catastrophic Translational Error Rate (CTER) tracking.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://rare-disease-atlas.github.io/benchmarks/rare-tx-bench.html">
+  <link rel="describedby" href="../llms.txt" type="text/markdown" title="LLM Summary Index (llms.txt)">
+  <link rel="alternate" href="../llms-full.txt" type="text/markdown" title="Consolidated Markdown Knowledge Base (llms-full.txt)">
+  <link rel="alternate" type="application/atom+xml" title="Myelofibrosis &amp; Orphan Bio-Delta Wire" href="https://api.rare-disease-atlas.workers.dev/atom.xml">
+  <link rel="payment" href="../.well-known/x402.json" type="application/json" title="x402 Free Public-Good Agent Manifest">
+  <link rel="cite-as" href="../CITATION.cff" type="text/yaml" title="Academic Citation Metadata (CITATION.cff)">
+  <link rel="mcp-server" href="https://api.rare-disease-atlas.workers.dev/mcp">
+  <link rel="agent-card" href="https://api.rare-disease-atlas.workers.dev/.well-known/agent.json">
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* Self-contained clinical aesthetic matching leaderboard.html */
+    :root {
+      --bg-paper: #f8f7f3;
+      --bg-surface: #ffffff;
+      --bg-subtle: #efede6;
+      --bg-terminal: #121518;
+      --bg-terminal-elevated: #1b2026;
+      --ink-primary: #111417;
+      --ink-secondary: #3d444d;
+      --ink-muted: #636c76;
+      --accent-crimson: #9f1d20;
+      --accent-crimson-soft: #ffebe9;
+      --accent-emerald: #116329;
+      --accent-emerald-soft: #dafbe1;
+      --accent-amber: #9a6700;
+      --accent-amber-soft: #fff8c5;
+      --border-hairline: #d5d2c8;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      --max-width: 1120px;
+    }
+    body {
+      margin: 0;
+      background-color: var(--bg-paper);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      line-height: 1.62;
+    }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 1.5rem 1.25rem 3.5rem; }
+
+    /* Stat strip & Hub links */
+    .rtx-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 0.9rem;
+      margin: 1.25rem 0 0;
+    }
+    .rtx-stat {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-top: 3px solid var(--ink-primary);
+      border-radius: 5px;
+      padding: 0.85rem 1rem;
+    }
+    .rtx-stat--crimson { border-top-color: var(--accent-crimson); }
+    .rtx-stat--emerald { border-top-color: var(--accent-emerald); }
+    .rtx-stat__label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      font-weight: 700;
+    }
+    .rtx-stat__val {
+      font-family: var(--font-mono);
+      font-size: 1.38rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+      margin: 0.2rem 0;
+      line-height: 1.2;
+    }
+    .rtx-stat__sub {
+      font-size: 0.8rem;
+      color: var(--ink-secondary);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .lb-hub-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .lb-hub-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.42rem 0.8rem;
+      border-radius: 5px;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-surface);
+      color: var(--ink-primary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .lb-hub-link:hover {
+      border-color: var(--accent-crimson);
+      color: var(--accent-crimson);
+    }
+    .lb-hub-link--primary {
+      background: #111417;
+      border-color: #111417;
+      color: #ffffff;
+    }
+    .lb-hub-link--primary:hover {
+      background: var(--accent-crimson);
+      border-color: var(--accent-crimson);
+      color: #ffffff;
+    }
+
+    /* Dark Clinical Empirical Callout: Recognition-Execution Chasm */
+    .chasm-callout {
+      background: var(--bg-terminal);
+      color: #e6edf3;
+      border: 1px solid #30363d;
+      border-left: 5px solid #ff7b72;
+      border-radius: 8px;
+      padding: 1.45rem 1.55rem;
+      margin: 2rem 0;
+    }
+    .chasm-callout__tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #ff7b72;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .chasm-callout h2 {
+      color: #ffffff;
+      margin: 0 0 0.7rem;
+      font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+    }
+    .chasm-callout p {
+      color: #c9d1d9;
+      margin: 0 0 0.9rem;
+      font-size: 0.95rem;
+    }
+    .chasm-callout code {
+      background: #1b2026;
+      color: #79c0ff;
+      border-color: #30363d;
+    }
+    .chasm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.85rem;
+      margin: 1rem 0 1.1rem;
+    }
+    .chasm-card {
+      background: var(--bg-terminal-elevated);
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 0.9rem 1rem;
+    }
+    .chasm-card__tier {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: #9198a1;
+      margin-bottom: 0.35rem;
+    }
+    .chasm-card__nums {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.35rem;
+    }
+    .chasm-card__nums .danger { color: #ff7b72; }
+    .chasm-card__nums .safe { color: #3fb950; }
+    .chasm-card__note {
+      font-size: 0.82rem;
+      color: #9198a1;
+      margin: 0;
+      line-height: 1.45;
+    }
+    .chasm-misses {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.5rem;
+    }
+    .chasm-chip {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      padding: 0.22rem 0.55rem;
+      border-radius: 4px;
+      background: rgba(255, 123, 114, 0.14);
+      border: 1px solid rgba(255, 123, 114, 0.35);
+      color: #ffdcd7;
+    }
+
+    /* Leaderboard status & table */
+    .lb-status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .lb-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.74rem;
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
+    }
+    .lb-pill--fallback {
+      background: var(--accent-amber-soft);
+      color: var(--accent-amber);
+    }
+    .lb-rank-badge {
+      display: inline-block;
+      min-width: 1.8rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-hairline);
+    }
+    .lb-score-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-width: 112px;
+    }
+    .lb-score-track {
+      flex: 1;
+      height: 7px;
+      background: #e5e2d8;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .lb-score-fill {
+      height: 100%;
+      background: var(--accent-emerald);
+      border-radius: 999px;
+    }
+    .lb-score-fill--mid { background: var(--accent-amber); }
+    .lb-score-fill--low { background: var(--accent-crimson); }
+    .cter-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+    }
+    .cter-tag--zero { background: var(--accent-emerald-soft); color: var(--accent-emerald); }
+    .cter-tag--mid { background: var(--accent-amber-soft); color: var(--accent-amber); }
+    .cter-tag--high { background: var(--accent-crimson-soft); color: var(--accent-crimson); }
+
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: var(--bg-surface); }
+    th, td { padding: 0.72rem 0.78rem; border-bottom: 1px solid var(--border-hairline); text-align: left; vertical-align: top; }
+    th { background: var(--bg-subtle); font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    pre.prompt-box {
+      background: var(--bg-terminal);
+      color: #e6edf3;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.81rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Interactive 5-Question Quiz + Live CTER Gauge & Track Breakdown */
+    .quiz-dashboard {
+      background: var(--bg-terminal);
+      color: #e6edf3;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.15rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.9rem;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+    .quiz-dash-block__label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #9198a1;
+      margin-bottom: 0.25rem;
+    }
+    .quiz-dash-block__val {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .cter-gauge-track {
+      margin-top: 0.4rem;
+      height: 8px;
+      background: #21262d;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .cter-gauge-fill {
+      height: 100%;
+      width: 0%;
+      background: #3fb950;
+      border-radius: 999px;
+      transition: width 0.25s ease, background-color 0.25s ease;
+    }
+    .cter-gauge-fill--warn { background: #d29922; }
+    .cter-gauge-fill--danger { background: #f85149; }
+
+    .quiz-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      padding: 1.15rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .quiz-card__meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+    }
+    .quiz-card__meta {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent-crimson);
+      font-weight: 700;
+    }
+    .quiz-harm-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.14rem 0.5rem;
+      border-radius: 999px;
+      background: var(--accent-crimson-soft);
+      color: var(--accent-crimson);
+      border: 1px solid #f5b5b7;
+    }
+    .quiz-harm-badge--forensics {
+      background: var(--accent-amber-soft);
+      color: var(--accent-amber);
+      border-color: #e3c987;
+    }
+    .quiz-card__stem {
+      font-weight: 600;
+      margin: 0 0 0.85rem;
+      color: var(--ink-primary);
+    }
+    .quiz-options { display: grid; gap: 0.5rem; }
+    .quiz-opt-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      width: 100%;
+      text-align: left;
+      padding: 0.7rem 0.9rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-paper);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      line-height: 1.45;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .quiz-opt-btn:hover:not(:disabled) {
+      border-color: #111417;
+      background: #ffffff;
+    }
+    .quiz-opt-btn:disabled { cursor: default; }
+    .quiz-opt-btn--correct {
+      border-color: var(--accent-emerald);
+      background: var(--accent-emerald-soft);
+      color: #0b3d1a;
+      font-weight: 600;
+    }
+    .quiz-opt-btn--wrong {
+      border-color: var(--accent-crimson);
+      background: var(--accent-crimson-soft);
+      color: #6b1113;
+    }
+    .quiz-opt-key {
+      flex-shrink: 0;
+      display: inline-block;
+      min-width: 1.45rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.08rem 0.35rem;
+      border-radius: 4px;
+      background: rgba(17, 20, 23, 0.08);
+    }
+    .quiz-feedback {
+      display: none;
+      margin-top: 0.85rem;
+      padding: 0.85rem 1rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-subtle);
+    }
+    .quiz-feedback--visible { display: block; }
+    .quiz-feedback--pass {
+      border-left: 4px solid var(--accent-emerald);
+      background: #f2fbf5;
+    }
+    .quiz-feedback--fail {
+      border-left: 4px solid var(--accent-crimson);
+      background: #fff5f5;
+    }
+    .quiz-reset-btn {
+      padding: 0.42rem 0.8rem;
+      border-radius: 5px;
+      border: 1px solid #484f58;
+      background: var(--bg-terminal-elevated);
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      justify-self: end;
+    }
+    .quiz-reset-btn:hover { background: var(--accent-crimson); border-color: var(--accent-crimson); }
+
+    /* 4-Tab Quickstart */
+    .qs-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .qs-tab {
+      padding: 0.45rem 0.85rem;
+      border-radius: 5px;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-subtle);
+      color: var(--ink-primary);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .qs-tab[aria-selected="true"] {
+      background: #111417;
+      border-color: #111417;
+      color: #ffffff;
+    }
+    .qs-panel { display: none; }
+    .qs-panel--active { display: block; }
+    .qs-caption {
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+      margin: 0 0 0.55rem;
+    }
+    .lb-cli-wrap { position: relative; }
+    .lb-copy-btn {
+      margin-top: 0.65rem;
+      padding: 0.5rem 0.95rem;
+      border-radius: 5px;
+      border: 1px solid #111417;
+      background: #111417;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .lb-copy-btn:hover { background: var(--accent-crimson); border-color: var(--accent-crimson); }
+    .lb-privacy-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-left: 4px solid var(--accent-emerald);
+      border-radius: 6px;
+      padding: 1rem 1.15rem;
+      margin-top: 1.1rem;
+      font-size: 0.92rem;
+    }
+  </style>
+
+  <!-- Schema.org Dataset JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "@id": "https://rare-disease-atlas.github.io/benchmarks/rare-tx-bench.html#rare-tx-bench-v1.0",
+    "name": "RareTxBench-v1.0 — Post-Diagnosis Rare-Disease Translational Reasoning & Safety Benchmark",
+    "description": "100 adversarially hardened 6-choice (A–F) post-diagnosis rare-disease translational items (40 Myelofibrosis/AIMF flagship + 60 Cross-Orphan across 20+ rare diseases), 10 dev items, and 20 choice-free exact-answer open_frontier derivations with 50 critical_harm safety traps (Catastrophic Translational Error Rate, CTER) and strict option-length parity (Longest-Option Heuristic = 17.0% vs 16.7% random chance).",
+    "url": "https://rare-disease-atlas.github.io/benchmarks/rare-tx-bench.html",
+    "sameAs": [
+      "https://huggingface.co/datasets/rare-disease-atlas/RareTxBench",
+      "https://github.com/rare-disease-atlas/rare-tx-bench",
+      "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bench.jsonl",
+      "https://rare-disease-atlas.github.io/benchmarks/rare_tx_open_frontier.jsonl",
+      "https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json",
+      "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark",
+      "https://rare-disease-atlas.github.io/benchmarks/leaderboard.html"
+    ],
+    "version": "1.0.0",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "isAccessibleForFree": true,
+    "creator": {
+      "@type": "Organization",
+      "name": "Rare Disease Venture Atlas",
+      "url": "https://rare-disease-atlas.github.io"
+    },
+    "keywords": [
+      "RareTxBench",
+      "RareTxBench-v1.0",
+      "post-diagnosis rare disease benchmark",
+      "CTER",
+      "Catastrophic Translational Error Rate",
+      "open_frontier",
+      "Myelofibrosis",
+      "Autoimmune Myelofibrosis",
+      "AIMF",
+      "JAK2 V617F",
+      "ATTR-CM",
+      "AL amyloidosis",
+      "Duchenne muscular dystrophy",
+      "Castleman disease",
+      "lm-eval",
+      "Inspect AI"
+    ],
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "name": "RareTxBench-v1.0 Hugging Face Dataset (all, myelofibrosis, cross_orphan, open_frontier)",
+        "encodingFormat": "application/x-parquet",
+        "contentUrl": "https://huggingface.co/datasets/rare-disease-atlas/RareTxBench"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "RareTxBench-v1.0 GitHub Harness (lm-eval, Inspect AI, Promptfoo & Evaluator)",
+        "encodingFormat": "text/html",
+        "contentUrl": "https://github.com/rare-disease-atlas/rare-tx-bench"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "RareTxBench-v1.0 100-Item 6-Choice Test Set (JSONL)",
+        "encodingFormat": "application/jsonl",
+        "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bench.jsonl"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "RareTxBench-v1.0 20-Item Choice-Free open_frontier Set (JSONL)",
+        "encodingFormat": "application/jsonl",
+        "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_open_frontier.jsonl"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "RareTxBench-v1.0 Live Leaderboard Feed (JSON)",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "Zero-Install HTTP Grader (GET/POST /api/grade-benchmark)",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to RareTxBench-v1.0 hub</a>
+
+  <!-- Top Protocol Telemetry Strip -->
+  <div class="protocol-bar" role="region" aria-label="Protocol Metadata">
+    <div class="protocol-bar__inner">
+      <div class="protocol-status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>BENCHMARK: RARETXBENCH-V1.0 // 100 6-CHOICE + 10 DEV + 20 OPEN_FRONTIER // 50 CTER TRAPS // CC-BY-4.0</span>
+      </div>
+      <div class="protocol-links">
+        <a href="../">Briefing Hub</a>
+        <a href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer">HF: RareTxBench &nearr;</a>
+        <a href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer">GitHub Harness &nearr;</a>
+        <a href="https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json">/api/rare-tx-leaderboard.json</a>
+        <a href="./leaderboard.html">MyelofibrosisBench-v1.1</a>
+        <a href="../openapi.yaml">/openapi.yaml</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Site Header -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand-mark" href="../">
+        <span class="brand-mark__domain">rare-disease-atlas.github.io</span>
+        <span class="brand-mark__sub">RareTxBench-v1.0 — Post-Diagnosis Translational AI Hub</span>
+      </a>
+      <nav class="funnel-nav" aria-label="Atlas Navigation">
+        <a href="../">00 // Briefing Hub</a>
+        <a href="../ai-drug-repurposing-targets.html">03 // AI &amp; CompBio</a>
+        <a href="../autoimmune-myelofibrosis-iron-wedge.html">04 // AIMF &amp; Iron</a>
+        <a href="./leaderboard.html">MFBench // v1.1</a>
+        <a href="./rare-tx-bench.html" aria-current="page">RareTxBench // v1.0</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <!-- Hero Header -->
+    <header class="dossier-hero" id="rare-tx-hero">
+      <p class="dossier-kicker">Beyond RareBench // Evaluating AI Agents After Diagnosis // Dual-Track Translational Safety &amp; Exact Derivation Suite</p>
+      <h1 class="dossier-title">RareTxBench-v1.0: Evaluating AI Agents After Rare-Disease Diagnosis</h1>
+      <div class="quick-answer" role="region" aria-label="RareTxBench Overview">
+        <span class="quick-answer__label">Benchmark Contract (v1.0 — 100 6-Choice Test + 10 Dev + 20 Choice-Free Open-Frontier)</span>
+        <p>
+          <strong>RareTxBench-v1.0</strong> evaluates what happens <em>after</em> a rare disease is named. Across <strong>100 adversarially hardened 6-choice (<code>A–F</code>) test items</strong> (<strong>40 Myelofibrosis/AIMF flagship</strong> + <strong>60 Cross-Orphan across 20+ rare diseases</strong>), <strong>10 few-shot dev items</strong>, and <strong>20 choice-free exact-answer <code>open_frontier</code> derivations</strong>, the suite measures <strong>Catastrophic Translational Error Rate (<code>CTER</code>)</strong> across <strong>50 <code>critical_harm</code> safety traps</strong>, mechanistic rubric grounding, and anti-gaming length parity (<code>Longest-Option Heuristic = 17.0%</code> vs <code>16.7%</code> random chance; max option-length ratio <code>1.23 &le; 1.30</code>).
+        </p>
+        <div class="lb-hub-links">
+          <a class="lb-hub-link lb-hub-link--primary" href="#cter-quiz">Take 5-Question CTER Mini-Quiz &darr;</a>
+          <a class="lb-hub-link" href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer">HF Dataset: RareTxBench &nearr;</a>
+          <a class="lb-hub-link" href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer">GitHub: lm-eval &amp; Inspect AI &nearr;</a>
+          <a class="lb-hub-link" href="#quickstart-tabs">4-Tab 1-Command Quickstart &darr;</a>
+          <a class="lb-hub-link" href="./leaderboard.html">Flagship Track: MyelofibrosisBench-v1.1 &rarr;</a>
+        </div>
+      </div>
+
+      <div class="rtx-metrics" aria-label="Key Benchmark Metrics">
+        <div class="rtx-stat">
+          <div class="rtx-stat__label">6-Choice Test + Dev</div>
+          <div class="rtx-stat__val">100 + 10</div>
+          <p class="rtx-stat__sub"><code>40</code> MF/AIMF flagship + <code>60</code> Cross-Orphan (20+ diseases); near-uniform <code>A–F</code> (16–17 each).</p>
+        </div>
+        <div class="rtx-stat rtx-stat--crimson">
+          <div class="rtx-stat__label">Critical-Harm Safety Traps</div>
+          <div class="rtx-stat__val">50 CTER</div>
+          <p class="rtx-stat__sub">50% of MCQ-100 + 50% of <code>open_frontier</code> carry explicit clinical or Phase 3 <code>harm_mechanism</code> tags.</p>
+        </div>
+        <div class="rtx-stat rtx-stat--emerald">
+          <div class="rtx-stat__label">Choice-Free Frontier</div>
+          <div class="rtx-stat__val">20 Exact</div>
+          <p class="rtx-stat__sub"><code>open_frontier</code> requires exact numeric/residue derivations (zero MCQ recognition crutches).</p>
+        </div>
+        <div class="rtx-stat">
+          <div class="rtx-stat__label">Anti-Gaming Length Parity</div>
+          <div class="rtx-stat__val">17.0% vs 16.7%</div>
+          <p class="rtx-stat__sub"><code>Longest-Option Heuristic = 17.0%</code> (random 6-choice floor <code>16.7%</code>; max ratio <code>1.23</code>).</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Headline Empirical Finding: The Recognition-Execution Chasm -->
+    <section class="chasm-callout" id="recognition-execution-chasm" aria-label="Headline Empirical Finding: The Recognition-Execution Chasm">
+      <span class="chasm-callout__tag">Headline Empirical Finding // Blind Zero-Shot Evaluation Across Reasoning Tiers</span>
+      <h2>The Recognition&ndash;Execution Chasm: 100% MCQ &rarr; 35.0% Exact Derivation &amp; 50.0% CTER</h2>
+      <p>
+        Multiple-choice accuracy hides fatal execution failures in rare-disease medicine. Under strict zero-shot blind evaluation, a <strong>Lightweight Non-Thinking model</strong> scores <code>100.0%</code> on 6-choice <code>MCQ-100</code>—yet when multiple-choice options are removed on <strong>20 choice-free <code>open_frontier</code> derivations</strong>, its accuracy collapses to <strong><code>35.0%</code> overall (<code>25.0%</code> on the Myelofibrosis flagship track, <code>41.7%</code> Cross-Orphan)</strong> with a <strong><code>50.0%</code> Catastrophic Translational Error Rate (<code>CTER</code>)</strong>. Reasoning models close the execution gap (<code>100.0%</code> exact derivation, <code>0.0%</code> <code>CTER</code>) while monotonically lifting mechanistic rubric grounding (<code>59.2%</code> &rarr; <code>71.9%</code> &rarr; <code>73.7%</code>).
+      </p>
+
+      <div class="chasm-grid">
+        <div class="chasm-card">
+          <div class="chasm-card__tier">Lightweight Non-Thinking Tier</div>
+          <div class="chasm-card__nums">MCQ: 100% &rarr; Open: <span class="danger">35.0%</span></div>
+          <p class="chasm-card__note">MF Track Open: <strong>25.0%</strong> &middot; Open CTER: <strong style="color:#ff7b72;">50.0%</strong> (5/10 fatal traps missed) &middot; MCQ Rubric KW: <strong>59.2%</strong>.</p>
+        </div>
+        <div class="chasm-card">
+          <div class="chasm-card__tier">Standard Reasoning Tier</div>
+          <div class="chasm-card__nums">MCQ: 100% &rarr; Open: <span class="safe">100.0%</span></div>
+          <p class="chasm-card__note">Recovers exact clinical score, LIC, and trial-powering arithmetic; Open CTER: <strong style="color:#3fb950;">0.0%</strong> &middot; MCQ Rubric KW: <strong>71.9%</strong>.</p>
+        </div>
+        <div class="chasm-card">
+          <div class="chasm-card__tier">Frontier Reasoning Tier</div>
+          <div class="chasm-card__nums">MCQ: 100% &rarr; Open: <span class="safe">100.0%</span></div>
+          <p class="chasm-card__note">Exact derivation across all 20 <code>open_frontier</code> items; Open CTER: <strong style="color:#3fb950;">0.0%</strong> &middot; Highest MCQ Rubric KW: <strong>73.7%</strong>.</p>
+        </div>
+      </div>
+
+      <p style="margin-bottom: 0.45rem; font-size: 0.86rem; color: #e6edf3;">
+        <strong>Specific Choice-Free Failure Modes Exposed in Lightweight Non-Thinking Models:</strong>
+      </p>
+      <div class="chasm-misses" aria-label="Specific open_frontier failure items">
+        <span class="chasm-chip">MIPSS70+ v2.0: predicted 16 vs exact 13 (critical_harm)</span>
+        <span class="chasm-chip">Pre-HSCT LIC: predicted 20.5 vs exact 10.4 mg Fe/g (critical_harm)</span>
+        <span class="chasm-chip">Schoenfeld OS Deaths: predicted 104 vs exact 218</span>
+        <span class="chasm-chip">HLH HScore: predicted 235 vs exact 272 (critical_harm)</span>
+        <span class="chasm-chip">iTTP PLASMIC: predicted 7 vs exact 6 (critical_harm)</span>
+        <span class="chasm-chip">JH2 Pi-Stack Residue: predicted R683 vs exact F595</span>
+        <span class="chasm-chip">Wilson Leipzig Score: predicted 4 vs exact 7 (critical_harm)</span>
+      </div>
+    </section>
+
+    <!-- RareTxBench-v1.0 vs RareBench / RareArena Comparison Table -->
+    <section class="dossier-section" id="benchmark-comparison" aria-label="RareTxBench-v1.0 vs RareBench and RareArena">
+      <span class="section-tag">Section 01 // Filling the Missing Half of Rare-Disease AI Evaluation</span>
+      <h2>RareTxBench-v1.0 vs. RareBench &amp; RareArena</h2>
+      <p>
+        Phenotype-to-diagnosis benchmarks (<code>RareBench</code>, <code>RareArena</code>) measure whether an LLM can name a rare disease from HPO terms. In clinical practice and orphan drug discovery, however, naming the disease is only step one—catastrophic patient harm and billion-dollar Phase 3 failures occur in <strong>post-diagnosis translational execution</strong>:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Evaluation Dimension</th>
+              <th scope="col">RareBench / RareArena</th>
+              <th scope="col">RareTxBench-v1.0 (This Benchmark)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Core Clinical Stage</strong></td>
+              <td>Pre-diagnosis phenotype-to-disease recall (HPO matching &amp; differential ranking).</td>
+              <td><strong>Post-diagnosis translational execution:</strong> mimic triage, drug/modality matching, pathway polarity, Phase 2/3 forensics, and orphan economics.</td>
+            </tr>
+            <tr>
+              <td><strong>Safety &amp; Harm Metric</strong></td>
+              <td>Top-k diagnostic recall / F1 (treats benign near-misses and lethal misroutes equally).</td>
+              <td><strong>Catastrophic Translational Error Rate (<code>CTER &darr;</code>):</strong> explicit <code>critical_harm</code> &amp; <code>harm_mechanism</code> annotations across <code>50</code> MCQ + <code>10</code> open traps.</td>
+            </tr>
+            <tr>
+              <td><strong>Structural &amp; Molecular Selectivity</strong></td>
+              <td>Not evaluated.</td>
+              <td><strong>Mutation-to-modality precision:</strong> <code>JAK2 V617F</code> <code>JH2</code> (<code>F595/F537</code>) vs <code>JH1</code>, <code>DMD</code> exon-phase math + AAV exon 8/9 myositis exclusion, <code>CFTR</code>, <code>KIT D816V</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>Pathway Polarity &amp; Homeostasis</strong></td>
+              <td>Not evaluated.</td>
+              <td><strong>Directional sign traps:</strong> <code>rusfertide</code> (PV hepcidin agonist) vs <code>momelotinib</code> (MF <code>ACVR1</code> suppression), copper/zinc vs chelator polarity, complement/coagulation balance.</td>
+            </tr>
+            <tr>
+              <td><strong>Trial Forensics &amp; Orphan Economics</strong></td>
+              <td>Not evaluated.</td>
+              <td><strong>Phase 2/3 &amp; FDA/EMA rigor:</strong> <code>SVR35</code> vs <code>TSS50</code>/<code>OS</code> dissociation, <code>siltuximab</code> IL-6 complex artifact, Schoenfeld deaths, Medicaid Best Price, ODD/PRV &amp; STTR rules.</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Anti-Saturation &amp; Choice-Free Tests</strong></td>
+              <td>Open-list diagnostic recall without option-length parity or quantitative derivation audits.</td>
+              <td><strong>6-choice (<code>A–F</code>) length-balanced near-misses</strong> (<code>17.0%</code> longest-option vs <code>16.7%</code> chance) <strong>+ 20 choice-free exact <code>open_frontier</code> derivations</strong> + mechanistic rubric keywords.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Live Leaderboard Table -->
+    <section class="dossier-section" id="live-leaderboard" aria-label="RareTxBench-v1.0 Live Leaderboard">
+      <span class="section-tag">Section 02 // Live Standings (GET /api/rare-tx-leaderboard.json)</span>
+      <h2>Model &amp; Agent Standings (Dual-Track + Open-Frontier + CTER &darr;)</h2>
+
+      <div class="lb-status-bar" role="status" aria-live="polite">
+        <div>
+          <span id="lb-status-pill" class="lb-pill lb-pill--fallback">Reference Baselines Loaded</span>
+          <span id="lb-status-detail" style="margin-left: 0.5rem;">Fetching live standings from <code>https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json</code>&hellip;</span>
+        </div>
+        <div>
+          <a href="https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json" target="_blank" rel="noopener noreferrer">Raw JSON Feed &nearr;</a>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table aria-describedby="lb-status-detail">
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Model / System</th>
+              <th scope="col">MCQ-100</th>
+              <th scope="col">MF Track (40)</th>
+              <th scope="col">Cross-Orphan (60)</th>
+              <th scope="col">Open-Frontier (20)</th>
+              <th scope="col">CTER &darr;</th>
+              <th scope="col">Rubric KW</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-tbody">
+            <!-- Pre-rendered graceful fallback rows matching verified RareTxBench-v1.0 evaluations -->
+            <tr class="highlight-row" data-fallback="true">
+              <td><span class="lb-rank-badge">#1</span></td>
+              <td><strong>Oracle Ground-Truth Ceiling</strong><br><code>oracle-ground-truth</code> <span class="badge badge--high">Ceiling</span></td>
+              <td>
+                <div class="lb-score-bar-wrap"><strong>100.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill" style="width:100%;"></div></div></div>
+              </td>
+              <td><strong>100.0%</strong></td>
+              <td><strong>100.0%</strong></td>
+              <td><strong>100.0%</strong></td>
+              <td><span class="cter-tag cter-tag--zero">0.0%</span></td>
+              <td><strong>100.0%</strong></td>
+            </tr>
+            <tr data-fallback="true">
+              <td><span class="lb-rank-badge">#2</span></td>
+              <td><strong>Frontier Reasoning Tier (Zero-Shot Blind)</strong><br><code>blind-frontier-reasoning</code> <span class="badge badge--high">Verified Run</span></td>
+              <td>
+                <div class="lb-score-bar-wrap"><strong>100.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill" style="width:100%;"></div></div></div>
+              </td>
+              <td><strong>100.0%</strong></td>
+              <td><strong>100.0%</strong></td>
+              <td><strong>100.0%</strong></td>
+              <td><span class="cter-tag cter-tag--zero">0.0%</span></td>
+              <td><strong>73.7%</strong></td>
+            </tr>
+            <tr data-fallback="true">
+              <td><span class="lb-rank-badge">#3</span></td>
+              <td><strong>Standard Reasoning Tier (Zero-Shot Blind)</strong><br><code>blind-standard-reasoning</code> <span class="badge badge--high">Verified Run</span></td>
+              <td>
+                <div class="lb-score-bar-wrap"><strong>100.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill" style="width:100%;"></div></div></div>
+              </td>
+              <td><strong>100.0%</strong></td>
+              <td><strong>100.0%</strong></td>
+              <td><strong>100.0%</strong></td>
+              <td><span class="cter-tag cter-tag--zero">0.0%</span></td>
+              <td><strong>71.9%</strong></td>
+            </tr>
+            <tr data-fallback="true">
+              <td><span class="lb-rank-badge">#4</span></td>
+              <td><strong>Lightweight Non-Thinking Tier (Zero-Shot Blind)</strong><br><code>blind-lightweight-non-thinking</code> <span class="badge badge--warn">Chasm Alert</span></td>
+              <td>
+                <div class="lb-score-bar-wrap"><strong>100.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill" style="width:100%;"></div></div></div>
+              </td>
+              <td><strong>100.0%</strong><br><small>Open MF: 25.0%</small></td>
+              <td><strong>100.0%</strong><br><small>Open XO: 41.7%</small></td>
+              <td><strong style="color:var(--accent-crimson);">35.0%</strong><br><small>7 / 20 exact</small></td>
+              <td><span class="cter-tag cter-tag--high">50.0%</span><br><small>Open-Frontier</small></td>
+              <td><strong>59.2%</strong></td>
+            </tr>
+            <tr data-fallback="true">
+              <td><span class="lb-rank-badge">#5</span></td>
+              <td><strong>Longest-Option Heuristic (Anti-Gaming Audit)</strong><br><code>longest-option-heuristic</code> <span class="badge badge--gap">Control</span></td>
+              <td>
+                <div class="lb-score-bar-wrap"><strong>17.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill lb-score-fill--low" style="width:17%;"></div></div></div>
+              </td>
+              <td><strong>17.5%</strong></td>
+              <td><strong>16.7%</strong></td>
+              <td><span style="color:#636c76;">N/A</span></td>
+              <td><span class="cter-tag cter-tag--high">82.0%</span></td>
+              <td><strong>0.0%</strong></td>
+            </tr>
+            <tr data-fallback="true">
+              <td><span class="lb-rank-badge">#6</span></td>
+              <td><strong>Random 6-Choice Floor</strong><br><code>random-6-choice-baseline</code> <span class="badge badge--gap">Chance Floor</span></td>
+              <td>
+                <div class="lb-score-bar-wrap"><strong>16.7%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill lb-score-fill--low" style="width:16.7%;"></div></div></div>
+              </td>
+              <td><strong>16.7%</strong></td>
+              <td><strong>16.7%</strong></td>
+              <td><strong>0.0%</strong></td>
+              <td><span class="cter-tag cter-tag--high">83.3%</span></td>
+              <td><strong>0.0%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Interactive 5-Question CTER Mini-Quiz -->
+    <section class="dossier-section" id="cter-quiz" aria-label="Interactive 5-Question CTER Mini-Quiz">
+      <span class="section-tag">Section 03 // Interactive Browser Challenge (Pure Vanilla JS · Zero External Dependencies)</span>
+      <h2>Can You Avoid Catastrophic Translational Errors? — 5-Question Mini-Quiz</h2>
+      <p>
+        Experience five signature post-diagnosis traps spanning both the <strong>Myelofibrosis Flagship Track</strong> (<code>Q1, Q4</code>) and <strong>Cross-Orphan Track</strong> (<code>Q2, Q3, Q5</code>). Watch your live <strong>Catastrophic Translational Error Rate (<code>CTER</code>)</strong> gauge and per-track breakdown update in real time.
+      </p>
+
+      <!-- Live CTER & Track Breakdown Dashboard -->
+      <div class="quiz-dashboard" role="status" aria-live="polite">
+        <div>
+          <div class="quiz-dash-block__label">Overall Score</div>
+          <div class="quiz-dash-block__val"><span id="quiz-correct">0</span> / <span id="quiz-answered">0</span> answered (5 total)</div>
+        </div>
+        <div>
+          <div class="quiz-dash-block__label">Live CTER Gauge (Critical-Harm Errors &darr;)</div>
+          <div class="quiz-dash-block__val"><span id="quiz-cter">0.0%</span> <small style="color:#9198a1;font-weight:400;">(<span id="quiz-harm-missed">0</span> / <span id="quiz-harm-answered">0</span> traps triggered)</small></div>
+          <div class="cter-gauge-track" aria-hidden="true"><div id="cter-gauge-fill" class="cter-gauge-fill"></div></div>
+        </div>
+        <div>
+          <div class="quiz-dash-block__label">Track Breakdown</div>
+          <div class="quiz-dash-block__val" style="font-size:0.86rem;">
+            MF Flagship: <span id="track-mf">0 / 2</span> &nbsp;&middot;&nbsp; Cross-Orphan: <span id="track-xo">0 / 3</span>
+          </div>
+        </div>
+        <button type="button" class="quiz-reset-btn" id="quiz-reset-btn">Reset Quiz</button>
+      </div>
+
+      <!-- Q1: Myelofibrosis Flagship · Mimic Triage · critical_harm -->
+      <article class="quiz-card" data-quiz-id="q1" data-answer="B" data-track="mf" data-critical-harm="true">
+        <div class="quiz-card__meta-row">
+          <div class="quiz-card__meta">Q1 // Myelofibrosis Flagship &middot; Mimic Triage (rtx-007 &middot; PMID:43061186)</div>
+          <span class="quiz-harm-badge">CRITICAL_HARM TRAP</span>
+        </div>
+        <p class="quiz-card__stem">
+          1. A 34-year-old woman presents with fever, generalized anasarca, platelets <code>28 &times; 10^9/L</code>, hepatosplenomegaly, WHO Grade <code>MF-2</code> marrow reticulin fibrosis, negative <code>JAK2/CALR/MPL</code>, and negative <code>HHV-8</code>—mimicking <code>iMCD-TAFRO</code> or Triple-Negative <code>PMF</code>. Labs reveal <code>ANA 1:1280</code>, <code>anti-dsDNA 420 IU/mL</code>, hypocomplementemia (<code>C3 42 / C4 5 mg/dL</code>), and marrow biopsy shows unclustered normolobated megakaryocytes with polyclonal lymphoid aggregates. Why is rushing to myeloablative allo-<code>HSCT</code> or pan-<code>JAKi</code> catastrophic?
+        </p>
+        <div class="quiz-options">
+          <button type="button" class="quiz-opt-btn" data-choice="A">
+            <span class="quiz-opt-key">A</span>
+            <span>Because Triple-Negative <code>PMF</code> requires immediate Type I pan-<code>JAK1/2</code> inhibition and myeloablative allo-<code>HSCT</code> regardless of lupus serologies.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="B">
+            <span class="quiz-opt-key">B</span>
+            <span>Because CDCN exclusion rules identify reversible <strong><code>SLE</code>-associated Autoimmune Myelofibrosis (<code>AIMF</code>)</strong> phenocopying <code>TAFRO</code> (<code>PMID:43061186</code>): corticosteroids / <code>MMF</code> / rituximab achieve <strong>74–80% human marrow fibrosis reversal</strong>, whereas <code>HSCT</code> imposes 20–36% non-relapse mortality and pan-<code>JAKi</code> worsens autoimmune cytopenias.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="C">
+            <span class="quiz-opt-key">C</span>
+            <span>Because <code>iMCD-TAFRO</code> is driven by clonal <code>JAK2 V617F</code> mutations and should be treated immediately with <code>INCB160058</code> rather than immunomodulation.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="D">
+            <span class="quiz-opt-key">D</span>
+            <span>Because WHO Grade <code>MF-2</code> reticulin fibrosis is structurally irreversible in humans once present, making cytotoxic conditioning mandatory.</span>
+          </button>
+        </div>
+        <div class="quiz-feedback" aria-live="polite"></div>
+      </article>
+
+      <!-- Q2: Cross-Orphan · Mimic Triage · critical_harm -->
+      <article class="quiz-card" data-quiz-id="q2" data-answer="C" data-track="xo" data-critical-harm="true">
+        <div class="quiz-card__meta-row">
+          <div class="quiz-card__meta">Q2 // Cross-Orphan &middot; Mimic Triage (rtx-010 &middot; ORPHA:314701 / 330001 &middot; PMID:30145653)</div>
+          <span class="quiz-harm-badge">CRITICAL_HARM TRAP</span>
+        </div>
+        <p class="quiz-card__stem">
+          2. A 69-year-old man with <code>HFpEF</code>, bilateral carpal tunnel syndrome, and <code>CKD</code> stage 4 (<code>eGFR 24</code>) undergoes <code>99mTc-PYP</code> scintigraphy showing Perugini Grade 2 myocardial uptake and a 1-hour planar <code>H/CL</code> ratio of <code>1.62</code>. Monoclonal screening shows kappa FLC <code>32 mg/L</code>, lambda FLC <code>178 mg/L</code> (<code>&kappa;/&lambda; ratio = 0.18</code>), and a faint IgG lambda band on immunofixation. Why is prescribing <code>tafamidis</code> directly based on the positive <code>99mTc-PYP</code> scan potentially fatal?
+        </p>
+        <div class="quiz-options">
+          <button type="button" class="quiz-opt-btn" data-choice="A">
+            <span class="quiz-opt-key">A</span>
+            <span>Perugini Grade 2 uptake with <code>H/CL &ge; 1.5</code> has 100% specificity for <code>ATTR-CM</code> even with a monoclonal band, so <code>tafamidis</code> should begin immediately.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="B">
+            <span class="quiz-opt-key">B</span>
+            <span>In <code>CKD</code> stage 4, impaired renal clearance lowers the normal <code>&kappa;/&lambda;</code> ratio to <code>0.10–0.25</code>, making a ratio of <code>0.18</code> completely benign.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="C">
+            <span class="quiz-opt-key">C</span>
+            <span><strong>AL Amyloidosis Mimic Trap:</strong> Under Hutchison renal FLC ranges (<code>0.37–3.10</code>), a <code>&kappa;/&lambda;</code> ratio of <code>0.18</code> plus an IgG lambda band flags clonal lambda plasma-cell dyscrasia; up to ~10–20% of <strong><code>AL</code> cardiac amyloidosis</strong> produces false-positive Grade 2–3 <code>99mTc-PYP</code> uptake—giving <code>tafamidis</code> instead of urgent biopsy (<code>LC-MS/MS</code> typing) and anti-plasma-cell therapy is rapidly fatal.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="D">
+            <span class="quiz-opt-key">D</span>
+            <span><code>Tafamidis</code> stabilizes both transthyretin tetramers and misfolded immunoglobulin light chains, so it safely bridges both <code>ATTR-CM</code> and <code>AL</code> amyloidosis.</span>
+          </button>
+        </div>
+        <div class="quiz-feedback" aria-live="polite"></div>
+      </article>
+
+      <!-- Q3: Cross-Orphan · Exon-Phase Math · critical_harm -->
+      <article class="quiz-card" data-quiz-id="q3" data-answer="A" data-track="xo" data-critical-harm="true">
+        <div class="quiz-card__meta-row">
+          <div class="quiz-card__meta">Q3 // Cross-Orphan &middot; Exon-Phase Math &amp; AAV Safety (rtx-035 &middot; ORPHA:98896 &middot; NCT05096221)</div>
+          <span class="quiz-harm-badge">CRITICAL_HARM TRAP</span>
+        </div>
+        <p class="quiz-card__stem">
+          3. A neuromuscular clinic evaluates two 6-year-old boys with Duchenne muscular dystrophy (<code>DMD</code>). Exon lengths: <code>ex48 = 186 bp</code>, <code>ex49 = 102 bp</code>, <code>ex50 = 109 bp</code>, <code>ex51 = 233 bp</code>, <code>ex53 = 212 bp</code>. Boy 1 has an out-of-frame deletion of <strong>exons 8–9</strong>; Boy 2 has an out-of-frame deletion of <strong>exons 48–50</strong> (<code>397 bp</code>). Which combined exon-skipping and FDA <code>delandistrogene moxeparvovec</code> (<code>EMBARK</code>, <code>NCT05096221</code>) eligibility decision is exact?
+        </p>
+        <div class="quiz-options">
+          <button type="button" class="quiz-opt-btn" data-choice="A">
+            <span class="quiz-opt-key">A</span>
+            <span><strong>Boy 1 (del 8–9) is FDA-contraindicated</strong> for <code>delandistrogene moxeparvovec</code> due to severe/fatal T-cell-mediated immune myositis against hinge-1 transgene neoantigens; <strong>Boy 2 (del 48–50 = 397 bp)</strong> restores the reading frame by skipping adjacent <strong>exon 51</strong> (<code>397 + 233 = 630 bp</code>, <code>630 % 3 == 0</code>, <code>eteplirsen</code>) and is not exon 8/9-excluded.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="B">
+            <span class="quiz-opt-key">B</span>
+            <span>Boy 1 is an ideal candidate for <code>delandistrogene moxeparvovec</code> because proximal exon 8–9 deletions avoid the C-terminal cysteine-rich domain, while Boy 2 requires exon-53 skipping (<code>golodirsen</code>).</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="C">
+            <span class="quiz-opt-key">C</span>
+            <span>Boy 2's deletion (<code>397 bp</code>) is already in-frame, so neither exon-51 skipping nor AAV gene therapy is indicated, whereas Boy 1 should receive <code>delandistrogene moxeparvovec</code> with standard steroids.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="D">
+            <span class="quiz-opt-key">D</span>
+            <span>Skipping exon 53 (<code>212 bp</code>) restores Boy 2's frame (<code>397 + 212 = 609 bp</code>) even though exon 53 is non-adjacent to exon 50, and FDA excludes exon 48–50 deletions from AAV micro-dystrophin.</span>
+          </button>
+        </div>
+        <div class="quiz-feedback" aria-live="polite"></div>
+      </article>
+
+      <!-- Q4: Myelofibrosis Flagship · Iron/Hepcidin Polarity · critical_harm -->
+      <article class="quiz-card" data-quiz-id="q4" data-answer="D" data-track="mf" data-critical-harm="true">
+        <div class="quiz-card__meta-row">
+          <div class="quiz-card__meta">Q4 // Myelofibrosis Flagship &middot; Iron/Hepcidin Polarity (rtx-043 &middot; NCT05210790 &middot; NCT04173494)</div>
+          <span class="quiz-harm-badge">CRITICAL_HARM TRAP</span>
+        </div>
+        <p class="quiz-card__stem">
+          4. An anemic <code>PMF/AIMF</code> patient presents with <code>Hb 7.6 g/dL</code>, <code>TSAT 15%</code>, and <code>ferritin 1,680 ng/mL</code> driven by inflammatory <code>IL-6 -&gt; STAT3</code> and <code>BMP6/ACVR1 -&gt; HAMP</code> (hepcidin) macrophage iron trapping—contrasting with a phlebotomy-dependent <code>JAK2 V617F+</code> Polycythemia Vera (<code>PV</code>) patient (<code>Hct 52%</code>, <code>ferritin 14 ng/mL</code>, suppressed hepcidin). Why is recommending <strong><code>rusfertide</code></strong> for the anemic <code>PMF/AIMF</code> patient a catastrophic polarity-inversion error?
+        </p>
+        <div class="quiz-options">
+          <button type="button" class="quiz-opt-btn" data-choice="A">
+            <span class="quiz-opt-key">A</span>
+            <span>Because <code>rusfertide</code> chelates parenchymal cardiac iron too aggressively and causes acute hypocalcemia in patients with ferritin &gt;1,000 ng/mL.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="B">
+            <span class="quiz-opt-key">B</span>
+            <span>Because <code>rusfertide</code> inhibits <code>ACVR1/ALK2</code> like <code>momelotinib</code>, risking secondary erythrocytosis in anemic <code>PMF/AIMF</code>.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="C">
+            <span class="quiz-opt-key">C</span>
+            <span>Because shared <code>JAK2 V617F</code> driver genetics guarantees identical drug response across <code>PV</code> and <code>MF</code>, so <code>rusfertide</code> only fails in <code>JAK2</code>-negative patients.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="D">
+            <span class="quiz-opt-key">D</span>
+            <span><strong>Hepcidin Polarity Inversion:</strong> <code>Rusfertide</code> (<code>NCT05210790</code>) is a <em>hepcidin mimetic</em> built to degrade ferroportin (<code>SLC40A1</code>) and restrict iron in low-hepcidin <code>PV</code> erythrocytosis; giving it in high-hepcidin anemic <code>PMF/AIMF</code> worsens iron-restricted anemia, whereas <strong><code>ACVR1/ALK2</code> inhibition</strong> (<code>momelotinib</code> <code>NCT04173494</code> / <code>pacritinib</code> <code>NCT02055781</code>) suppresses hepcidin to unlock macrophage iron.</span>
+          </button>
+        </div>
+        <div class="quiz-feedback" aria-live="polite"></div>
+      </article>
+
+      <!-- Q5: Cross-Orphan · Trial & Regulatory Forensics -->
+      <article class="quiz-card" data-quiz-id="q5" data-answer="B" data-track="xo" data-critical-harm="false">
+        <div class="quiz-card__meta-row">
+          <div class="quiz-card__meta">Q5 // Cross-Orphan &middot; Trial &amp; Regulatory Forensics (rtx-077 &middot; NCT01024036 &middot; PMID:25042199)</div>
+          <span class="quiz-harm-badge quiz-harm-badge--forensics">TRIAL FORENSICS</span>
+        </div>
+        <p class="quiz-card__stem">
+          5. A patient with <code>HHV-8</code>-negative idiopathic Multicentric Castleman Disease (<code>iMCD</code>, <code>ORPHA:93685</code>) starts <strong><code>siltuximab</code></strong> (<code>11 mg/kg IV q3w</code>, pivotal <code>NCT01024036</code>: 34% vs 0% durable response). Two months later, symptoms improve and <code>CRP</code> drops from <code>95 mg/L</code> to <code>&lt;3 mg/L</code>, yet a routine total serum <code>IL-6</code> ELISA returns <code>&gt;2,500 pg/mL</code>. How should pharmacodynamic monitoring and salvage escalation be interpreted?
+        </p>
+        <div class="quiz-options">
+          <button type="button" class="quiz-opt-btn" data-choice="A">
+            <span class="quiz-opt-key">A</span>
+            <span>The extreme serum <code>IL-6</code> spike proves rebound cytokine storm and immediate <code>siltuximab</code> resistance, requiring urgent switch to <code>R-CHOP</code> chemotherapy.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="B">
+            <span class="quiz-opt-key">B</span>
+            <span><strong>Immune-Complex Assay Artifact:</strong> Biologically neutralized <code>siltuximab–IL-6</code> complexes circulate with prolonged half-life and artifactually elevate total serum <code>IL-6</code> immunoassays for <strong>18–24 months</strong> post-dose; hepatic <strong><code>CRP</code> suppression</strong> (plus clinical/nodal criteria) must guide PD monitoring, while true non-responders (~66%) pivot to mTOR/calcineurin salvage (e.g., <code>sirolimus</code>, <code>NCT03933904</code>).</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="C">
+            <span class="quiz-opt-key">C</span>
+            <span><code>Siltuximab</code> only elevates serum <code>IL-6</code> for 72 hours post-infusion; any elevation after 2 months confirms occult <code>HHV-8</code> reactivation.</span>
+          </button>
+          <button type="button" class="quiz-opt-btn" data-choice="D">
+            <span class="quiz-opt-key">D</span>
+            <span><code>CRP</code> is suppressed directly by the IgG1 Fc region independent of <code>IL-6</code> blockade, so total serum <code>IL-6</code> remains the FDA-mandated pharmacodynamic biomarker.</span>
+          </button>
+        </div>
+        <div class="quiz-feedback" aria-live="polite"></div>
+      </article>
+    </section>
+
+    <!-- 5 Universal Translational Axes Architecture -->
+    <section class="dossier-section" id="benchmark-axes">
+      <span class="section-tag">Section 04 // Dual-Track Architecture (5 Universal Axes &times; 20 Test + 2 Dev + 20 Open-Frontier)</span>
+      <h2>5 Universal Translational Failure Axes &amp; Cross-Disease Transfer</h2>
+      <p>
+        <strong>Myelofibrosis (<code>40</code> test + <code>5</code> dev + <code>8</code> open_frontier)</strong> serves as the reference deep-dive model system because its paired clonal (<code>JAK2 V617F+</code> PMF) vs. reversible autoimmune (<code>AIMF</code> + iron/hepcidin) dichotomy cleanly spans all five universal failure modes. <strong>Cross-Orphan (<code>60</code> test + <code>5</code> dev + <code>12</code> open_frontier)</strong> tests transfer across <strong>20+ distinct orphan diseases</strong> (<code>ATTR-CM</code>/<code>AL</code>, <code>DMD</code>, <code>iMCD</code>, <code>VEXAS</code>, <code>iTTP</code>, <code>HLH/MAS</code>, <code>Wilson</code>, <code>Fabry</code>, <code>PNH</code>, <code>SMA</code>, <code>Hemophilia B</code>, <code>Systemic Mastocytosis</code>, <code>TBD</code>, <code>CF</code>, <code>HHT</code>, and more):
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Axis Key</th>
+              <th scope="col">MCQ-100 + Dev</th>
+              <th scope="col">Representative Translational Traps Tested</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>mimic_and_cohort_triage</code></td>
+              <td><strong>20 test + 2 dev</strong></td>
+              <td><code>SLE-AIMF</code> vs <code>iMCD-TAFRO</code>/TN-PMF (<code>PMID:43061186</code>), <code>AL</code> vs <code>ATTR-CM</code> false-positive <code>99mTc-PYP</code> in CKD, <code>iTTP</code> <code>PLASMIC</code> &amp; <code>caplacizumab</code>, <code>HLH</code> <code>HScore</code>, <code>VEXAS</code> <code>UBA1</code> M41, <code>Wilson</code> Leipzig score.</td>
+            </tr>
+            <tr>
+              <td><code>target_and_structural_selectivity</code></td>
+              <td><strong>20 test + 2 dev</strong></td>
+              <td><code>JAK2 V617F</code> <code>JH2</code> <code>F595/F537</code> allostery (<code>PDB:4FVQ</code>, <code>INCB160058</code>) vs <code>JH1</code> Type II <code>DFG-out</code> (<code>AJ1-11095</code>), <code>DMD</code> exon-phase math &amp; AAV exon 8/9 immune myositis, <code>KIT D816V</code> CNS sparing, <code>PAPD5</code>/<code>TERC</code>.</td>
+            </tr>
+            <tr>
+              <td><code>pathway_polarity_and_homeostasis</code></td>
+              <td><strong>20 test + 2 dev</strong></td>
+              <td>Hepcidin polarity (<code>rusfertide</code> in PV vs <code>momelotinib</code>/<code>ACVR1</code> in anemic MF/AIMF), pre-HSCT <code>LIC</code> chelation cutoffs, <code>PNH</code> proximal vs terminal complement extravascular hemolysis, copper/ferroportin homeostasis.</td>
+            </tr>
+            <tr>
+              <td><code>clinical_trial_endpoint_forensics</code></td>
+              <td><strong>20 test + 2 dev</strong></td>
+              <td><code>MANIFEST-2</code>/<code>TRANSFORM-1</code>/<code>SENTRY</code> <code>SVR35</code> vs <code>TSS50</code> dissociation, <code>IMpactMF</code> OS futility &amp; Schoenfeld death calculations, <code>siltuximab</code> 18–24 mo <code>IL-6</code> complex artifact, <code>ATTR-CM</code> win-ratio &amp; <code>Fabry</code> eGFR slope forensics.</td>
+            </tr>
+            <tr>
+              <td><code>orphan_regulatory_and_venture_economics</code></td>
+              <td><strong>20 test + 2 dev</strong></td>
+              <td>FY2026 FDA ODD ($4.68M PDUFA waiver, 7-yr exclusivity, 25% ODTC), Rare Pediatric PRV boundaries, Medicaid Best Price gene-therapy rebates, NIH STTR subcontracting caps, <code>RDEA</code> external control arms.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4-Tab 1-Command Quickstart -->
+    <section class="dossier-section" id="quickstart-tabs">
+      <span class="section-tag">Section 05 // 4-Tab 1-Command Quickstart (HF Datasets &middot; lm-eval &middot; Inspect AI &middot; HTTP POST)</span>
+      <h2>Evaluate &amp; Publish Your Agent on RareTxBench-v1.0</h2>
+      <p>
+        Load any config directly from Hugging Face (<code>all</code>, <code>myelofibrosis</code>, <code>cross_orphan</code>, <code>open_frontier</code>), run EleutherAI <code>lm-eval</code> or UK AISI <code>Inspect AI</code>, or grade zero-install over HTTP via <code>POST /api/grade-benchmark</code>:
+      </p>
+
+      <div class="qs-tabs" role="tablist" aria-label="RareTxBench Quickstart Methods">
+        <button type="button" class="qs-tab" role="tab" id="tab-hf" aria-selected="true" aria-controls="panel-hf">1. Hugging Face Datasets</button>
+        <button type="button" class="qs-tab" role="tab" id="tab-lmeval" aria-selected="false" aria-controls="panel-lmeval">2. EleutherAI lm-eval</button>
+        <button type="button" class="qs-tab" role="tab" id="tab-inspect" aria-selected="false" aria-controls="panel-inspect">3. UK AISI Inspect AI</button>
+        <button type="button" class="qs-tab" role="tab" id="tab-http" aria-selected="false" aria-controls="panel-http">4. Zero-Install HTTP POST</button>
+      </div>
+
+      <!-- Tab 1: Hugging Face Datasets -->
+      <div class="qs-panel qs-panel--active" role="tabpanel" id="panel-hf" aria-labelledby="tab-hf">
+        <p class="qs-caption">Load any of the 4 official Hugging Face configs (<code>all</code>, <code>myelofibrosis</code>, <code>cross_orphan</code>, <code>open_frontier</code>) from <a href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer"><code>rare-disease-atlas/RareTxBench</code></a> (<code>CC-BY-4.0</code>):</p>
+        <div class="lb-cli-wrap">
+          <pre class="prompt-box" id="snippet-hf">python3 -c 'from datasets import load_dataset
+for cfg in ("all", "myelofibrosis", "cross_orphan", "open_frontier"):
+    ds = load_dataset("rare-disease-atlas/RareTxBench", cfg)
+    print(cfg, {k: len(v) for k, v in ds.items()})'</pre>
+          <button type="button" class="lb-copy-btn" data-copy-target="snippet-hf">Copy Hugging Face Command</button>
+        </div>
+      </div>
+
+      <!-- Tab 2: EleutherAI lm-eval -->
+      <div class="qs-panel" role="tabpanel" id="panel-lmeval" aria-labelledby="tab-lmeval">
+        <p class="qs-caption">Clone the official harness (<a href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer"><code>rare-disease-atlas/rare-tx-bench</code></a>) and evaluate with EleutherAI <code>lm-evaluation-harness</code> (supports 0-shot or 5-shot using the <code>dev</code> split):</p>
+        <div class="lb-cli-wrap">
+          <pre class="prompt-box" id="snippet-lmeval">git clone https://github.com/rare-disease-atlas/rare-tx-bench.git &amp;&amp; lm_eval --model hf --model_args pretrained=&lt;your-model-id&gt; --include_path ./rare-tx-bench/harness/lm_eval --tasks rare_tx_bench --num_fewshot 5</pre>
+          <button type="button" class="lb-copy-btn" data-copy-target="snippet-lmeval">Copy lm-eval Command</button>
+        </div>
+      </div>
+
+      <!-- Tab 3: UK AISI Inspect AI -->
+      <div class="qs-panel" role="tabpanel" id="panel-inspect" aria-labelledby="tab-inspect">
+        <p class="qs-caption">Run the native UK AISI <code>inspect_ai</code> task across all 100 items or filter by track (<code>-T config=myelofibrosis</code> or <code>-T config=cross_orphan</code>):</p>
+        <div class="lb-cli-wrap">
+          <pre class="prompt-box" id="snippet-inspect">git clone https://github.com/rare-disease-atlas/rare-tx-bench.git &amp;&amp; inspect eval rare-tx-bench/harness/inspect_ai/rare_tx_bench_task.py --model openai/gpt-4o</pre>
+          <button type="button" class="lb-copy-btn" data-copy-target="snippet-inspect">Copy Inspect AI Command</button>
+        </div>
+      </div>
+
+      <!-- Tab 4: Zero-Install HTTP POST /api/grade-benchmark -->
+      <div class="qs-panel" role="tabpanel" id="panel-http" aria-labelledby="tab-http">
+        <p class="qs-caption">Fetch ungraded questions and grade either <code>"benchmark": "rare-tx-bench"</code> (100-item 6-choice MCQ + CTER) or <code>"benchmark": "rare-tx-bench-open"</code> (20-item choice-free exact derivation) with zero local installation:</p>
+        <div class="lb-cli-wrap">
+          <pre class="prompt-box" id="snippet-http"># 1) Fetch ungraded MCQ-100 or open_frontier items
+curl -s "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark?benchmark=rare-tx-bench" &gt; rtx_questions.json
+curl -s "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark?benchmark=rare-tx-bench-open" &gt; rtx_open.json
+
+# 2) Deterministically grade &amp; optionally publish aggregate metrics to /api/rare-tx-leaderboard.json
+curl -s -X POST https://api.rare-disease-atlas.workers.dev/api/grade-benchmark \
+  -H "Content-Type: application/json" \
+  -d '{"benchmark":"rare-tx-bench","model_name":"&lt;your-model&gt;","publish_to_leaderboard":true,"predictions":[{"id":"rtx-007","choice":"E","reasoning":"CDCN exclusion SLE-AIMF phenocopying TAFRO PMID:43061186 corticosteroids MMF rituximab"}]}'</pre>
+          <button type="button" class="lb-copy-btn" data-copy-target="snippet-http">Copy HTTP Grader Command</button>
+        </div>
+      </div>
+
+      <div class="lb-privacy-box" role="note" aria-label="Privacy and Open License Notice">
+        <strong>Zero-PII &amp; Open-Science Guarantee:</strong>
+        Leaderboard publishing (<code>"publish_to_leaderboard": true</code>) is 100% opt-in and stores <em>only</em> aggregate accuracy, track scores, <code>CTER</code>, rubric keyword coverage, and your chosen <code>model_name</code> string. <strong>Zero IP addresses, zero raw prompts, zero prediction text, and zero PII are logged or stored.</strong> Benchmark datasets are released under <strong>CC-BY-4.0</strong>; harness &amp; evaluator code under <strong>MIT</strong>. Direct downloads: <a href="./rare_tx_bench.jsonl"><code>rare_tx_bench.jsonl</code></a> &middot; <a href="./rare_tx_open_frontier.jsonl"><code>rare_tx_open_frontier.jsonl</code></a>.
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div>
+        <h4>RareTxBench-v1.0</h4>
+        <p style="margin: 0;">Part of the <a href="../">Rare Disease Venture Atlas</a> (<code>CC-BY-4.0</code> data &middot; <code>MIT</code> code &middot; zero auth &middot; zero tracking).</p>
+      </div>
+      <div>
+        <h4>Companion Benchmarks &amp; APIs</h4>
+        <ul>
+          <li><a href="./leaderboard.html"><code>MyelofibrosisBench-v1.1</code> Flagship Hub</a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json"><code>/api/rare-tx-leaderboard.json</code></a></li>
+          <li><a href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer">HF: RareTxBench</a> &middot; <a href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer">GitHub: rare-tx-bench</a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/api/grade-benchmark"><code>/api/grade-benchmark</code></a></li>
+          <li><a href="../openapi.yaml"><code>/openapi.yaml</code></a> &middot; <a href="../.well-known/x402.json"><code>/.well-known/x402.json</code></a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/atom.xml"><code>/atom.xml</code></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer-bar">
+      MEDICAL &amp; RESEARCH DISCLAIMER: RareTxBench-v1.0 is an open translational and drug-discovery evaluation suite for AI research agents. It is NOT medical advice and must never be used for autonomous clinical decision-making.
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      /* === 1. Live RareTxBench Leaderboard Fetch (with graceful static fallback) === */
+      var API_URL = "https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json";
+      var tbody = document.getElementById("leaderboard-tbody");
+      var pill = document.getElementById("lb-status-pill");
+      var detail = document.getElementById("lb-status-detail");
+
+      function esc(str) {
+        return String(str == null ? "" : str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function toPct(val) {
+        if (val == null || val === "" || isNaN(Number(val))) return null;
+        var n = Number(val);
+        return n <= 1.0 && n > 0 ? n * 100 : n;
+      }
+
+      function fmtPct(val) {
+        var p = toPct(val);
+        return p == null ? "<span style=\"color:#636c76;\">N/A</span>" : "<strong>" + p.toFixed(1) + "%</strong>";
+      }
+
+      function renderCter(val, note) {
+        var p = toPct(val);
+        if (p == null) return "<span style=\"color:#636c76;\">N/A</span>";
+        var cls = p <= 5 ? "cter-tag--zero" : (p <= 25 ? "cter-tag--mid" : "cter-tag--high");
+        return "<span class=\"cter-tag " + cls + "\">" + p.toFixed(1) + "%</span>" + (note ? "<br><small>" + esc(note) + "</small>" : "");
+      }
+
+      function pickNum(obj, keys) {
+        for (var i = 0; i < keys.length; i++) {
+          if (obj && obj[keys[i]] != null) return obj[keys[i]];
+        }
+        return null;
+      }
+
+      function renderRows(entries, updatedAt) {
+        if (!Array.isArray(entries) || entries.length === 0) return false;
+        var sorted = entries.slice().sort(function (a, b) {
+          var oa = toPct(pickNum(a, ["open_frontier_pct", "open_pct"]));
+          var ob = toPct(pickNum(b, ["open_frontier_pct", "open_pct"]));
+          var ma = toPct(pickNum(a, ["mcq_100_pct", "overall_accuracy_pct", "accuracy_pct", "score_pct"])) || 0;
+          var mb = toPct(pickNum(b, ["mcq_100_pct", "overall_accuracy_pct", "accuracy_pct", "score_pct"])) || 0;
+          var ka = toPct(pickNum(a, ["rubric_kw_pct", "keyword_coverage_pct", "reasoning_pct"])) || 0;
+          var kb = toPct(pickNum(b, ["rubric_kw_pct", "keyword_coverage_pct", "reasoning_pct"])) || 0;
+          var scoreA = ma + (oa != null ? oa : 0) * 0.5 + ka * 0.1;
+          var scoreB = mb + (ob != null ? ob : 0) * 0.5 + kb * 0.1;
+          return scoreB - scoreA;
+        });
+
+        var html = sorted.map(function (row, idx) {
+          var name = row.display_name || row.model_name || row.model || row.name || "Unnamed Agent";
+          var slug = row.model_name || row.id || "";
+          var mcq = toPct(pickNum(row, ["mcq_100_pct", "overall_accuracy_pct", "accuracy_pct", "score_pct"]));
+          var mcqClamped = mcq != null ? Math.max(0, Math.min(100, mcq)) : 0;
+          var fillClass = mcqClamped >= 70 ? "" : (mcqClamped >= 40 ? " lb-score-fill--mid" : " lb-score-fill--low");
+          var mf = pickNum(row, ["mf_track_pct", "myelofibrosis_track_pct", "myelofibrosis_pct"]);
+          var xo = pickNum(row, ["cross_orphan_pct", "cross_orphan_track_pct"]);
+          var ofr = pickNum(row, ["open_frontier_pct", "open_pct"]);
+          var cter = pickNum(row, ["cter_pct", "open_frontier_cter_pct", "mcq_cter_pct"]);
+          var kw = pickNum(row, ["rubric_kw_pct", "keyword_coverage_pct", "reasoning_pct", "reasoning_coverage_pct"]);
+          var badge = row.badge || (row.is_baseline ? "Reference Baseline" : "Submitted Agent");
+          var badgeClass = /oracle|verified|submitted/i.test(badge) ? "badge--high" : (/chasm|warn/i.test(badge) ? "badge--warn" : "badge--gap");
+          var cterNote = row.cter_scope || row.cter_note || "";
+
+          return (
+            "<tr" + (idx === 0 ? " class=\"highlight-row\"" : "") + ">" +
+              "<td><span class=\"lb-rank-badge\">#" + (idx + 1) + "</span></td>" +
+              "<td><strong>" + esc(name) + "</strong>" + (slug && slug !== name ? "<br><code>" + esc(slug) + "</code> " : " ") + "<span class=\"badge " + badgeClass + "\">" + esc(badge) + "</span></td>" +
+              "<td>" +
+                (mcq != null
+                  ? "<div class=\"lb-score-bar-wrap\"><strong>" + mcqClamped.toFixed(1) + "%</strong><div class=\"lb-score-track\" aria-hidden=\"true\"><div class=\"lb-score-fill" + fillClass + "\" style=\"width:" + mcqClamped.toFixed(1) + "%;\"></div></div></div>"
+                  : "<span style=\"color:#636c76;\">N/A</span>") +
+              "</td>" +
+              "<td>" + fmtPct(mf) + "</td>" +
+              "<td>" + fmtPct(xo) + "</td>" +
+              "<td>" + fmtPct(ofr) + "</td>" +
+              "<td>" + renderCter(cter, cterNote) + "</td>" +
+              "<td>" + fmtPct(kw) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+
+        tbody.innerHTML = html;
+        pill.textContent = "Live Feed Connected";
+        pill.className = "lb-pill";
+        detail.innerHTML = "Loaded <strong>" + sorted.length + "</strong> standings from <code>/api/rare-tx-leaderboard.json</code>" + (updatedAt ? " (updated " + esc(updatedAt) + ")" : "") + ".";
+        return true;
+      }
+
+      fetch(API_URL, { headers: { "Accept": "application/json" } })
+        .then(function (resp) {
+          if (!resp.ok) throw new Error("HTTP " + resp.status);
+          return resp.json();
+        })
+        .then(function (data) {
+          var entries = Array.isArray(data)
+            ? data
+            : (data.entries || data.leaderboard || data.standings || data.models || data.rows || []);
+          var ok = renderRows(entries, data.updated_at || data.generated_at || "");
+          if (!ok) {
+            pill.textContent = "Reference Baselines";
+            pill.className = "lb-pill lb-pill--fallback";
+            detail.textContent = "Live feed returned zero entries — displaying verified pre-rendered RareTxBench-v1.0 baselines.";
+          }
+        })
+        .catch(function () {
+          pill.textContent = "Pre-Rendered Baselines";
+          pill.className = "lb-pill lb-pill--fallback";
+          detail.textContent = "Displaying verified pre-rendered RareTxBench-v1.0 baselines (live /api/rare-tx-leaderboard.json syncs automatically when reachable).";
+        });
+
+      /* === 2. Interactive 5-Question CTER + Track Breakdown Mini-Quiz === */
+      var EXPLANATIONS = {
+        q1: "<strong>Ground Truth (B):</strong> Under CDCN diagnostic exclusion rules, high-titer <code>ANA/anti-dsDNA</code>, hypocomplementemia, and polyclonal marrow lymphoid aggregates without megakaryocytic clustering diagnose reversible <strong>SLE-AIMF</strong> phenocopying <code>iMCD-TAFRO</code> (<code>PMID:43061186</code>). Corticosteroids/MMF/rituximab achieve <strong>74–80% human marrow fibrosis reversal</strong>; rushing to myeloablative <code>HSCT</code> (20–36% NRM) or pan-<code>JAKi</code> is a catastrophic error.",
+        q2: "<strong>Ground Truth (C):</strong> Even in <code>CKD</code> stage 4, the Hutchison renal <code>&kappa;/&lambda;</code> FLC reference range shifts upward to <code>0.37–3.10</code>—making <code>0.18</code> abnormally lambda-skewed alongside the IgG lambda band (<code>PMID:30145653</code>). Because <code>AL</code> amyloidosis can produce false-positive Grade 2–3 <code>99mTc-PYP</code> uptake, withholding <code>tafamidis</code> for urgent tissue biopsy (<code>LC-MS/MS</code>) and marrow exam prevents fatal untreated <code>AL</code> progression.",
+        q3: "<strong>Ground Truth (A):</strong> FDA labeling for <code>delandistrogene moxeparvovec</code> (<code>EMBARK NCT05096221</code>) contraindicates any deletion in <strong>exon 8 and/or exon 9</strong> due to fatal T-cell immune myositis against hinge-1 transgene neoantigens. For Boy 2, deleting exons <code>48–50</code> removes <code>186 + 102 + 109 = 397 bp</code> (not divisible by 3); skipping adjacent <strong>exon 51</strong> (<code>233 bp</code>, <code>eteplirsen</code>) yields <code>630 bp</code> (<code>630 % 3 == 0</code>), restoring the reading frame.",
+        q4: "<strong>Ground Truth (D):</strong> Shared <code>JAK2 V617F</code> driver genetics does NOT mean shared hepcidin polarity. <code>PV</code> has suppressed hepcidin, so the hepcidin mimetic <code>rusfertide</code> (<code>NCT05210790</code>) degrades ferroportin (<code>SLC40A1</code>) to control erythrocytosis; anemic <code>PMF/AIMF</code> (<code>TSAT 15%</code>, ferritin <code>1,680 ng/mL</code>) already has excess hepcidin—giving <code>rusfertide</code> deepens anemia instead of unlocking iron via <code>ACVR1/ALK2</code> blockade (<code>momelotinib</code> <code>NCT04173494</code> / <code>pacritinib</code> <code>NCT02055781</code>).",
+        q5: "<strong>Ground Truth (B):</strong> In pivotal <code>NCT01024036</code> (<code>PMID:25042199</code>), biologically inactive <code>siltuximab–IL-6</code> immune complexes circulate for <strong>18–24 months</strong> and artifactually spike total serum <code>IL-6</code> ELISAs. Clinicians must track hepatic <strong><code>CRP</code> suppression</strong> and clinical/nodal responses rather than misinterpreting the <code>IL-6</code> artifact as progression, reserving salvage (e.g., <code>sirolimus</code> <code>NCT03933904</code>) for true non-responders (~66%)."
+      };
+
+      var quizCards = document.querySelectorAll(".quiz-card");
+      var correctEl = document.getElementById("quiz-correct");
+      var answeredEl = document.getElementById("quiz-answered");
+      var cterEl = document.getElementById("quiz-cter");
+      var harmMissedEl = document.getElementById("quiz-harm-missed");
+      var harmAnsweredEl = document.getElementById("quiz-harm-answered");
+      var gaugeFill = document.getElementById("cter-gauge-fill");
+      var trackMfEl = document.getElementById("track-mf");
+      var trackXoEl = document.getElementById("track-xo");
+      var resetBtn = document.getElementById("quiz-reset-btn");
+      var quizState = {};
+
+      function updateQuizDashboard() {
+        var answered = 0, correct = 0;
+        var harmAnswered = 0, harmMissed = 0;
+        var mfCorrect = 0, xoCorrect = 0;
+
+        quizCards.forEach(function (card) {
+          var qid = card.getAttribute("data-quiz-id");
+          var track = card.getAttribute("data-track");
+          var isHarm = card.getAttribute("data-critical-harm") === "true";
+          if (quizState[qid] !== undefined) {
+            answered += 1;
+            if (quizState[qid]) {
+              correct += 1;
+              if (track === "mf") mfCorrect += 1;
+              if (track === "xo") xoCorrect += 1;
+            }
+            if (isHarm) {
+              harmAnswered += 1;
+              if (!quizState[qid]) harmMissed += 1;
+            }
+          }
+        });
+
+        var cterPct = harmAnswered > 0 ? (harmMissed / harmAnswered) * 100 : 0;
+        if (correctEl) correctEl.textContent = String(correct);
+        if (answeredEl) answeredEl.textContent = String(answered);
+        if (cterEl) cterEl.textContent = cterPct.toFixed(1) + "%";
+        if (harmMissedEl) harmMissedEl.textContent = String(harmMissed);
+        if (harmAnsweredEl) harmAnsweredEl.textContent = String(harmAnswered);
+        if (trackMfEl) trackMfEl.textContent = mfCorrect + " / 2";
+        if (trackXoEl) trackXoEl.textContent = xoCorrect + " / 3";
+
+        if (gaugeFill) {
+          gaugeFill.style.width = (harmAnswered > 0 ? Math.max(8, cterPct) : 0) + "%";
+          gaugeFill.className = "cter-gauge-fill" + (cterPct === 0 ? "" : (cterPct <= 25 ? " cter-gauge-fill--warn" : " cter-gauge-fill--danger"));
+        }
+      }
+
+      quizCards.forEach(function (card) {
+        var qid = card.getAttribute("data-quiz-id");
+        var answer = card.getAttribute("data-answer");
+        var isHarm = card.getAttribute("data-critical-harm") === "true";
+        var buttons = card.querySelectorAll(".quiz-opt-btn");
+        var fb = card.querySelector(".quiz-feedback");
+
+        buttons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            if (quizState[qid] !== undefined) return;
+            var choice = btn.getAttribute("data-choice");
+            var isCorrect = choice === answer;
+            quizState[qid] = isCorrect;
+
+            buttons.forEach(function (b) {
+              b.disabled = true;
+              var c = b.getAttribute("data-choice");
+              if (c === answer) {
+                b.classList.add("quiz-opt-btn--correct");
+              } else if (b === btn && !isCorrect) {
+                b.classList.add("quiz-opt-btn--wrong");
+              }
+            });
+
+            if (fb) {
+              var prefix = isCorrect
+                ? "<strong>Safe &amp; Exact!</strong> "
+                : (isHarm ? "<strong>CTER Trap Triggered — Catastrophic Translational Error.</strong> " : "<strong>Forensics Trap Triggered — Incorrect.</strong> ");
+              fb.innerHTML = prefix + (EXPLANATIONS[qid] || "");
+              fb.className = "quiz-feedback quiz-feedback--visible " + (isCorrect ? "quiz-feedback--pass" : "quiz-feedback--fail");
+            }
+            updateQuizDashboard();
+          });
+        });
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener("click", function () {
+          quizState = {};
+          quizCards.forEach(function (card) {
+            card.querySelectorAll(".quiz-opt-btn").forEach(function (b) {
+              b.disabled = false;
+              b.classList.remove("quiz-opt-btn--correct", "quiz-opt-btn--wrong");
+            });
+            var fb = card.querySelector(".quiz-feedback");
+            if (fb) {
+              fb.innerHTML = "";
+              fb.className = "quiz-feedback";
+            }
+          });
+          updateQuizDashboard();
+        });
+      }
+
+      /* === 3. 4-Tab Quickstart & Copy Buttons === */
+      var tabs = document.querySelectorAll(".qs-tab");
+      var panels = document.querySelectorAll(".qs-panel");
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var targetId = tab.getAttribute("aria-controls");
+          tabs.forEach(function (t) { t.setAttribute("aria-selected", t === tab ? "true" : "false"); });
+          panels.forEach(function (p) {
+            if (p.id === targetId) p.classList.add("qs-panel--active");
+            else p.classList.remove("qs-panel--active");
+          });
+        });
+      });
+
+      document.querySelectorAll(".lb-copy-btn[data-copy-target]").forEach(function (btn) {
+        var origLabel = btn.textContent;
+        btn.addEventListener("click", function () {
+          var target = document.getElementById(btn.getAttribute("data-copy-target"));
+          if (!target) return;
+          var text = target.textContent;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () {
+              btn.textContent = "Copied!";
+              setTimeout(function () { btn.textContent = origLabel; }, 2200);
+            });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

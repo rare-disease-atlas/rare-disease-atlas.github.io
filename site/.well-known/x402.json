@@ -81,6 +81,42 @@
       "currency": "USD"
     },
     {
+      "path": "/benchmarks/rare-tx-bench.html",
+      "url": "https://rare-disease-atlas.github.io/benchmarks/rare-tx-bench.html",
+      "methods": ["GET"],
+      "description": "Public RareTxBench-v1.0 interactive web hub: 100 adversarially hardened 6-choice (A-F) post-diagnosis rare-disease translational items (40 MF/AIMF flagship + 60 Cross-Orphan across 20+ diseases) + 10 dev + 20 choice-free open_frontier exact derivations, 50 critical_harm CTER traps, 5-question CTER mini-quiz, live leaderboard, and 4-tab quickstart.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/benchmarks/rare_tx_bench.jsonl",
+      "url": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bench.jsonl",
+      "methods": ["GET"],
+      "description": "RareTxBench-v1.0 100-item 6-choice (A-F) post-diagnosis rare-disease translational benchmark JSONL (40 MF/AIMF + 60 Cross-Orphan, 50 critical_harm CTER traps; also on huggingface.co/datasets/rare-disease-atlas/RareTxBench and github.com/rare-disease-atlas/rare-tx-bench).",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/benchmarks/rare_tx_open_frontier.jsonl",
+      "url": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_open_frontier.jsonl",
+      "methods": ["GET"],
+      "description": "RareTxBench-v1.0 open_frontier 20-item choice-free exact-answer translational derivation benchmark JSONL (MIPSS70+ v2.0, pre-HSCT LIC, Schoenfeld OS deaths, HScore, PLASMIC, JH2 F595, DMD exon-phase math; CC-BY-4.0).",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/api/rare-tx-leaderboard.json",
+      "url": "https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json",
+      "methods": ["GET"],
+      "description": "Live JSON standings for RareTxBench-v1.0 (MCQ-100, MF Track 40, Cross-Orphan 60, Open-Frontier 20, CTER, and Rubric KW) across verified reference runs and opt-in anonymous agent submissions (zero PII, CC-BY-4.0).",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
       "path": "/benchmarks/myelofibrosis_bench.jsonl",
       "url": "https://rare-disease-atlas.github.io/benchmarks/myelofibrosis_bench.jsonl",
       "methods": ["GET"],
