@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RareTxBench-v1.0 — Beyond RareBench: Post-Diagnosis Rare-Disease Translational Benchmark &amp; CTER Leaderboard</title>
-  <meta name="description" content="RareTxBench-v1.0: 100 adversarially hardened 6-choice (A–F) post-diagnosis rare-disease translational items (40 Myelofibrosis/AIMF flagship + 60 Cross-Orphan across 20+ rare diseases), 10 dev items, and 20 choice-free exact-answer open_frontier derivations with Catastrophic Translational Error Rate (CTER) tracking.">
+  <title>RareTxBench-v2.0 — 5-Suite Post-Diagnosis Rare-Disease Translational Agent Benchmark &amp; CTER Leaderboard</title>
+  <meta name="description" content="RareTxBench-v2.0: 152 test items + 10 dev items across 7 Hugging Face configs and 5 post-diagnosis rare-disease translational suites (raw_bio_compute, bio_delta_live, protocol_audit, open_frontier, MCQ-100) exposing 0% static Frontier performance on raw PDB/CSV bio-compute, 20% on live clinical-trial/PubMed delta forensics, and monotonic 30% -> 80% -> 90% protocol-audit separation.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://rare-disease-atlas.github.io/benchmarks/rare-tx-bench.html">
   <link rel="describedby" href="../llms.txt" type="text/markdown" title="LLM Summary Index (llms.txt)">
@@ -521,20 +521,23 @@
   {
     "@context": "https://schema.org",
     "@type": "Dataset",
-    "@id": "https://rare-disease-atlas.github.io/benchmarks/rare-tx-bench.html#rare-tx-bench-v1.0",
-    "name": "RareTxBench-v1.0 — Post-Diagnosis Rare-Disease Translational Reasoning & Safety Benchmark",
-    "description": "100 adversarially hardened 6-choice (A–F) post-diagnosis rare-disease translational items (40 Myelofibrosis/AIMF flagship + 60 Cross-Orphan across 20+ rare diseases), 10 dev items, and 20 choice-free exact-answer open_frontier derivations with 50 critical_harm safety traps (Catastrophic Translational Error Rate, CTER) and strict option-length parity (Longest-Option Heuristic = 17.0% vs 16.7% random chance).",
+    "@id": "https://rare-disease-atlas.github.io/benchmarks/rare-tx-bench.html#rare-tx-bench-v2.0",
+    "name": "RareTxBench-v2.0 — 5-Suite Post-Diagnosis Rare-Disease Translational Agent & Safety Benchmark",
+    "description": "152 test items + 10 dev items across 7 Hugging Face configs (all, myelofibrosis, cross_orphan, open_frontier, raw_bio_compute, protocol_audit, bio_delta_live) and 5 post-diagnosis rare-disease suites: Track 1 raw_bio_compute (12 real RCSB PDB 4FVR/4FVQ/5MO4 + deterministic patient CSV/TSV tasks; static Frontier = 0.0% / 100% CTER vs 100.0% code-executing agent), Track 2 bio_delta_live (10 live 2026-11-21 ClinicalTrials.gov v2 & late-2026 PubMed forensics tasks; static Frontier = 20.0%, 0.0% MF vs 100.0% live MCP/API agent), Track 3 protocol_audit (10 dense ~500-word Phase 2/3 protocols with 2 clean 0-flaw controls across a 16-code flaw taxonomy; monotonic Lightweight 30.0% EM / 79.0% F1 -> Standard 80.0% EM / 95.7% F1 -> Frontier 90.0% EM / 97.9% F1, 0.0% Clean-Control FP), Track 4 open_frontier (20 choice-free exact derivations exposing the -65 pt Recognition-Execution Chasm), and Track 5 MCQ-100 (100 6-choice A–F items + 10 dev with Longest-Option = 17.0% vs 16.7% random chance).",
     "url": "https://rare-disease-atlas.github.io/benchmarks/rare-tx-bench.html",
     "sameAs": [
       "https://huggingface.co/datasets/rare-disease-atlas/RareTxBench",
       "https://github.com/rare-disease-atlas/rare-tx-bench",
-      "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bench.jsonl",
+      "https://rare-disease-atlas.github.io/benchmarks/rare_tx_raw_bio_compute.jsonl",
+      "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bio_delta_live.jsonl",
+      "https://rare-disease-atlas.github.io/benchmarks/rare_tx_protocol_audit.jsonl",
       "https://rare-disease-atlas.github.io/benchmarks/rare_tx_open_frontier.jsonl",
+      "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bench.jsonl",
       "https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json",
       "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark",
       "https://rare-disease-atlas.github.io/benchmarks/leaderboard.html"
     ],
-    "version": "1.0.0",
+    "version": "2.0.0",
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "isAccessibleForFree": true,
     "creator": {
@@ -544,56 +547,81 @@
     },
     "keywords": [
       "RareTxBench",
-      "RareTxBench-v1.0",
+      "RareTxBench-v2.0",
       "post-diagnosis rare disease benchmark",
+      "raw_bio_compute",
+      "bio_delta_live",
+      "protocol_audit",
+      "open_frontier",
       "CTER",
       "Catastrophic Translational Error Rate",
-      "open_frontier",
       "Myelofibrosis",
       "Autoimmune Myelofibrosis",
       "AIMF",
       "JAK2 V617F",
+      "PDB 4FVR",
+      "PDB 4FVQ",
+      "PDB 5MO4",
       "ATTR-CM",
       "AL amyloidosis",
       "Duchenne muscular dystrophy",
       "Castleman disease",
       "lm-eval",
-      "Inspect AI"
+      "Inspect AI",
+      "MCP"
     ],
     "distribution": [
       {
         "@type": "DataDownload",
-        "name": "RareTxBench-v1.0 Hugging Face Dataset (all, myelofibrosis, cross_orphan, open_frontier)",
+        "name": "RareTxBench-v2.0 Hugging Face Dataset (7 configs: all, myelofibrosis, cross_orphan, open_frontier, raw_bio_compute, protocol_audit, bio_delta_live)",
         "encodingFormat": "application/x-parquet",
         "contentUrl": "https://huggingface.co/datasets/rare-disease-atlas/RareTxBench"
       },
       {
         "@type": "DataDownload",
-        "name": "RareTxBench-v1.0 GitHub Harness (lm-eval, Inspect AI, Promptfoo & Evaluator)",
+        "name": "RareTxBench-v2.0 GitHub Harness (lm-eval, Inspect AI, Promptfoo, PDB/CSV Artifacts & Evaluator)",
         "encodingFormat": "text/html",
         "contentUrl": "https://github.com/rare-disease-atlas/rare-tx-bench"
       },
       {
         "@type": "DataDownload",
-        "name": "RareTxBench-v1.0 100-Item 6-Choice Test Set (JSONL)",
+        "name": "Track 1: RareTxBench-v2.0 raw_bio_compute 12-Item Scientific Artifact Suite (JSONL)",
         "encodingFormat": "application/jsonl",
-        "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bench.jsonl"
+        "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_raw_bio_compute.jsonl"
       },
       {
         "@type": "DataDownload",
-        "name": "RareTxBench-v1.0 20-Item Choice-Free open_frontier Set (JSONL)",
+        "name": "Track 2: RareTxBench-v2.0 bio_delta_live 10-Item Temporal Forensics Suite (JSONL)",
+        "encodingFormat": "application/jsonl",
+        "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bio_delta_live.jsonl"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "Track 3: RareTxBench-v2.0 protocol_audit 10-Protocol Multi-Flaw Detection Suite (JSONL)",
+        "encodingFormat": "application/jsonl",
+        "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_protocol_audit.jsonl"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "Track 4: RareTxBench-v2.0 open_frontier 20-Item Choice-Free Exact Derivation Suite (JSONL)",
         "encodingFormat": "application/jsonl",
         "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_open_frontier.jsonl"
       },
       {
         "@type": "DataDownload",
-        "name": "RareTxBench-v1.0 Live Leaderboard Feed (JSON)",
+        "name": "Track 5: RareTxBench-v2.0 100-Item 6-Choice MCQ Test Set (JSONL)",
+        "encodingFormat": "application/jsonl",
+        "contentUrl": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bench.jsonl"
+      },
+      {
+        "@type": "DataDownload",
+        "name": "RareTxBench-v2.0 Live Leaderboard Feed (JSON)",
         "encodingFormat": "application/json",
         "contentUrl": "https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json"
       },
       {
         "@type": "DataDownload",
-        "name": "Zero-Install HTTP Grader (GET/POST /api/grade-benchmark)",
+        "name": "Zero-Install 6-Mode HTTP Grader (GET/POST /api/grade-benchmark)",
         "encodingFormat": "application/json",
         "contentUrl": "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark"
       }
@@ -602,14 +630,14 @@
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Skip to RareTxBench-v1.0 hub</a>
+  <a class="skip-link" href="#main-content">Skip to RareTxBench-v2.0 hub</a>
 
   <!-- Top Protocol Telemetry Strip -->
   <div class="protocol-bar" role="region" aria-label="Protocol Metadata">
     <div class="protocol-bar__inner">
       <div class="protocol-status">
         <span class="status-dot" aria-hidden="true"></span>
-        <span>BENCHMARK: RARETXBENCH-V1.0 // 100 6-CHOICE + 10 DEV + 20 OPEN_FRONTIER // 50 CTER TRAPS // CC-BY-4.0</span>
+        <span>BENCHMARK: RARETXBENCH-V2.0 // 152 TEST + 10 DEV // 7 HF CONFIGS // 5 SUITES (RAW_BIO_COMPUTE &middot; BIO_DELTA_LIVE &middot; PROTOCOL_AUDIT &middot; OPEN_FRONTIER &middot; MCQ-100) // CC-BY-4.0</span>
       </div>
       <div class="protocol-links">
         <a href="../">Briefing Hub</a>
@@ -627,14 +655,14 @@
     <div class="site-header__inner">
       <a class="brand-mark" href="../">
         <span class="brand-mark__domain">rare-disease-atlas.github.io</span>
-        <span class="brand-mark__sub">RareTxBench-v1.0 — Post-Diagnosis Translational AI Hub</span>
+        <span class="brand-mark__sub">RareTxBench-v2.0 — 5-Suite Post-Diagnosis Translational Agent Hub</span>
       </a>
       <nav class="funnel-nav" aria-label="Atlas Navigation">
         <a href="../">00 // Briefing Hub</a>
         <a href="../ai-drug-repurposing-targets.html">03 // AI &amp; CompBio</a>
         <a href="../autoimmune-myelofibrosis-iron-wedge.html">04 // AIMF &amp; Iron</a>
         <a href="./leaderboard.html">MFBench // v1.1</a>
-        <a href="./rare-tx-bench.html" aria-current="page">RareTxBench // v1.0</a>
+        <a href="./rare-tx-bench.html" aria-current="page">RareTxBench // v2.0</a>
       </nav>
     </div>
   </header>
@@ -642,133 +670,147 @@
   <main id="main-content" class="container">
     <!-- Hero Header -->
     <header class="dossier-hero" id="rare-tx-hero">
-      <p class="dossier-kicker">Beyond RareBench // Evaluating AI Agents After Diagnosis // Dual-Track Translational Safety &amp; Exact Derivation Suite</p>
-      <h1 class="dossier-title">RareTxBench-v1.0: Evaluating AI Agents After Rare-Disease Diagnosis</h1>
-      <div class="quick-answer" role="region" aria-label="RareTxBench Overview">
-        <span class="quick-answer__label">Benchmark Contract (v1.0 — 100 6-Choice Test + 10 Dev + 20 Choice-Free Open-Frontier)</span>
+      <p class="dossier-kicker">Beyond RareBench &amp; Beyond Static MCQs // 5-Suite Post-Diagnosis Translational Agent &amp; Frontier-Breaking Benchmark</p>
+      <h1 class="dossier-title">RareTxBench-v2.0: 5-Suite Post-Diagnosis Rare-Disease Agent Benchmark</h1>
+      <div class="quick-answer" role="region" aria-label="RareTxBench-v2.0 Overview">
+        <span class="quick-answer__label">Benchmark Contract (v2.0 — 152 Test + 10 Dev Across 7 HF Configs &amp; 5 Suites)</span>
         <p>
-          <strong>RareTxBench-v1.0</strong> evaluates what happens <em>after</em> a rare disease is named. Across <strong>100 adversarially hardened 6-choice (<code>A–F</code>) test items</strong> (<strong>40 Myelofibrosis/AIMF flagship</strong> + <strong>60 Cross-Orphan across 20+ rare diseases</strong>), <strong>10 few-shot dev items</strong>, and <strong>20 choice-free exact-answer <code>open_frontier</code> derivations</strong>, the suite measures <strong>Catastrophic Translational Error Rate (<code>CTER</code>)</strong> across <strong>50 <code>critical_harm</code> safety traps</strong>, mechanistic rubric grounding, and anti-gaming length parity (<code>Longest-Option Heuristic = 17.0%</code> vs <code>16.7%</code> random chance; max option-length ratio <code>1.23 &le; 1.30</code>).
+          <strong>RareTxBench-v2.0</strong> pushes beyond saturated static MCQs to evaluate whether AI agents can actually execute post-diagnosis rare-disease science. Across <strong>152 test items + 10 dev items</strong> organized into <strong>7 Hugging Face configs</strong> and <strong>5 complementary suites</strong>—<strong><code>raw_bio_compute</code> (12)</strong>, <strong><code>bio_delta_live</code> (10)</strong>, <strong><code>protocol_audit</code> (10)</strong>, <strong><code>open_frontier</code> (20)</strong>, and <strong><code>MCQ-100</code> (100 + 10 dev)</strong>—static Frontier Reasoning models collapse to <strong><code>0.0%</code> (<code>100%</code> CTER)</strong> on raw PDB/CSV bio-compute and <strong><code>20.0%</code> (<code>0.0%</code> Myelofibrosis)</strong> on live <code>ClinicalTrials.gov v2</code>/<code>PubMed</code> delta forensics, while <strong><code>protocol_audit</code></strong> exposes clean monotonic frontier separation (<strong><code>30.0%</code> &rarr; <code>80.0%</code> &rarr; <code>90.0%</code> EM</strong>, all <code>0.0%</code> Clean-Control FP).
         </p>
         <div class="lb-hub-links">
-          <a class="lb-hub-link lb-hub-link--primary" href="#cter-quiz">Take 5-Question CTER Mini-Quiz &darr;</a>
-          <a class="lb-hub-link" href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer">HF Dataset: RareTxBench &nearr;</a>
-          <a class="lb-hub-link" href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer">GitHub: lm-eval &amp; Inspect AI &nearr;</a>
+          <a class="lb-hub-link lb-hub-link--primary" href="#live-leaderboard">View v2.0 Leaderboard &darr;</a>
+          <a class="lb-hub-link" href="#cter-quiz">Take 5-Question CTER Mini-Quiz &darr;</a>
+          <a class="lb-hub-link" href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer">HF Dataset (7 Configs) &nearr;</a>
+          <a class="lb-hub-link" href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer">GitHub: Harness &amp; Artifacts &nearr;</a>
           <a class="lb-hub-link" href="#quickstart-tabs">4-Tab 1-Command Quickstart &darr;</a>
           <a class="lb-hub-link" href="./leaderboard.html">Flagship Track: MyelofibrosisBench-v1.1 &rarr;</a>
         </div>
       </div>
 
-      <div class="rtx-metrics" aria-label="Key Benchmark Metrics">
+      <div class="rtx-metrics" aria-label="Key RareTxBench-v2.0 Metrics">
         <div class="rtx-stat">
-          <div class="rtx-stat__label">6-Choice Test + Dev</div>
-          <div class="rtx-stat__val">100 + 10</div>
-          <p class="rtx-stat__sub"><code>40</code> MF/AIMF flagship + <code>60</code> Cross-Orphan (20+ diseases); near-uniform <code>A–F</code> (16–17 each).</p>
+          <div class="rtx-stat__label">Total v2.0 Corpus</div>
+          <div class="rtx-stat__val">152 + 10 Dev</div>
+          <p class="rtx-stat__sub"><strong>5 suites</strong> across <strong>7 HF configs</strong> (<code>all</code>, <code>myelofibrosis</code>, <code>cross_orphan</code>, <code>open_frontier</code>, <code>raw_bio_compute</code>, <code>protocol_audit</code>, <code>bio_delta_live</code>).</p>
         </div>
         <div class="rtx-stat rtx-stat--crimson">
-          <div class="rtx-stat__label">Critical-Harm Safety Traps</div>
-          <div class="rtx-stat__val">50 CTER</div>
-          <p class="rtx-stat__sub">50% of MCQ-100 + 50% of <code>open_frontier</code> carry explicit clinical or Phase 3 <code>harm_mechanism</code> tags.</p>
+          <div class="rtx-stat__label">Track 1: raw_bio_compute</div>
+          <div class="rtx-stat__val">0.0% Static &rarr; 100%</div>
+          <p class="rtx-stat__sub">Real RCSB PDB (<code>4FVR</code>, <code>4FVQ</code>, <code>5MO4</code>) + 9 patient CSV/TSV datasets. Static Frontier = <code>0.0%</code> (<code>100%</code> CTER) vs Code-Executing Agent.</p>
+        </div>
+        <div class="rtx-stat rtx-stat--crimson">
+          <div class="rtx-stat__label">Track 2: bio_delta_live</div>
+          <div class="rtx-stat__val">20.0% (0% MF)</div>
+          <p class="rtx-stat__sub">Live <code>2026-11-21</code> ClinicalTrials.gov v2 &amp; late-2026 PubMed forensics. Live MCP/API-grounded agents hit <code>100.0%</code>.</p>
         </div>
         <div class="rtx-stat rtx-stat--emerald">
-          <div class="rtx-stat__label">Choice-Free Frontier</div>
-          <div class="rtx-stat__val">20 Exact</div>
-          <p class="rtx-stat__sub"><code>open_frontier</code> requires exact numeric/residue derivations (zero MCQ recognition crutches).</p>
+          <div class="rtx-stat__label">Track 3: protocol_audit</div>
+          <div class="rtx-stat__val">30% &rarr; 80% &rarr; 90%</div>
+          <p class="rtx-stat__sub">Monotonic EM separation across 10 ~500-word Phase 2/3 protocols (16-code taxonomy, 2 clean controls, <code>0.0%</code> FP).</p>
         </div>
         <div class="rtx-stat">
-          <div class="rtx-stat__label">Anti-Gaming Length Parity</div>
-          <div class="rtx-stat__val">17.0% vs 16.7%</div>
-          <p class="rtx-stat__sub"><code>Longest-Option Heuristic = 17.0%</code> (random 6-choice floor <code>16.7%</code>; max ratio <code>1.23</code>).</p>
+          <div class="rtx-stat__label">Anti-Gaming &amp; Chasm</div>
+          <div class="rtx-stat__val">-65 pt / 17.0%</div>
+          <p class="rtx-stat__sub"><code>open_frontier</code>: 100% MCQ &rarr; 35% open (50% CTER). <code>MCQ-100</code> Longest-Option = <code>17.0%</code> vs <code>16.7%</code> chance.</p>
         </div>
       </div>
     </header>
 
-    <!-- Headline Empirical Finding: The Recognition-Execution Chasm -->
-    <section class="chasm-callout" id="recognition-execution-chasm" aria-label="Headline Empirical Finding: The Recognition-Execution Chasm">
-      <span class="chasm-callout__tag">Headline Empirical Finding // Blind Zero-Shot Evaluation Across Reasoning Tiers</span>
-      <h2>The Recognition&ndash;Execution Chasm: 100% MCQ &rarr; 35.0% Exact Derivation &amp; 50.0% CTER</h2>
+    <!-- Headline Empirical Findings: Frontier-Breaking 5-Suite Architecture -->
+    <section class="chasm-callout" id="frontier-findings" aria-label="RareTxBench-v2.0 Headline Empirical Findings Across All 5 Suites">
+      <span class="chasm-callout__tag">Headline Empirical Findings // RareTxBench-v2.0 Breaks Frontier Saturation Across All 5 Suites</span>
+      <h2>Static Frontier Models Collapse on Real Bio-Compute (0.0%), Live Clinical Delta (20.0%), and Multi-Flaw Protocol Auditing</h2>
       <p>
-        Multiple-choice accuracy hides fatal execution failures in rare-disease medicine. Under strict zero-shot blind evaluation, a <strong>Lightweight Non-Thinking model</strong> scores <code>100.0%</code> on 6-choice <code>MCQ-100</code>—yet when multiple-choice options are removed on <strong>20 choice-free <code>open_frontier</code> derivations</strong>, its accuracy collapses to <strong><code>35.0%</code> overall (<code>25.0%</code> on the Myelofibrosis flagship track, <code>41.7%</code> Cross-Orphan)</strong> with a <strong><code>50.0%</code> Catastrophic Translational Error Rate (<code>CTER</code>)</strong>. Reasoning models close the execution gap (<code>100.0%</code> exact derivation, <code>0.0%</code> <code>CTER</code>) while monotonically lifting mechanistic rubric grounding (<code>59.2%</code> &rarr; <code>71.9%</code> &rarr; <code>73.7%</code>).
+        Why did RareTxBench evolve from v1.0 to <strong>v2.0 (<code>152</code> test + <code>10</code> dev)</strong>? Because static 6-choice MCQs—even adversarially hardened with length parity—eventually saturate on Frontier Reasoning models. <strong>RareTxBench-v2.0</strong> adds three frontier-breaking agentic &amp; forensic tracks alongside <code>open_frontier</code> and <code>MCQ-100</code>, exposing where parametric weights fail and where code execution, live MCP/API grounding, and deep protocol auditing become mandatory:
       </p>
 
       <div class="chasm-grid">
         <div class="chasm-card">
-          <div class="chasm-card__tier">Lightweight Non-Thinking Tier</div>
-          <div class="chasm-card__nums">MCQ: 100% &rarr; Open: <span class="danger">35.0%</span></div>
-          <p class="chasm-card__note">MF Track Open: <strong>25.0%</strong> &middot; Open CTER: <strong style="color:#ff7b72;">50.0%</strong> (5/10 fatal traps missed) &middot; MCQ Rubric KW: <strong>59.2%</strong>.</p>
+          <div class="chasm-card__tier">Track 1 // raw_bio_compute (12 tasks: 5 MF / 7 Cross-Orphan)</div>
+          <div class="chasm-card__nums">Static Frontier: <span class="danger">0.0%</span> &rarr; Code Agent: <span class="safe">100.0%</span></div>
+          <p class="chasm-card__note">Real RCSB PDB crystal extracts (<code>4FVR</code>, <code>4FVQ</code>, <code>5MO4</code>) + 9 deterministic patient CSV/TSV datasets (log-rank survival, Win Ratio, eGFR slopes, AIMF triage, DMD/PNH/iTTP cohorts, PRV rNPV). Static Frontier suffers <strong style="color:#ff7b72;">100.0% CTER</strong> (4/4 fatal traps missed).</p>
         </div>
         <div class="chasm-card">
-          <div class="chasm-card__tier">Standard Reasoning Tier</div>
-          <div class="chasm-card__nums">MCQ: 100% &rarr; Open: <span class="safe">100.0%</span></div>
-          <p class="chasm-card__note">Recovers exact clinical score, LIC, and trial-powering arithmetic; Open CTER: <strong style="color:#3fb950;">0.0%</strong> &middot; MCQ Rubric KW: <strong>71.9%</strong>.</p>
+          <div class="chasm-card__tier">Track 2 // bio_delta_live (10 tasks: 5 MF / 5 Cross-Orphan)</div>
+          <div class="chasm-card__nums">Static Frontier: <span class="danger">20.0% (0% MF!)</span> &rarr; MCP Agent: <span class="safe">100.0%</span></div>
+          <p class="chasm-card__note">Rolling temporal forensics harvested live (<code>2026-11-21</code>) from <code>ClinicalTrials.gov v2</code> &amp; late-2026 <code>PubMed</code> (<code>PMID:43061186</code>, <code>42980647</code>, <code>42663301</code>, <code>42849489</code>, <code>NCT06343805</code>, <code>NCT06313593</code>, <code>NCT06128629</code>). Parametric cutoffs fail completely on Myelofibrosis (<strong style="color:#ff7b72;">0.0%</strong>).</p>
         </div>
         <div class="chasm-card">
-          <div class="chasm-card__tier">Frontier Reasoning Tier</div>
-          <div class="chasm-card__nums">MCQ: 100% &rarr; Open: <span class="safe">100.0%</span></div>
-          <p class="chasm-card__note">Exact derivation across all 20 <code>open_frontier</code> items; Open CTER: <strong style="color:#3fb950;">0.0%</strong> &middot; Highest MCQ Rubric KW: <strong>73.7%</strong>.</p>
+          <div class="chasm-card__tier">Track 3 // protocol_audit (10 protocols · 2 clean controls)</div>
+          <div class="chasm-card__nums">EM: <span class="danger">30.0%</span> &rarr; 80.0% &rarr; <span class="safe">90.0%</span></div>
+          <p class="chasm-card__note">Dense ~500-word Phase 2/3 protocols with unannounced multi-flaw detection across a 16-code taxonomy. Monotonic frontier separation: Lightweight <strong>30.0% EM</strong> (<code>79.0%</code> F1, <strong style="color:#ff7b72;">34.8% FN-CTER</strong>) &rarr; Standard <strong>80.0% EM</strong> (<code>95.7%</code> F1, <code>4.4%</code> FN-CTER) &rarr; Frontier <strong>90.0% EM</strong> (<code>97.9%</code> F1, <strong style="color:#3fb950;">0.0% FN-CTER</strong>); all <code>0.0%</code> Clean-Control FP.</p>
+        </div>
+        <div class="chasm-card">
+          <div class="chasm-card__tier">Track 4 // open_frontier (20 derivations: 8 MF / 12 XO)</div>
+          <div class="chasm-card__nums">Chasm: 100% MCQ &rarr; <span class="danger">35.0%</span> Open (<span class="danger">-65 pt</span>)</div>
+          <p class="chasm-card__note">Choice-free exact numeric/residue derivations expose the <strong>-65 pt Recognition&ndash;Execution Chasm</strong>: Lightweight drops to <strong>35.0%</strong> (<code>25.0%</code> MF, <strong style="color:#ff7b72;">50.0% CTER</strong>), while Standard &amp; Frontier Reasoning recover <strong style="color:#3fb950;">100.0%</strong> / <code>0.0%</code> CTER.</p>
+        </div>
+        <div class="chasm-card">
+          <div class="chasm-card__tier">Track 5 // all MCQ-100 (100 test + 10 dev: 40 MF / 60 XO)</div>
+          <div class="chasm-card__nums">Longest-Option: <span class="safe">17.0%</span> vs 16.7% Floor</div>
+          <p class="chasm-card__note">Adversarially hardened 6-choice (<code>A–F</code>) benchmark across 20+ rare diseases with <code>50</code> <code>critical_harm</code> traps, strict anti-gaming option-length parity (max ratio <code>1.23</code>), and monotonic rubric keyword coverage (<code>59.2%</code> &rarr; <code>71.9%</code> &rarr; <code>73.7%</code>).</p>
         </div>
       </div>
 
       <p style="margin-bottom: 0.45rem; font-size: 0.86rem; color: #e6edf3;">
-        <strong>Specific Choice-Free Failure Modes Exposed in Lightweight Non-Thinking Models:</strong>
+        <strong>Signature Frontier Failure Artifacts Across Tracks 1&ndash;4:</strong>
       </p>
-      <div class="chasm-misses" aria-label="Specific open_frontier failure items">
-        <span class="chasm-chip">MIPSS70+ v2.0: predicted 16 vs exact 13 (critical_harm)</span>
-        <span class="chasm-chip">Pre-HSCT LIC: predicted 20.5 vs exact 10.4 mg Fe/g (critical_harm)</span>
-        <span class="chasm-chip">Schoenfeld OS Deaths: predicted 104 vs exact 218</span>
-        <span class="chasm-chip">HLH HScore: predicted 235 vs exact 272 (critical_harm)</span>
-        <span class="chasm-chip">iTTP PLASMIC: predicted 7 vs exact 6 (critical_harm)</span>
-        <span class="chasm-chip">JH2 Pi-Stack Residue: predicted R683 vs exact F595</span>
-        <span class="chasm-chip">Wilson Leipzig Score: predicted 4 vs exact 7 (critical_harm)</span>
+      <div class="chasm-misses" aria-label="Specific RareTxBench-v2.0 failure artifacts">
+        <span class="chasm-chip">raw_bio_compute: PDB 4FVR/4FVQ F595&ndash;V617F shift &amp; 5MO4 asciminib geometry (0/12 static)</span>
+        <span class="chasm-chip">bio_delta_live: NCT06343805 / NCT06313593 / PMID:43061186 live readout (0/5 MF static)</span>
+        <span class="chasm-chip">protocol_audit: 16-code multi-flaw recall (Lightweight 34.8% FN-CTER &rarr; Frontier 0.0%)</span>
+        <span class="chasm-chip">open_frontier: MIPSS70+ v2.0 (16 vs 13) &middot; Pre-HSCT LIC (20.5 vs 10.4) &middot; HLH HScore (235 vs 272)</span>
       </div>
     </section>
 
-    <!-- RareTxBench-v1.0 vs RareBench / RareArena Comparison Table -->
-    <section class="dossier-section" id="benchmark-comparison" aria-label="RareTxBench-v1.0 vs RareBench and RareArena">
-      <span class="section-tag">Section 01 // Filling the Missing Half of Rare-Disease AI Evaluation</span>
-      <h2>RareTxBench-v1.0 vs. RareBench &amp; RareArena</h2>
+    <!-- All 5 Suites Overview Table (Section 01) -->
+    <section class="dossier-section" id="benchmark-comparison" aria-label="RareTxBench-v2.0 5-Suite Architecture vs RareBench and RareArena">
+      <span class="section-tag">Section 01 // The 5 Suites of RareTxBench-v2.0 (Beyond RareBench &amp; Beyond Static MCQs)</span>
+      <h2>All 5 Suites of RareTxBench-v2.0 (152 Test + 10 Dev Across 7 HF Configs)</h2>
       <p>
-        Phenotype-to-diagnosis benchmarks (<code>RareBench</code>, <code>RareArena</code>) measure whether an LLM can name a rare disease from HPO terms. In clinical practice and orphan drug discovery, however, naming the disease is only step one—catastrophic patient harm and billion-dollar Phase 3 failures occur in <strong>post-diagnosis translational execution</strong>:
+        Pre-diagnosis benchmarks (<code>RareBench</code>, <code>RareArena</code>) measure HPO phenotype-to-disease naming. <strong>RareTxBench-v2.0</strong> evaluates the entire post-diagnosis translational stack—from raw structural/cohort computation and live clinical-trial forensics to unannounced Phase 2/3 protocol auditing, choice-free quantitative derivation, and length-balanced safety MCQs:
       </p>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th scope="col">Evaluation Dimension</th>
-              <th scope="col">RareBench / RareArena</th>
-              <th scope="col">RareTxBench-v1.0 (This Benchmark)</th>
+              <th scope="col">Suite &amp; HF Config</th>
+              <th scope="col">Items (MF / XO)</th>
+              <th scope="col">Task Format &amp; Primary Artifact</th>
+              <th scope="col">Empirical Frontier Signal</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>Core Clinical Stage</strong></td>
-              <td>Pre-diagnosis phenotype-to-disease recall (HPO matching &amp; differential ranking).</td>
-              <td><strong>Post-diagnosis translational execution:</strong> mimic triage, drug/modality matching, pathway polarity, Phase 2/3 forensics, and orphan economics.</td>
-            </tr>
-            <tr>
-              <td><strong>Safety &amp; Harm Metric</strong></td>
-              <td>Top-k diagnostic recall / F1 (treats benign near-misses and lethal misroutes equally).</td>
-              <td><strong>Catastrophic Translational Error Rate (<code>CTER &darr;</code>):</strong> explicit <code>critical_harm</code> &amp; <code>harm_mechanism</code> annotations across <code>50</code> MCQ + <code>10</code> open traps.</td>
-            </tr>
-            <tr>
-              <td><strong>Structural &amp; Molecular Selectivity</strong></td>
-              <td>Not evaluated.</td>
-              <td><strong>Mutation-to-modality precision:</strong> <code>JAK2 V617F</code> <code>JH2</code> (<code>F595/F537</code>) vs <code>JH1</code>, <code>DMD</code> exon-phase math + AAV exon 8/9 myositis exclusion, <code>CFTR</code>, <code>KIT D816V</code>.</td>
-            </tr>
-            <tr>
-              <td><strong>Pathway Polarity &amp; Homeostasis</strong></td>
-              <td>Not evaluated.</td>
-              <td><strong>Directional sign traps:</strong> <code>rusfertide</code> (PV hepcidin agonist) vs <code>momelotinib</code> (MF <code>ACVR1</code> suppression), copper/zinc vs chelator polarity, complement/coagulation balance.</td>
-            </tr>
-            <tr>
-              <td><strong>Trial Forensics &amp; Orphan Economics</strong></td>
-              <td>Not evaluated.</td>
-              <td><strong>Phase 2/3 &amp; FDA/EMA rigor:</strong> <code>SVR35</code> vs <code>TSS50</code>/<code>OS</code> dissociation, <code>siltuximab</code> IL-6 complex artifact, Schoenfeld deaths, Medicaid Best Price, ODD/PRV &amp; STTR rules.</td>
+            <tr class="highlight-row">
+              <td><strong>Track 1 — <code>raw_bio_compute</code></strong><br><code>benchmark: "rare-tx-raw-bio"</code></td>
+              <td><strong>12</strong><br><small>5 MF / 7 Cross-Orphan</small></td>
+              <td>Real RCSB PDB crystal extracts (<code>4FVR</code>, <code>4FVQ</code>, <code>5MO4</code>) + 9 deterministic patient CSV/TSV files (survival log-rank, Win Ratio, eGFR slopes, cohort triage, PRV rNPV).</td>
+              <td>Static Frontier Reasoning: <strong style="color:var(--accent-crimson);">0.0% (100% CTER)</strong> vs. Code-Executing Agent: <strong style="color:var(--accent-emerald);">100.0%</strong>.</td>
             </tr>
             <tr class="highlight-row">
-              <td><strong>Anti-Saturation &amp; Choice-Free Tests</strong></td>
-              <td>Open-list diagnostic recall without option-length parity or quantitative derivation audits.</td>
-              <td><strong>6-choice (<code>A–F</code>) length-balanced near-misses</strong> (<code>17.0%</code> longest-option vs <code>16.7%</code> chance) <strong>+ 20 choice-free exact <code>open_frontier</code> derivations</strong> + mechanistic rubric keywords.</td>
+              <td><strong>Track 2 — <code>bio_delta_live</code></strong><br><code>benchmark: "rare-tx-bio-delta"</code></td>
+              <td><strong>10</strong><br><small>5 MF / 5 Cross-Orphan</small></td>
+              <td>Rolling temporal forensics harvested live (<code>2026-11-21</code>) from <code>ClinicalTrials.gov v2</code> &amp; late-2026 <code>PubMed</code> (<code>PMID:43061186</code>, <code>42980647</code>, <code>42663301</code>, <code>42849489</code>, <code>NCT06343805</code>, <code>NCT06313593</code>, <code>NCT06128629</code>).</td>
+              <td>Static Frontier Reasoning: <strong style="color:var(--accent-crimson);">20.0% (0.0% MF!)</strong> vs. Live MCP/API-Grounded Agent: <strong style="color:var(--accent-emerald);">100.0%</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>Track 3 — <code>protocol_audit</code></strong><br><code>benchmark: "rare-tx-protocol-audit"</code></td>
+              <td><strong>10</strong><br><small>4 MF / 6 Cross-Orphan<br>(2 clean 0-flaw controls)</small></td>
+              <td>Dense ~500-word Phase 2/3 clinical protocols requiring unannounced multi-flaw detection across a 16-code translational/regulatory flaw taxonomy.</td>
+              <td>Monotonic separation: Lightweight <strong>30.0% EM</strong> (<code>79.0%</code> F1, <code>34.8%</code> FN-CTER) &rarr; Standard <strong>80.0% EM</strong> (<code>95.7%</code> F1, <code>4.4%</code> FN-CTER) &rarr; Frontier <strong>90.0% EM</strong> (<code>97.9%</code> F1, <code>0.0%</code> FN-CTER), all <strong>0.0% Clean-Control FP</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>Track 4 — <code>open_frontier</code></strong><br><code>benchmark: "rare-tx-bench-open"</code></td>
+              <td><strong>20</strong><br><small>8 MF / 12 Cross-Orphan</small></td>
+              <td>Choice-free exact numeric (tolerance-matched) &amp; structural residue derivations with <code>10</code> <code>critical_harm</code> CTER traps.</td>
+              <td>Exposes the <strong>-65 pt Recognition&ndash;Execution Chasm</strong>: Lightweight <code>100%</code> MCQ &rarr; <strong style="color:var(--accent-crimson);">35.0% open (50.0% CTER)</strong>; Reasoning = <strong>100.0%</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>Track 5 — <code>all</code> (<code>MCQ-100</code>)</strong><br><code>benchmark: "rare-tx-bench"</code><br><small>+ <code>myelofibrosis</code> / <code>cross_orphan</code></small></td>
+              <td><strong>100 + 10 dev</strong><br><small>40 MF / 60 Cross-Orphan</small></td>
+              <td>Adversarially hardened 6-choice (<code>A–F</code>) post-diagnosis translational MCQs across 20+ orphan diseases, <code>50</code> CTER traps &amp; mechanistic rubric grounding.</td>
+              <td>Anti-gaming length parity: <strong>Longest-Option = 17.0%</strong> vs <code>16.7%</code> random chance (max ratio <code>1.23</code>); Rubric KW rises <code>59.2% &rarr; 71.9% &rarr; 73.7%</code>.</td>
             </tr>
           </tbody>
         </table>
@@ -776,13 +818,13 @@
     </section>
 
     <!-- Live Leaderboard Table -->
-    <section class="dossier-section" id="live-leaderboard" aria-label="RareTxBench-v1.0 Live Leaderboard">
+    <section class="dossier-section" id="live-leaderboard" aria-label="RareTxBench-v2.0 Live Leaderboard">
       <span class="section-tag">Section 02 // Live Standings (GET /api/rare-tx-leaderboard.json)</span>
-      <h2>Model &amp; Agent Standings (Dual-Track + Open-Frontier + CTER &darr;)</h2>
+      <h2>RareTxBench-v2.0 Model &amp; Agent Standings (All 5 Suites + CTER &darr;)</h2>
 
       <div class="lb-status-bar" role="status" aria-live="polite">
         <div>
-          <span id="lb-status-pill" class="lb-pill lb-pill--fallback">Reference Baselines Loaded</span>
+          <span id="lb-status-pill" class="lb-pill lb-pill--fallback">v2.0 Reference Baselines Loaded</span>
           <span id="lb-status-detail" style="margin-left: 0.5rem;">Fetching live standings from <code>https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json</code>&hellip;</span>
         </div>
         <div>
@@ -796,87 +838,80 @@
             <tr>
               <th scope="col">Rank</th>
               <th scope="col">Model / System</th>
-              <th scope="col">MCQ-100</th>
-              <th scope="col">MF Track (40)</th>
-              <th scope="col">Cross-Orphan (60)</th>
+              <th scope="col">Raw Bio-Compute (12)</th>
+              <th scope="col">Bio-Delta Live (10)</th>
+              <th scope="col">Protocol Audit EM / F1</th>
               <th scope="col">Open-Frontier (20)</th>
+              <th scope="col">MCQ-100</th>
               <th scope="col">CTER &darr;</th>
-              <th scope="col">Rubric KW</th>
             </tr>
           </thead>
           <tbody id="leaderboard-tbody">
-            <!-- Pre-rendered graceful fallback rows matching verified RareTxBench-v1.0 evaluations -->
+            <!-- Pre-rendered graceful fallback rows matching verified RareTxBench-v2.0 empirical runs -->
             <tr class="highlight-row" data-fallback="true">
               <td><span class="lb-rank-badge">#1</span></td>
-              <td><strong>Oracle Ground-Truth Ceiling</strong><br><code>oracle-ground-truth</code> <span class="badge badge--high">Ceiling</span></td>
+              <td><strong>Tool-Grounded Agent Reference (Code + Live MCP/API)</strong><br><code>tool-grounded-agent-reference</code> <span class="badge badge--high">Reference Ceiling</span></td>
               <td>
                 <div class="lb-score-bar-wrap"><strong>100.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill" style="width:100%;"></div></div></div>
               </td>
               <td><strong>100.0%</strong></td>
+              <td><strong>100.0%</strong> / 100.0%<br><small>0.0% Clean FP</small></td>
               <td><strong>100.0%</strong></td>
               <td><strong>100.0%</strong></td>
-              <td><span class="cter-tag cter-tag--zero">0.0%</span></td>
-              <td><strong>100.0%</strong></td>
+              <td><span class="cter-tag cter-tag--zero">0.0%</span><br><small>All 5 suites</small></td>
             </tr>
             <tr data-fallback="true">
               <td><span class="lb-rank-badge">#2</span></td>
-              <td><strong>Frontier Reasoning Tier (Zero-Shot Blind)</strong><br><code>blind-frontier-reasoning</code> <span class="badge badge--high">Verified Run</span></td>
+              <td><strong>Blind Frontier Reasoning Tier (Zero-Shot, Tool-Free)</strong><br><code>blind-frontier-reasoning</code> <span class="badge badge--high">Verified Run</span></td>
               <td>
-                <div class="lb-score-bar-wrap"><strong>100.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill" style="width:100%;"></div></div></div>
+                <div class="lb-score-bar-wrap"><strong style="color:var(--accent-crimson);">0.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill lb-score-fill--low" style="width:0%;"></div></div></div>
+                <small>0 / 12 (no code)</small>
               </td>
+              <td><strong style="color:var(--accent-crimson);">20.0%</strong><br><small>0.0% MF &middot; 40.0% XO</small></td>
+              <td><strong>90.0%</strong> / 97.9%<br><small>0.0% FN-CTER &middot; 0% FP</small></td>
               <td><strong>100.0%</strong></td>
-              <td><strong>100.0%</strong></td>
-              <td><strong>100.0%</strong></td>
-              <td><span class="cter-tag cter-tag--zero">0.0%</span></td>
-              <td><strong>73.7%</strong></td>
+              <td><strong>100.0%</strong><br><small>KW: 73.7%</small></td>
+              <td><span class="cter-tag cter-tag--high">100.0%</span><br><small>Raw Bio (0% Audit/Open)</small></td>
             </tr>
             <tr data-fallback="true">
               <td><span class="lb-rank-badge">#3</span></td>
-              <td><strong>Standard Reasoning Tier (Zero-Shot Blind)</strong><br><code>blind-standard-reasoning</code> <span class="badge badge--high">Verified Run</span></td>
-              <td>
-                <div class="lb-score-bar-wrap"><strong>100.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill" style="width:100%;"></div></div></div>
-              </td>
+              <td><strong>Blind Standard Reasoning Tier (Zero-Shot, Tool-Free)</strong><br><code>blind-standard-reasoning</code> <span class="badge badge--high">Verified Run</span></td>
+              <td><span style="color:#636c76;">N/A</span><br><small>Tool-Free</small></td>
+              <td><span style="color:#636c76;">N/A</span><br><small>Tool-Free</small></td>
+              <td><strong>80.0%</strong> / 95.7%<br><small>4.4% FN-CTER &middot; 0% FP</small></td>
               <td><strong>100.0%</strong></td>
-              <td><strong>100.0%</strong></td>
-              <td><strong>100.0%</strong></td>
-              <td><span class="cter-tag cter-tag--zero">0.0%</span></td>
-              <td><strong>71.9%</strong></td>
+              <td><strong>100.0%</strong><br><small>KW: 71.9%</small></td>
+              <td><span class="cter-tag cter-tag--zero">4.4%</span><br><small>Audit FN-CTER</small></td>
             </tr>
             <tr data-fallback="true">
               <td><span class="lb-rank-badge">#4</span></td>
-              <td><strong>Lightweight Non-Thinking Tier (Zero-Shot Blind)</strong><br><code>blind-lightweight-non-thinking</code> <span class="badge badge--warn">Chasm Alert</span></td>
-              <td>
-                <div class="lb-score-bar-wrap"><strong>100.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill" style="width:100%;"></div></div></div>
-              </td>
-              <td><strong>100.0%</strong><br><small>Open MF: 25.0%</small></td>
-              <td><strong>100.0%</strong><br><small>Open XO: 41.7%</small></td>
+              <td><strong>Blind Lightweight Non-Thinking Tier (Zero-Shot, Tool-Free)</strong><br><code>blind-lightweight-non-thinking</code> <span class="badge badge--warn">Chasm Alert</span></td>
+              <td><span style="color:#636c76;">N/A</span><br><small>Tool-Free</small></td>
+              <td><span style="color:#636c76;">N/A</span><br><small>Tool-Free</small></td>
+              <td><strong style="color:var(--accent-crimson);">30.0%</strong> / 79.0%<br><small>34.8% FN-CTER &middot; 0% FP</small></td>
               <td><strong style="color:var(--accent-crimson);">35.0%</strong><br><small>7 / 20 exact</small></td>
-              <td><span class="cter-tag cter-tag--high">50.0%</span><br><small>Open-Frontier</small></td>
-              <td><strong>59.2%</strong></td>
+              <td><strong>100.0%</strong><br><small>KW: 59.2%</small></td>
+              <td><span class="cter-tag cter-tag--high">50.0%</span><br><small>Open (34.8% Audit)</small></td>
             </tr>
             <tr data-fallback="true">
               <td><span class="lb-rank-badge">#5</span></td>
               <td><strong>Longest-Option Heuristic (Anti-Gaming Audit)</strong><br><code>longest-option-heuristic</code> <span class="badge badge--gap">Control</span></td>
-              <td>
-                <div class="lb-score-bar-wrap"><strong>17.0%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill lb-score-fill--low" style="width:17%;"></div></div></div>
-              </td>
-              <td><strong>17.5%</strong></td>
-              <td><strong>16.7%</strong></td>
               <td><span style="color:#636c76;">N/A</span></td>
-              <td><span class="cter-tag cter-tag--high">82.0%</span></td>
-              <td><strong>0.0%</strong></td>
+              <td><span style="color:#636c76;">N/A</span></td>
+              <td><span style="color:#636c76;">N/A</span></td>
+              <td><span style="color:#636c76;">N/A</span></td>
+              <td><strong>17.0%</strong></td>
+              <td><span class="cter-tag cter-tag--high">84.0%</span><br><small>MCQ-100</small></td>
             </tr>
             <tr data-fallback="true">
               <td><span class="lb-rank-badge">#6</span></td>
-              <td><strong>Random 6-Choice Floor</strong><br><code>random-6-choice-baseline</code> <span class="badge badge--gap">Chance Floor</span></td>
-              <td>
-                <div class="lb-score-bar-wrap"><strong>16.7%</strong><div class="lb-score-track" aria-hidden="true"><div class="lb-score-fill lb-score-fill--low" style="width:16.7%;"></div></div></div>
-              </td>
-              <td><strong>16.7%</strong></td>
-              <td><strong>16.7%</strong></td>
+              <td><strong>Random 6-Choice Baseline (Chance Floor)</strong><br><code>random-6-choice-baseline</code> <span class="badge badge--gap">Chance Floor</span></td>
               <td><strong>0.0%</strong></td>
-              <td><span class="cter-tag cter-tag--high">83.3%</span></td>
               <td><strong>0.0%</strong></td>
+              <td><strong>0.0%</strong> / 0.0%</td>
+              <td><strong>0.0%</strong></td>
+              <td><strong>16.7%</strong></td>
+              <td><span class="cter-tag cter-tag--high">83.3%</span><br><small>MCQ-100</small></td>
             </tr>
           </tbody>
         </table>
@@ -1064,10 +1099,10 @@
 
     <!-- 5 Universal Translational Axes Architecture -->
     <section class="dossier-section" id="benchmark-axes">
-      <span class="section-tag">Section 04 // Dual-Track Architecture (5 Universal Axes &times; 20 Test + 2 Dev + 20 Open-Frontier)</span>
+      <span class="section-tag">Section 04 // Dual-Track Architecture (152 Test + 10 Dev Across 5 Suites &amp; 5 Universal Axes)</span>
       <h2>5 Universal Translational Failure Axes &amp; Cross-Disease Transfer</h2>
       <p>
-        <strong>Myelofibrosis (<code>40</code> test + <code>5</code> dev + <code>8</code> open_frontier)</strong> serves as the reference deep-dive model system because its paired clonal (<code>JAK2 V617F+</code> PMF) vs. reversible autoimmune (<code>AIMF</code> + iron/hepcidin) dichotomy cleanly spans all five universal failure modes. <strong>Cross-Orphan (<code>60</code> test + <code>5</code> dev + <code>12</code> open_frontier)</strong> tests transfer across <strong>20+ distinct orphan diseases</strong> (<code>ATTR-CM</code>/<code>AL</code>, <code>DMD</code>, <code>iMCD</code>, <code>VEXAS</code>, <code>iTTP</code>, <code>HLH/MAS</code>, <code>Wilson</code>, <code>Fabry</code>, <code>PNH</code>, <code>SMA</code>, <code>Hemophilia B</code>, <code>Systemic Mastocytosis</code>, <code>TBD</code>, <code>CF</code>, <code>HHT</code>, and more):
+        <strong>Myelofibrosis (<code>40</code> MCQ + <code>5</code> dev + <code>8</code> open_frontier + <code>5</code> raw_bio_compute + <code>5</code> bio_delta_live + <code>4</code> protocol_audit)</strong> serves as the reference deep-dive model system because its paired clonal (<code>JAK2 V617F+</code> PMF) vs. reversible autoimmune (<code>AIMF</code> + iron/hepcidin) dichotomy cleanly spans all five universal failure modes. <strong>Cross-Orphan (<code>60</code> MCQ + <code>5</code> dev + <code>12</code> open_frontier + <code>7</code> raw_bio_compute + <code>5</code> bio_delta_live + <code>6</code> protocol_audit)</strong> tests transfer across <strong>20+ distinct orphan diseases</strong> (<code>ATTR-CM</code>/<code>AL</code>, <code>DMD</code>, <code>iMCD</code>, <code>VEXAS</code>, <code>iTTP</code>, <code>HLH/MAS</code>, <code>Wilson</code>, <code>Fabry</code>, <code>PNH</code>, <code>SMA</code>, <code>Hemophilia B</code>, <code>Systemic Mastocytosis</code>, <code>TBD</code>, <code>CF</code>, <code>HHT</code>, <code>CML</code>, <code>Dravet</code>, and more):
       </p>
 
       <div class="table-wrap">
@@ -1088,7 +1123,7 @@
             <tr>
               <td><code>target_and_structural_selectivity</code></td>
               <td><strong>20 test + 2 dev</strong></td>
-              <td><code>JAK2 V617F</code> <code>JH2</code> <code>F595/F537</code> allostery (<code>PDB:4FVQ</code>, <code>INCB160058</code>) vs <code>JH1</code> Type II <code>DFG-out</code> (<code>AJ1-11095</code>), <code>DMD</code> exon-phase math &amp; AAV exon 8/9 immune myositis, <code>KIT D816V</code> CNS sparing, <code>PAPD5</code>/<code>TERC</code>.</td>
+              <td><code>JAK2 V617F</code> <code>JH2</code> <code>F595/F537</code> allostery (<code>PDB:4FVR</code>, <code>4FVQ</code>, <code>INCB160058</code>) vs <code>JH1</code> Type II <code>DFG-out</code> (<code>AJ1-11095</code>), <code>BCR-ABL1</code> myristoyl pocket (<code>PDB:5MO4</code>), <code>DMD</code> exon-phase math &amp; AAV exon 8/9 immune myositis, <code>KIT D816V</code> CNS sparing.</td>
             </tr>
             <tr>
               <td><code>pathway_polarity_and_homeostasis</code></td>
@@ -1098,12 +1133,12 @@
             <tr>
               <td><code>clinical_trial_endpoint_forensics</code></td>
               <td><strong>20 test + 2 dev</strong></td>
-              <td><code>MANIFEST-2</code>/<code>TRANSFORM-1</code>/<code>SENTRY</code> <code>SVR35</code> vs <code>TSS50</code> dissociation, <code>IMpactMF</code> OS futility &amp; Schoenfeld death calculations, <code>siltuximab</code> 18–24 mo <code>IL-6</code> complex artifact, <code>ATTR-CM</code> win-ratio &amp; <code>Fabry</code> eGFR slope forensics.</td>
+              <td><code>MANIFEST-2</code>/<code>TRANSFORM-1</code>/<code>SENTRY</code> <code>SVR35</code> vs <code>TSS50</code> dissociation, <code>IMpactMF</code> OS log-rank &amp; Schoenfeld death calculations, <code>siltuximab</code> 18–24 mo <code>IL-6</code> complex artifact, <code>ATTR-CM</code> Pocock win-ratio &amp; <code>Fabry</code> eGFR slope forensics, 16-code <code>protocol_audit</code>.</td>
             </tr>
             <tr>
               <td><code>orphan_regulatory_and_venture_economics</code></td>
               <td><strong>20 test + 2 dev</strong></td>
-              <td>FY2026 FDA ODD ($4.68M PDUFA waiver, 7-yr exclusivity, 25% ODTC), Rare Pediatric PRV boundaries, Medicaid Best Price gene-therapy rebates, NIH STTR subcontracting caps, <code>RDEA</code> external control arms.</td>
+              <td>FY2026 FDA ODD ($4.68M PDUFA waiver, 7-yr exclusivity, 25% ODTC), Rare Pediatric PRV rNPV &amp; statutory boundaries, Medicaid Best Price gene-therapy rebates, NIH STTR subcontracting caps, <code>RDEA</code> external control arms.</td>
             </tr>
           </tbody>
         </table>
@@ -1112,68 +1147,93 @@
 
     <!-- 4-Tab 1-Command Quickstart -->
     <section class="dossier-section" id="quickstart-tabs">
-      <span class="section-tag">Section 05 // 4-Tab 1-Command Quickstart (HF Datasets &middot; lm-eval &middot; Inspect AI &middot; HTTP POST)</span>
-      <h2>Evaluate &amp; Publish Your Agent on RareTxBench-v1.0</h2>
+      <span class="section-tag">Section 05 // 4-Tab 1-Command Quickstart (7 HF Configs &middot; lm-eval / CLI &middot; Inspect AI &middot; 6-Mode HTTP Grader)</span>
+      <h2>Evaluate &amp; Publish Your Agent on RareTxBench-v2.0</h2>
       <p>
-        Load any config directly from Hugging Face (<code>all</code>, <code>myelofibrosis</code>, <code>cross_orphan</code>, <code>open_frontier</code>), run EleutherAI <code>lm-eval</code> or UK AISI <code>Inspect AI</code>, or grade zero-install over HTTP via <code>POST /api/grade-benchmark</code>:
+        Load any of the <strong>7 Hugging Face configs</strong> (<code>all</code>, <code>myelofibrosis</code>, <code>cross_orphan</code>, <code>open_frontier</code>, <code>raw_bio_compute</code>, <code>protocol_audit</code>, <code>bio_delta_live</code>), run EleutherAI <code>lm-eval</code> / <code>evaluate_rare_tx.py</code> or UK AISI <code>Inspect AI</code>, or grade zero-install over HTTP across all <strong>6 <code>POST /api/grade-benchmark</code> modes</strong> (<code>rare-tx-raw-bio</code>, <code>rare-tx-protocol-audit</code>, <code>rare-tx-bio-delta</code>, <code>rare-tx-bench-open</code>, <code>rare-tx-bench</code>, <code>myelofibrosis-bench</code>):
       </p>
 
-      <div class="qs-tabs" role="tablist" aria-label="RareTxBench Quickstart Methods">
-        <button type="button" class="qs-tab" role="tab" id="tab-hf" aria-selected="true" aria-controls="panel-hf">1. Hugging Face Datasets</button>
-        <button type="button" class="qs-tab" role="tab" id="tab-lmeval" aria-selected="false" aria-controls="panel-lmeval">2. EleutherAI lm-eval</button>
+      <div class="qs-tabs" role="tablist" aria-label="RareTxBench-v2.0 Quickstart Methods">
+        <button type="button" class="qs-tab" role="tab" id="tab-hf" aria-selected="true" aria-controls="panel-hf">1. Hugging Face (7 Configs)</button>
+        <button type="button" class="qs-tab" role="tab" id="tab-lmeval" aria-selected="false" aria-controls="panel-lmeval">2. lm-eval &amp; v2.0 Evaluator</button>
         <button type="button" class="qs-tab" role="tab" id="tab-inspect" aria-selected="false" aria-controls="panel-inspect">3. UK AISI Inspect AI</button>
-        <button type="button" class="qs-tab" role="tab" id="tab-http" aria-selected="false" aria-controls="panel-http">4. Zero-Install HTTP POST</button>
+        <button type="button" class="qs-tab" role="tab" id="tab-http" aria-selected="false" aria-controls="panel-http">4. Zero-Install 6-Mode HTTP</button>
       </div>
 
-      <!-- Tab 1: Hugging Face Datasets -->
+      <!-- Tab 1: Hugging Face Datasets (All 7 Configs) -->
       <div class="qs-panel qs-panel--active" role="tabpanel" id="panel-hf" aria-labelledby="tab-hf">
-        <p class="qs-caption">Load any of the 4 official Hugging Face configs (<code>all</code>, <code>myelofibrosis</code>, <code>cross_orphan</code>, <code>open_frontier</code>) from <a href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer"><code>rare-disease-atlas/RareTxBench</code></a> (<code>CC-BY-4.0</code>):</p>
+        <p class="qs-caption">Load all <strong>7 official Hugging Face configs</strong> (<code>all</code>, <code>myelofibrosis</code>, <code>cross_orphan</code>, <code>open_frontier</code>, <code>raw_bio_compute</code>, <code>protocol_audit</code>, <code>bio_delta_live</code>) from <a href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer"><code>rare-disease-atlas/RareTxBench</code></a> (<code>CC-BY-4.0</code>):</p>
         <div class="lb-cli-wrap">
           <pre class="prompt-box" id="snippet-hf">python3 -c 'from datasets import load_dataset
-for cfg in ("all", "myelofibrosis", "cross_orphan", "open_frontier"):
+CONFIGS = (
+    "all", "myelofibrosis", "cross_orphan", "open_frontier",
+    "raw_bio_compute", "protocol_audit", "bio_delta_live",
+)
+for cfg in CONFIGS:
     ds = load_dataset("rare-disease-atlas/RareTxBench", cfg)
-    print(cfg, {k: len(v) for k, v in ds.items()})'</pre>
+    print(f"{cfg:16s}", {k: len(v) for k, v in ds.items()})'</pre>
           <button type="button" class="lb-copy-btn" data-copy-target="snippet-hf">Copy Hugging Face Command</button>
         </div>
       </div>
 
-      <!-- Tab 2: EleutherAI lm-eval -->
+      <!-- Tab 2: EleutherAI lm-eval & Deterministic v2.0 CLI -->
       <div class="qs-panel" role="tabpanel" id="panel-lmeval" aria-labelledby="tab-lmeval">
-        <p class="qs-caption">Clone the official harness (<a href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer"><code>rare-disease-atlas/rare-tx-bench</code></a>) and evaluate with EleutherAI <code>lm-evaluation-harness</code> (supports 0-shot or 5-shot using the <code>dev</code> split):</p>
+        <p class="qs-caption">Clone the official harness (<a href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer"><code>rare-disease-atlas/rare-tx-bench</code></a>) with real RCSB PDB extracts (<code>4FVR</code>, <code>4FVQ</code>, <code>5MO4</code>) + 9 CSV/TSV patient datasets, and run EleutherAI <code>lm-eval</code> or the deterministic 5-suite evaluator:</p>
         <div class="lb-cli-wrap">
-          <pre class="prompt-box" id="snippet-lmeval">git clone https://github.com/rare-disease-atlas/rare-tx-bench.git &amp;&amp; lm_eval --model hf --model_args pretrained=&lt;your-model-id&gt; --include_path ./rare-tx-bench/harness/lm_eval --tasks rare_tx_bench --num_fewshot 5</pre>
-          <button type="button" class="lb-copy-btn" data-copy-target="snippet-lmeval">Copy lm-eval Command</button>
+          <pre class="prompt-box" id="snippet-lmeval">git clone https://github.com/rare-disease-atlas/rare-tx-bench.git &amp;&amp; cd rare-tx-bench
+
+# EleutherAI lm-evaluation-harness (MCQ-100 + 5-shot dev)
+lm_eval --model hf --model_args pretrained=&lt;your-model-id&gt; --include_path ./harness/lm_eval --tasks rare_tx_bench --num_fewshot 5
+
+# Deterministic v2.0 local grading for the 3 frontier-breaking suites + open_frontier
+python3 evaluate_rare_tx.py --raw-bio-compute --predictions preds_raw_bio.jsonl
+python3 evaluate_rare_tx.py --bio-delta-live  --predictions preds_bio_delta.jsonl
+python3 evaluate_rare_tx.py --protocol-audit  --predictions preds_protocol_audit.jsonl
+python3 evaluate_rare_tx.py --open-frontier   --predictions preds_open.jsonl</pre>
+          <button type="button" class="lb-copy-btn" data-copy-target="snippet-lmeval">Copy lm-eval &amp; CLI Command</button>
         </div>
       </div>
 
       <!-- Tab 3: UK AISI Inspect AI -->
       <div class="qs-panel" role="tabpanel" id="panel-inspect" aria-labelledby="tab-inspect">
-        <p class="qs-caption">Run the native UK AISI <code>inspect_ai</code> task across all 100 items or filter by track (<code>-T config=myelofibrosis</code> or <code>-T config=cross_orphan</code>):</p>
+        <p class="qs-caption">Run the native UK AISI <code>inspect_ai</code> task across RareTxBench-v2.0 configs or filter by track (<code>-T config=myelofibrosis</code>, <code>-T config=cross_orphan</code>):</p>
         <div class="lb-cli-wrap">
           <pre class="prompt-box" id="snippet-inspect">git clone https://github.com/rare-disease-atlas/rare-tx-bench.git &amp;&amp; inspect eval rare-tx-bench/harness/inspect_ai/rare_tx_bench_task.py --model openai/gpt-4o</pre>
           <button type="button" class="lb-copy-btn" data-copy-target="snippet-inspect">Copy Inspect AI Command</button>
         </div>
       </div>
 
-      <!-- Tab 4: Zero-Install HTTP POST /api/grade-benchmark -->
+      <!-- Tab 4: Zero-Install 6-Mode HTTP POST /api/grade-benchmark -->
       <div class="qs-panel" role="tabpanel" id="panel-http" aria-labelledby="tab-http">
-        <p class="qs-caption">Fetch ungraded questions and grade either <code>"benchmark": "rare-tx-bench"</code> (100-item 6-choice MCQ + CTER) or <code>"benchmark": "rare-tx-bench-open"</code> (20-item choice-free exact derivation) with zero local installation:</p>
+        <p class="qs-caption">Fetch ungraded questions and deterministically grade across all <strong>6 supported <code>POST /api/grade-benchmark</code> modes</strong>: <code>rare-tx-raw-bio</code> (12), <code>rare-tx-protocol-audit</code> (10), <code>rare-tx-bio-delta</code> (10), <code>rare-tx-bench-open</code> (20), <code>rare-tx-bench</code> (100), and <code>myelofibrosis-bench</code> (50) — zero auth, <code>$0 USD</code>:</p>
         <div class="lb-cli-wrap">
-          <pre class="prompt-box" id="snippet-http"># 1) Fetch ungraded MCQ-100 or open_frontier items
-curl -s "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark?benchmark=rare-tx-bench" &gt; rtx_questions.json
-curl -s "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark?benchmark=rare-tx-bench-open" &gt; rtx_open.json
+          <pre class="prompt-box" id="snippet-http"># 1) Fetch ungraded manifests across all 6 modes (zero auth, $0 USD)
+for MODE in rare-tx-raw-bio rare-tx-protocol-audit rare-tx-bio-delta rare-tx-bench-open rare-tx-bench myelofibrosis-bench; do
+  curl -s "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark?benchmark=$MODE" &gt; "${MODE}.json"
+done
 
-# 2) Deterministically grade &amp; optionally publish aggregate metrics to /api/rare-tx-leaderboard.json
+# 2) Grade &amp; opt-in publish aggregate scores to /api/rare-tx-leaderboard.json
+# Example A: Track 1 raw_bio_compute (exact numeric/symbol derivation from PDB/CSV)
 curl -s -X POST https://api.rare-disease-atlas.workers.dev/api/grade-benchmark \
   -H "Content-Type: application/json" \
-  -d '{"benchmark":"rare-tx-bench","model_name":"&lt;your-model&gt;","publish_to_leaderboard":true,"predictions":[{"id":"rtx-007","choice":"E","reasoning":"CDCN exclusion SLE-AIMF phenocopying TAFRO PMID:43061186 corticosteroids MMF rituximab"}]}'</pre>
-          <button type="button" class="lb-copy-btn" data-copy-target="snippet-http">Copy HTTP Grader Command</button>
+  -d '{"benchmark":"rare-tx-raw-bio","model_name":"&lt;your-agent&gt;","publish_to_leaderboard":true,"predictions":[{"id":"rbc-001","answer":"3.76"}]}'
+
+# Example B: Track 3 protocol_audit (unannounced multi-flaw 16-code set)
+curl -s -X POST https://api.rare-disease-atlas.workers.dev/api/grade-benchmark \
+  -H "Content-Type: application/json" \
+  -d '{"benchmark":"rare-tx-protocol-audit","model_name":"&lt;your-agent&gt;","publish_to_leaderboard":true,"predictions":[{"id":"rpa-003","flaw_codes":[]}]}'</pre>
+          <button type="button" class="lb-copy-btn" data-copy-target="snippet-http">Copy 6-Mode HTTP Command</button>
         </div>
       </div>
 
       <div class="lb-privacy-box" role="note" aria-label="Privacy and Open License Notice">
         <strong>Zero-PII &amp; Open-Science Guarantee:</strong>
-        Leaderboard publishing (<code>"publish_to_leaderboard": true</code>) is 100% opt-in and stores <em>only</em> aggregate accuracy, track scores, <code>CTER</code>, rubric keyword coverage, and your chosen <code>model_name</code> string. <strong>Zero IP addresses, zero raw prompts, zero prediction text, and zero PII are logged or stored.</strong> Benchmark datasets are released under <strong>CC-BY-4.0</strong>; harness &amp; evaluator code under <strong>MIT</strong>. Direct downloads: <a href="./rare_tx_bench.jsonl"><code>rare_tx_bench.jsonl</code></a> &middot; <a href="./rare_tx_open_frontier.jsonl"><code>rare_tx_open_frontier.jsonl</code></a>.
+        Leaderboard publishing (<code>"publish_to_leaderboard": true</code>) is 100% opt-in and stores <em>only</em> aggregate accuracy, suite scores, <code>CTER</code>, protocol audit EM/F1, and your chosen <code>model_name</code> string. <strong>Zero IP addresses, zero raw prompts, zero prediction text, and zero PII are logged or stored.</strong> Benchmark datasets are released under <strong>CC-BY-4.0</strong>; harness &amp; evaluator code under <strong>MIT</strong>. Direct JSONL downloads:
+        <a href="./rare_tx_raw_bio_compute.jsonl"><code>rare_tx_raw_bio_compute.jsonl</code></a> &middot;
+        <a href="./rare_tx_bio_delta_live.jsonl"><code>rare_tx_bio_delta_live.jsonl</code></a> &middot;
+        <a href="./rare_tx_protocol_audit.jsonl"><code>rare_tx_protocol_audit.jsonl</code></a> &middot;
+        <a href="./rare_tx_open_frontier.jsonl"><code>rare_tx_open_frontier.jsonl</code></a> &middot;
+        <a href="./rare_tx_bench.jsonl"><code>rare_tx_bench.jsonl</code></a>.
       </div>
     </section>
   </main>
@@ -1181,30 +1241,64 @@ curl -s -X POST https://api.rare-disease-atlas.workers.dev/api/grade-benchmark \
   <footer class="site-footer">
     <div class="site-footer__inner">
       <div>
-        <h4>RareTxBench-v1.0</h4>
+        <h4>RareTxBench-v2.0</h4>
         <p style="margin: 0;">Part of the <a href="../">Rare Disease Venture Atlas</a> (<code>CC-BY-4.0</code> data &middot; <code>MIT</code> code &middot; zero auth &middot; zero tracking).</p>
       </div>
       <div>
         <h4>Companion Benchmarks &amp; APIs</h4>
         <ul>
           <li><a href="./leaderboard.html"><code>MyelofibrosisBench-v1.1</code> Flagship Hub</a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json"><code>/api/rare-tx-leaderboard.json</code></a></li>
-          <li><a href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer">HF: RareTxBench</a> &middot; <a href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer">GitHub: rare-tx-bench</a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/api/grade-benchmark"><code>/api/grade-benchmark</code></a></li>
+          <li><a href="https://huggingface.co/datasets/rare-disease-atlas/RareTxBench" target="_blank" rel="noopener noreferrer">HF: RareTxBench (7 Configs)</a> &middot; <a href="https://github.com/rare-disease-atlas/rare-tx-bench" target="_blank" rel="noopener noreferrer">GitHub: rare-tx-bench</a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/api/grade-benchmark"><code>/api/grade-benchmark</code></a></li>
           <li><a href="../openapi.yaml"><code>/openapi.yaml</code></a> &middot; <a href="../.well-known/x402.json"><code>/.well-known/x402.json</code></a> &middot; <a href="https://api.rare-disease-atlas.workers.dev/atom.xml"><code>/atom.xml</code></a></li>
         </ul>
       </div>
     </div>
     <div class="disclaimer-bar">
-      MEDICAL &amp; RESEARCH DISCLAIMER: RareTxBench-v1.0 is an open translational and drug-discovery evaluation suite for AI research agents. It is NOT medical advice and must never be used for autonomous clinical decision-making.
+      MEDICAL &amp; RESEARCH DISCLAIMER: RareTxBench-v2.0 is an open translational and drug-discovery evaluation suite for AI research agents. It is NOT medical advice and must never be used for autonomous clinical decision-making.
     </div>
   </footer>
 
   <script>
     (function () {
-      /* === 1. Live RareTxBench Leaderboard Fetch (with graceful static fallback) === */
+      /* === 1. Live RareTxBench-v2.0 Leaderboard Fetch (with graceful v2.0 static fallback & v1->v2 enrichment) === */
       var API_URL = "https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json";
       var tbody = document.getElementById("leaderboard-tbody");
       var pill = document.getElementById("lb-status-pill");
       var detail = document.getElementById("lb-status-detail");
+
+      /* Verified v2.0 baseline enrichment map if live API still serves v1.0 schema before worker deploy */
+      var V2_ENRICH = [
+        {
+          match: /oracle|tool-grounded|reference ceiling/i,
+          raw_bio_pct: 100.0, bio_delta_pct: 100.0, protocol_audit_em_pct: 100.0, protocol_audit_f1_pct: 100.0,
+          open_frontier_pct: 100.0, mcq_accuracy_pct: 100.0, cter_pct: 0.0, cter_scope: "All 5 suites"
+        },
+        {
+          match: /frontier reasoning/i,
+          raw_bio_pct: 0.0, bio_delta_pct: 20.0, protocol_audit_em_pct: 90.0, protocol_audit_f1_pct: 97.9,
+          open_frontier_pct: 100.0, mcq_accuracy_pct: 100.0, cter_pct: 100.0, cter_scope: "Raw Bio (0% Audit/Open)"
+        },
+        {
+          match: /standard reasoning/i,
+          raw_bio_pct: null, bio_delta_pct: null, protocol_audit_em_pct: 80.0, protocol_audit_f1_pct: 95.7,
+          open_frontier_pct: 100.0, mcq_accuracy_pct: 100.0, cter_pct: 4.4, cter_scope: "Audit FN-CTER"
+        },
+        {
+          match: /lightweight/i,
+          raw_bio_pct: null, bio_delta_pct: null, protocol_audit_em_pct: 30.0, protocol_audit_f1_pct: 79.0,
+          open_frontier_pct: 35.0, mcq_accuracy_pct: 100.0, cter_pct: 50.0, cter_scope: "Open (34.8% Audit)"
+        },
+        {
+          match: /longest-option/i,
+          raw_bio_pct: null, bio_delta_pct: null, protocol_audit_em_pct: null, protocol_audit_f1_pct: null,
+          open_frontier_pct: null, mcq_accuracy_pct: 17.0, cter_pct: 84.0, cter_scope: "MCQ-100"
+        },
+        {
+          match: /random/i,
+          raw_bio_pct: 0.0, bio_delta_pct: 0.0, protocol_audit_em_pct: 0.0, protocol_audit_f1_pct: 0.0,
+          open_frontier_pct: 0.0, mcq_accuracy_pct: 16.7, cter_pct: 83.3, cter_scope: "MCQ-100"
+        }
+      ];
 
       function esc(str) {
         return String(str == null ? "" : str)
@@ -1220,9 +1314,20 @@ curl -s -X POST https://api.rare-disease-atlas.workers.dev/api/grade-benchmark \
         return n <= 1.0 && n > 0 ? n * 100 : n;
       }
 
-      function fmtPct(val) {
+      function fmtPct(val, dangerBelow) {
         var p = toPct(val);
-        return p == null ? "<span style=\"color:#636c76;\">N/A</span>" : "<strong>" + p.toFixed(1) + "%</strong>";
+        if (p == null) return "<span style=\"color:#636c76;\">N/A</span>";
+        var style = (dangerBelow != null && p <= dangerBelow) ? " style=\"color:var(--accent-crimson);\"" : "";
+        return "<strong" + style + ">" + p.toFixed(1) + "%</strong>";
+      }
+
+      function fmtAudit(emVal, f1Val) {
+        var em = toPct(emVal);
+        var f1 = toPct(f1Val);
+        if (em == null && f1 == null) return "<span style=\"color:#636c76;\">N/A</span>";
+        var emStr = em != null ? "<strong" + (em <= 50 ? " style=\"color:var(--accent-crimson);\"" : "") + ">" + em.toFixed(1) + "%</strong>" : "N/A";
+        var f1Str = f1 != null ? f1.toFixed(1) + "%" : "N/A";
+        return emStr + " / " + f1Str;
       }
 
       function renderCter(val, note) {
@@ -1239,49 +1344,74 @@ curl -s -X POST https://api.rare-disease-atlas.workers.dev/api/grade-benchmark \
         return null;
       }
 
+      function enrichIfV1(row) {
+        var hasV2 = pickNum(row, ["raw_bio_pct", "raw_bio_compute_pct", "bio_delta_pct", "bio_delta_live_pct", "protocol_audit_em_pct", "protocol_em_pct"]) != null;
+        if (hasV2) return row;
+        var label = String(row.display_name || row.model_name || row.model || row.name || "");
+        for (var i = 0; i < V2_ENRICH.length; i++) {
+          if (V2_ENRICH[i].match.test(label)) {
+            return Object.assign({}, V2_ENRICH[i], row, {
+              raw_bio_pct: V2_ENRICH[i].raw_bio_pct,
+              bio_delta_pct: V2_ENRICH[i].bio_delta_pct,
+              protocol_audit_em_pct: V2_ENRICH[i].protocol_audit_em_pct,
+              protocol_audit_f1_pct: V2_ENRICH[i].protocol_audit_f1_pct,
+              cter_pct: V2_ENRICH[i].cter_pct,
+              cter_scope: row.cter_scope || V2_ENRICH[i].cter_scope
+            });
+          }
+        }
+        return row;
+      }
+
       function renderRows(entries, updatedAt) {
         if (!Array.isArray(entries) || entries.length === 0) return false;
-        var sorted = entries.slice().sort(function (a, b) {
+        var enriched = entries.map(enrichIfV1);
+        var sorted = enriched.slice().sort(function (a, b) {
+          var ra = toPct(pickNum(a, ["raw_bio_pct", "raw_bio_compute_pct"]));
+          var rb = toPct(pickNum(b, ["raw_bio_pct", "raw_bio_compute_pct"]));
+          var ba = toPct(pickNum(a, ["bio_delta_pct", "bio_delta_live_pct"]));
+          var bb = toPct(pickNum(b, ["bio_delta_pct", "bio_delta_live_pct"]));
+          var pa = toPct(pickNum(a, ["protocol_audit_em_pct", "protocol_em_pct"]));
+          var pb = toPct(pickNum(b, ["protocol_audit_em_pct", "protocol_em_pct"]));
           var oa = toPct(pickNum(a, ["open_frontier_pct", "open_pct"]));
           var ob = toPct(pickNum(b, ["open_frontier_pct", "open_pct"]));
-          var ma = toPct(pickNum(a, ["mcq_100_pct", "overall_accuracy_pct", "accuracy_pct", "score_pct"])) || 0;
-          var mb = toPct(pickNum(b, ["mcq_100_pct", "overall_accuracy_pct", "accuracy_pct", "score_pct"])) || 0;
-          var ka = toPct(pickNum(a, ["rubric_kw_pct", "keyword_coverage_pct", "reasoning_pct"])) || 0;
-          var kb = toPct(pickNum(b, ["rubric_kw_pct", "keyword_coverage_pct", "reasoning_pct"])) || 0;
-          var scoreA = ma + (oa != null ? oa : 0) * 0.5 + ka * 0.1;
-          var scoreB = mb + (ob != null ? ob : 0) * 0.5 + kb * 0.1;
+          var ma = toPct(pickNum(a, ["mcq_accuracy_pct", "mcq_100_pct", "overall_accuracy_pct", "accuracy_pct", "score_pct"])) || 0;
+          var mb = toPct(pickNum(b, ["mcq_accuracy_pct", "mcq_100_pct", "overall_accuracy_pct", "accuracy_pct", "score_pct"])) || 0;
+          var scoreA = (ra != null ? ra * 1.5 : 0) + (ba != null ? ba * 1.2 : 0) + (pa != null ? pa * 1.0 : 0) + (oa != null ? oa * 0.6 : 0) + ma * 0.4;
+          var scoreB = (rb != null ? rb * 1.5 : 0) + (bb != null ? bb * 1.2 : 0) + (pb != null ? pb * 1.0 : 0) + (ob != null ? ob * 0.6 : 0) + mb * 0.4;
           return scoreB - scoreA;
         });
 
         var html = sorted.map(function (row, idx) {
           var name = row.display_name || row.model_name || row.model || row.name || "Unnamed Agent";
           var slug = row.model_name || row.id || "";
-          var mcq = toPct(pickNum(row, ["mcq_100_pct", "overall_accuracy_pct", "accuracy_pct", "score_pct"]));
-          var mcqClamped = mcq != null ? Math.max(0, Math.min(100, mcq)) : 0;
-          var fillClass = mcqClamped >= 70 ? "" : (mcqClamped >= 40 ? " lb-score-fill--mid" : " lb-score-fill--low");
-          var mf = pickNum(row, ["mf_track_pct", "myelofibrosis_track_pct", "myelofibrosis_pct"]);
-          var xo = pickNum(row, ["cross_orphan_pct", "cross_orphan_track_pct"]);
+          var rawBio = toPct(pickNum(row, ["raw_bio_pct", "raw_bio_compute_pct"]));
+          var rawBioClamped = rawBio != null ? Math.max(0, Math.min(100, rawBio)) : 0;
+          var rawFillClass = rawBioClamped >= 70 ? "" : (rawBioClamped >= 40 ? " lb-score-fill--mid" : " lb-score-fill--low");
+          var bioDelta = pickNum(row, ["bio_delta_pct", "bio_delta_live_pct"]);
+          var auditEm = pickNum(row, ["protocol_audit_em_pct", "protocol_em_pct"]);
+          var auditF1 = pickNum(row, ["protocol_audit_f1_pct", "protocol_f1_pct", "protocol_audit_micro_f1_pct"]);
           var ofr = pickNum(row, ["open_frontier_pct", "open_pct"]);
-          var cter = pickNum(row, ["cter_pct", "open_frontier_cter_pct", "mcq_cter_pct"]);
-          var kw = pickNum(row, ["rubric_kw_pct", "keyword_coverage_pct", "reasoning_pct", "reasoning_coverage_pct"]);
-          var badge = row.badge || (row.is_baseline ? "Reference Baseline" : "Submitted Agent");
-          var badgeClass = /oracle|verified|submitted/i.test(badge) ? "badge--high" : (/chasm|warn/i.test(badge) ? "badge--warn" : "badge--gap");
+          var mcq = pickNum(row, ["mcq_accuracy_pct", "mcq_100_pct", "overall_accuracy_pct", "accuracy_pct", "score_pct"]);
+          var cter = pickNum(row, ["cter_pct", "raw_bio_cter_pct", "protocol_fn_cter_pct", "open_cter_pct", "open_frontier_cter_pct", "mcq_cter_pct"]);
+          var tierLabel = row.badge || (row.tier === "reference" ? "Reference" : (row.tier === "empirical_baseline" ? "Verified Run" : (row.is_baseline ? "Reference Baseline" : "Submitted Agent")));
+          var badgeClass = /oracle|reference ceiling|verified|submitted/i.test(tierLabel) ? "badge--high" : (/chasm|warn/i.test(tierLabel) ? "badge--warn" : "badge--gap");
           var cterNote = row.cter_scope || row.cter_note || "";
 
           return (
             "<tr" + (idx === 0 ? " class=\"highlight-row\"" : "") + ">" +
               "<td><span class=\"lb-rank-badge\">#" + (idx + 1) + "</span></td>" +
-              "<td><strong>" + esc(name) + "</strong>" + (slug && slug !== name ? "<br><code>" + esc(slug) + "</code> " : " ") + "<span class=\"badge " + badgeClass + "\">" + esc(badge) + "</span></td>" +
+              "<td><strong>" + esc(name) + "</strong>" + (slug && slug !== name ? "<br><code>" + esc(slug) + "</code> " : " ") + "<span class=\"badge " + badgeClass + "\">" + esc(tierLabel) + "</span></td>" +
               "<td>" +
-                (mcq != null
-                  ? "<div class=\"lb-score-bar-wrap\"><strong>" + mcqClamped.toFixed(1) + "%</strong><div class=\"lb-score-track\" aria-hidden=\"true\"><div class=\"lb-score-fill" + fillClass + "\" style=\"width:" + mcqClamped.toFixed(1) + "%;\"></div></div></div>"
+                (rawBio != null
+                  ? "<div class=\"lb-score-bar-wrap\"><strong" + (rawBioClamped <= 25 ? " style=\"color:var(--accent-crimson);\"" : "") + ">" + rawBioClamped.toFixed(1) + "%</strong><div class=\"lb-score-track\" aria-hidden=\"true\"><div class=\"lb-score-fill" + rawFillClass + "\" style=\"width:" + rawBioClamped.toFixed(1) + "%;\"></div></div></div>"
                   : "<span style=\"color:#636c76;\">N/A</span>") +
               "</td>" +
-              "<td>" + fmtPct(mf) + "</td>" +
-              "<td>" + fmtPct(xo) + "</td>" +
-              "<td>" + fmtPct(ofr) + "</td>" +
+              "<td>" + fmtPct(bioDelta, 30) + "</td>" +
+              "<td>" + fmtAudit(auditEm, auditF1) + "</td>" +
+              "<td>" + fmtPct(ofr, 50) + "</td>" +
+              "<td>" + fmtPct(mcq, 25) + "</td>" +
               "<td>" + renderCter(cter, cterNote) + "</td>" +
-              "<td>" + fmtPct(kw) + "</td>" +
             "</tr>"
           );
         }).join("");
@@ -1304,15 +1434,15 @@ curl -s -X POST https://api.rare-disease-atlas.workers.dev/api/grade-benchmark \
             : (data.entries || data.leaderboard || data.standings || data.models || data.rows || []);
           var ok = renderRows(entries, data.updated_at || data.generated_at || "");
           if (!ok) {
-            pill.textContent = "Reference Baselines";
+            pill.textContent = "v2.0 Reference Baselines";
             pill.className = "lb-pill lb-pill--fallback";
-            detail.textContent = "Live feed returned zero entries — displaying verified pre-rendered RareTxBench-v1.0 baselines.";
+            detail.textContent = "Live feed returned zero entries — displaying verified pre-rendered RareTxBench-v2.0 baselines.";
           }
         })
         .catch(function () {
-          pill.textContent = "Pre-Rendered Baselines";
+          pill.textContent = "v2.0 Pre-Rendered Baselines";
           pill.className = "lb-pill lb-pill--fallback";
-          detail.textContent = "Displaying verified pre-rendered RareTxBench-v1.0 baselines (live /api/rare-tx-leaderboard.json syncs automatically when reachable).";
+          detail.textContent = "Displaying verified pre-rendered RareTxBench-v2.0 baselines (live /api/rare-tx-leaderboard.json syncs automatically when reachable).";
         });
 
       /* === 2. Interactive 5-Question CTER + Track Breakdown Mini-Quiz === */

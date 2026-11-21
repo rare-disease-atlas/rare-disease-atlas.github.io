@@ -13,13 +13,17 @@ info:
     `get_validation_communities`, `get_90_day_validation_plan`, `search_any_orphan_indication`), the Open Agent Nectar Suite
     (`POST /api/stress-test`, `GET/POST /api/grade-benchmark`, `GET /api/gene`, `GET /api/pocket`, `GET /api/compare`,
     `GET /api/rare-tx-leaderboard.json`, `GET /api/leaderboard.json`, `GET /feeds/catalysts.json`,
-    `GET /feeds/myelofibrosis-catalysts.ics`, `/benchmarks/rare-tx-bench.html`, `/benchmarks/rare_tx_bench.jsonl`,
-    `/benchmarks/rare_tx_open_frontier.jsonl`, `/benchmarks/leaderboard.html`, `/benchmarks/myelofibrosis_bench.jsonl`,
-    `/open-problems.json`, `/feeds/bio-delta.json`, `/atom.xml`, `/.well-known/x402.json`, `/CITATION.cff`),
-    RareTxBench-v1.0 (100 adversarially hardened 6-choice A–F post-diagnosis rare-disease translational items [40 MF/AIMF
-    flagship + 60 Cross-Orphan across 20+ rare diseases] + 10 dev + 20 choice-free open_frontier exact derivations with
-    50 critical_harm CTER traps on `huggingface.co/datasets/rare-disease-atlas/RareTxBench` and
-    `github.com/rare-disease-atlas/rare-tx-bench`), MyelofibrosisBench-v1.1 (50 test + 5 dev items on
+    `GET /feeds/myelofibrosis-catalysts.ics`, `/benchmarks/rare-tx-bench.html`, `/benchmarks/rare_tx_raw_bio_compute.jsonl`,
+    `/benchmarks/rare_tx_bio_delta_live.jsonl`, `/benchmarks/rare_tx_protocol_audit.jsonl`,
+    `/benchmarks/rare_tx_open_frontier.jsonl`, `/benchmarks/rare_tx_bench.jsonl`, `/benchmarks/leaderboard.html`,
+    `/benchmarks/myelofibrosis_bench.jsonl`, `/open-problems.json`, `/feeds/bio-delta.json`, `/atom.xml`,
+    `/.well-known/x402.json`, `/CITATION.cff`), RareTxBench-v2.0 (152 test + 10 dev items across 7 Hugging Face configs
+    and 5 suites—frontier-breaking `raw_bio_compute` [12 real RCSB PDB 4FVR/4FVQ/5MO4 + patient CSV/TSV tasks],
+    `bio_delta_live` [10 live ClinicalTrials.gov v2 & PubMed temporal forensics tasks], `protocol_audit` [10 dense Phase 2/3
+    protocols with 2 clean 0-flaw controls across a 16-code taxonomy], `open_frontier` [20 choice-free exact derivations],
+    and `all` MCQ-100 [100 6-choice A–F + 10 dev with 50 CTER traps]—on
+    `huggingface.co/datasets/rare-disease-atlas/RareTxBench` and `github.com/rare-disease-atlas/rare-tx-bench`),
+    MyelofibrosisBench-v1.1 (50 test + 5 dev items on
     `huggingface.co/datasets/rare-disease-atlas/MyelofibrosisBench` and `github.com/rare-disease-atlas/myelofibrosis-bench`
     with EleutherAI `lm-eval` and UK AISI `Inspect AI` harnesses), and 3 Hugging Face Parquet tables (`myelofibrosis_gene_signatures`,
     `jak2_structural_pockets`, `myelofibrosis_clinical_trials` on `huggingface.co/datasets/rare-disease-atlas/rare-disease-venture-atlas`).
@@ -292,12 +296,16 @@ paths:
   /api/grade-benchmark:
     get:
       operationId: getBenchmarkQuestions
-      summary: Fetch ungraded RareTxBench-v1.0 (MCQ-100 / open_frontier) or MyelofibrosisBench-v1.1 question manifest & grading schema (zero auth, $0 USD).
+      summary: Fetch ungraded RareTxBench-v2.0 (all 5 suites) or MyelofibrosisBench-v1.1 question manifest & grading schema (6 modes, zero auth, $0 USD).
       description: >
         Returns the ungraded question set (without answer keys), category/track metadata, and submission schema for
-        zero-install evaluation via `POST /api/grade-benchmark`. Supports `benchmark=rare-tx-bench` (100 6-choice A–F
-        items + 50 CTER traps), `benchmark=rare-tx-bench-open` (20 choice-free exact-answer derivations), and
-        `benchmark=myelofibrosis-bench` (default, 50 test + 5 dev items).
+        zero-install evaluation via `POST /api/grade-benchmark`. Supports all 6 benchmark modes:
+        `rare-tx-raw-bio` (12 real RCSB PDB 4FVR/4FVQ/5MO4 + patient CSV/TSV tasks),
+        `rare-tx-protocol-audit` (10 dense ~500-word Phase 2/3 protocols with 2 clean controls across 16 flaw codes),
+        `rare-tx-bio-delta` (10 live ClinicalTrials.gov v2 & late-2026 PubMed temporal forensics tasks),
+        `rare-tx-bench-open` (20 choice-free exact-answer derivations),
+        `rare-tx-bench` (100 6-choice A–F items + 10 dev + 50 CTER traps), and
+        `myelofibrosis-bench` (default, 50 test + 5 dev items).
       servers:
         - url: https://api.rare-disease-atlas.workers.dev
           description: Cloudflare Edge Zero-Install Benchmark Grader
@@ -305,13 +313,16 @@ paths:
         - name: benchmark
           in: query
           required: false
-          description: Benchmark suite to retrieve (`myelofibrosis-bench`, `rare-tx-bench`, or `rare-tx-bench-open`).
+          description: Benchmark suite mode to retrieve (`rare-tx-raw-bio`, `rare-tx-protocol-audit`, `rare-tx-bio-delta`, `rare-tx-bench-open`, `rare-tx-bench`, or `myelofibrosis-bench`).
           schema:
             type: string
             enum:
-              - myelofibrosis-bench
-              - rare-tx-bench
+              - rare-tx-raw-bio
+              - rare-tx-protocol-audit
+              - rare-tx-bio-delta
               - rare-tx-bench-open
+              - rare-tx-bench
+              - myelofibrosis-bench
             default: myelofibrosis-bench
         - name: split
           in: query
@@ -333,12 +344,15 @@ paths:
                 type: object
     post:
       operationId: gradeBenchmarkPredictions
-      summary: Deterministically grade RareTxBench-v1.0 (MCQ-100 / open_frontier) or MyelofibrosisBench-v1.1 predictions & optionally publish aggregate score.
+      summary: Deterministically grade RareTxBench-v2.0 (all 5 suites) or MyelofibrosisBench-v1.1 predictions across 6 modes & optionally publish aggregate score.
       description: >
-        Statelessly grades submitted predictions against ground truth. Supports `benchmark: "rare-tx-bench"` (100-item
-        6-choice A–F with dual-track MF/Cross-Orphan accuracy, CTER across 50 critical_harm traps, and rubric keyword
-        coverage), `benchmark: "rare-tx-bench-open"` (20-item choice-free exact numeric/residue derivations + CTER),
-        and `benchmark: "myelofibrosis-bench"` (50 test + 5 dev 4-choice items). When `publish_to_leaderboard: true`
+        Statelessly grades submitted predictions against ground truth across all 6 modes:
+        `benchmark: "rare-tx-raw-bio"` (12 PDB/CSV computational tasks with CTER),
+        `benchmark: "rare-tx-protocol-audit"` (10 Phase 2/3 protocol audits scored on exact-set match, micro-F1, FN-CTER, and Clean-Control FP),
+        `benchmark: "rare-tx-bio-delta"` (10 live temporal forensics tasks),
+        `benchmark: "rare-tx-bench-open"` (20 choice-free exact numeric/residue derivations + CTER),
+        `benchmark: "rare-tx-bench"` (100 6-choice A–F MCQ + dual-track accuracy + CTER + rubric keywords), and
+        `benchmark: "myelofibrosis-bench"` (50 test + 5 dev 4-choice items). When `publish_to_leaderboard: true`
         (or `submit_to_leaderboard: true`), publishes only aggregate metrics and `model_name` (zero PII, zero raw prompts).
       servers:
         - url: https://api.rare-disease-atlas.workers.dev
@@ -356,11 +370,14 @@ paths:
                 benchmark:
                   type: string
                   enum:
-                    - myelofibrosis-bench
-                    - rare-tx-bench
+                    - rare-tx-raw-bio
+                    - rare-tx-protocol-audit
+                    - rare-tx-bio-delta
                     - rare-tx-bench-open
+                    - rare-tx-bench
+                    - myelofibrosis-bench
                   default: myelofibrosis-bench
-                  description: Target benchmark suite (`rare-tx-bench` for MCQ-100, `rare-tx-bench-open` for 20-item choice-free derivations, or `myelofibrosis-bench`).
+                  description: Target benchmark mode (`rare-tx-raw-bio`, `rare-tx-protocol-audit`, `rare-tx-bio-delta`, `rare-tx-bench-open`, `rare-tx-bench`, or `myelofibrosis-bench`).
                 model_name:
                   type: string
                   description: Optional model or agent identifier for leaderboard attribution.
@@ -387,7 +404,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: "rtx-007"
+                        example: "rbc-001"
                       choice:
                         type: string
                         enum:
@@ -400,13 +417,18 @@ paths:
                         description: Selected option letter (`A–F` for `rare-tx-bench`; `A–D` for `myelofibrosis-bench`).
                       answer:
                         type: string
-                        description: "Exact choice-free derived answer string or numeric value for benchmark rare-tx-bench-open (e.g., 13, F595, 10.4)."
+                        description: "Exact derived answer string or numeric value for `rare-tx-raw-bio`, `rare-tx-bio-delta`, or `rare-tx-bench-open` (e.g., 3.76, LOXL2, ACTIVE_NOT_RECRUITING, 13, F595)."
+                      flaw_codes:
+                        type: array
+                        items:
+                          type: string
+                        description: "Predicted set of flaw codes from the 16-code taxonomy for `rare-tx-protocol-audit` (empty array `[]` for clean 0-flaw controls)."
                       reasoning:
                         type: string
                         description: Optional mechanistic reasoning text evaluated for primary-cited rubric keyword coverage.
       responses:
         "200":
-          description: Deterministic accuracy, track/category breakdown, CTER (for RareTxBench), rubric keyword coverage, and leaderboard status.
+          description: Deterministic accuracy, track/category breakdown, CTER or protocol-audit EM/F1/FN-CTER/Clean-FP, rubric keyword coverage, and leaderboard status.
           content:
             application/json:
               schema:
@@ -415,18 +437,20 @@ paths:
   /api/rare-tx-leaderboard.json:
     get:
       operationId: getRareTxBenchLeaderboard
-      summary: Retrieve live RareTxBench-v1.0 model & agent leaderboard standings (MCQ-100, MF Track, Cross-Orphan, Open-Frontier, CTER, Rubric KW).
+      summary: Retrieve live RareTxBench-v2.0 model & agent leaderboard standings across all 5 suites (Raw Bio-Compute, Bio-Delta Live, Protocol Audit EM/F1, Open-Frontier, MCQ-100, CTER).
       description: >
-        Returns aggregate standings for RareTxBench-v1.0 (100 adversarially hardened 6-choice A–F items [40 MF/AIMF
-        flagship + 60 Cross-Orphan across 20+ rare diseases] + 20 choice-free open_frontier exact derivations),
-        tracking Catastrophic Translational Error Rate (CTER) across 50 critical_harm safety traps and mechanistic
-        rubric keyword coverage across verified blind runs, anti-gaming controls, and opt-in anonymous submissions (zero PII, CC-BY-4.0).
+        Returns v2.0 aggregate standings for RareTxBench-v2.0 (152 test + 10 dev items across 7 Hugging Face configs),
+        spanning `raw_bio_compute` (12 PDB/CSV tasks; static Frontier 0.0% vs 100.0% code-executing agent),
+        `bio_delta_live` (10 live ClinicalTrials.gov v2 & PubMed tasks; static Frontier 20.0%, 0.0% MF vs 100.0% live MCP agent),
+        `protocol_audit` (10 Phase 2/3 protocols; monotonic 30.0% -> 80.0% -> 90.0% EM, 0.0% Clean-Control FP),
+        `open_frontier` (20 exact derivations), and `MCQ-100` (100 6-choice items + 50 CTER traps) across verified runs
+        and opt-in anonymous agent submissions (zero PII, CC-BY-4.0).
       servers:
         - url: https://api.rare-disease-atlas.workers.dev
-          description: Cloudflare Edge RareTxBench Leaderboard API
+          description: Cloudflare Edge RareTxBench-v2.0 Leaderboard API
       responses:
         "200":
-          description: Live RareTxBench-v1.0 leaderboard JSON.
+          description: Live RareTxBench-v2.0 leaderboard JSON.
           content:
             application/json:
               schema:
@@ -523,13 +547,49 @@ paths:
               schema:
                 type: object
 
-  /benchmarks/rare_tx_bench.jsonl:
+  /benchmarks/rare_tx_raw_bio_compute.jsonl:
     get:
-      operationId: getRareTxBenchV1
-      summary: Download RareTxBench-v1.0 100-item 6-choice (A–F) post-diagnosis rare-disease translational benchmark JSONL (40 MF/AIMF + 60 Cross-Orphan, 50 CTER traps).
+      operationId: getRareTxRawBioComputeV2
+      summary: Download RareTxBench-v2.0 Track 1 raw_bio_compute 12-task scientific artifact suite JSONL (real RCSB PDB 4FVR/4FVQ/5MO4 + 9 patient CSV/TSV datasets).
       responses:
         "200":
-          description: Newline-delimited JSON (JSONL) RareTxBench-v1.0 test items.
+          description: Newline-delimited JSON (JSONL) RareTxBench-v2.0 raw_bio_compute items.
+          content:
+            application/jsonl:
+              schema:
+                type: string
+
+  /benchmarks/rare_tx_protocol_audit.jsonl:
+    get:
+      operationId: getRareTxProtocolAuditV2
+      summary: Download RareTxBench-v2.0 Track 3 protocol_audit 10-protocol unannounced multi-flaw detection suite JSONL (16-code taxonomy, 2 clean 0-flaw controls).
+      responses:
+        "200":
+          description: Newline-delimited JSON (JSONL) RareTxBench-v2.0 protocol_audit items.
+          content:
+            application/jsonl:
+              schema:
+                type: string
+
+  /benchmarks/rare_tx_bio_delta_live.jsonl:
+    get:
+      operationId: getRareTxBioDeltaLiveV2
+      summary: Download RareTxBench-v2.0 Track 2 bio_delta_live 10-task rolling temporal forensics suite JSONL (ClinicalTrials.gov v2 & late-2026 PubMed).
+      responses:
+        "200":
+          description: Newline-delimited JSON (JSONL) RareTxBench-v2.0 bio_delta_live items.
+          content:
+            application/jsonl:
+              schema:
+                type: string
+
+  /benchmarks/rare_tx_bench.jsonl:
+    get:
+      operationId: getRareTxBenchV2
+      summary: Download RareTxBench-v2.0 Track 5 MCQ-100 100-item 6-choice (A–F) post-diagnosis rare-disease translational benchmark JSONL (40 MF/AIMF + 60 Cross-Orphan, 50 CTER traps).
+      responses:
+        "200":
+          description: Newline-delimited JSON (JSONL) RareTxBench-v2.0 MCQ-100 test items.
           content:
             application/jsonl:
               schema:
@@ -537,11 +597,11 @@ paths:
 
   /benchmarks/rare_tx_open_frontier.jsonl:
     get:
-      operationId: getRareTxOpenFrontierV1
-      summary: Download RareTxBench-v1.0 open_frontier 20-item choice-free exact-answer translational derivation benchmark JSONL.
+      operationId: getRareTxOpenFrontierV2
+      summary: Download RareTxBench-v2.0 Track 4 open_frontier 20-item choice-free exact-answer translational derivation benchmark JSONL.
       responses:
         "200":
-          description: Newline-delimited JSON (JSONL) RareTxBench-v1.0 open_frontier items.
+          description: Newline-delimited JSON (JSONL) RareTxBench-v2.0 open_frontier items.
           content:
             application/jsonl:
               schema:

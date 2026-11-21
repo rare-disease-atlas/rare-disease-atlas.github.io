@@ -2,7 +2,7 @@
   "protocol": "x402",
   "version": "1.0",
   "name": "Rare Disease Venture & Translational Opportunity Atlas — Free Public-Good Agent Endpoints",
-  "description": "Zero-cost, zero-API-key open-science MCP, A2A, hypothesis red-teaming, zero-install benchmark grading (POST /api/grade-benchmark), Bio-Delta wire, open computational problems, and MyelofibrosisBench-v1.1 (50 test + 5 dev) endpoints anchored on Clonal JAK2 V617F+ Primary Myelofibrosis and Reversible Autoimmune Myelofibrosis (AIMF).",
+  "description": "Zero-cost, zero-API-key open-science MCP, A2A, hypothesis red-teaming, 6-mode zero-install benchmark grading (POST /api/grade-benchmark), Bio-Delta wire, open computational problems, RareTxBench-v2.0 (152 test + 10 dev across 7 HF configs & 5 suites), and MyelofibrosisBench-v1.1 (50 test + 5 dev) endpoints anchored on Clonal JAK2 V617F+ Primary Myelofibrosis and Reversible Autoimmune Myelofibrosis (AIMF).",
   "provider": {
     "organization": "Rare Disease Venture Atlas",
     "url": "https://rare-disease-atlas.github.io",
@@ -84,7 +84,34 @@
       "path": "/benchmarks/rare-tx-bench.html",
       "url": "https://rare-disease-atlas.github.io/benchmarks/rare-tx-bench.html",
       "methods": ["GET"],
-      "description": "Public RareTxBench-v1.0 interactive web hub: 100 adversarially hardened 6-choice (A-F) post-diagnosis rare-disease translational items (40 MF/AIMF flagship + 60 Cross-Orphan across 20+ diseases) + 10 dev + 20 choice-free open_frontier exact derivations, 50 critical_harm CTER traps, 5-question CTER mini-quiz, live leaderboard, and 4-tab quickstart.",
+      "description": "Public RareTxBench-v2.0 interactive web hub: 152 test + 10 dev items across 7 HF configs and 5 suites (raw_bio_compute, bio_delta_live, protocol_audit, open_frontier, MCQ-100), 5-question CTER mini-quiz, live v2.0 leaderboard, and 4-tab quickstart.",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/benchmarks/rare_tx_raw_bio_compute.jsonl",
+      "url": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_raw_bio_compute.jsonl",
+      "methods": ["GET"],
+      "description": "RareTxBench-v2.0 Track 1 raw_bio_compute 12-task scientific artifact suite JSONL (real RCSB PDB 4FVR/4FVQ/5MO4 + 9 deterministic patient CSV/TSV datasets; static Frontier 0.0% / 100% CTER vs 100.0% code-executing agent; CC-BY-4.0).",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/benchmarks/rare_tx_protocol_audit.jsonl",
+      "url": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_protocol_audit.jsonl",
+      "methods": ["GET"],
+      "description": "RareTxBench-v2.0 Track 3 protocol_audit 10-protocol unannounced multi-flaw detection suite JSONL (dense ~500-word Phase 2/3 protocols, 16-code flaw taxonomy, 2 clean 0-flaw controls; monotonic 30% -> 80% -> 90% EM; CC-BY-4.0).",
+      "paymentRequired": false,
+      "amount": "0",
+      "currency": "USD"
+    },
+    {
+      "path": "/benchmarks/rare_tx_bio_delta_live.jsonl",
+      "url": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bio_delta_live.jsonl",
+      "methods": ["GET"],
+      "description": "RareTxBench-v2.0 Track 2 bio_delta_live 10-task rolling temporal forensics suite JSONL harvested live from ClinicalTrials.gov v2 & late-2026 PubMed (static Frontier 20.0%, 0.0% MF vs 100.0% live MCP/API agent; CC-BY-4.0).",
       "paymentRequired": false,
       "amount": "0",
       "currency": "USD"
@@ -93,7 +120,7 @@
       "path": "/benchmarks/rare_tx_bench.jsonl",
       "url": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_bench.jsonl",
       "methods": ["GET"],
-      "description": "RareTxBench-v1.0 100-item 6-choice (A-F) post-diagnosis rare-disease translational benchmark JSONL (40 MF/AIMF + 60 Cross-Orphan, 50 critical_harm CTER traps; also on huggingface.co/datasets/rare-disease-atlas/RareTxBench and github.com/rare-disease-atlas/rare-tx-bench).",
+      "description": "RareTxBench-v2.0 Track 5 MCQ-100 100-item 6-choice (A-F) post-diagnosis rare-disease translational benchmark JSONL (40 MF/AIMF + 60 Cross-Orphan, 50 critical_harm CTER traps; also on huggingface.co/datasets/rare-disease-atlas/RareTxBench and github.com/rare-disease-atlas/rare-tx-bench).",
       "paymentRequired": false,
       "amount": "0",
       "currency": "USD"
@@ -102,7 +129,7 @@
       "path": "/benchmarks/rare_tx_open_frontier.jsonl",
       "url": "https://rare-disease-atlas.github.io/benchmarks/rare_tx_open_frontier.jsonl",
       "methods": ["GET"],
-      "description": "RareTxBench-v1.0 open_frontier 20-item choice-free exact-answer translational derivation benchmark JSONL (MIPSS70+ v2.0, pre-HSCT LIC, Schoenfeld OS deaths, HScore, PLASMIC, JH2 F595, DMD exon-phase math; CC-BY-4.0).",
+      "description": "RareTxBench-v2.0 Track 4 open_frontier 20-item choice-free exact-answer translational derivation benchmark JSONL (MIPSS70+ v2.0, pre-HSCT LIC, Schoenfeld OS deaths, HScore, PLASMIC, JH2 F595, DMD exon-phase math; CC-BY-4.0).",
       "paymentRequired": false,
       "amount": "0",
       "currency": "USD"
@@ -111,7 +138,7 @@
       "path": "/api/rare-tx-leaderboard.json",
       "url": "https://api.rare-disease-atlas.workers.dev/api/rare-tx-leaderboard.json",
       "methods": ["GET"],
-      "description": "Live JSON standings for RareTxBench-v1.0 (MCQ-100, MF Track 40, Cross-Orphan 60, Open-Frontier 20, CTER, and Rubric KW) across verified reference runs and opt-in anonymous agent submissions (zero PII, CC-BY-4.0).",
+      "description": "Live JSON standings for RareTxBench-v2.0 across all 5 suites (raw_bio_compute, bio_delta_live, protocol_audit EM/F1, open_frontier, MCQ-100, and CTER) across verified runs and opt-in anonymous agent submissions (zero PII, CC-BY-4.0).",
       "paymentRequired": false,
       "amount": "0",
       "currency": "USD"
@@ -138,7 +165,7 @@
       "path": "/api/grade-benchmark",
       "url": "https://api.rare-disease-atlas.workers.dev/api/grade-benchmark",
       "methods": ["GET", "POST"],
-      "description": "Zero-install MyelofibrosisBench-v1.1 (50 test + 5 dev) question fetcher (GET) and deterministic HTTP grader + opt-in anonymous leaderboard publisher (POST, zero PII).",
+      "description": "Zero-install 6-mode benchmark question fetcher (GET) and deterministic HTTP grader + opt-in anonymous leaderboard publisher (POST, zero PII) supporting rare-tx-raw-bio, rare-tx-protocol-audit, rare-tx-bio-delta, rare-tx-bench-open, rare-tx-bench, and myelofibrosis-bench.",
       "paymentRequired": false,
       "amount": "0",
       "currency": "USD"

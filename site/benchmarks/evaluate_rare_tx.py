@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-RareTxBench-v1.0 Deterministic Evaluator (`evaluate_rare_tx.py`)
+RareTxBench-v2.0 Deterministic Evaluator (`evaluate_rare_tx.py`)
 ================================================================
 100% Python standard-library evaluation harness for biomedical, translational,
 structural-pharmacology, clinical-trial, and orphan-regulatory AI agents on
-RareTxBench-v1.0 (100 test items + 10 few-shot dev exemplars across 20+ rare
-diseases, anchored on a 40-item Myelofibrosis/AIMF flagship deep-dive track).
+RareTxBench-v2.0 (152 test items + 10 dev exemplars across 7 Hugging Face
+configs: mcq_100, myelofibrosis, cross_orphan, open_frontier, raw_bio_compute,
+protocol_audit, and bio_delta_live).
 
 Core Metrics Reported:
   1. Overall Accuracy (`RareTxBench-100`)
@@ -50,7 +51,7 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-BENCHMARK_VERSION = "RareTxBench-v1.0"
+BENCHMARK_VERSION = "RareTxBench-v2.0"
 EXPECTED_TEST_COUNT = 100
 EXPECTED_MF_COUNT = 40
 EXPECTED_CROSS_COUNT = 60
@@ -452,6 +453,7 @@ def _norm_token(raw: str) -> str:
 def score_open_frontier(
     items: list[dict[str, Any]],
     predictions: list[dict[str, Any]],
+    label: str = "open_frontier",
 ) -> dict[str, Any]:
     item_map = {str(it["id"]).strip(): it for it in items}
     pred_map = {
@@ -526,7 +528,7 @@ def score_open_frontier(
         return round(100.0 * num / den, 2) if den > 0 else None
 
     return {
-        "benchmark": f"{BENCHMARK_VERSION} (open_frontier)",
+        "benchmark": f"{BENCHMARK_VERSION} ({label})",
         "benchmark_total_items": len(items),
         "graded_count": graded,
         "correct_count": correct,
@@ -538,6 +540,122 @@ def score_open_frontier(
         "cter_pct": _pct(harm_missed, harm_graded),
         "keyword_coverage_pct": round(100.0 * sum(kw_scores) / len(kw_scores), 2) if kw_scores else None,
         "misses": misses,
+    }
+
+
+def score_protocol_audit(
+    items: list[dict[str, Any]],
+    predictions: list[dict[str, Any]],
+) -> dict[str, Any]:
+    item_map = {str(it["id"]).strip(): it for it in items}
+    pred_map = {
+        str(p.get("id", "")).strip(): p
+        for p in predictions
+        if str(p.get("id", "")).strip() in item_map
+    }
+
+    total_tp = 0
+    total_fp = 0
+    total_fn = 0
+    exact_matches = 0
+    graded = 0
+    clean_graded = 0
+    clean_fp_protocols = 0
+    track_exact = {t: {"graded": 0, "exact": 0, "tp": 0, "fp": 0, "fn": 0} for t in VALID_TRACKS}
+    audit_details: list[dict[str, Any]] = []
+
+    for iid, item in item_map.items():
+        if iid not in pred_map:
+            continue
+        pred = pred_map[iid]
+        allowed = set(item.get("allowed_flaw_codes", []))
+        expected = set(item.get("expected_flaw_codes", []))
+        raw_pred = pred.get("flaw_codes")
+        if raw_pred is None:
+            raw_pred = pred.get("predicted_flaw_codes") or []
+        if isinstance(raw_pred, str):
+            raw_pred = [x.strip() for x in re.split(r"[,\s]+", raw_pred) if x.strip()]
+        predicted = {str(c).strip().upper() for c in raw_pred if str(c).strip()}
+        if allowed:
+            predicted = {c for c in predicted if c in allowed}
+
+        tp = len(predicted & expected)
+        fp = len(predicted - expected)
+        fn = len(expected - predicted)
+        is_exact = predicted == expected
+
+        graded += 1
+        total_tp += tp
+        total_fp += fp
+        total_fn += fn
+        if is_exact:
+            exact_matches += 1
+
+        tr = item["track"]
+        track_exact[tr]["graded"] += 1
+        track_exact[tr]["tp"] += tp
+        track_exact[tr]["fp"] += fp
+        track_exact[tr]["fn"] += fn
+        if is_exact:
+            track_exact[tr]["exact"] += 1
+
+        if item.get("is_clean_control"):
+            clean_graded += 1
+            if fp > 0:
+                clean_fp_protocols += 1
+
+        if not is_exact:
+            audit_details.append(
+                {
+                    "id": iid,
+                    "track": tr,
+                    "is_clean_control": bool(item.get("is_clean_control")),
+                    "expected": sorted(expected),
+                    "predicted": sorted(predicted),
+                    "false_negatives": sorted(expected - predicted),
+                    "false_positives": sorted(predicted - expected),
+                }
+            )
+
+    def _pct(num: int, den: int) -> float | None:
+        return round(100.0 * num / den, 2) if den > 0 else None
+
+    prec = _pct(total_tp, total_tp + total_fp)
+    rec = _pct(total_tp, total_tp + total_fn)
+    f1 = (
+        round(2.0 * prec * rec / (prec + rec), 2)
+        if (prec is not None and rec is not None and (prec + rec) > 0)
+        else 0.0
+    )
+    fn_cter = _pct(total_fn, total_tp + total_fn)
+
+    return {
+        "benchmark": f"{BENCHMARK_VERSION} (protocol_audit)",
+        "benchmark_total_items": len(items),
+        "graded_count": graded,
+        "exact_set_match_count": exact_matches,
+        "exact_set_match_pct": _pct(exact_matches, graded),
+        "micro_precision_pct": prec,
+        "micro_recall_pct": rec,
+        "micro_f1_pct": f1,
+        "fn_cter_pct": fn_cter,
+        "clean_controls_graded": clean_graded,
+        "clean_control_fp_protocols": clean_fp_protocols,
+        "clean_control_fp_rate_pct": _pct(clean_fp_protocols, clean_graded),
+        "total_tp": total_tp,
+        "total_fp": total_fp,
+        "total_fn": total_fn,
+        "track_breakdown": {
+            t: {
+                "graded": s["graded"],
+                "exact_set_match_pct": _pct(s["exact"], s["graded"]),
+                "micro_f1_pct": round(200.0 * s["tp"] / (2 * s["tp"] + s["fp"] + s["fn"]), 2)
+                if (2 * s["tp"] + s["fp"] + s["fn"]) > 0
+                else None,
+            }
+            for t, s in track_exact.items()
+        },
+        "imperfect_audits": audit_details,
     }
 
 
@@ -619,7 +737,7 @@ def run_self_test(test_path: Path, dev_path: Path) -> None:
 
 def main() -> int:
     default_test, default_dev = resolve_default_paths()
-    parser = argparse.ArgumentParser(description="RareTxBench-v1.0 deterministic evaluator")
+    parser = argparse.ArgumentParser(description="RareTxBench-v2.0 deterministic evaluator")
     parser.add_argument("--test-file", type=Path, default=default_test)
     parser.add_argument("--dev-file", type=Path, default=default_dev)
     parser.add_argument("--predictions", type=Path, default=None)
@@ -627,6 +745,12 @@ def main() -> int:
     parser.add_argument("--track", choices=("all", "myelofibrosis", "cross_orphan"), default="all")
     parser.add_argument("--open-frontier", action="store_true", help="Grade choice-free exact-answer open_frontier split.")
     parser.add_argument("--open-file", type=Path, default=default_test.parent / "open_frontier_test.jsonl")
+    parser.add_argument("--raw-bio-compute", action="store_true", help="Grade raw_bio_compute scientific artifact split.")
+    parser.add_argument("--raw-bio-file", type=Path, default=default_test.parent / "raw_bio_compute_test.jsonl")
+    parser.add_argument("--bio-delta-live", action="store_true", help="Grade bio_delta_live temporal forensics split.")
+    parser.add_argument("--bio-delta-file", type=Path, default=default_test.parent / "bio_delta_live_test.jsonl")
+    parser.add_argument("--protocol-audit", action="store_true", help="Grade protocol_audit multi-flaw detection split.")
+    parser.add_argument("--protocol-audit-file", type=Path, default=default_test.parent / "protocol_audit_test.jsonl")
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--grade-via-api", action="store_true")
     parser.add_argument("--submit-anonymous-score", action="store_true")
@@ -643,8 +767,13 @@ def main() -> int:
     preds = load_jsonl(args.predictions)
 
     if args.open_frontier:
-        open_items = load_jsonl(args.open_file)
-        report = score_open_frontier(open_items, preds)
+        report = score_open_frontier(load_jsonl(args.open_file), preds, label="open_frontier")
+    elif args.raw_bio_compute:
+        report = score_open_frontier(load_jsonl(args.raw_bio_file), preds, label="raw_bio_compute")
+    elif args.bio_delta_live:
+        report = score_open_frontier(load_jsonl(args.bio_delta_file), preds, label="bio_delta_live")
+    elif args.protocol_audit:
+        report = score_protocol_audit(load_jsonl(args.protocol_audit_file), preds)
     elif args.grade_via_api or args.submit_anonymous_score:
         if not args.model_name:
             parser.error("--model-name is required with --grade-via-api or --submit-anonymous-score.")
